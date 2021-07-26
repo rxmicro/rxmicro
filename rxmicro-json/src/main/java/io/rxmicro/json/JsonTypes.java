@@ -76,7 +76,7 @@ public final class JsonTypes {
     public static Map<String, Object> asJsonObject(final Object object) {
         try {
             return (Map<String, Object>) object;
-        } catch (final ClassCastException ignore) {
+        } catch (final ClassCastException ignored) {
             throw new JsonException("Not a json object: ?", object);
         }
     }
@@ -101,7 +101,7 @@ public final class JsonTypes {
     public static List<Object> asJsonArray(final Object object) {
         try {
             return (List<Object>) object;
-        } catch (final ClassCastException ignore) {
+        } catch (final ClassCastException ignored) {
             throw new JsonException("Not a json array: ?", object);
         }
     }
@@ -126,7 +126,7 @@ public final class JsonTypes {
     public static String asJsonString(final Object object) {
         try {
             return (String) object;
-        } catch (final ClassCastException ignore) {
+        } catch (final ClassCastException ignored) {
             throw new JsonException("Not a json string: ?", object);
         }
     }
@@ -151,7 +151,7 @@ public final class JsonTypes {
     public static JsonNumber asJsonNumber(final Object object) {
         try {
             return (JsonNumber) object;
-        } catch (final ClassCastException ignore) {
+        } catch (final ClassCastException ignored) {
             throw new JsonException("Not a json number: ?", object);
         }
     }
@@ -176,7 +176,7 @@ public final class JsonTypes {
     public static Boolean asJsonBoolean(final Object object) {
         try {
             return (Boolean) object;
-        } catch (final ClassCastException ignore) {
+        } catch (final ClassCastException ignored) {
             throw new JsonException("Not a json boolean: ?", object);
         }
     }

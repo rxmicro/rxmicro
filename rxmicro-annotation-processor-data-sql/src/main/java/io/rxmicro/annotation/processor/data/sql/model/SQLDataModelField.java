@@ -27,6 +27,7 @@ import io.rxmicro.data.sql.SequenceGenerator;
 
 import java.util.Optional;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
 import static io.rxmicro.common.util.Strings.startsWith;
 
@@ -73,7 +74,7 @@ public class SQLDataModelField extends DataModelField {
                         final String sequenceName = getSequenceName(variableContext, sequenceGenerator);
                         try {
                             insertValue = variableContext.getNextSequenceValue(sequenceName);
-                        } catch (final UnsupportedOperationException ignore) {
+                        } catch (final UnsupportedOperationException ignored) {
                             throw new InterruptProcessingException(
                                     getElementAnnotatedBy(SequenceGenerator.class),
                                     "Current database does not support sequences"
@@ -96,7 +97,7 @@ public class SQLDataModelField extends DataModelField {
                                    final SequenceGenerator sequenceGenerator) {
         final String schema = Optional.of(sequenceGenerator.schema()).filter(v -> !v.isEmpty())
                 .or(() -> variableContext.getCurrentTableName().getSchema())
-                .orElse("");
+                .orElse(EMPTY_STRING);
         final String table = variableContext.getCurrentTableName().getSimpleName();
         final String sequenceName = sequenceGenerator.value()
                 .replace("${schema}", schema)

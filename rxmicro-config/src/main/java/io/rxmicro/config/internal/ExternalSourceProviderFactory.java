@@ -18,6 +18,9 @@ package io.rxmicro.config.internal;
 
 import java.util.Map;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
+import static io.rxmicro.common.util.Requires.require;
+
 /**
  * Temporary class for simplest unit testing
  *
@@ -35,7 +38,7 @@ public final class ExternalSourceProviderFactory {
     }
 
     public static void setEnvironmentVariables(final Map<String, String> environmentVariables) {
-        ExternalSourceProviderFactory.environmentVariables = environmentVariables;
+        ExternalSourceProviderFactory.environmentVariables = unmodifiableMap(environmentVariables);
     }
 
     public static String getCurrentDir() {
@@ -43,7 +46,7 @@ public final class ExternalSourceProviderFactory {
     }
 
     public static void setCurrentDir(final String currentDir) {
-        ExternalSourceProviderFactory.currentDir = currentDir;
+        ExternalSourceProviderFactory.currentDir = require(currentDir);
     }
 
     private ExternalSourceProviderFactory() {

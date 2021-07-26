@@ -269,9 +269,9 @@ public final class JsonHelper {
      * @param jsonObject     the string representation of json object. See type conversion for more information
      * @param recursionDepth the recursion depth
      * @return the java {@link Map}{@code <String,Object>} instance with data
-     * @see JsonTypes
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
      */
     public static Map<String, Object> readJsonObject(final String jsonObject,
                                                      final int recursionDepth) {
@@ -283,9 +283,9 @@ public final class JsonHelper {
      *
      * @param jsonObject the string representation of json object. See type conversion for more information
      * @return the java {@link Map}{@code <String,Object>} instance with data
-     * @see JsonTypes
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
      */
     public static Map<String, Object> readJsonObject(final String jsonObject) {
         return readJsonObject(jsonObject, DEFAULT_RECURSION_DEPTH);
@@ -297,9 +297,9 @@ public final class JsonHelper {
      * @param jsonArray      the string representation of json array. See type conversion for more information
      * @param recursionDepth the recursion depth
      * @return the java {@link List}{@code <Object>} instance with data
-     * @see JsonTypes
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
      */
     public static List<Object> readJsonArray(final String jsonArray,
                                              final int recursionDepth) {
@@ -311,9 +311,9 @@ public final class JsonHelper {
      *
      * @param jsonArray the string representation of json array. See type conversion for more information
      * @return the java {@link List}{@code <Object>} instance with data
-     * @see JsonTypes
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
      */
     public static List<Object> readJsonArray(final String jsonArray) {
         return readJsonArray(jsonArray, DEFAULT_RECURSION_DEPTH);
@@ -324,11 +324,11 @@ public final class JsonHelper {
      *
      * @param json           the string representation of json
      * @param recursionDepth the recursion depth
-     * @return the java instance with data. See type conversion for more information.
-     * @see JsonTypes
-     * @see JsonNumber
+     * @return the java instance with data. See type conversion for more information
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
+     * @see JsonNumber
      */
     public static Object readJson(final String json,
                                   final int recursionDepth) {
@@ -346,11 +346,11 @@ public final class JsonHelper {
      * Convert the string representation of json to the java object.
      *
      * @param json the string representation of json data
-     * @return the java instance with data. See type conversion for more information.
-     * @see JsonTypes
-     * @see JsonNumber
+     * @return the java instance with data. See type conversion for more information
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
+     * @see JsonNumber
      */
     public static Object readJson(final String json) {
         return readJson(json, DEFAULT_RECURSION_DEPTH);

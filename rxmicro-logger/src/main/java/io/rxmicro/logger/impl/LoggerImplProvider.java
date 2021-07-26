@@ -21,6 +21,8 @@ import io.rxmicro.logger.LoggerEvent;
 import io.rxmicro.logger.LoggerEventBuilder;
 import io.rxmicro.logger.LoggerFactory;
 
+import java.io.IOException;
+
 /**
  * Basic interface for the all supported {@link Logger} implementations.
  *
@@ -34,9 +36,9 @@ public interface LoggerImplProvider {
     /**
      * Sets up the current provider.
      *
-     * @throws Throwable if setup failed.
+     * @throws IOException if setup failed.
      */
-    void setup() throws Throwable;
+    void setup() throws IOException;
 
     /**
      * Returns the {@link Logger} instance by the specified name.

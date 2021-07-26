@@ -66,7 +66,7 @@ public final class TcpSocketWaitForService implements WaitForService {
                     data[0],
                     validatePort(Integer.parseInt(data[1]))
             };
-        } catch (final NumberFormatException ignore) {
+        } catch (final NumberFormatException ignored) {
             throw new ConfigException("Invalid port value. Expected an integer value, but actual is '?'", data[1]);
         }
     }
@@ -94,7 +94,7 @@ public final class TcpSocketWaitForService implements WaitForService {
             }
             try {
                 TimeUnit.MILLISECONDS.sleep(DEFAULT_SLEEP_DURATION_IN_MILLIS);
-            } catch (final InterruptedException ignore) {
+            } catch (final InterruptedException ignored) {
                 // do nothing
             }
         } while (System.nanoTime() - start < timeoutInNanos);

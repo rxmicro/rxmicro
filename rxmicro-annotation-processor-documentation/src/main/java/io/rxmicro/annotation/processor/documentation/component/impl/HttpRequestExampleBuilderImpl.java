@@ -33,6 +33,7 @@ import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.documentation.model.Constants.HTTP_VERSION;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static java.lang.System.lineSeparator;
 
@@ -88,7 +89,7 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
 
     private int getContentLength(final String body) {
         // Remove CL if detected
-        return body.replace("\r", "").length();
+        return body.replace("\r", EMPTY_STRING).length();
     }
 
     private String getHost(final String baseEndpoint) {
@@ -122,9 +123,9 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
                 }
                 queryBuilder.append(entry.getKey().getModelName()).append('=').append(exampleValueBuilder.getExample(entry.getKey()));
             });
-            return queryBuilder.length() > 0 ? "?" + queryBuilder.toString() : "";
+            return queryBuilder.length() > 0 ? "?" + queryBuilder.toString() : EMPTY_STRING;
         }
-        return "";
+        return EMPTY_STRING;
     }
 
     private String getRequestHttpBodyOrNull(final HttpMethodMapping httpMethodMapping,

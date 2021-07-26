@@ -58,9 +58,9 @@ public final class MethodParameterReader {
 
     private Optional<Variable> nextIf(final Predicate<Variable> predicate) {
         if (iterator.hasNext()) {
-            final Variable var = iterator.next();
-            if (predicate.test(var)) {
-                return Optional.of(var);
+            final Variable variable = iterator.next();
+            if (predicate.test(variable)) {
+                return Optional.of(variable);
             } else {
                 iterator.previous();
             }
@@ -75,7 +75,7 @@ public final class MethodParameterReader {
         } else {
             try {
                 return IntStream.range(0, count).mapToObj(value -> iterator.next()).collect(toList());
-            } catch (final NoSuchElementException ignore) {
+            } catch (final NoSuchElementException ignored) {
                 throw new InterruptProcessingException(repositoryMethod, "Missing method parameter for parameter placeholder!");
             }
         }

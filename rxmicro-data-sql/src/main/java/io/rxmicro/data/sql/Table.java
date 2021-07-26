@@ -22,6 +22,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -43,7 +44,7 @@ public @interface Table {
      *
      * @return the table name
      */
-    String name() default "";
+    String name() default EMPTY_STRING;
 
     /**
      * Returns the mapping strategy which is used to generate table name using the simple class name automatically.
@@ -57,5 +58,5 @@ public @interface Table {
      *
      * @return the schema name
      */
-    String schema() default "";
+    String schema() default EMPTY_STRING;
 }

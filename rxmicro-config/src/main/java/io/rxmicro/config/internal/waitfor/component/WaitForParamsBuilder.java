@@ -91,7 +91,7 @@ public final class WaitForParamsBuilder {
         final String value = params.getOrDefault(WAIT_FOR_TIMEOUT, WAIT_FOR_TIMEOUT_DEFAULT_VALUE_IN_SECONDS);
         try {
             return Duration.ofSeconds(Long.parseLong(value));
-        } catch (final NumberFormatException ignore) {
+        } catch (final NumberFormatException ignored) {
             return parseAsStringDuration(value);
         }
     }
@@ -99,7 +99,7 @@ public final class WaitForParamsBuilder {
     private static Duration parseAsStringDuration(final String value) {
         try {
             return Duration.parse(value);
-        } catch (final DateTimeParseException ignore) {
+        } catch (final DateTimeParseException ignored) {
             throw new ConfigException(
                     "Invalid ? value: '?'! Must be a parsable by ?.parse(String) method duration!",
                     WAIT_FOR_TIMEOUT, value, Duration.class.getName()

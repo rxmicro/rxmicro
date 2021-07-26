@@ -79,7 +79,7 @@ public abstract class AbstractModelJsonConverterBuilder<T extends AbstractModelJ
                         modelClasses.stream()
                                 .filter(mc ->
                                         mc.isParamEntriesPresent() ||
-                                                (mc.isModelClassReturnedByRestMethod() && mc.isParamEntriesPresentAtThisOrAnyParent())
+                                                mc.isModelClassReturnedByRestMethod() && mc.isParamEntriesPresentAtThisOrAnyParent()
                                 )
                                 .map(m -> newInstance((RestObjectModelClass) m, exchangeFormat, isRestClientModel))
                                 .collect(toOrderedSet())

@@ -97,10 +97,10 @@ final class PatternFormatterTest {
     @Order(1)
     void Should_format_correctly(final String pattern,
                                  final String expectedMessage) {
-        final RxMicroLogRecord record = new RxMicroLogRecord(() -> "ID12345", "full.LoggerName", INFO, "message");
-        record.setInstant(Instant.parse("2020-01-02T03:04:05.123Z"));
-        record.setThreadName("thread-1");
-        record.setStackFrame("package.Class", "method", "Class.java", 15);
+        final RxMicroLogRecord logRecord = new RxMicroLogRecord(() -> "ID12345", "full.LoggerName", INFO, "message");
+        logRecord.setInstant(Instant.parse("2020-01-02T03:04:05.123Z"));
+        logRecord.setThreadName("thread-1");
+        logRecord.setStackFrame("package.Class", "method", "Class.java", 15);
 
         final String validExpected = pattern.endsWith("%n") || pattern.endsWith("%n{}") ?
                 expectedMessage + lineSeparator() :
@@ -109,7 +109,7 @@ final class PatternFormatterTest {
         final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern, false, null));
         assertEquals(
                 validExpected,
-                patternFormatter.format(record)
+                patternFormatter.format(logRecord)
         );
     }
 
@@ -126,11 +126,11 @@ final class PatternFormatterTest {
                 new StackTraceElement("Launcher", "main", "Launcher.java", 10)
         });
 
-        final RxMicroLogRecord record = new RxMicroLogRecord("LoggerName", INFO, "message");
-        record.setInstant(Instant.parse("2020-01-02T03:04:05.123Z"));
-        record.setThreadName("thread-1");
-        record.setStackFrame("package.Class", "method", "Class.java", 15);
-        record.setThrown(exception);
+        final RxMicroLogRecord logRecord = new RxMicroLogRecord("LoggerName", INFO, "message");
+        logRecord.setInstant(Instant.parse("2020-01-02T03:04:05.123Z"));
+        logRecord.setThreadName("thread-1");
+        logRecord.setStackFrame("package.Class", "method", "Class.java", 15);
+        logRecord.setThrown(exception);
 
         final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern, false, null));
         setRelativeTimeStart(patternFormatter);
@@ -143,7 +143,7 @@ final class PatternFormatterTest {
                         "\tat Launcher.main(Launcher.java:10)",
                         ""
                 ).stream().collect(joining(lineSeparator())),
-                patternFormatter.format(record)
+                patternFormatter.format(logRecord)
         );
     }
 
@@ -176,37 +176,37 @@ final class PatternFormatterTest {
     @Order(5)
     @Test
     void Should_support_LogRecord_type_if_RxMicroLogRecord_is_not_used() {
-        final LogRecord record = new LogRecord(INFO, "message");
-        record.setLoggerName("LoggerName");
-        record.setInstant(Instant.parse("2020-01-02T03:04:05.123Z"));
-        record.setThreadID(15);
+        final LogRecord logRecord = new LogRecord(INFO, "message");
+        logRecord.setLoggerName("LoggerName");
+        logRecord.setInstant(Instant.parse("2020-01-02T03:04:05.123Z"));
+        logRecord.setThreadID(15);
 
         final String pattern = "%logger{0} (%file:%line) {%thread} %requestId";
 
         final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern, false, null));
         assertEquals(
                 "LoggerName (null:null) {Thread#15} unsupported-request-id-feature",
-                patternFormatter.format(record)
+                patternFormatter.format(logRecord)
         );
     }
 
     @Order(6)
     @Test
     void Should_ignore_lineSeparator() {
-        final LogRecord record = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nignore \nall \r\nline separators\r");
+        final LogRecord logRecord = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nignore \nall \r\nline separators\r");
         assertEquals(
                 "Pattern formatter must ignore all line separators" + lineSeparator(),
-                new PatternFormatter("%message%n", true, IGNORE_REPLACEMENT).format(record)
+                new PatternFormatter("%message%n", true, IGNORE_REPLACEMENT).format(logRecord)
         );
     }
 
     @Order(7)
     @Test
     void Should_replace_lineSeparator() {
-        final LogRecord record = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nreplace \nall \r\nline separators\r");
+        final LogRecord logRecord = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nreplace \nall \r\nline separators\r");
         assertEquals(
                 "|Pattern |formatter |must |replace |all |line separators|" + lineSeparator(),
-                new PatternFormatter("%message%n", true, "|").format(record)
+                new PatternFormatter("%message%n", true, "|").format(logRecord)
         );
     }
 
@@ -214,10 +214,10 @@ final class PatternFormatterTest {
     @Order(8)
     @Test
     void Should_replace_lineSeparator_on_Windows() {
-        final LogRecord record = new LogRecord(INFO, "Pattern formatter \r\n must replace windows specific \r\n line separators");
+        final LogRecord logRecord = new LogRecord(INFO, "Pattern formatter \r\n must replace windows specific \r\n line separators");
         assertEquals(
                 "Pattern formatter \\r\\n must replace windows specific \\r\\n line separators" + lineSeparator(),
-                new PatternFormatter("%message%n", true, null).format(record)
+                new PatternFormatter("%message%n", true, null).format(logRecord)
         );
     }
 
@@ -225,10 +225,10 @@ final class PatternFormatterTest {
     @Order(9)
     @Test
     void Should_replace_lineSeparator_on_Linux_or_Osx() {
-        final LogRecord record = new LogRecord(INFO, "Pattern formatter \n must replace linux/osx specific \n line separators");
+        final LogRecord logRecord = new LogRecord(INFO, "Pattern formatter \n must replace linux/osx specific \n line separators");
         assertEquals(
                 "Pattern formatter \\n must replace linux/osx specific \\n line separators" + lineSeparator(),
-                new PatternFormatter("%message%n", true, null).format(record)
+                new PatternFormatter("%message%n", true, null).format(logRecord)
         );
     }
 
@@ -239,13 +239,13 @@ final class PatternFormatterTest {
         exception.setStackTrace(new StackTraceElement[]{
                 new StackTraceElement("Launcher", "main", "Launcher.java", 10)
         });
-        final LogRecord record = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nreplace \nall \r\nline separators");
-        record.setThrown(exception);
+        final LogRecord logRecord = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nreplace \nall \r\nline separators");
+        logRecord.setThrown(exception);
 
         assertEquals(
                 "|Pattern |formatter |must |replace |all |line separators|" +
                         "java.lang.Exception: Test exception|\tat Launcher.main(Launcher.java:10)|" + lineSeparator(),
-                new PatternFormatter("%message%n", true, "|").format(record)
+                new PatternFormatter("%message%n", true, "|").format(logRecord)
         );
     }
 

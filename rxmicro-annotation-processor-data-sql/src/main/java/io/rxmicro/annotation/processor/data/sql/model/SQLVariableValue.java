@@ -31,6 +31,8 @@ public final class SQLVariableValue {
 
     private static final String VALUE_VAR = "${VALUE-VAR}";
 
+    private static final String COMMA_DELIMITER = ",";
+
     private final List<String> columns;
 
     private final List<String> itemTemplate;
@@ -38,20 +40,20 @@ public final class SQLVariableValue {
     private final String delimiter;
 
     public static SQLVariableValue createColumnList(final List<String> columns) {
-        return new SQLVariableValue(columns, List.of(VALUE_VAR), ",");
+        return new SQLVariableValue(columns, List.of(VALUE_VAR), COMMA_DELIMITER);
     }
 
     public static SQLVariableValue createValues(final List<String> values) {
-        return new SQLVariableValue(values, List.of(VALUE_VAR), ",");
+        return new SQLVariableValue(values, List.of(VALUE_VAR), COMMA_DELIMITER);
     }
 
     public static SQLVariableValue createSetColumnList(final List<String> columns) {
-        return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", FORMAT_PLACEHOLDER_TOKEN), ",");
+        return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", FORMAT_PLACEHOLDER_TOKEN), COMMA_DELIMITER);
     }
 
     public static SQLVariableValue createSetColumnListUsingPseudoTable(final List<String> columns,
                                                                        final String pseudoTableName) {
-        return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", pseudoTableName + "." + VALUE_VAR), ",");
+        return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", pseudoTableName + "." + VALUE_VAR), COMMA_DELIMITER);
     }
 
     public static SQLVariableValue createByIdFilter(final List<String> columns) {

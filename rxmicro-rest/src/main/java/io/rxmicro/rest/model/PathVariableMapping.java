@@ -18,6 +18,7 @@ package io.rxmicro.rest.model;
 
 import java.util.List;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -50,8 +51,8 @@ public final class PathVariableMapping {
      */
     public PathVariableMapping(final List<String> pathVariableNames,
                                final List<String> pathVariableValues) {
-        this.pathVariableNames = pathVariableNames;
-        this.pathVariableValues = pathVariableValues;
+        this.pathVariableNames = unmodifiableList(pathVariableNames);
+        this.pathVariableValues = unmodifiableList(pathVariableValues);
     }
 
     /**

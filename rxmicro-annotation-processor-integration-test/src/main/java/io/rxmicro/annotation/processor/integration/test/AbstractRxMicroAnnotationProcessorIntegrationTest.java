@@ -71,6 +71,8 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
 
     private static final String OUTPUT = "output";
 
+    private static final String PATH_ELEMENT_SEPARATOR = "/";
+
     private final Map<String, String> aggregators;
 
     private final Set<ExternalModule> externalModules = new HashSet<>();
@@ -157,14 +159,14 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
     }
 
     protected Compilation compileAllIn(final String packageName) {
-        return compile(getResourcesAtTheFolderWithAllNestedOnes(INPUT + "/" + packageName, r -> r.endsWith(".java")));
+        return compile(getResourcesAtTheFolderWithAllNestedOnes(INPUT + PATH_ELEMENT_SEPARATOR + packageName, r -> r.endsWith(".java")));
     }
 
     protected SourceCodeResource sourceCodeResource(final String resource) {
         if (resource.startsWith(OUTPUT)) {
             return new SourceCodeResource(OUTPUT, resource);
         } else {
-            return new SourceCodeResource(OUTPUT, OUTPUT + "/" + resource);
+            return new SourceCodeResource(OUTPUT, OUTPUT + PATH_ELEMENT_SEPARATOR + resource);
         }
     }
 
@@ -175,7 +177,7 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
     private void assertAllGeneratedIn(final Compilation compilation,
                                       final String packageName) throws IOException {
         final Set<SourceCodeResource> resources = getResourcesAtTheFolderWithAllNestedOnes(
-                OUTPUT + "/" + packageName,
+                OUTPUT + PATH_ELEMENT_SEPARATOR + packageName,
                 r -> r.endsWith(".java"))
                 .stream()
                 .map(this::sourceCodeResource)
@@ -196,7 +198,8 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
         while (iterator.hasNext()) {
             final SourceCodeResource resource = iterator.next();
             Optional.ofNullable(aggregators.get(resource.getSimpleClassName())).ifPresent(aggregatorFullClassName -> {
-                final String aggregatorResource = format("?/?.java", OUTPUT, aggregatorFullClassName.replace(".", "/"));
+                final String aggregatorResource =
+                        format("?/?.java", OUTPUT, aggregatorFullClassName.replace(".", PATH_ELEMENT_SEPARATOR));
                 registerOverriddenSourceOutput(aggregatorFullClassName, getResourceContent(resource.getOriginalClasspathResource()));
                 iterator.remove();
                 toAdd.add(sourceCodeResource(aggregatorResource));

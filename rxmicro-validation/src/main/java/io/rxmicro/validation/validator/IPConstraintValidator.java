@@ -105,7 +105,7 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
                             INVALID_IP_ERROR_MESSAGE_TEMPLATE,
                             httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_4_VALUE, ip4AddressPart, actual);
                 }
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw new ValidationException(
                         INVALID_IP_ERROR_MESSAGE_TEMPLATE,
                         httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_4_VALUE, value, actual);
@@ -127,7 +127,7 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
                                 INVALID_IP_ERROR_MESSAGE_TEMPLATE,
                                 httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_6_VALUE_TO_STRING, toHexString(ip6AddressPart), actual);
                     }
-                } catch (final NumberFormatException ignore) {
+                } catch (final NumberFormatException ignored) {
                     throw new ValidationException(
                             INVALID_IP_ERROR_MESSAGE_TEMPLATE,
                             httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_6_VALUE_TO_STRING, value, actual);

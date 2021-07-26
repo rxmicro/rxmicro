@@ -56,7 +56,7 @@ public abstract class AbstractSQLBuilder extends BaseProcessorComponent {
 
     protected void validateSupportedVars(final Class<? extends Annotation> annotationClass,
                                          final ExecutableElement method,
-                                         final Iterable<String> vars,
+                                         final Iterable<String> variables,
                                          final Set<String> supportedSelectVariableNames,
                                          final Set<String> extVariables,
                                          final String... additionalVariables) {
@@ -68,13 +68,13 @@ public abstract class AbstractSQLBuilder extends BaseProcessorComponent {
                 )
                         .flatMap(Function.identity())
                         .collect(toSet());
-        for (final String var : vars) {
-            if (!set.contains(var)) {
+        for (final String variable : variables) {
+            if (!set.contains(variable)) {
                 throw new InterruptProcessingException(
                         method,
                         "Unsupported @? variables: '?'. Supported variables are: ?",
                         annotationClass.getSimpleName(),
-                        var,
+                        variable,
                         supportedSelectVariableNames
                 );
             }

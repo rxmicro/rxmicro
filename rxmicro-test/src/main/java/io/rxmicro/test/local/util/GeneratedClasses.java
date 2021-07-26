@@ -43,7 +43,7 @@ public final class GeneratedClasses {
                 }
             }
             return false;
-        } catch (final ClassNotFoundException ignore) {
+        } catch (final ClassNotFoundException ignored) {
             return false;
         }
     }

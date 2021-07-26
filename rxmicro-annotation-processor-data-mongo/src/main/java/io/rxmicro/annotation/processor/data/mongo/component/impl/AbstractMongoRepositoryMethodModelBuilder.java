@@ -183,25 +183,25 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
         if (skip > -1) {
             templateArguments.put("SKIP", skip);
         }
-        Optional<Variable> limitVar = methodParameterReader.nextIfLimit();
-        final Optional<Variable> skipVar = methodParameterReader.nextIfSkip();
-        if (limitVar.isEmpty()) {
-            limitVar = methodParameterReader.nextIfLimit();
+        Optional<Variable> limitVariable = methodParameterReader.nextIfLimit();
+        final Optional<Variable> skipVariable = methodParameterReader.nextIfSkip();
+        if (limitVariable.isEmpty()) {
+            limitVariable = methodParameterReader.nextIfLimit();
         }
-        limitVar.ifPresent(var -> {
-            templateArguments.put("LIMIT", var.getGetter());
+        limitVariable.ifPresent(variable -> {
+            templateArguments.put("LIMIT", variable.getGetter());
             if (limit > -1) {
                 warn(repositoryMethod,
                         "Method parameter '?' overrides annotation parameter: '?.limit()'",
-                        var.getName(), annotationClass.getName());
+                        variable.getName(), annotationClass.getName());
             }
         });
-        skipVar.ifPresent(var -> {
-            templateArguments.put("SKIP", var.getGetter());
+        skipVariable.ifPresent(variable -> {
+            templateArguments.put("SKIP", variable.getGetter());
             if (skip > -1) {
                 warn(repositoryMethod,
                         "Method parameter '?' overrides annotation parameter: '?.skip()'",
-                        var.getName(), annotationClass.getName());
+                        variable.getName(), annotationClass.getName());
             }
         });
     }

@@ -31,6 +31,7 @@ import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.reflection.Reflections.containsMethod;
 
 /**
@@ -103,7 +104,7 @@ public final class DbUnitRxMicroTestExtension implements RxMicroTestExtension {
                             "Remove the redundant annotation!",
                     DbUnitTest.class.getName(),
                     testModel.getTestClass().getName(),
-                    hasNested ? " (or any it nested class(es))" : "",
+                    hasNested ? " (or any it nested class(es))" : EMPTY_STRING,
                     InitialDataSet.class.getSimpleName(), ExpectedDataSet.class.getSimpleName()
             );
         }

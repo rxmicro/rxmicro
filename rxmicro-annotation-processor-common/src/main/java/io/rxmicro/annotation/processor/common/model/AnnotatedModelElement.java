@@ -80,7 +80,7 @@ public final class AnnotatedModelElement {
     String getGetter() {
         try {
             return getters.get(0).getSimpleName().toString();
-        } catch (final IndexOutOfBoundsException ignore) {
+        } catch (final IndexOutOfBoundsException ignored) {
             throw new InternalErrorException(
                     "Getter not defined: class=?, field=?",
                     field.getEnclosingElement().asType(), field.getSimpleName()

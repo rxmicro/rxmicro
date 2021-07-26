@@ -32,7 +32,7 @@ env:
 
 on:
   release:
-    types: [created]
+    types: [ created ]
 
 jobs:
   # -----------------------------------------------------------------------------------------------------
@@ -242,7 +242,7 @@ jobs:
           - graalvm-native-image-mongo-data-repository
           - graalvm-native-image-postgres-data-repository
           - graalvm-native-image-quick-start
-        maven-profile: ['default']
+        maven-profile: [ 'default' ]
         include:
           - group: graalvm-native-image-rest-client
             maven-profile: 'jdk-http-client'

@@ -24,6 +24,7 @@ import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Types.JAVA_PRIMITIVE_REPLACEMENT;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static java.util.stream.Collectors.joining;
@@ -66,7 +67,7 @@ public final class MethodName {
     public String getUniqueJavaName() {
         if (isOverloaded && !parameterTypes.isEmpty()) {
             return format("??", simpleName, parameterTypes.stream().map(t ->
-                    t.getKind().isPrimitive() ? t.toString() : Names.getSimpleName(t)).collect(joining("")));
+                    t.getKind().isPrimitive() ? t.toString() : Names.getSimpleName(t)).collect(joining(EMPTY_STRING)));
         } else {
             return simpleName;
         }

@@ -248,7 +248,7 @@ public final class RestControllerClassStructureBuilderImpl implements RestContro
 
     private boolean isNotFoundPossible(final RestControllerMethodSignature methodSignature) {
         return methodSignature.getResponseModel().getReactiveType()
-                .map(t -> isMono(t) || isMaybe(t) || (isFuture(t) && methodSignature.getResponseModel().isOptional()))
+                .map(t -> isMono(t) || isMaybe(t) || isFuture(t) && methodSignature.getResponseModel().isOptional())
                 .orElse(false);
     }
 

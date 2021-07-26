@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -68,5 +69,5 @@ public @interface Aggregate {
      *
      * @return the index to use for the aggregation.
      */
-    String hint() default "";
+    String hint() default EMPTY_STRING;
 }

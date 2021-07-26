@@ -57,6 +57,7 @@ import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.CUSTOM_SELECT_PREDICATE;
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.TRANSACTION_GROUP;
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.TRANSACTION_PREDICATE;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 
 /**
  * @author nedis
@@ -95,9 +96,6 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
                                          final DataGenerationContext<DMF, DMC> dataGenerationContext) {
         final DataMethodParams dataMethodParams = dataMethodParamsResolver.resolve(method, groupRules);
         validateCommonDataMethodParams(dataMethodParams);
-        final List<Variable> params = dataMethodParams.getOtherParams();
-        final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor =
-                buildSQLMethodDescriptor(method, params, methodResult, dataGenerationContext);
 
         final ParsedSQL<A> parsedSQL = parseSQL(method, dataMethodParams);
         validateMethod(parsedSQL, methodResult, dataGenerationContext, method, dataMethodParams);
@@ -111,6 +109,10 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
         });
         templateArguments.put("RETURN_ENTITY_FIELD_MAP", methodResult.isResultType(EntityFieldMap.class));
         templateArguments.put("RETURN_ENTITY_FIELD_LIST", methodResult.isResultType(EntityFieldList.class));
+
+        final List<Variable> params = dataMethodParams.getOtherParams();
+        final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor =
+                buildSQLMethodDescriptor(method, params, methodResult, dataGenerationContext);
         final SQLStatement sqlStatement = sqlBuilder.build(classHeaderBuilder, parsedSQL, method, sqlMethodDescriptor);
         customizeClassHeaderBuilder(classHeaderBuilder, methodResult, dataGenerationContext, method, sqlStatement);
         templateArguments.put("SQL", sqlStatement);
@@ -120,7 +122,7 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
                 templateArguments.put("TRANSACTION", t.getName()));
         templateArguments.put(
                 "CONNECTION_CREATE_PARAM",
-                dataMethodParams.getSingleParamOfGroup(REQUEST_ID_SUPPLIER_GROUP).map(Variable::getName).orElse("")
+                dataMethodParams.getSingleParamOfGroup(REQUEST_ID_SUPPLIER_GROUP).map(Variable::getName).orElse(EMPTY_STRING)
         );
         return new SQLMethodBody(methodBodyGenerator.generate(getTemplateName(), templateArguments));
     }

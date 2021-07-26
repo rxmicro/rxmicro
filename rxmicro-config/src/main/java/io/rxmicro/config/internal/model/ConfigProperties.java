@@ -34,6 +34,7 @@ import java.util.WeakHashMap;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_DIRECTORY_NAME;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX;
@@ -77,7 +78,7 @@ public abstract class ConfigProperties {
     protected static final String ENVIRONMENT_VARIABLE_PREFIX =
             Optional.ofNullable(SYSTEM_ENV.get(RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX))
                     .map(v -> v.endsWith("_") ? v : v + '_')
-                    .orElse("");
+                    .orElse(EMPTY_STRING);
 
     protected final String namespace;
 

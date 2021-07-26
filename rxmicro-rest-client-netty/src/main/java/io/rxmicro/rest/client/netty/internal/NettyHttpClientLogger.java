@@ -26,6 +26,7 @@ import reactor.netty.http.client.HttpClientResponse;
 import java.time.Duration;
 import java.util.Optional;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.logger.RequestIdSupplier.UNDEFINED_REQUEST_ID;
@@ -68,7 +69,7 @@ final class NettyHttpClientLogger {
                         .collect(joining(lineSeparator())),
                 requestBodyBytes != null ?
                         secrets.hideAllSecretsIn(new String(requestBodyBytes, UTF_8)) :
-                        ""
+                        EMPTY_STRING
         );
     }
 
@@ -87,7 +88,7 @@ final class NettyHttpClientLogger {
                         .collect(joining(lineSeparator())),
                 responseBodyBytes.length > 0 ?
                         secrets.hideAllSecretsIn(new String(responseBodyBytes, UTF_8)) :
-                        ""
+                        EMPTY_STRING
         );
     }
 
@@ -104,7 +105,7 @@ final class NettyHttpClientLogger {
                 () -> requestId,
                 "HTTP request sent: '?'?",
                 format("? ?", method, path),
-                requestBodyBytes == null ? "" : format(" with ? request body bytes", requestBodyBytes.length)
+                requestBodyBytes == null ? EMPTY_STRING : format(" with ? request body bytes", requestBodyBytes.length)
         );
     }
 

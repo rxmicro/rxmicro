@@ -46,7 +46,7 @@ public final class MethodNameBiConsumer extends AbstractBiConsumer {
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
-        messageBuilder.appendWithoutTransformation(record.getSourceMethodName());
+                       final LogRecord logRecord) {
+        messageBuilder.appendWithoutTransformation(logRecord.getSourceMethodName());
     }
 }

@@ -107,8 +107,8 @@ public interface Marker extends Serializable {
      * <p>
      * Does this marker have any references?
      *
+     * @return {@code true} if this marker has one or more references, {@code false} otherwise
      * @deprecated Replaced by {@link #hasReferences()}.
-     * @return {@code true} if this marker has one or more references, {@code false} otherwise.
      */
     @Deprecated
     boolean hasChildren();

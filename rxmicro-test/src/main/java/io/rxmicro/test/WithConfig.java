@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -52,5 +53,5 @@ public @interface WithConfig {
      * @see io.rxmicro.config.Config#getDefaultNameSpace(Class)
      * @see io.rxmicro.config.Configs#getConfig(String, Class)
      */
-    String value() default "";
+    String value() default EMPTY_STRING;
 }

@@ -38,6 +38,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allConstructors;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.util.Map.entry;
 
 /**
@@ -85,15 +86,15 @@ public final class ModelExceptionErrorResponseStandardBuilder extends AbstractEr
                     .map(a -> resolveString(owner, new ExampleAnnotationValueProvider(a), false))
                     .orElseGet(() -> standardHttpErrorStorage.get(status)
                             .map(StandardHttpError::getExampleErrorMessage)
-                            .orElse(""));
+                            .orElse(EMPTY_STRING));
             final String messageDescription = Optional.ofNullable(messageParameterOptional.get().getAnnotation(Description.class))
                     .map(a -> resolveString(owner, new DescriptionAnnotationValueProvider(a), false))
                     .orElseGet(() -> standardHttpErrorStorage.get(status)
                             .map(StandardHttpError::getMessageDescription)
-                            .orElse(""));
+                            .orElse(EMPTY_STRING));
             return entry(exampleErrorMessage, messageDescription);
         } else {
-            return entry("", "");
+            return entry(EMPTY_STRING, EMPTY_STRING);
         }
     }
 

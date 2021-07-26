@@ -27,7 +27,6 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.PathMatcherResult;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.AnyPathFragmentRequestMappingRule;
-import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 import io.rxmicro.rest.server.detail.model.mapping.WithUrlPathVariablesRequestMappingRule;
 import io.rxmicro.rest.server.internal.component.ComponentResolver;
 import io.rxmicro.rest.server.internal.component.RequestMappingKeyBuilder;
@@ -127,14 +126,7 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
     private void addRegistrations(final AbstractRestController restController,
                                   final Registration... registrations) {
         Arrays.stream(registrations).forEach(registration -> {
-            final RestControllerMethod method = new RestControllerMethod(
-                    registration.getParentUrl(),
-                    restController,
-                    registration.getMethodName(),
-                    registration.getParamTypes(),
-                    registration.getMethod(),
-                    registration.isCorsRequestPossible()
-            );
+            final RestControllerMethod method = new RestControllerMethod(registration, restController);
             registration.getRequestMappingRules().forEach(requestMapping -> {
                 requestMappingRuleVerifier.verifyThatRequestMappingRuleIsUnique(requestMapping, method);
                 if (requestMapping instanceof WithUrlPathVariablesRequestMappingRule) {
@@ -142,7 +134,7 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
                 } else if (requestMapping instanceof AnyPathFragmentRequestMappingRule) {
                     staticResourceTemplateRestControllers.add(entry((AnyPathFragmentRequestMappingRule) requestMapping, method));
                 } else {
-                    final String requestMappingKey = requestMappingKeyBuilder.build((ExactUrlRequestMappingRule) requestMapping);
+                    final String requestMappingKey = requestMappingKeyBuilder.build(requestMapping);
                     exactUrlRestControllerMap.put(requestMappingKey, method);
                 }
                 LOGGER.info("Mapped ? onto ?", () -> requestMapping, () -> getMethodName(method));

@@ -33,6 +33,7 @@ import static io.rxmicro.annotation.processor.common.util.Elements.expectedGener
 import static io.rxmicro.annotation.processor.common.util.Elements.isGenericType;
 import static io.rxmicro.annotation.processor.common.util.Elements.superClassIsObject;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static javax.lang.model.element.ElementKind.ENUM;
 import static javax.lang.model.element.Modifier.ABSTRACT;
 import static javax.lang.model.element.Modifier.PROTECTED;
@@ -191,7 +192,7 @@ public final class TypeValidators {
     public static void validateGenericType(final Element owner,
                                            final TypeMirror type,
                                            final String prefix) {
-        final String validPrefix = prefix == null || prefix.isBlank() ? "" : prefix + ": ";
+        final String validPrefix = prefix == null || prefix.isBlank() ? EMPTY_STRING : prefix + ": ";
         if (!isGenericType(type)) {
             throw new InterruptProcessingException(owner, "?Expected generic type: ?", validPrefix, type);
         }

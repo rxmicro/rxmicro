@@ -21,6 +21,7 @@ import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.isVirtualTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
@@ -73,6 +74,6 @@ public final class RestRequestModel {
 
     @Override
     public String toString() {
-        return VOID.equals(this) ? "" : format("? ?", getRequiredRequestType().asType(), getRequiredVariableName());
+        return VOID.equals(this) ? EMPTY_STRING : format("? ?", getRequiredRequestType().asType(), getRequiredVariableName());
     }
 }

@@ -33,14 +33,18 @@ public final class LoggerUtils {
 
     private static final ExtensionContext.Namespace LOGGABLE = ExtensionContext.Namespace.create("RXMICRO-LOGGABLE");
 
+    private static final String DEBUG_MESSAGE_LINE_SEPARATOR = "------------------------------------------------------------------------";
+
+    private static final String TRACE_MESSAGE_LINE_SEPARATOR = "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+
     public static void logBeforeAll(final Logger logger,
                                     final ExtensionContext context) {
         if (isLogBeforeAlreadyFound(logger, context, ALL)) {
             return;
         }
-        logger.debug("------------------------------------------------------------------------");
+        logger.debug(DEBUG_MESSAGE_LINE_SEPARATOR);
         logger.debug("Before all tests from '?' class", context.getRequiredTestClass().getName());
-        logger.debug("------------------------------------------------------------------------");
+        logger.debug(DEBUG_MESSAGE_LINE_SEPARATOR);
     }
 
     public static void logBeforeEach(final Logger logger,
@@ -48,7 +52,7 @@ public final class LoggerUtils {
         if (isLogBeforeAlreadyFound(logger, context, EACH)) {
             return;
         }
-        logger.trace("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.trace(TRACE_MESSAGE_LINE_SEPARATOR);
         logger.debug(
                 "Before '?.?' test method",
                 context.getRequiredTestClass().getSimpleName(),
@@ -94,16 +98,16 @@ public final class LoggerUtils {
                     context.getRequiredTestClass().getSimpleName(),
                     context.getRequiredTestMethod().getName()
             );
-            logger.trace("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            logger.trace(TRACE_MESSAGE_LINE_SEPARATOR);
         }
     }
 
     public static void logAfterAll(final Logger logger,
                                    final ExtensionContext context) {
         if (isValidContextForExecution(logger, context, ALL)) {
-            logger.debug("------------------------------------------------------------------------");
+            logger.debug(DEBUG_MESSAGE_LINE_SEPARATOR);
             logger.debug("After all tests from '?' class", context.getRequiredTestClass().getName());
-            logger.debug("------------------------------------------------------------------------");
+            logger.debug(DEBUG_MESSAGE_LINE_SEPARATOR);
         }
     }
 

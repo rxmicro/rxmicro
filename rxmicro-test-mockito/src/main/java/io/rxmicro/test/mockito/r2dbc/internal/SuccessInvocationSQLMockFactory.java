@@ -77,9 +77,7 @@ public final class SuccessInvocationSQLMockFactory extends AbstractInvocationSQL
                         } else if (resultSet.size() == 1) {
                             return Mono.just(biFunction.apply(row, rowMetadata));
                         } else {
-                            return Flux.fromIterable(resultSet.stream()
-                                    .map(d -> biFunction.apply(row, rowMetadata))
-                                    .collect(toList()));
+                            return Flux.fromIterable(resultSet.stream().map(d -> biFunction.apply(row, rowMetadata)).collect(toList()));
                         }
                     });
                     lenient().when(result.getRowsUpdated()).thenAnswer(invocation -> {

@@ -64,7 +64,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return Enum.valueOf(enumClass, value);
-            } catch (final IllegalArgumentException ignore) {
+            } catch (final IllegalArgumentException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a value from the set ?, but actual is '?'!",
                         httpModelType, modelName, Arrays.toString(enumClass.getEnumConstants()), value
@@ -156,7 +156,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return Byte.parseByte(value);
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw createExpectedIntegerValidationException(value, httpModelType, modelName, Byte.MIN_VALUE, Byte.MAX_VALUE);
             }
         }
@@ -197,7 +197,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return Short.parseShort(value);
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw createExpectedIntegerValidationException(value, httpModelType, modelName, Short.MIN_VALUE, Short.MAX_VALUE);
             }
         }
@@ -238,7 +238,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return Integer.parseInt(value);
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw createExpectedIntegerValidationException(value, httpModelType, modelName, Integer.MIN_VALUE, Integer.MAX_VALUE);
             }
         }
@@ -279,7 +279,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return Long.parseLong(value);
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw createExpectedIntegerValidationException(value, httpModelType, modelName, Long.MIN_VALUE, Long.MAX_VALUE);
             }
         }
@@ -320,7 +320,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return new BigInteger(value);
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
                         httpModelType, modelName, value
@@ -364,7 +364,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return floatIfValid(value, Float.parseFloat(value), httpModelType, modelName);
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a decimal value, but actual is '?'!",
                         httpModelType, modelName, value
@@ -408,7 +408,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return doubleIfValid(value, Double.parseDouble(value), httpModelType, modelName);
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a decimal value, but actual is '?'!",
                         httpModelType, modelName, value
@@ -452,7 +452,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return new BigDecimal(value);
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a decimal value, but actual is '?'!",
                         httpModelType, modelName, value
@@ -496,7 +496,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             try {
                 return Instant.parse(value);
-            } catch (final DateTimeParseException ignore) {
+            } catch (final DateTimeParseException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected an ISO-8601 instant " +
                                 "(Example: '?'), but actual is '?'!",

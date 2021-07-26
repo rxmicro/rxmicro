@@ -35,7 +35,7 @@ public final class LoggingMessageBiConsumer extends AbstractBiConsumer {
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
-        messageBuilder.append(record.getMessage());
+                       final LogRecord logRecord) {
+        messageBuilder.append(logRecord.getMessage());
     }
 }

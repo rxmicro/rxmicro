@@ -37,10 +37,10 @@ public final class Exceptions {
      * @param throwable throwable that must be thrown
      * @param <T> any type
      * @return nothing
+     * @throws CheckedWrapperException if {@code throwable} is checked exception otherwise throws {@code throwable}
      * @see Error
      * @see RuntimeException
      * @see CheckedWrapperException
-     * @throws CheckedWrapperException if {@code throwable} is checked exception otherwise throws {@code throwable}
      */
     public static <T> T reThrow(final Throwable throwable) {
         if (throwable instanceof RuntimeException) {

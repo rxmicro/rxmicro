@@ -69,10 +69,10 @@ public final class NettyConfiguratorBuilder extends InternalNettyConfiguratorBui
      * @param value  option value
      * @param <T>    option type
      * @return the reference to this {@link NettyConfiguratorBuilder} instance
-     * @see ChannelOption
-     * @see java.util.Map
      * @throws IllegalStateException if Netty configurator already built
      * @throws NullPointerException if {@code option} or {@code value} is {@code null}
+     * @see ChannelOption
+     * @see java.util.Map
      */
     @BuilderMethod
     public <T> NettyConfiguratorBuilder setServerOption(final ChannelOption<T> option,
@@ -89,10 +89,10 @@ public final class NettyConfiguratorBuilder extends InternalNettyConfiguratorBui
      * @param value  option value
      * @param <T>    option type
      * @return the reference to this {@link NettyConfiguratorBuilder} instance
-     * @see ChannelOption
-     * @see java.util.Map
      * @throws IllegalStateException if Netty configurator already built
      * @throws NullPointerException if {@code option} or {@code value} is {@code null}
+     * @see ChannelOption
+     * @see java.util.Map
      */
     @BuilderMethod
     public <T> NettyConfiguratorBuilder setClientOption(final ChannelOption<T> option,
@@ -127,10 +127,10 @@ public final class NettyConfiguratorBuilder extends InternalNettyConfiguratorBui
      * @param name                   the name of the handler to append
      * @param channelHandlerSupplier the channel handler supplier
      * @return the reference to this {@link NettyConfiguratorBuilder} instance
-     * @see io.netty.channel.ChannelPipeline#addLast(String, ChannelHandler)
      * @throws IllegalStateException if Netty configurator already built
      * @throws NullPointerException  if {@code name} or {@code channelHandlerSupplier} is {@code null}
      * @throws IllegalArgumentException if there's an entry with the same name already in the pipeline
+     * @see io.netty.channel.ChannelPipeline#addLast(String, ChannelHandler)
      */
     @BuilderMethod
     public NettyConfiguratorBuilder addChannelHandlerSupplierToLastPosition(final String name,

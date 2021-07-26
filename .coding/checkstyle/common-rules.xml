@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-  ~ Copyright (c) 2020. http://rxmicro.io
+  ~ Copyright (c) 2019. http://devonline.academy
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -23,16 +23,23 @@
 <!-- https://checkstyle.sourceforge.io/config.html#Checker -->
 <module name="Checker">
     <property name="charset" value="UTF-8"/>
+    <property name="fileExtensions" value="java, properties, xml"/>
     <property name="severity" value="error"/>
     <property name="haltOnException" value="true"/>
-    <property name="fileExtensions" value="java, properties, xml, yml, json"/>
     <property name="tabWidth" value="4"/>
 
     <!-- https://checkstyle.org/config_filefilters.html -->
     <module name="BeforeExecutionExclusionFileFilter">
         <property name="fileNamePattern" value="module\-info\.java$"/>
     </module>
+    <!-- https://checkstyle.sourceforge.io/config_annotation.html#MissingDeprecated_Description -->
+    <!-- required till https://bugs.openjdk.java.net/browse/JDK-8160601 -->
+    <module name="SuppressionSingleFilter">
+        <property name="checks" value="MissingDeprecatedCheck"/>
+        <property name="files" value="package-info\.java"/>
+    </module>
 
+    <!-- https://checkstyle.sourceforge.io/config_sizes.html#FileLength -->
     <module name="FileLength">
         <property name="id" value="JavaFileLength"/>
         <property name="max" value="1500"/>
@@ -48,17 +55,18 @@
         <property name="max" value="1500"/>
         <property name="fileExtensions" value="properties"/>
     </module>
+    <!-- https://checkstyle.sourceforge.io/config_whitespace.html#FileTabCharacter -->
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
     </module>
+    <!-- https://checkstyle.sourceforge.io/config_sizes.html#LineLength -->
     <module name="LineLength">
         <property name="max" value="140"/>
     </module>
-    <!-- Using Checkstyle_NewlineAtEndOfFile_Test instead -->
-    <!--module name="NewlineAtEndOfFile">
-        <property name="lineSeparator" value="lf"/>
-        <property name="fileExtensions" value="java, properties, xml, yml, json, javaftl"/>
-    </module-->
+    <!-- https://checkstyle.sourceforge.io/config_misc.html#NewlineAtEndOfFile -->
+    <module name="NewlineAtEndOfFile">
+        <property name="lineSeparator" value="lf_cr_crlf"/>
+    </module>
     <module name="OrderedProperties">
         <property name="fileExtensions" value="properties"/>
     </module>
@@ -81,11 +89,11 @@
         <property name="fileExtensions" value="xml"/>
     </module>
     <module name="Header">
-        <property name="id" value="ApacheLicencePropertiesOrYmlHeader"/>
+        <property name="id" value="ApacheLicencePropertiesHeader"/>
         <property name="headerFile" value=".coding/checkstyle/Header/apache-licence-properties-header.txt"/>
-        <property name="fileExtensions" value="properties, yaml, yml"/>
+        <property name="fileExtensions" value="properties, gitignore, gitattributes"/>
     </module>
-    <!-- All required checks available at Header rule: -->
+    <!-- All required checks configured using Header rule: -->
     <!-- module name="RegexpHeader"/ -->
 
     <module name="TreeWalker">
@@ -94,18 +102,39 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_annotation.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <module name="AnnotationLocation"/>
-        <!-- Conflicts with AnnotationLocation: -->
+        <module name="AnnotationLocation">
+            <property name="allowSamelineMultipleAnnotations" value="false"/>
+            <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
+            <property name="allowSamelineParameterizedAnnotation" value="false"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, PACKAGE_DEF, ENUM_CONSTANT_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF,
+                             VARIABLE_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
+        </module>
+        <!-- Conflicts with AnnotationLocation rule: -->
         <!-- module name="AnnotationOnSameLine"/ -->
-        <module name="AnnotationUseStyle"/>
-        <module name="MissingDeprecated"/>
-        <module name="MissingOverride"/>
+        <module name="AnnotationUseStyle">
+            <property name="elementStyle" value="compact_no_array"/>
+            <property name="trailingArrayComma" value="never"/>
+            <property name="closingParens" value="never"/>
+        </module>
+        <module name="MissingDeprecated">
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+        </module>
+        <module name="MissingOverride">
+            <property name="javaFiveCompatibility" value="false"/>
+        </module>
         <!-- Not actual for JDK8+: -->
         <!-- module name="PackageAnnotation"/ -->
-        <!-- Maybe useful later: -->
-        <!-- module name="SuppressWarnings"/ -->
-        <!-- Maybe useful later: -->
-        <!-- module name="SuppressWarningsHolder"/ -->
+        <module name="SuppressWarnings">
+            <property name="format" value="^\s*+$"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF,
+                             ENUM_CONSTANT_DEF, PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF, CTOR_DEF, COMPACT_CTOR_DEF,
+                             RECORD_DEF"/>
+        </module>
+        <module name="SuppressWarningsHolder"/>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_blocks.html -->
@@ -114,62 +143,91 @@
             <property name="allowInSwitchCase" value="true"/>
         </module>
         <module name="EmptyBlock">
-            <property name="option" value="text"/>
+            <property name="id" value="DefaultEmptyBlock"/>
+            <property name="option" value="statement"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="LITERAL_WHILE, LITERAL_TRY, LITERAL_FINALLY, LITERAL_DO, LITERAL_IF, LITERAL_ELSE, LITERAL_FOR,
-                             INSTANCE_INIT, STATIC_INIT, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_CASE, LITERAL_DEFAULT"/>
+                      value="LITERAL_WHILE, LITERAL_TRY, LITERAL_FINALLY, LITERAL_DO, LITERAL_IF,
+                             LITERAL_ELSE, LITERAL_FOR, INSTANCE_INIT, STATIC_INIT, LITERAL_SWITCH,
+                             LITERAL_SYNCHRONIZED, LITERAL_CASE, LITERAL_DEFAULT, ARRAY_INIT"/>
+        </module>
+        <module name="EmptyBlock">
+            <property name="id" value="DefaultEmptyBlock"/>
+            <property name="option" value="text"/>
+            <property name="tokens" value="LITERAL_CATCH"/>
         </module>
         <module name="EmptyCatchBlock">
-            <property name="exceptionVariableName" value="ignore"/>
+            <property name="exceptionVariableName" value="ignored"/>
             <property name="commentFormat" value="do nothing"/>
         </module>
         <module name="LeftCurly">
             <property name="option" value="eol"/>
-            <property name="tokens"
-                      value="ANNOTATION_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF, INTERFACE_DEF, LAMBDA, LITERAL_CASE,
-                             LITERAL_CATCH, LITERAL_DEFAULT, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF,
-                             LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF, OBJBLOCK, STATIC_INIT"/>
             <property name="ignoreEnums" value="false"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens"
+                      value="ANNOTATION_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF, INTERFACE_DEF, LAMBDA,
+                             LITERAL_CASE, LITERAL_CATCH, LITERAL_DEFAULT, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY,
+                             LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE,
+                             METHOD_DEF, OBJBLOCK, STATIC_INIT, RECORD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="NeedBraces">
+            <property name="id" value="otherNeedBraces"/>
+            <property name="allowSingleLineStatement" value="false"/>
+            <property name="allowEmptyLoopBody" value="false"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE, LITERAL_CASE, LITERAL_DEFAULT"/>
+                      value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE, LITERAL_CASE,
+                             LITERAL_DEFAULT"/>
         </module>
         <module name="RightCurly">
             <property name="option" value="same"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, CLASS_DEF, METHOD_DEF, CTOR_DEF,
-                             LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, STATIC_INIT, INSTANCE_INIT, ANNOTATION_DEF, ENUM_DEF"/>
+                      value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, CLASS_DEF,
+                             METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, STATIC_INIT, INSTANCE_INIT,
+                             ANNOTATION_DEF, ENUM_DEF, INTERFACE_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
         </module>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_design.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- DesignForExtension must be available for Public API only!
-             See: rxmicro-public-api-checkstyle.xml
-        <module name="DesignForExtension">
-            <property name="ignoredAnnotations" value="Override"/>
-        </module>
-        -->
+        <!-- Moved to javadoc-rules.xml -->
+        <!-- module name="DesignForExtension" -->
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InnerTypeLast"/>
-        <module name="InterfaceIsType"/>
-        <module name="MutableException"/>
+        <module name="InterfaceIsType">
+            <property name="allowMarkerInterfaces" value="true"/>
+        </module>
+        <module name="MutableException">
+            <property name="format" value="^.*Exception$|^.*Error$|^.*Throwable$"/>
+            <property name="extendedClassNameFormat" value="^.*Exception$|^.*Error$|^.*Throwable$"/>
+        </module>
         <module name="OneTopLevelClass"/>
         <module name="ThrowsCount">
-            <property name="max" value="2"/>
+            <property name="max" value="3"/>
             <property name="ignorePrivateMethods" value="true"/>
         </module>
         <module name="VisibilityModifier">
             <property name="packageAllowed" value="true"/>
             <property name="protectedAllowed" value="true"/>
+            <property name="publicMemberPattern" value="^serialVersionUID$"/>
+            <property name="allowPublicFinalFields" value="false"/>
+            <property name="allowPublicImmutableFields" value="false"/>
+            <property name="immutableClassCanonicalNames"
+                      value="java.io.File, java.lang.Boolean, java.lang.Byte, java.lang.Character, java.lang.Double,
+                             java.lang.Float, java.lang.Integer, java.lang.Long, java.lang.Short,
+                             java.lang.StackTraceElement, java.lang.String, java.math.BigDecimal, java.math.BigInteger,
+                             java.net.Inet4Address, java.net.Inet6Address, java.net.InetSocketAddress, java.net.URI,
+                             java.net.URL, java.util.Locale, java.util.UUID"/>
+            <property name="ignoreAnnotationCanonicalNames"
+                      value="com.google.common.annotations.VisibleForTesting, org.junit.ClassRule, org.junit.Rule"/>
         </module>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_coding.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- Trailing comma is redundant. See NoArrayTrailingComma module: -->
+        <!-- Conflicts with NoArrayTrailingComma rule: -->
         <!-- module name="ArrayTrailingComma"/ -->
         <module name="AvoidDoubleBraceInitialization"/>
         <!-- Ternary operator is useful for some cases: -->
@@ -178,75 +236,111 @@
         <module name="CovariantEquals"/>
         <module name="DeclarationOrder">
             <property name="ignoreConstructors" value="true"/>
+            <property name="ignoreModifiers" value="false"/>
         </module>
-        <module name="DefaultComesLast"/>
+        <module name="DefaultComesLast">
+            <property name="skipIfLastAndSharedWithCase" value="false"/>
+        </module>
         <module name="EmptyStatement"/>
-        <module name="EqualsAvoidNull"/>
+        <module name="EqualsAvoidNull">
+            <property name="ignoreEqualsIgnoreCase" value="false"/>
+        </module>
         <module name="EqualsHashCode"/>
-        <module name="ExplicitInitialization"/>
-        <module name="FallThrough"/>
+        <module name="ExplicitInitialization">
+            <property name="onlyObjectReferences" value="false"/>
+        </module>
+        <module name="FallThrough">
+            <property name="checkLastCaseGroup" value="false"/>
+            <property name="reliefPattern" value="falls?[ -]?thr(u|ough)"/>
+        </module>
         <module name="FinalLocalVariable">
             <property name="validateEnhancedForLoopVariable" value="true"/>
             <property name="tokens" value="VARIABLE_DEF, PARAMETER_DEF"/>
         </module>
         <!-- All modern IDE highlights class members: -->
         <!-- module name="HiddenField"/ -->
-        <module name="IllegalCatch"/>
+        <module name="IllegalCatch">
+            <property name="illegalClassNames"
+                      value="Error, Exception, RuntimeException, Throwable,
+                             java.lang.Error, java.lang.Exception, java.lang.RuntimeException, java.lang.Throwable"/>
+        </module>
         <module name="IllegalInstantiation">
-            <property name="classes" value="java.lang.Boolean"/>
+            <property name="classes"
+                      value="java.lang.Boolean, java.lang.Byte, java.lang.Short, java.lang.Integer, java.lang.Long"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens" value="CLASS_DEF"/>
         </module>
-        <module name="IllegalThrows"/>
-        <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+        <module name="IllegalThrows">
+            <property name="illegalClassNames"
+                      value="Error, RuntimeException, Throwable,
+                             java.lang.Error, java.lang.RuntimeException, java.lang.Throwable"/>
+            <property name="ignoredMethodNames" value="finalize"/>
+            <property name="ignoreOverriddenMethods" value="true"/>
+        </module>
         <module name="IllegalToken">
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="EMPTY_STAT, LABELED_STAT, LITERAL_ASSERT, LITERAL_NATIVE"/>
+                      value="EMPTY_STAT, INSTANCE_INIT, LABELED_STAT, LITERAL_NATIVE"/>
         </module>
-        <module name="IllegalTokenText">
-            <property name="id" value="IllegalNumbersUsingOctalNotation"/>
-            <property name="tokens" value="NUM_INT,NUM_LONG"/>
-            <property name="format" value="^0[^lx]"/>
-            <property name="ignoreCase" value="true"/>
-        </module>
+        <!-- Project specific setting -->
+        <!-- module name="IllegalTokenText"/ -->
         <module name="IllegalType">
+            <property name="validateAbstractClassNames" value="false"/>
             <property name="illegalClassNames"
                       value="java.lang.StringBuffer,
                              java.util.Vector, java.util.Hashtable,
                              java.util.Enumeration,
-                             java.util.Date, java.util.Calendar, java.util.GregorianCalendar, java.util.JapaneseImperialCalendar"/>
+                             java.util.Date,
+                             java.util.Calendar, java.util.GregorianCalendar, java.util.JapaneseImperialCalendar"/>
+            <property name="legalAbstractClassNames" value=""/>
+            <property name="ignoredMethodNames" value="getEnvironment, getInitialContext"/>
+            <property name="illegalAbstractClassNameFormat" value="^(.*[.])?Abstract.*$"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="memberModifiers" value="LITERAL_PUBLIC, LITERAL_PROTECTED, LITERAL_STATIC"/>
             <property name="tokens"
                       value="ANNOTATION_FIELD_DEF, CLASS_DEF, INTERFACE_DEF, METHOD_CALL, METHOD_DEF, METHOD_REF,
-                             PARAMETER_DEF, VARIABLE_DEF"/>
-            <property name="memberModifiers" value="LITERAL_PUBLIC, LITERAL_PROTECTED, LITERAL_STATIC"/>
+                             PARAMETER_DEF, VARIABLE_DEF, PATTERN_VARIABLE_DEF, RECORD_DEF, RECORD_COMPONENT_DEF"/>
         </module>
         <module name="InnerAssignment"/>
         <module name="MagicNumber">
-            <property name="ignoreNumbers" value="-1, 0, 1, 2, 3, 4, 5"/>
+            <property name="ignoreNumbers" value="-1, 0, 1, 2, 3"/>
             <property name="ignoreHashCodeMethod" value="true"/>
             <property name="ignoreAnnotation" value="false"/>
             <property name="ignoreFieldDeclaration" value="false"/>
             <property name="ignoreAnnotationElementDefaults" value="true"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="constantWaiverParentToken"
-                      value="TYPECAST, METHOD_CALL, EXPR, ARRAY_INIT, UNARY_MINUS, UNARY_PLUS, ELIST, STAR, ASSIGN, PLUS, MINUS, DIV,
-                             LITERAL_NEW"/>
+                      value="TYPECAST, METHOD_CALL, EXPR, ARRAY_INIT, UNARY_MINUS, UNARY_PLUS, ELIST, STAR, ASSIGN,
+                             PLUS, MINUS, DIV, LITERAL_NEW"/>
             <property name="tokens" value="NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG"/>
         </module>
+        <!-- MatchXpath is common rule.  -->
+        <!-- module name="MatchXpath">
+            <property name="id" value=""/>
+            <property name="query" value=""/>
+            <message key="matchxpath.match" value="Message"/>
+        </module -->
         <!-- Autogenerated constructor by java compiler can be useful for some cases: -->
         <!-- module name="MissingCtor"/ -->
         <module name="MissingSwitchDefault"/>
-        <module name="ModifiedControlVariable"/>
+        <module name="ModifiedControlVariable">
+            <property name="skipEnhancedForLoopVariable" value="false"/>
+        </module>
         <module name="MultipleStringLiterals">
-            <property name="allowedDuplicates" value="4"/>
+            <property name="allowedDuplicates" value="3"/>
+            <property name="ignoreStringsRegexp" value="not-specified-regexp"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="ignoreOccurrenceContext" value="ANNOTATION"/>
         </module>
         <module name="MultipleVariableDeclarations"/>
         <module name="NestedForDepth">
-            <property name="max" value="2"/>
+            <property name="max" value="3"/>
         </module>
         <module name="NestedIfDepth">
             <property name="max" value="3"/>
         </module>
         <module name="NestedTryDepth">
-            <property name="max" value="2"/>
+            <property name="max" value="3"/>
         </module>
         <module name="NoArrayTrailingComma"/>
         <!-- 'clone' contract can be useful for some cases -->
@@ -257,7 +351,9 @@
             <property name="treatTryResourcesAsStatement" value="true"/>
         </module>
         <module name="OverloadMethodsDeclarationOrder"/>
-        <module name="PackageDeclaration"/>
+        <module name="PackageDeclaration">
+            <property name="matchDirectoryStructure" value="true"/>
+        </module>
         <module name="ParameterAssignment"/>
         <!-- `this` modifier is redundant. All modern IDEs solve this problem.
              See  https://checkstyle.sourceforge.io/config_coding.html#RequireThis: -->
@@ -266,12 +362,14 @@
             <property name="id" value="LambdaReturnCount"/>
             <property name="max" value="3"/>
             <property name="maxForVoid" value="1"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="LAMBDA"/>
         </module>
         <module name="ReturnCount">
             <property name="id" value="ConstructorReturnCount"/>
             <property name="max" value="0"/>
             <property name="maxForVoid" value="0"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="CTOR_DEF"/>
         </module>
         <module name="ReturnCount">
@@ -279,41 +377,55 @@
             <property name="max" value="6"/>
             <property name="maxForVoid" value="6"/>
             <property name="format" value="^equals$"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="METHOD_DEF"/>
         </module>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
         <module name="StringLiteralEquality"/>
-        <!-- This check is redundant because NoClone is enabled: -->
-        <!-- module name="SuperClone"/ -->
-        <!-- This check is redundant because NoFinalizer is enabled: -->
+        <module name="SuperClone"/>
+        <!-- This check is redundant because NoFinalizer rule is enabled: -->
         <!-- module name="SuperFinalize"/ -->
         <module name="UnnecessaryParentheses">
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="EXPR, IDENT, NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG, STRING_LITERAL, LITERAL_NULL, LITERAL_FALSE,
-                             LITERAL_TRUE, ASSIGN, BAND_ASSIGN, BOR_ASSIGN, BSR_ASSIGN, BXOR_ASSIGN, DIV_ASSIGN, MINUS_ASSIGN, MOD_ASSIGN,
-                             PLUS_ASSIGN, SL_ASSIGN, SR_ASSIGN, STAR_ASSIGN, LAMBDA"/>
+                      value="EXPR, IDENT, NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG, STRING_LITERAL, LITERAL_NULL,
+                             LITERAL_FALSE, LITERAL_TRUE, ASSIGN, BAND_ASSIGN, BOR_ASSIGN, BSR_ASSIGN, BXOR_ASSIGN,
+                             DIV_ASSIGN, MINUS_ASSIGN, MOD_ASSIGN, PLUS_ASSIGN, SL_ASSIGN, SR_ASSIGN, STAR_ASSIGN,
+                             LAMBDA, TEXT_BLOCK_LITERAL_BEGIN, LAND, LITERAL_INSTANCEOF, GT, LT, GE, LE, EQUAL,
+                             NOT_EQUAL, UNARY_MINUS, UNARY_PLUS, INC, DEC, LNOT, BNOT, POST_INC, POST_DEC"/>
         </module>
-        <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
+        <module name="UnnecessarySemicolonAfterOuterTypeDeclaration">
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
+        </module>
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration">
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, STATIC_INIT,
-                             INSTANCE_INIT, CTOR_DEF, METHOD_DEF, ENUM_CONSTANT_DEF"/>
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF,
+                             STATIC_INIT, INSTANCE_INIT, CTOR_DEF, METHOD_DEF, ENUM_CONSTANT_DEF, COMPACT_CTOR_DEF,
+                             RECORD_DEF"/>
         </module>
         <module name="UnnecessarySemicolonInEnumeration"/>
-        <module name="UnnecessarySemicolonInTryWithResources"/>
+        <module name="UnnecessarySemicolonInTryWithResources">
+            <property name="allowWhenNoBraceAfterSemicolon" value="true"/>
+        </module>
         <module name="VariableDeclarationUsageDistance">
-            <property name="allowedDistance" value="1"/>
+            <property name="allowedDistance" value="3"/>
+            <property name="ignoreVariablePattern" value="not-specified-regexp"/>
             <property name="validateBetweenScopes" value="true"/>
-            <property name="ignoreFinal" value="true"/>
+            <property name="ignoreFinal" value="false"/>
         </module>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_imports.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <module name="AvoidStarImport"/>
-        <!-- The RxMicro framework team loves to use static imports.
-             All model IDEs can highlight static methods, so it can't be a problem: -->
+        <module name="AvoidStarImport">
+            <property name="excludes" value="not-specified-items"/>
+            <property name="allowClassImports" value="false"/>
+            <property name="allowStaticMemberImports" value="false"/>
+        </module>
+        <!-- All model IDEs can highlight static methods, so it can't be a problem: -->
         <!-- module name="AvoidStaticImport"/ -->
         <module name="CustomImportOrder">
             <property name="customImportOrderRules"
@@ -324,45 +436,58 @@
         </module>
         <module name="IllegalImport">
             <property name="illegalPkgs" value="sun, com.sun"/>
+            <property name="illegalClasses" value="not-specified-classes"/>
+            <property name="regexp" value="false"/>
         </module>
         <!-- This rule is very complex for current project: -->
         <!-- module name="ImportControl"/ -->
         <!-- The CustomImportOrder overrides this rule:-->
         <!-- module name="ImportOrder"/ -->
         <module name="RedundantImport"/>
-        <module name="UnusedImports"/>
+        <module name="UnusedImports">
+            <property name="processJavadoc" value="true"/>
+        </module>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_javadoc.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- Javadoc must be available for Public API only!
-             See: public-api-rules.xml -->
+        <!-- Javadoc must be available for Public API only!  -->
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_metrics.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <module name="BooleanExpressionComplexity">
             <property name="max" value="4"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="LAND, BAND, LOR, BOR, BXOR"/>
         </module>
         <module name="ClassDataAbstractionCoupling">
-            <property name="max" value="10"/>
+            <property name="max" value="15"/>
+            <property name="excludedClasses" value="boolean, byte, char, double, float, int, long, short, var, void"/>
+            <property name="excludeClassesRegexps" value="^$"/>
+            <property name="excludedPackages" value=""/>
         </module>
         <module name="ClassFanOutComplexity">
             <property name="max" value="35"/>
+            <property name="excludedClasses" value="boolean, byte, char, double, float, int, long, short, var, void"/>
             <property name="excludeClassesRegexps" value="^$"/>
+            <property name="excludedPackages" value=""/>
         </module>
         <module name="CyclomaticComplexity">
             <property name="max" value="20"/>
+            <property name="switchBlockAsSingleDecisionPoint" value="false"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_CASE, LITERAL_CATCH, QUESTION,
-                             LAND, LOR"/>
+                      value="LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_CASE,
+                             LITERAL_CATCH, QUESTION, LAND, LOR "/>
         </module>
-        <module name="JavaNCSS">
+        <!-- See ExecutableStatementCount, MethodCount, FileLength, etc -->
+        <!--module name="JavaNCSS">
             <property name="methodMaximum" value="50"/>
-            <property name="classMaximum" value="1500"/>
-            <property name="fileMaximum" value="2000"/>
-        </module>
+            <property name="classMaximum" value="500"/>
+            <property name="fileMaximum" value="700"/>
+            <property name="recordMaximum" value="30"/>
+        </module-->
         <module name="NPathComplexity">
             <property name="max" value="200"/>
         </module>
@@ -370,19 +495,24 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_misc.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <module name="ArrayTypeStyle"/>
+        <module name="ArrayTypeStyle">
+            <property name="javaStyle" value="true"/>
+        </module>
         <module name="AvoidEscapedUnicodeCharacters">
             <property name="allowEscapesForControlCharacters" value="true"/>
             <property name="allowByTailComment" value="false"/>
-            <property name="allowIfAllCharactersEscaped" value="true"/>
+            <property name="allowIfAllCharactersEscaped" value="false"/>
             <property name="allowNonPrintableEscapes" value="true"/>
         </module>
         <module name="CommentsIndentation">
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"/>
         </module>
         <!-- This rule requires a complex config: https://checkstyle.sourceforge.io/config_misc.html#DescendantToken: -->
         <!-- module name="DescendantToken"/ -->
         <module name="FinalParameters">
+            <property name="ignorePrimitiveTypes" value="false"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="METHOD_DEF, CTOR_DEF, LITERAL_CATCH, FOR_EACH_CLAUSE"/>
         </module>
         <module name="Indentation">
@@ -394,11 +524,15 @@
             <property name="lineWrappingIndentation" value="8"/>
             <property name="forceStrictCondition" value="false"/>
         </module>
+        <module name="NoCodeInFile"/>
         <module name="OuterTypeFilename"/>
         <!-- To do comments are useful:-->
         <!-- module name="TodoComment"/ -->
-        <module name="TrailingComment"/>
-        <!-- This is a project specific rule and is not applied to the RxMicro framework: -->
+        <module name="TrailingComment">
+            <property name="format" value="^[\s});]*$"/>
+            <property name="legalComment" value="not-specified-legal-comment"/>
+        </module>
+        <!-- This rule can be useful for i18n projects only: -->
         <!-- module name="Translation"/ -->
         <module name="UncommentedMain">
             <property name="excludedClasses" value="\.Launcher$"/>
@@ -414,8 +548,10 @@
         <!-- module name="InterfaceMemberImpliedModifier"/ -->
         <module name="ModifierOrder"/>
         <module name="RedundantModifier">
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="METHOD_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF, CTOR_DEF, CLASS_DEF, ENUM_DEF, RESOURCE"/>
+                      value="METHOD_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF, CTOR_DEF, CLASS_DEF,
+                             ENUM_DEF, RESOURCE"/>
         </module>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -423,24 +559,28 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <module name="AbbreviationAsWordInName">
             <property name="id" value="CommonAbbreviationAsWordInName"/>
-            <property name="allowedAbbreviationLength" value="2"/>
+            <property name="allowedAbbreviationLength" value="3"/>
             <property name="allowedAbbreviations"
                       value="CDI, JSE, POM, JUL, URL, URI, REST, HTTP, UUID, ASCII, DBC, SQL, DBCSQL, CORS, DBCSQLDB, MDC"/>
             <property name="ignoreFinal" value="true"/>
             <property name="ignoreStatic" value="true"/>
             <property name="ignoreStaticFinal" value="true"/>
             <property name="ignoreOverriddenMethods" value="false"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_FIELD_DEF, PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF"/>
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_FIELD_DEF, PARAMETER_DEF, VARIABLE_DEF,
+                             METHOD_DEF, PATTERN_VARIABLE_DEF, RECORD_DEF, RECORD_COMPONENT_DEF"/>
         </module>
         <module name="AbbreviationAsWordInName">
             <property name="id" value="AnnotationAbbreviationAsWordInName"/>
             <property name="allowedAbbreviationLength" value="10"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="ANNOTATION_DEF"/>
         </module>
         <module name="AbbreviationAsWordInName">
             <property name="id" value="EnumConstantAbbreviationAsWordInName"/>
             <property name="allowedAbbreviationLength" value="20"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="ENUM_CONSTANT_DEF"/>
         </module>
         <module name="AbstractClassName">
@@ -449,7 +589,7 @@
             <property name="ignoreName" value="true"/>
         </module>
         <module name="CatchParameterName">
-            <property name="format" value="^(ignore|th|ex|[a-z][a-z][a-zA-Z]+)$"/>
+            <property name="format" value="^(ignored|th|ex|[a-z][a-z][a-zA-Z]+)$"/>
         </module>
         <module name="ClassTypeParameterName">
             <property name="format" value="^[A-Z]{1,4}$"/>
@@ -461,6 +601,14 @@
             <property name="applyToPackage" value="true"/>
             <property name="applyToPrivate" value="true"/>
         </module>
+        <module name="IllegalIdentifierName">
+            <property name="format" value="^(?!(record|yield|var|permits|sealed|_)$).+$"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF, PARAMETER_DEF,
+                             VARIABLE_DEF, METHOD_DEF, ENUM_CONSTANT_DEF, PATTERN_VARIABLE_DEF, RECORD_DEF,
+                             RECORD_COMPONENT_DEF, LAMBDA"/>
+        </module>
         <module name="InterfaceTypeParameterName">
             <property name="format" value="^[A-Z]{1,4}$"/>
         </module>
@@ -469,11 +617,12 @@
         </module>
         <module name="LocalFinalVariableName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="VARIABLE_DEF, PARAMETER_DEF, RESOURCE"/>
         </module>
         <module name="LocalVariableName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-            <property name="allowOneCharVarInForLoop" value="true"/>
+            <property name="allowOneCharVarInForLoop" value="false"/>
         </module>
         <module name="MemberName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
@@ -501,6 +650,15 @@
             <property name="ignoreOverridden" value="false"/>
             <property name="accessModifiers" value="public, protected, package, private"/>
         </module>
+        <module name="PatternVariableName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+        </module>
+        <module name="RecordComponentName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+        </module>
+        <module name="RecordTypeParameterName">
+            <property name="format" value="^[A-Z]$"/>
+        </module>
         <module name="StaticVariableName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
             <property name="applyToPublic" value="true"/>
@@ -514,13 +672,14 @@
             <property name="applyToProtected" value="true"/>
             <property name="applyToPackage" value="true"/>
             <property name="applyToPrivate" value="true"/>
-            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
         </module>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_regexp.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- a project specific settings
+        <!-- project specific settings
         <module name="Regexp"/>
         <module name="RegexpMultiline"/>
         <module name="RegexpOnFilename"/>
@@ -534,26 +693,32 @@
         <module name="AnonInnerLength">
             <property name="max" value="30"/>
         </module>
-        <!-- See MethodLength -->
         <module name="ExecutableStatementCount">
             <property name="id" value="ConstructorStatementCount"/>
             <property name="max" value="20"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="CTOR_DEF"/>
         </module>
         <module name="ExecutableStatementCount">
             <property name="id" value="MethodStatementCount"/>
             <property name="max" value="40"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="METHOD_DEF"/>
         </module>
         <module name="ExecutableStatementCount">
             <property name="id" value="InstanceInitStatementCount"/>
             <property name="max" value="0"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="INSTANCE_INIT"/>
         </module>
         <module name="ExecutableStatementCount">
             <property name="id" value="StaticInitStatementCount"/>
-            <property name="max" value="60"/>
+            <property name="max" value="40"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="STATIC_INIT"/>
+        </module>
+        <module name="LambdaBodyLength">
+            <property name="max" value="20"/>
         </module>
         <module name="MethodCount">
             <property name="id" value="TypeMethodCount"/>
@@ -562,6 +727,7 @@
             <property name="maxPackage" value="50"/>
             <property name="maxProtected" value="50"/>
             <property name="maxPublic" value="100"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="CLASS_DEF, INTERFACE_DEF"/>
         </module>
         <module name="MethodCount">
@@ -571,6 +737,7 @@
             <property name="maxPackage" value="10"/>
             <property name="maxProtected" value="0"/>
             <property name="maxPublic" value="20"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="ENUM_CONSTANT_DEF, ENUM_DEF"/>
         </module>
         <module name="MethodCount">
@@ -580,25 +747,44 @@
             <property name="maxPackage" value="0"/>
             <property name="maxProtected" value="0"/>
             <property name="maxPublic" value="10"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="ANNOTATION_DEF"/>
         </module>
+        <module name="MethodCount">
+            <property name="id" value="RecordMethodCount"/>
+            <property name="maxTotal" value="10"/>
+            <property name="maxPrivate" value="0"/>
+            <property name="maxPackage" value="0"/>
+            <property name="maxProtected" value="0"/>
+            <property name="maxPublic" value="10"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens" value="RECORD_DEF"/>
+        </module>
         <!-- See ExecutableStatementCount -->
-        <module name="MethodLength">
-            <property name="tokens" value="METHOD_DEF, CTOR_DEF"/>
+        <!--module name="MethodLength">
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, COMPACT_CTOR_DEF"/>
             <property name="max" value="40"/>
             <property name="countEmpty" value="true"/>
+        </module-->
+        <module name="OuterTypeNumber">
+            <property name="max" value="1"/>
         </module>
-        <module name="OuterTypeNumber"/>
         <module name="ParameterNumber">
             <property name="id" value="MethodParameterNumber"/>
             <property name="max" value="8"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="METHOD_DEF"/>
         </module>
         <module name="ParameterNumber">
             <!-- Builder pattern support -->
             <property name="id" value="ConstructorParameterNumber"/>
-            <property name="max" value="30"/>
+            <property name="max" value="40"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="CTOR_DEF"/>
+        </module>
+        <module name="RecordComponentNumber">
+            <property name="max" value="20"/>
+            <property name="accessModifiers" value="public, protected, package, private"/>
         </module>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -614,47 +800,60 @@
             <property name="allowNoEmptyLineBetweenFields" value="false"/>
             <property name="allowMultipleEmptyLines" value="true"/>
             <property name="allowMultipleEmptyLinesInsideClassMembers" value="true"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF, STATIC_INIT, INSTANCE_INIT, METHOD_DEF,
-                             CTOR_DEF, VARIABLE_DEF"/>
+                      value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF, STATIC_INIT,
+                             INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="GenericWhitespace"/>
         <module name="MethodParamPad">
-            <property name="tokens" value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF, SUPER_CTOR_CALL, ENUM_CONSTANT_DEF"/>
-            <property name="option" value="nospace"/>
             <property name="allowLineBreaks" value="false"/>
+            <property name="option" value="nospace"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens"
+                      value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF, SUPER_CTOR_CALL,
+                             ENUM_CONSTANT_DEF, RECORD_DEF"/>
         </module>
         <module name="NoLineWrap">
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>
         </module>
         <module name="NoWhitespaceAfter">
-            <property name="tokens"
-                      value="ARRAY_INIT, AT, INC, DEC, UNARY_MINUS, UNARY_PLUS, BNOT, LNOT, DOT, ARRAY_DECLARATOR, INDEX_OP, METHOD_REF"/>
             <property name="allowLineBreaks" value="true"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens"
+                      value="ARRAY_INIT, AT, INC, DEC, UNARY_MINUS, UNARY_PLUS, BNOT, LNOT, DOT, ARRAY_DECLARATOR,
+                             INDEX_OP, METHOD_REF"/>
         </module>
         <module name="NoWhitespaceBefore">
+            <property name="allowLineBreaks" value="false"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
                       value="COMMA, SEMI, POST_INC, POST_DEC, GENERIC_END, ELLIPSIS, LABELED_STAT, METHOD_REF"/>
-            <property name="allowLineBreaks" value="false"/>
         </module>
         <module name="OperatorWrap">
-            <property name="tokens"
-                      value="QUESTION, COLON, EQUAL, NOT_EQUAL, DIV, PLUS, MINUS, STAR, MOD, SR, BSR, GE, GT, SL, LE, LT, BXOR, BOR, LOR,
-                            BAND, LAND, LITERAL_INSTANCEOF, TYPE_EXTENSION_AND, ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN,
-                            MOD_ASSIGN, SR_ASSIGN, BSR_ASSIGN, SL_ASSIGN, BXOR_ASSIGN, BOR_ASSIGN, BAND_ASSIGN, METHOD_REF"/>
             <property name="option" value="eol"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens"
+                      value="QUESTION, COLON, EQUAL, NOT_EQUAL, DIV, PLUS, MINUS, STAR, MOD, SR, BSR, GE, GT, SL, LE,
+                             LT, BXOR, BOR, LOR, BAND, LAND, LITERAL_INSTANCEOF, TYPE_EXTENSION_AND, ASSIGN, DIV_ASSIGN,
+                             PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN, SR_ASSIGN, BSR_ASSIGN, SL_ASSIGN,
+                             BXOR_ASSIGN, BOR_ASSIGN, BAND_ASSIGN, METHOD_REF"/>
+
         </module>
         <module name="ParenPad">
-            <property name="tokens"
-                      value="ANNOTATION, ANNOTATION_FIELD_DEF, CTOR_CALL, CTOR_DEF, DOT, ENUM_CONSTANT_DEF, EXPR, LITERAL_CATCH, LITERAL_DO,
-                             LITERAL_FOR, LITERAL_IF, LITERAL_NEW, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_WHILE, METHOD_CALL,
-                             METHOD_DEF, QUESTION, RESOURCE_SPECIFICATION, SUPER_CTOR_CALL, LAMBDA"/>
             <property name="option" value="nospace"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens"
+                      value="ANNOTATION, ANNOTATION_FIELD_DEF, CTOR_CALL, CTOR_DEF, DOT, ENUM_CONSTANT_DEF, EXPR,
+                             LITERAL_CATCH, LITERAL_DO, LITERAL_FOR, LITERAL_IF, LITERAL_NEW, LITERAL_SWITCH,
+                             LITERAL_SYNCHRONIZED, LITERAL_WHILE, METHOD_CALL, METHOD_DEF, QUESTION,
+                             RESOURCE_SPECIFICATION, SUPER_CTOR_CALL, LAMBDA, RECORD_DEF"/>
         </module>
         <module name="SeparatorWrap">
             <property name="id" value="EndOfLineSeparatorWrap"/>
-            <property name="tokens"
-                      value="COMMA, SEMI, ELLIPSIS, ARRAY_DECLARATOR, RBRACK, METHOD_REF"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens" value="COMMA, SEMI, ELLIPSIS, ARRAY_DECLARATOR, RBRACK, METHOD_REF"/>
             <property name="option" value="eol"/>
         </module>
         <module name="SeparatorWrap">
@@ -670,16 +869,12 @@
             <property name="option" value="nospace"/>
         </module>
         <module name="WhitespaceAfter">
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
             <property name="tokens"
-                      value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE, LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, DO_WHILE"/>
+                      value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE, LITERAL_WHILE, LITERAL_DO, LITERAL_FOR,
+                             DO_WHILE"/>
         </module>
         <module name="WhitespaceAround">
-            <property name="tokens"
-                      value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV,
-                             DIV_ASSIGN, DO_WHILE, EQUAL, GE, GT, LAMBDA, LAND, LCURLY, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE,
-                             LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY,
-                             LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY,
-                             SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, LITERAL_ASSERT, TYPE_EXTENSION_AND"/>
             <property name="allowEmptyConstructors" value="false"/>
             <property name="allowEmptyMethods" value="false"/>
             <property name="allowEmptyTypes" value="false"/>
@@ -687,6 +882,15 @@
             <property name="allowEmptyLambdas" value="false"/>
             <property name="allowEmptyCatches" value="false"/>
             <property name="ignoreEnhancedForColon" value="true"/>
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+            <property name="tokens"
+                      value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN,
+                             COLON, DIV, DIV_ASSIGN, DO_WHILE, EQUAL, GE, GT, LAMBDA, LAND, LE, LITERAL_CATCH,
+                             LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN,
+                             LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS,
+                             MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, SL, SLIST,
+                             SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, LITERAL_ASSERT, TYPE_EXTENSION_AND,
+                             LCURLY, RCURLY"/>
         </module>
     </module>
 </module>

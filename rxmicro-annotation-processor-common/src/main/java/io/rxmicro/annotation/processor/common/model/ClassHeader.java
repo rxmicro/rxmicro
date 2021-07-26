@@ -210,7 +210,7 @@ public final class ClassHeader {
                                        final String methodOrFieldName) {
             try {
                 validateMethodName(className, methodOrFieldName);
-            } catch (final CheckedWrapperException ignore) {
+            } catch (final CheckedWrapperException ignored) {
                 validateFieldName(className, methodOrFieldName);
             }
             addStaticImport(className.getName(), methodOrFieldName);
@@ -233,7 +233,7 @@ public final class ClassHeader {
                                        final String methodOrFieldName) {
             try {
                 getValidatedFieldName(className, methodOrFieldName);
-            } catch (final CheckedWrapperException ignore) {
+            } catch (final CheckedWrapperException ignored) {
                 throw new InternalErrorException(
                         "'?' class does not contain public field or method with '?' name!", className, methodOrFieldName
                 );

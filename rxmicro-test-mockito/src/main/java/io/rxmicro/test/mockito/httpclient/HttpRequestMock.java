@@ -136,9 +136,9 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
          *
          * @param versionValue the specified version value
          * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified version value is {@code null}
          * @see Version
          * @see Version.Strategy
-         * @throws NullPointerException if the specified version value is {@code null}
          */
         @BuilderMethod
         public Builder setVersionValue(final String versionValue) {
@@ -152,8 +152,8 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
          *
          * @param versionStrategy the specified version {@link Version.Strategy}
          * @return the reference to this {@link Builder} instance
-         * @see Version
          * @throws NullPointerException if the specified {@link Version.Strategy} is {@code null}
+         * @see Version
          */
         @BuilderMethod
         public Builder setVersionStrategy(final Version.Strategy versionStrategy) {

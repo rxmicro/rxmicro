@@ -29,6 +29,7 @@ import io.rxmicro.rest.server.feature.RequestIdGenerator;
 import java.net.SocketAddress;
 import java.util.Objects;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 
 /**
@@ -78,7 +79,7 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier, H
             this.queryString = uri.substring(index + 1);
         } else {
             this.uri = uri;
-            this.queryString = "";
+            this.queryString = EMPTY_STRING;
         }
         this.fullHttpRequest = fullHttpRequest;
     }

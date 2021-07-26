@@ -24,6 +24,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
@@ -109,6 +110,6 @@ public final class Statements {
     }
 
     private String getWithParamsString(final Object[] params) {
-        return params.length > 0 ? format(" with params: ?", Arrays.toString(params)) : "";
+        return params.length > 0 ? format(" with params: ?", Arrays.toString(params)) : EMPTY_STRING;
     }
 }

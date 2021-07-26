@@ -76,7 +76,7 @@ public class RxMicroTimestampDataType extends AbstractDataType {
         try {
             // Try to parse as Instant
             return Timestamp.from(Instant.parse(value));
-        } catch (final DateTimeParseException ignore) {
+        } catch (final DateTimeParseException ignored) {
             return parseUsingConfiguredTimeZone(value);
         }
     }
@@ -89,7 +89,7 @@ public class RxMicroTimestampDataType extends AbstractDataType {
                 .withZone(getTimeZone().toZoneId());
         try {
             return Timestamp.from(dateTimeFormatter.parse(value, Instant::from));
-        } catch (final DateTimeParseException ignore) {
+        } catch (final DateTimeParseException ignored) {
             return defaultTimestampDataType.typeCast(value);
         }
     }

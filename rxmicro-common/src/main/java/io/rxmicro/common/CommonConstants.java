@@ -26,6 +26,11 @@ package io.rxmicro.common;
 public final class CommonConstants {
 
     /**
+     * The empty string constant.
+     */
+    public static final String EMPTY_STRING = "";
+
+    /**
      * The reference to the {@link Module} object of the {@code rxmicro.common} module.
      */
     public static final Module RX_MICRO_COMMON_MODULE = CommonConstants.class.getModule();

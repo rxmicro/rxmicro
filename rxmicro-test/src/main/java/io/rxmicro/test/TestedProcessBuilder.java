@@ -85,8 +85,8 @@ public final class TestedProcessBuilder {
      * Starts the {@link Process} using provided arguments.
      *
      * @return the reference to the started {@link Process}
-     * @see ProcessBuilder
      * @throws IOException if any error occurs during starting the process
+     * @see ProcessBuilder
      */
     public Process start() throws IOException {
         if (redirectStdOutAndStdErrToSysOut) {

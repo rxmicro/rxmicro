@@ -58,7 +58,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     public final List<T> fromJsonArray(final Object body) {
         try {
             return fromJsonArray(asJsonArray(body));
-        } catch (final ClassCastException | JsonException ignore) {
+        } catch (final ClassCastException | JsonException ignored) {
             throw new ValidationException("Invalid http body: Expected an array of json objects!");
         }
     }
@@ -67,7 +67,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                                        final String modelName) {
         try {
             return fromJsonArray(list);
-        } catch (final ClassCastException ignore) {
+        } catch (final ClassCastException ignored) {
             throw new ValidationException("Invalid ? \"?\": Expected an array of json objects!", PARAMETER, modelName);
         }
     }
@@ -89,7 +89,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     public final T fromJsonObject(final Object body) {
         try {
             return fromJsonObject(asJsonObject(body));
-        } catch (final JsonException ignore) {
+        } catch (final JsonException ignored) {
             throw new ValidationException("Invalid http body: Expected a json object!");
         }
     }
@@ -105,7 +105,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                                                    final String modelName) {
         try {
             return value != null ? converter.fromJsonObject((Map<String, Object>) value) : null;
-        } catch (final ClassCastException ignore) {
+        } catch (final ClassCastException ignored) {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a json object, but actual is ?!",
                     PARAMETER, modelName, getJsonActual(value)
@@ -118,7 +118,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                                                        final String modelName) {
         try {
             return value != null ? converter.fromJsonArray((Collection<Object>) value, modelName) : null;
-        } catch (final ClassCastException ignore) {
+        } catch (final ClassCastException ignored) {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a json array, but actual is ?!",
                     PARAMETER, modelName, getJsonActual(value)
@@ -131,7 +131,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                                                      final String modelName) {
         try {
             return value != null ? unmodifiableOrderedSet(converter.fromJsonArray((Collection<Object>) value, modelName)) : null;
-        } catch (final ClassCastException ignore) {
+        } catch (final ClassCastException ignored) {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a json array, but actual is ?!",
                     PARAMETER, modelName, getJsonActual(value)
@@ -150,7 +150,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                     result.put(entry.getKey(), converter.convertToObjectIfNotNull(converter, entry.getValue(), modelName));
                 }
                 return unmodifiableOrderedMap(result);
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a json object, but actual is ?!",
                         PARAMETER, modelName, getJsonActual(value)
@@ -171,12 +171,12 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             try {
                 return Enum.valueOf(enumClass, (String) value);
-            } catch (final IllegalArgumentException ignore) {
+            } catch (final IllegalArgumentException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a string value from the set ?, but actual is '?'!",
                         PARAMETER, modelName, Arrays.toString(enumClass.getEnumConstants()), value
                 );
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw createExpectedStringValidationException(value, modelName);
             }
         }
@@ -195,7 +195,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toEnum(enumClass, value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -223,7 +223,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toEnum(enumClass, entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -245,7 +245,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             try {
                 return (Boolean) value;
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a boolean value, but actual is ?!",
                         PARAMETER, modelName, getJsonActual(value)
@@ -265,7 +265,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         last = result.get(i);
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -294,7 +294,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toBoolean(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -316,9 +316,9 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             try {
                 return ((JsonNumber) value).byteValueExact();
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw createExpectedIntegerValidationException(value.toString(), PARAMETER, modelName, Byte.MIN_VALUE, Byte.MAX_VALUE);
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw createExpectedIntegerValidationException(value, modelName);
             }
         }
@@ -336,7 +336,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toByte(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -362,7 +362,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toByte(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -381,9 +381,9 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             try {
                 return ((JsonNumber) value).shortValueExact();
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw createExpectedIntegerValidationException(value.toString(), PARAMETER, modelName, Short.MIN_VALUE, Short.MAX_VALUE);
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw createExpectedIntegerValidationException(value, modelName);
             }
         }
@@ -401,7 +401,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toShort(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -427,7 +427,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toShort(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -446,9 +446,9 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             try {
                 return ((JsonNumber) val).intValueExact();
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw createExpectedIntegerValidationException(val.toString(), PARAMETER, modelName, Integer.MIN_VALUE, Integer.MAX_VALUE);
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw createExpectedIntegerValidationException(val, modelName);
             }
         }
@@ -466,7 +466,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toInteger(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -492,7 +492,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toInteger(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -511,9 +511,9 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             try {
                 return ((JsonNumber) value).longValueExact();
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw createExpectedIntegerValidationException(value.toString(), PARAMETER, modelName, Long.MIN_VALUE, Long.MAX_VALUE);
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw createExpectedIntegerValidationException(value, modelName);
             }
         }
@@ -531,7 +531,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toLong(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -557,7 +557,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toLong(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -576,12 +576,12 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             try {
                 return ((JsonNumber) value).bigIntegerValueExact();
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
                         PARAMETER, modelName, value
                 );
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw createExpectedIntegerValidationException(value, modelName);
             }
         }
@@ -599,7 +599,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toBigInteger(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -625,7 +625,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toBigInteger(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -662,7 +662,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toFloat(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -688,7 +688,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toFloat(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -725,7 +725,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toDouble(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -751,7 +751,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toDouble(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -788,7 +788,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toBigDecimal(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -814,7 +814,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toBigDecimal(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -833,13 +833,13 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             try {
                 return Instant.parse((String) value);
-            } catch (final DateTimeParseException ignore) {
+            } catch (final DateTimeParseException ignored) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected an ISO-8601 instant " +
                                 "(Example: '?'), but actual is '?'!",
                         PARAMETER, modelName, INSTANT_EXAMPLE, value
                 );
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw createExpectedStringValidationException(value, modelName);
             }
         }
@@ -856,7 +856,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toInstant(number, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -882,7 +882,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toInstant(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -904,7 +904,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                 if (string.length() == 1) {
                     return string.charAt(0);
                 }
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 //goto throw new ValidationException
             }
             throw new ValidationException(
@@ -926,7 +926,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.add(toCharacter(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -955,7 +955,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toCharacter(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -977,7 +977,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             try {
                 return (String) value;
-            } catch (final ClassCastException ignore) {
+            } catch (final ClassCastException ignored) {
                 throw createExpectedStringValidationException(value, modelName);
             }
         }
@@ -994,7 +994,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         last = result.get(i);
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }
@@ -1020,7 +1020,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                         result.put(entry.getKey(), toString(entry.getValue(), modelName));
                     }
                     return unmodifiableMap(result);
-                } catch (final ClassCastException ignore) {
+                } catch (final ClassCastException ignored) {
                     //goto throw new ValidationException
                 }
             }

@@ -20,6 +20,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
+
 /**
  * @author nedis
  * @since 0.1
@@ -38,7 +40,7 @@ public final class Numbers {
     );
 
     public static String removeUnderscoresIfPresent(final String value) {
-        return value.replace("_", "");
+        return value.replace("_", EMPTY_STRING);
     }
 
     private Numbers() {

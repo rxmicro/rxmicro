@@ -22,6 +22,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
+
 /**
  * @author nedis
  * @since 0.1
@@ -50,6 +52,6 @@ public final class EmptyQueryParams implements QueryParams {
 
     @Override
     public String toString() {
-        return "";
+        return EMPTY_STRING;
     }
 }

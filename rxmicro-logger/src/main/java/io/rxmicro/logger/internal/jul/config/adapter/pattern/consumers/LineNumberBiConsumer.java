@@ -47,9 +47,9 @@ public final class LineNumberBiConsumer extends AbstractBiConsumer {
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
-        if (record instanceof RxMicroLogRecord) {
-            messageBuilder.append(((RxMicroLogRecord) record).getLineNumber());
+                       final LogRecord logRecord) {
+        if (logRecord instanceof RxMicroLogRecord) {
+            messageBuilder.append(((RxMicroLogRecord) logRecord).getLineNumber());
         } else {
             messageBuilder.append((String) null);
         }

@@ -110,7 +110,7 @@ ${CONNECTION_PROVIDER}
 ${shift}        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
 <#if EXPECTED_UPDATED_ROWS_COUNT?? && EXPECTED_UPDATED_ROWS_COUNT == 0>
 ${shift}                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER}))
-${shift}                        .map(ignore -> (${RETURN.simpleResultType})throwExceptionIfNotEmptyResult(generatedSQL${SQL_PARAMS}))
+${shift}                        .map(ignored -> (${RETURN.simpleResultType})throwExceptionIfNotEmptyResult(generatedSQL${SQL_PARAMS}))
 ${shift}                )
 <#else>
 ${shift}                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))

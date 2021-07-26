@@ -62,12 +62,12 @@ public final class DateTimeExampleBuilder implements TypeExampleBuilder {
                              final TypeMirror typeMirror) {
         final Future future = restModelField.getAnnotation(Future.class);
         final FutureOrPresent futureOrPresent = restModelField.getAnnotation(FutureOrPresent.class);
-        if ((future != null && !future.off()) || (futureOrPresent != null && !futureOrPresent.off())) {
+        if (future != null && !future.off() || futureOrPresent != null && !futureOrPresent.off()) {
             return getFuture(restModelField.getFieldClass());
         }
         final Past past = restModelField.getAnnotation(Past.class);
         final PastOrPresent pastOrPresent = restModelField.getAnnotation(PastOrPresent.class);
-        if ((past != null && !past.off()) || (pastOrPresent != null && !pastOrPresent.off())) {
+        if (past != null && !past.off() || pastOrPresent != null && !pastOrPresent.off()) {
             return getPast(restModelField.getFieldClass());
         }
         final TruncatedTime truncatedTime = restModelField.getAnnotation(TruncatedTime.class);

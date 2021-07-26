@@ -37,6 +37,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -100,7 +101,7 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
         } else {
             this.versionHeader = Optional.ofNullable(versionValue).map(v -> entry(API_VERSION, v)).orElse(null);
         }
-        this.baseUrlPath = baseUrlFragments.isEmpty() ? null : String.join("", baseUrlFragments);
+        this.baseUrlPath = baseUrlFragments.isEmpty() ? null : String.join(EMPTY_STRING, baseUrlFragments);
         this.requestBodyConverter = require(contentConverter.getRequestContentConverter());
         this.responseBodyConverter = require(contentConverter.getResponseContentConverter());
         this.client = HttpClient.newBuilder()

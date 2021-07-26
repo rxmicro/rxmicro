@@ -39,9 +39,9 @@ public interface RequestIdGeneratorProvider {
      *
      * @param restServerConfig the rest server config instance
      * @return the request id generator instance
+     * @throws CurrentRequestIdGeneratorCantBeUsedException if current request id generator can't be used
      * @see RequestIdGenerator
      * @see RestServerConfig#getRequestIdGeneratorInitTimeout()
-     * @throws CurrentRequestIdGeneratorCantBeUsedException if current request id generator can't be used
      */
     RequestIdGenerator getRequestIdGenerator(RestServerConfig restServerConfig);
 

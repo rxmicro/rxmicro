@@ -76,11 +76,11 @@ public abstract class AbstractSQLVariableValueResolver
                                                          final ExecutableElement method,
                                                          final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor) {
         final VariableValuesMap globalVariableValuesMap = new VariableValuesMap();
-        final VariableValuesMap localVariableValuesMap = new VariableValuesMap();
-        final VariableValuesMap entityVariableValuesMap = new VariableValuesMap();
         Optional.ofNullable(method.getEnclosingElement().getAnnotation(VariableValues.class)).map(VariableValues::value)
                 .ifPresent(v -> setVariables(method.getEnclosingElement(), globalVariableValuesMap, v));
+
         boolean found = false;
+        final VariableValuesMap entityVariableValuesMap = new VariableValuesMap();
         if (isSupportEntityResult() && sqlMethodDescriptor.getEntityResult().isPresent()) {
             final DMC modelClass = sqlMethodDescriptor.getEntityResult().get();
             putVariableValues(variableContext, modelClass, entityVariableValuesMap, getSupportedResultsVariables());
@@ -92,8 +92,11 @@ public abstract class AbstractSQLVariableValueResolver
             found = true;
         }
         putVariableValuesIfAnnotationClassPresent(variableContext, parsedSQL, method, sqlMethodDescriptor, entityVariableValuesMap, found);
+
+        final VariableValuesMap localVariableValuesMap = new VariableValuesMap();
         Optional.ofNullable(method.getAnnotation(VariableValues.class)).map(VariableValues::value)
                 .ifPresent(v -> setVariables(method, localVariableValuesMap, v));
+
         return mergeVariableValuesMaps(method, globalVariableValuesMap, localVariableValuesMap, entityVariableValuesMap);
     }
 

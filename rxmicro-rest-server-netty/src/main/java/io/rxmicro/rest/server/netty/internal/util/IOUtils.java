@@ -29,7 +29,7 @@ public final class IOUtils {
         if (closeable != null) {
             try {
                 closeable.close();
-            } catch (final IOException ignore) {
+            } catch (final IOException ignored) {
                 // do nothing
             }
         }

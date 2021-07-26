@@ -313,16 +313,12 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
 
     @Override
     public TestDatabaseConfig clone() {
-        final TestDatabaseConfig clone = new TestDatabaseConfig();
-        clone.type = type;
-        clone.jdbcDriver = jdbcDriver;
-        clone.host = host;
-        clone.port = port;
-        clone.database = database;
-        clone.schema = schema;
-        clone.user = user;
-        clone.password = password;
-        return clone;
+        try {
+            return (TestDatabaseConfig) super.clone();
+        } catch (final CloneNotSupportedException ex) {
+            // this shouldn't happen, since we are Cloneable
+            throw new InternalError(ex);
+        }
     }
 
     @Override

@@ -22,6 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;
 import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_VIRTUAL_CLASS_SUB_PREFIX;
@@ -48,19 +49,19 @@ final class VirtualNames {
                 GENERATED_VIRTUAL_CLASS_SUB_PREFIX,
                 classNameTemplate
                         .replace(OWNER_SIMPLE_CLASS_NAME, owner)
-                        .replace(INDEX, index == 1 ? "" : String.valueOf(index))
+                        .replace(INDEX, index == 1 ? EMPTY_STRING : String.valueOf(index))
         );
     }
 
     private static String getOwner(final Element classElement) {
         final String simpleName = classElement.getSimpleName().toString();
-        return simpleName.replace("MicroService", "")
-                .replace("Microservice", "")
-                .replace("Service", "")
-                .replace("RestController", "")
-                .replace("Controller", "")
-                .replace("RestClient", "")
-                .replace("Client", "");
+        return simpleName.replace("MicroService", EMPTY_STRING)
+                .replace("Microservice", EMPTY_STRING)
+                .replace("Service", EMPTY_STRING)
+                .replace("RestController", EMPTY_STRING)
+                .replace("Controller", EMPTY_STRING)
+                .replace("RestClient", EMPTY_STRING)
+                .replace("Client", EMPTY_STRING);
     }
 
     private VirtualNames() {

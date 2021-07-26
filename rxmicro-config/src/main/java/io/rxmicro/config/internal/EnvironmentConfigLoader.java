@@ -24,6 +24,7 @@ import io.rxmicro.config.internal.model.ConfigProperties;
 import java.util.Map;
 import java.util.Set;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.reflection.Reflections.instantiate;
 
 /**
@@ -37,7 +38,7 @@ public final class EnvironmentConfigLoader {
     private final Set<ConfigSource> configSources;
 
     public EnvironmentConfigLoader(final Set<ConfigSource> configSources) {
-        this.configSources = configSources;
+        this.configSources = unmodifiableOrderedSet(configSources);
     }
 
     public Config getEnvironmentConfig(final String namespace,

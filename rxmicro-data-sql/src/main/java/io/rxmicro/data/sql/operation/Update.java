@@ -22,6 +22,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -58,7 +59,7 @@ public @interface Update {
      *
      * @return the custom {@code UPDATE} SQL
      */
-    String value() default "";
+    String value() default EMPTY_STRING;
 
     /**
      * entityClass is used to resolve

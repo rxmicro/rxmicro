@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.lang.model.element.Element;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
+
 /**
  * @author nedis
  * @since 0.1
@@ -47,7 +49,7 @@ public final class PathVariableExtractorImpl extends AbstractExpressionParser
     private void validate(final Element owner,
                           final String urlTemplate,
                           final String path) {
-        if (urlTemplate.replace("??", "").length() != urlTemplate.length()) {
+        if (urlTemplate.replace("??", EMPTY_STRING).length() != urlTemplate.length()) {
             throw new InterruptProcessingException(owner, "Expected delimiter between path variables: ?", path);
         }
     }

@@ -207,7 +207,7 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
         } catch (final InterruptProcessingException ex) {
             error(ex);
             return Set.of();
-        } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
+        } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignored) {
             // do nothing, because all errors already printed
             return Set.of();
         }

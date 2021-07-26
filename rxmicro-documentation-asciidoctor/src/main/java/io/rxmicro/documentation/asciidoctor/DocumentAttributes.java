@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -64,14 +65,14 @@ public @interface DocumentAttributes {
             // https://asciidoctor.org/docs/user-manual/#admonition-icons
             "icons", "font",
             // https://asciidoctor.org/docs/user-manual/#anchors
-            "sectanchors", "",
+            "sectanchors", EMPTY_STRING,
             // https://asciidoctor.org/docs/user-manual/#links
-            "sectlinks", "",
+            "sectlinks", EMPTY_STRING,
             // https://asciidoctor.org/docs/user-manual/#table-of-contents-summary
             "toc", "left",
             "toclevels", "3",
             // https://asciidoctor.org/docs/user-manual/#numbering
-            "sectnums", "",
+            "sectnums", EMPTY_STRING,
             // https://asciidoctor.org/docs/user-manual/#numbering-depth
             "sectnumlevels", "5"
     };

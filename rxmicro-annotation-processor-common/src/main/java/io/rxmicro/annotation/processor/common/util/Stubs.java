@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static java.lang.invoke.MethodType.methodType;
 import static java.util.Map.entry;
@@ -62,7 +63,7 @@ public final class Stubs {
             entry(Double.TYPE, 0.),
             entry(BigDecimal.class, BigDecimal.ZERO),
             entry(BigInteger.class, BigInteger.ZERO),
-            entry(String.class, ""),
+            entry(String.class, EMPTY_STRING),
             entry(Character.class, '0'),
             entry(Character.TYPE, '0')
     );

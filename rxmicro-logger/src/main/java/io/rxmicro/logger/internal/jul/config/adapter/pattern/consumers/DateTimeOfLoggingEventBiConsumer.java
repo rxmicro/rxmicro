@@ -81,8 +81,8 @@ public final class DateTimeOfLoggingEventBiConsumer extends AbstractBiConsumer {
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
-        final LocalDateTime localDateTime = ofInstant(record.getInstant(), zoneId);
+                       final LogRecord logRecord) {
+        final LocalDateTime localDateTime = ofInstant(logRecord.getInstant(), zoneId);
         messageBuilder.append(localDateTime.format(dateTimeFormatter));
     }
 

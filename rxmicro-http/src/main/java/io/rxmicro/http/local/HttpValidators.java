@@ -16,6 +16,7 @@
 
 package io.rxmicro.http.local;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -61,7 +62,7 @@ public final class HttpValidators {
     }
 
     public static void validateQueryParameterNameCharacter(final char value) {
-        validateNameCharacter("query parameter or value", "", PROHIBITED_QUERY_PARAMETERS_CHARACTERS, value);
+        validateNameCharacter("query parameter or value", EMPTY_STRING, PROHIBITED_QUERY_PARAMETERS_CHARACTERS, value);
     }
 
     private static void validateNameCharacter(final String type,

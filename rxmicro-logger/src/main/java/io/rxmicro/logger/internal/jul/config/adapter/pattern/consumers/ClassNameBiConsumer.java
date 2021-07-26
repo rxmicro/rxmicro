@@ -42,7 +42,7 @@ public final class ClassNameBiConsumer extends AbstractClassNameBiConsumer {
     }
 
     @Override
-    protected String getName(final LogRecord record) {
-        return record.getSourceClassName();
+    protected String getName(final LogRecord logRecord) {
+        return logRecord.getSourceClassName();
     }
 }

@@ -110,7 +110,8 @@ public final class Deterministic96BitsRequestIdGenerator implements RequestIdGen
      *
      * <p>
      * The randomize mask is used to randomize incremental counter: {@code return (counter++ ^ randomizeMask)}
-     *  @param deterministicValueProvider the deterministic value provider.
+     *
+     * @param deterministicValueProvider the deterministic value provider.
      * @param checksumAlgorithm the checksum algorithm
      * @param incrementValue the increment value for counter
      * @param randomizeMask the randomize mask

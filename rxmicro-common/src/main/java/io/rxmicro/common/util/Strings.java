@@ -185,8 +185,9 @@ public final class Strings {
                 resultBuilder.append("\\f");
             } else if (ch == '\r') {
                 resultBuilder.append("\\r");
-            } else if (ch < ' ' || (ch >= '\u0080' && ch < '\u00a0') ||
-                    (ch >= '\u2000' && ch < '\u2100')) {
+            } else if (ch < ' ' ||
+                    ch >= '\u0080' && ch < '\u00a0' ||
+                    ch >= '\u2000' && ch < '\u2100') {
                 resultBuilder.append("\\u");
                 final String hexCode = Integer.toHexString(ch);
                 resultBuilder.append("0000", 0, HEX_CODE_LENGTH - hexCode.length());

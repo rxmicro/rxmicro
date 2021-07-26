@@ -100,7 +100,7 @@ final class ValidateCodingRulesTest {
     void exclude_pmd_properties_should_contain_existing_classes(final String className) {
         try {
             Class.forName(className);
-        } catch (final ClassNotFoundException ignore) {
+        } catch (final ClassNotFoundException ignored) {
             fail(format("'?' class not found! Remove this class from '.coding/pmd/exclude-pmd.properties' file!", className));
         }
     }
@@ -111,7 +111,7 @@ final class ValidateCodingRulesTest {
     void exclude_cpd_properties_should_contain_existing_classes(final String className) {
         try {
             Class.forName(className);
-        } catch (final ClassNotFoundException ignore) {
+        } catch (final ClassNotFoundException ignored) {
             fail(format("'?' class not found! Remove this class from '.coding/pmd/exclude-cpd.properties' file!", className));
         }
     }
@@ -122,7 +122,7 @@ final class ValidateCodingRulesTest {
     void spotbugs_exclude_xml_should_contain_existing_classes(final String className) {
         try {
             Class.forName(className);
-        } catch (final ClassNotFoundException ignore) {
+        } catch (final ClassNotFoundException ignored) {
             fail(format("'?' class not found! Remove this class from '.coding/spotbugs/exclude.xml' file!", className));
         }
     }

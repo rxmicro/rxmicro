@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Environments.isCurrentOsWindows;
 import static io.rxmicro.common.util.Requires.require;
 import static java.lang.System.lineSeparator;
@@ -54,6 +55,16 @@ public final class Formats {
     private static final int BYTES_IN_1_KIB = 1024;
 
     private static final int NANOS_IN_1_MILLIS = (int) TimeUnit.MILLISECONDS.toNanos(1);
+
+    private static final int B_PARTS_SIZE = 1;
+
+    private static final int KB_PARTS_SIZE = 2;
+
+    private static final int MB_PARTS_SIZE = 3;
+
+    private static final int GB_PARTS_SIZE = 4;
+
+    private static final int TB_PARTS_SIZE = 5;
 
     /**
      * Formats the string template using specified arguments.
@@ -123,7 +134,7 @@ public final class Formats {
             parts.add(String.valueOf(value));
             current = current / BYTES_IN_1_KIB;
         }
-        final String originalFragment = withOriginalValue ? " (" + NumberFormat.getNumberInstance().format(size) + " bytes)" : "";
+        final String originalFragment = withOriginalValue ? " (" + NumberFormat.getNumberInstance().format(size) + " bytes)" : EMPTY_STRING;
         return parts.get(parts.size() - 1) + " " + getUnits(parts) + originalFragment;
     }
 
@@ -169,7 +180,7 @@ public final class Formats {
                     sb.append(ch);
                 }
             }
-        } catch (final ArrayIndexOutOfBoundsException ignore) {
+        } catch (final ArrayIndexOutOfBoundsException ignored) {
             throw new IllegalArgumentException(
                     "Redundant placeholder or missing argument: {{" + messageTemplate + "}} with " + Arrays.toString(args));
         }
@@ -182,19 +193,19 @@ public final class Formats {
 
     private static String getUnits(final List<String> parts) {
         switch (parts.size()) {
-            case 1: {
+            case B_PARTS_SIZE: {
                 return "bytes";
             }
-            case 2: {
+            case KB_PARTS_SIZE: {
                 return "Kb";
             }
-            case 3: {
+            case MB_PARTS_SIZE: {
                 return "Mb";
             }
-            case 4: {
+            case GB_PARTS_SIZE: {
                 return "Gb";
             }
-            case 5: {
+            case TB_PARTS_SIZE: {
                 return "Tb";
             }
             default: {

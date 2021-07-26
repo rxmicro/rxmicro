@@ -37,7 +37,7 @@ public final class PlatformDependentLineSeparatorBiConsumer extends AbstractBiCo
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
+                       final LogRecord logRecord) {
         messageBuilder.append(lineSeparator());
     }
 }

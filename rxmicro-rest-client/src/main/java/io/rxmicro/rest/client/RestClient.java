@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -49,7 +50,7 @@ public @interface RestClient {
      * @return custom config name space.
      * @see io.rxmicro.config.Config#getDefaultNameSpace(Class)
      */
-    String configNameSpace() default "";
+    String configNameSpace() default EMPTY_STRING;
 
     /**
      * Allows extending the standard {@link RestClientConfig} class.

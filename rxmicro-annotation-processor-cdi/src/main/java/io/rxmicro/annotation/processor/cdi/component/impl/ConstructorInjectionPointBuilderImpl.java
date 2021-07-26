@@ -43,6 +43,8 @@ import static java.util.stream.Collectors.toList;
 @Singleton
 public final class ConstructorInjectionPointBuilderImpl extends AbstractInjectionPointBuilder implements ConstructorInjectionPointBuilder {
 
+    private static final String COMMA_SEPARATED_DELIMITER = ", ";
+
     @Override
     public boolean isConstructorInjection(final TypeElement beanTypeElement) {
         for (final ExecutableElement constructor : allConstructors(beanTypeElement)) {
@@ -102,7 +104,7 @@ public final class ConstructorInjectionPointBuilderImpl extends AbstractInjectio
                     fields.get(0),
                     "Field injection is not supported if class already uses constructor injection. " +
                             "Remove injection annotations from field(s): ?",
-                    fields.stream().map(e -> e.getSimpleName().toString()).collect(joining(", "))
+                    fields.stream().map(e -> e.getSimpleName().toString()).collect(joining(COMMA_SEPARATED_DELIMITER))
             );
         }
         if (!methods.isEmpty()) {
@@ -113,8 +115,8 @@ public final class ConstructorInjectionPointBuilderImpl extends AbstractInjectio
                     methods.stream()
                             .map(e -> format("?(?)", e.getSimpleName(), e.getParameters().stream()
                                     .map(p -> p.asType().toString())
-                                    .collect(joining(", "))))
-                            .collect(joining(", "))
+                                    .collect(joining(COMMA_SEPARATED_DELIMITER))))
+                            .collect(joining(COMMA_SEPARATED_DELIMITER))
             );
         }
         validateConstructor(constructors.get(0));
@@ -128,7 +130,7 @@ public final class ConstructorInjectionPointBuilderImpl extends AbstractInjectio
                     constructor.getAnnotationMirrors().stream()
                             .filter(a -> INJECT_ANNOTATIONS.stream().anyMatch(cl -> a.getAnnotationType().toString().equals(cl.getName())))
                             .map(a -> a.getAnnotationType().toString())
-                            .collect(joining(", "))
+                            .collect(joining(COMMA_SEPARATED_DELIMITER))
             );
         }
         validateAccessibleConstructor(constructor);

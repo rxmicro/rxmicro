@@ -20,6 +20,7 @@ import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
 import io.rxmicro.http.error.HttpErrorException;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -109,7 +110,7 @@ public abstract class HttpCallFailedException extends HttpErrorException {
      */
     public final String getBodyAsString() {
         if (bodyAsString == null) {
-            bodyAsString = body.length > 0 ? new String(body, UTF_8) : "";
+            bodyAsString = body.length > 0 ? new String(body, UTF_8) : EMPTY_STRING;
         }
         return bodyAsString;
     }

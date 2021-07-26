@@ -59,7 +59,7 @@ public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory 
                 IllegalAccessException |
                 NoSuchMethodException |
                 InstantiationException |
-                InvocationTargetException ignore) {
+                InvocationTargetException ignored) {
             return Set.of();
         }
     }

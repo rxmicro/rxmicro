@@ -25,6 +25,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -86,7 +87,7 @@ public @interface BlockingHttpClientSettings {
      * @return field name, which contains port value.
      *          The field must be a final, a static and a member of test class.
      */
-    String randomPortProvider() default "";
+    String randomPortProvider() default EMPTY_STRING;
 
     /**
      * Returns the base url path.
@@ -94,7 +95,7 @@ public @interface BlockingHttpClientSettings {
      * @return the base url path.
      * @see BaseUrlPath
      */
-    String baseUrlPath() default "";
+    String baseUrlPath() default EMPTY_STRING;
 
     /**
      * Returns the position of the base url according to {@link Version} if {@link Version.Strategy#URL_PATH} is used.
@@ -111,7 +112,7 @@ public @interface BlockingHttpClientSettings {
      * @return the current API version or empty string if not defined
      * @see io.rxmicro.rest.Version.Strategy
      */
-    String versionValue() default "";
+    String versionValue() default EMPTY_STRING;
 
     /**
      * Returns the current API version strategy.

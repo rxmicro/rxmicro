@@ -60,18 +60,18 @@ abstract class AbstractClassNameBiConsumer extends AbstractBiConsumer {
 
     @Override
     public final void accept(final MessageBuilder messageBuilder,
-                             final LogRecord record) {
+                             final LogRecord logRecord) {
         if (fullName) {
-            messageBuilder.appendWithoutTransformation(getName(record));
+            messageBuilder.appendWithoutTransformation(getName(logRecord));
         } else {
-            final String fullName = getName(record);
+            final String fullName = getName(logRecord);
             final int index = fullName.lastIndexOf('.');
             final String shortName = index != -1 ? fullName.substring(index + 1) : fullName;
             messageBuilder.appendWithoutTransformation(shortName);
         }
     }
 
-    protected abstract String getName(LogRecord record);
+    protected abstract String getName(LogRecord logRecord);
 
     @Override
     public String toString() {

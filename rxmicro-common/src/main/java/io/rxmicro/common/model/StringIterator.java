@@ -41,8 +41,8 @@ public final class StringIterator {
      * Creates a new {@link StringIterator} instance for the specified string with init iteration index equals to {@code -1}.
      *
      * @param string the specified string
-     * @see #StringIterator(String, boolean)
      * @throws NullPointerException if the specified string is {@code null}
+     * @see #StringIterator(String, boolean)
      */
     public StringIterator(final String string) {
         this(string, true);

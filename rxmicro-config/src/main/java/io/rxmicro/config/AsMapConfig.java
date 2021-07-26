@@ -51,7 +51,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * Child class can override this method to enable/disable map supporting.
      *
      * @return {@code true} if the current config should support {@link Map}{@code <String, String>} values.
-     * @see #getMap(Object)
+     * @see #getMap(String)
      */
     public boolean supportsMap() {
         return true;
@@ -64,7 +64,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * Child class can override this method to enable/disable list supporting.
      *
      * @return {@code true} if the current config should support {@link List}{@code <String>} values.
-     * @see #getList(Object)
+     * @see #getList(String)
      */
     public boolean supportsList() {
         return true;

@@ -36,6 +36,8 @@ import static java.lang.System.lineSeparator;
  */
 public final class ExampleWithErrorReaderImpl implements ExampleWithErrorReader {
 
+    private static final String JAVA_EXTENSION_WITH_DOT = ".java";
+
     private static final String ERROR_LINE_NUMBER_PREFIX = "// Line:";
 
     private static final String ERROR_MESSAGE_PREFIX = "// Error:";
@@ -55,8 +57,8 @@ public final class ExampleWithErrorReaderImpl implements ExampleWithErrorReader 
 
     private String getName(final String classpathResource) {
         String name = classpathResource.replace('/', '.');
-        if (name.endsWith(".java")) {
-            name = name.substring(0, name.length() - 5);
+        if (name.endsWith(JAVA_EXTENSION_WITH_DOT)) {
+            name = name.substring(0, name.length() - JAVA_EXTENSION_WITH_DOT.length());
         }
         return name;
     }

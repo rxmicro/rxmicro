@@ -24,9 +24,9 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * `r2dbc-postgresql`: 0.8.6.RELEASE -> 0.8.8.RELEASE
   * `r2dbc-pool`: 0.8.5.RELEASE -> 0.8.7.RELEASE
 * Source code tool updates:
-  * `spotbugs`: 4.2.0 -> 4.2.3
+  * `spotbugs`: 4.2.0 -> 4.3.0
   * `pmd`: 6.30.0 -> 6.35.0
-  * `checkstyle`: 8.39 -> 8.43
+  * `checkstyle`: 8.39 -> 8.44
   
 ## RxMicro v0.9
 

@@ -37,7 +37,7 @@ public final class RelativeTimeBiConsumer extends AbstractBiConsumer {
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
-        messageBuilder.append(record.getInstant().toEpochMilli() - start);
+                       final LogRecord logRecord) {
+        messageBuilder.append(logRecord.getInstant().toEpochMilli() - start);
     }
 }

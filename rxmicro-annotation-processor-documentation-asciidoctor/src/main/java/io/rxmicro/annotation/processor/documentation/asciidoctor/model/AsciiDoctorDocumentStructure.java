@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.lang.model.element.ModuleElement;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static java.util.Map.entry;
@@ -90,7 +91,7 @@ public final class AsciiDoctorDocumentStructure extends DocumentStructure {
 
     @Override
     public String getName() {
-        return format("?Documentation.adoc", projectMetaData.getName().replace(" ", ""));
+        return format("?Documentation.adoc", projectMetaData.getName().replace(" ", EMPTY_STRING));
     }
 
     @Override

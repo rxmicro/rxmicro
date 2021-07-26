@@ -29,7 +29,7 @@ final class NettyTransports {
         try {
             checkIfClassFound(Epoll.class);
             return true;
-        } catch (final NoClassDefFoundError ignore) {
+        } catch (final NoClassDefFoundError ignored) {
             return false;
         }
     }
@@ -46,7 +46,7 @@ final class NettyTransports {
         try {
             checkIfClassFound(KQueue.class);
             return true;
-        } catch (final NoClassDefFoundError ignore) {
+        } catch (final NoClassDefFoundError ignored) {
             return false;
         }
     }

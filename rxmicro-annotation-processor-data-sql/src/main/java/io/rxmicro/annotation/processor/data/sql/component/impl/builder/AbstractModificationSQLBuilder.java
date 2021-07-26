@@ -64,7 +64,6 @@ public abstract class AbstractModificationSQLBuilder
                                     final ExecutableElement method,
                                     final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor) {
         final List<String> sqlTokens = new ArrayList<>(parsedSQL.getSqlTokens());
-        final String originalSQL = joinTokensToSQL(sqlTokens);
         validateStatement(method, sqlTokens);
         final Set<String> vars = extractVariables(method, sqlTokens, List.of("*"));
 
@@ -80,7 +79,7 @@ public abstract class AbstractModificationSQLBuilder
         );
         setVariableValues(method, sqlTokens, vars, variableValuesMap);
         final SQLStatement.Builder builder = new SQLStatement.Builder()
-                .setOriginalSql(originalSQL);
+                .setOriginalSql(joinTokensToSQL(parsedSQL.getSqlTokens()));
         setResultColumns(method, builder, sqlTokens, sqlMethodDescriptor);
         if (sqlMethodDescriptor.getEntityParam().isPresent()) {
             replaceAllPlaceholders(sqlTokens);

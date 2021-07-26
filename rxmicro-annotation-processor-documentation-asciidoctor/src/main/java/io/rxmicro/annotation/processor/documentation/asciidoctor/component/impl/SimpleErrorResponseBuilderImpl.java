@@ -220,7 +220,7 @@ public final class SimpleErrorResponseBuilderImpl extends AbstractErrorResponseB
             try {
                 new BigDecimal(value);
                 return NUMBER;
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 return STRING;
             }
         }

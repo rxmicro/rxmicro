@@ -22,6 +22,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.joining;
 
@@ -42,7 +43,7 @@ public final class LoggerMessages {
         final char rowHead = '^';
         final String rowTail = "|-";
         final int offsetValue = repeatOffset * 3 + 1;
-        return (showParent ? DEFAULT_OFFSET.repeat(offsetValue) + parentClass.getLoggableFullClassName() + '\n' : "") +
+        return (showParent ? DEFAULT_OFFSET.repeat(offsetValue) + parentClass.getLoggableFullClassName() + '\n' : EMPTY_STRING) +
                 DEFAULT_OFFSET.repeat(offsetValue) + DEFAULT_OFFSET + rowHead + '\n' +
                 DEFAULT_OFFSET.repeat(offsetValue) + DEFAULT_OFFSET + rowTail + DEFAULT_OFFSET + childClass.getLoggableFullClassName();
     }

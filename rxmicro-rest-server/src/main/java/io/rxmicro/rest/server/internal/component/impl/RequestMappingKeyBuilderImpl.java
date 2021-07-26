@@ -35,14 +35,18 @@ public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuil
 
     private static final int DEFAULT_REQUEST_MAPPING_KEY_BUILDER_CAPACITY = 50;
 
+    private static final String START_QUOTE_DELIMITER = " '";
+
+    private static final String END_QUOTE_DELIMITER = "' ";
+
     @Override
     public String build(final HttpRequest request) {
         final StringBuilder keyBuilder = new StringBuilder(DEFAULT_REQUEST_MAPPING_KEY_BUILDER_CAPACITY)
-                .append(request.getMethod()).append(" '")
-                .append(request.getUri()).append("' ");
+                .append(request.getMethod()).append(START_QUOTE_DELIMITER)
+                .append(request.getUri()).append(END_QUOTE_DELIMITER);
         final String versionHeader = request.getHeaders().getValue(API_VERSION);
         if (versionHeader != null) {
-            keyBuilder.append(API_VERSION).append("='").append(versionHeader).append("' ");
+            keyBuilder.append(API_VERSION).append("='").append(versionHeader).append(END_QUOTE_DELIMITER);
         }
         if (request.isContentPresent()) {
             keyBuilder.append(WITH_BODY);
@@ -53,10 +57,10 @@ public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuil
     @Override
     public String build(final RequestMappingRule requestMappingRule) {
         final StringBuilder keyBuilder = new StringBuilder(DEFAULT_REQUEST_MAPPING_KEY_BUILDER_CAPACITY)
-                .append(requestMappingRule.getMethod()).append(" '")
-                .append(requestMappingRule.getUri()).append("' ");
+                .append(requestMappingRule.getMethod()).append(START_QUOTE_DELIMITER)
+                .append(requestMappingRule.getUri()).append(END_QUOTE_DELIMITER);
         requestMappingRule.getVersionHeaderValue().ifPresent(versionHeader ->
-                keyBuilder.append(API_VERSION).append("='").append(versionHeader).append("' "));
+                keyBuilder.append(API_VERSION).append("='").append(versionHeader).append(END_QUOTE_DELIMITER));
         if (requestMappingRule.hasHttpBody()) {
             keyBuilder.append(WITH_BODY);
         }

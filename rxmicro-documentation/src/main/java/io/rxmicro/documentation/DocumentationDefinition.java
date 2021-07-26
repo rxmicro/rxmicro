@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.documentation.DocumentationDefinition.GenerationOutput.SINGLE_DOCUMENT;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
@@ -60,7 +61,7 @@ public @interface DocumentationDefinition {
      *
      * @return the custom destination directory
      */
-    String destinationDirectory() default "";
+    String destinationDirectory() default EMPTY_STRING;
 
     /**
      * Returns {@code true} if the RxMicro framework must generate tips for REST-based microservice documentation.

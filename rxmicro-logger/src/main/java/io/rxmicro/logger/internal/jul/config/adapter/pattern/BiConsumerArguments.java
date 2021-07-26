@@ -18,6 +18,9 @@ package io.rxmicro.logger.internal.jul.config.adapter.pattern;
 
 import java.util.List;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableList;
+import static io.rxmicro.common.util.Requires.require;
+
 /**
  * @author nedis
  * @since 0.7
@@ -30,8 +33,8 @@ public final class BiConsumerArguments {
 
     public BiConsumerArguments(final ConversionSpecifier conversionSpecifier,
                                final List<String> options) {
-        this.conversionSpecifier = conversionSpecifier;
-        this.options = options;
+        this.conversionSpecifier = require(conversionSpecifier);
+        this.options = unmodifiableList(options);
     }
 
     public BiConsumerArguments(final ConversionSpecifier conversionSpecifier) {

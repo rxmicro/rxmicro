@@ -50,19 +50,24 @@ public final class DBUnitTestValidator extends CommonTestValidator {
         if (testModel.isInstanceConfigsPresent()) {
             validateSupportedConfigClasses(testModel, testModel.getInstanceConfigs());
         }
-        if (!testModel.getHttpClientFactories().isEmpty() ||
-                !testModel.getSqlConnectionPools().isEmpty() ||
-                !testModel.getRestClients().isEmpty() ||
-                !testModel.getMongoDataBases().isEmpty() ||
-                !testModel.getRepositories().isEmpty() ||
-                !testModel.getTestedComponents().isEmpty() ||
-                !testModel.getUserCreatedComponents().isEmpty()) {
-            throw new InvalidTestConfigException(
-                    "DBUnit test does not support alternatives. " +
-                            "Remove all fields annotated by '@?' annotation from '?' test class!",
-                    Alternative.class.getName(),
-                    testModel.getTestClass().getName()
-            );
+        final boolean[] emptyCollections = {
+                testModel.getHttpClientFactories().isEmpty(),
+                testModel.getSqlConnectionPools().isEmpty(),
+                testModel.getRestClients().isEmpty(),
+                testModel.getMongoDataBases().isEmpty(),
+                testModel.getRepositories().isEmpty(),
+                testModel.getTestedComponents().isEmpty(),
+                testModel.getUserCreatedComponents().isEmpty()
+        };
+        for (final boolean emptyCollection : emptyCollections) {
+            if (!emptyCollection) {
+                throw new InvalidTestConfigException(
+                        "DBUnit test does not support alternatives. " +
+                                "Remove all fields annotated by '@?' annotation from '?' test class!",
+                        Alternative.class.getName(),
+                        testModel.getTestClass().getName()
+                );
+            }
         }
     }
 

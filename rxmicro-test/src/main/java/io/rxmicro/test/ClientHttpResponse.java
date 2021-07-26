@@ -21,6 +21,7 @@ import io.rxmicro.http.HttpVersion;
 
 import java.nio.charset.Charset;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -97,7 +98,7 @@ public interface ClientHttpResponse {
      */
     default String getBodyAsString(final Charset charset) {
         if (isBodyEmpty()) {
-            return "";
+            return EMPTY_STRING;
         } else {
             return new String(getBodyAsBytes(), charset);
         }

@@ -82,7 +82,7 @@ public final class InputStreamResources {
             final Path normalizedPath = Paths.get(normalizedResourcePath).toAbsolutePath();
             return Optional.of(Files.newInputStream(normalizedPath))
                     .map(in -> new InputStreamResource(FILE_SCHEME + normalizedPath, in));
-        } catch (final IOException ignore) {
+        } catch (final IOException ignored) {
             return Optional.empty();
         }
     }
@@ -90,7 +90,7 @@ public final class InputStreamResources {
     private static Optional<InputStreamResource> getUrlInputStreamResource(final String resourcePath) {
         try {
             return Optional.of(new InputStreamResource(resourcePath, new URL(resourcePath).openStream()));
-        } catch (final IOException ignore) {
+        } catch (final IOException ignored) {
             return Optional.empty();
         }
     }

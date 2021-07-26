@@ -104,30 +104,13 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
         final List<DocumentedModelField> list = new ArrayList<>();
         restObjectModelClass.getAllDeclaredParametersStream().forEach(entry -> {
             if (entry.getValue().isObject()) {
-                list.add(buildDocumentedModelField(
-                        environmentContext, withStandardDescriptions, projectDirectory, entry, OBJECT, withReadMore
-                ));
-                extractModelRecursive(
-                        environmentContext, withStandardDescriptions, projectDirectory,
-                        format("\"?\"", entry.getKey().getModelName()),
-                        entryList, entry.getValue().asObject(), withReadMore
+                extractObjectModelRecursive(
+                        environmentContext, withStandardDescriptions, projectDirectory, entryList, withReadMore, list, entry
                 );
             } else if (entry.getValue().isIterable()) {
-                final IterableModelClass iterableModelClass = entry.getValue().asIterable();
-                if (iterableModelClass.isObjectIterable()) {
-                    list.add(buildDocumentedModelField(
-                            environmentContext, withStandardDescriptions, projectDirectory, entry, ARRAY, withReadMore
-                    ));
-                    extractModelRecursive(
-                            environmentContext, withStandardDescriptions, projectDirectory,
-                            format("\"?\" Item", entry.getKey().getModelName()),
-                            entryList, iterableModelClass.getElementModelClass().asObject(), withReadMore
-                    );
-                } else {
-                    list.add(buildDocumentedModelField(
-                            environmentContext, withStandardDescriptions, projectDirectory, entry, ARRAY, withReadMore
-                    ));
-                }
+                extractIterableModelRecursive(
+                        environmentContext, withStandardDescriptions, projectDirectory, entryList, withReadMore, list, entry
+                );
             } else {
                 list.add(buildDocumentedModelField(
                         environmentContext, withStandardDescriptions, projectDirectory, entry, null, withReadMore
@@ -137,6 +120,46 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
         entryList.add(entry(name, list));
     }
 
+    private void extractObjectModelRecursive(final EnvironmentContext environmentContext,
+                                             final boolean withStandardDescriptions,
+                                             final String projectDirectory,
+                                             final List<Map.Entry<String, List<DocumentedModelField>>> entryList,
+                                             final boolean withReadMore,
+                                             final List<DocumentedModelField> list,
+                                             final Map.Entry<RestModelField, ModelClass> entry) {
+        list.add(buildDocumentedModelField(
+                environmentContext, withStandardDescriptions, projectDirectory, entry, OBJECT, withReadMore
+        ));
+        extractModelRecursive(
+                environmentContext, withStandardDescriptions, projectDirectory,
+                format("\"?\"", entry.getKey().getModelName()),
+                entryList, entry.getValue().asObject(), withReadMore
+        );
+    }
+
+    private void extractIterableModelRecursive(final EnvironmentContext environmentContext,
+                                               final boolean withStandardDescriptions,
+                                               final String projectDirectory,
+                                               final List<Map.Entry<String, List<DocumentedModelField>>> entryList,
+                                               final boolean withReadMore,
+                                               final List<DocumentedModelField> list,
+                                               final Map.Entry<RestModelField, ModelClass> entry) {
+        final IterableModelClass iterableModelClass = entry.getValue().asIterable();
+        if (iterableModelClass.isObjectIterable()) {
+            list.add(buildDocumentedModelField(
+                    environmentContext, withStandardDescriptions, projectDirectory, entry, ARRAY, withReadMore
+            ));
+            extractModelRecursive(
+                    environmentContext, withStandardDescriptions, projectDirectory,
+                    format("\"?\" Item", entry.getKey().getModelName()),
+                    entryList, iterableModelClass.getElementModelClass().asObject(), withReadMore
+            );
+        } else {
+            list.add(buildDocumentedModelField(
+                    environmentContext, withStandardDescriptions, projectDirectory, entry, ARRAY, withReadMore
+            ));
+        }
+    }
 
     private DocumentedModelField buildDocumentedModelField(final EnvironmentContext environmentContext,
                                                            final boolean withStandardDescriptions,

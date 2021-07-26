@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Map.entry;
@@ -172,7 +173,7 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
     }
 
     public final Map<String, Object> getValuesMap() {
-        return valuesMap;
+        return unmodifiableOrderedMap(valuesMap);
     }
 
     public final boolean isAddedValue(final Object value) {

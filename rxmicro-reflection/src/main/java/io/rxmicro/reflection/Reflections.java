@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Formats.format;
 import static java.lang.reflect.Modifier.isFinal;
@@ -59,9 +60,9 @@ public final class Reflections {
      * @param classInstance the specified class instance
      * @param predicate     the field selection predicate
      * @return the all declared fields as unmodified list
+     * @throws NullPointerException if any parameter is null
      * @see Class#getDeclaredFields()
      * @see Class#getSuperclass()
-     * @throws NullPointerException if any parameter is null
      */
     public static List<Field> allFields(final Class<?> classInstance,
                                         final Predicate<Field> predicate) {
@@ -86,9 +87,9 @@ public final class Reflections {
      * @param classInstance the specified class instance
      * @param predicate     the method selection predicate
      * @return the all declared methods as unmodified list
+     * @throws NullPointerException if any parameter is null
      * @see Class#getDeclaredMethods()
      * @see Class#getSuperclass()
-     * @throws NullPointerException if any parameter is null
      */
     public static List<Method> allMethods(final Class<?> classInstance,
                                           final Predicate<Method> predicate) {
@@ -109,9 +110,9 @@ public final class Reflections {
      * @param classInstance the specified class instance
      * @param predicate     the method selection predicate
      * @return {@code true} if the specified class instance contains at least one method, that matches to the method selection predicate
+     * @throws NullPointerException if any parameter is null
      * @see Class#getDeclaredMethods()
      * @see Class#getSuperclass()
-     * @throws NullPointerException if any parameter is null
      */
     public static boolean containsMethod(final Class<?> classInstance,
                                          final Predicate<Method> predicate) {
@@ -151,9 +152,6 @@ public final class Reflections {
      * @param instances all possible instances
      * @param field the specified field instance
      * @return the field value
-     * @see Field#canAccess(Object)
-     * @see Field#setAccessible(boolean)
-     * @see Field#get(Object)
      * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
      *                                      field is inaccessible.
      * @throws SecurityException            if the request is denied by the security manager
@@ -177,6 +175,9 @@ public final class Reflections {
      * @throws NullPointerException         if any parameter is null
      * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#get(Object)
      */
     public static Object getFieldValue(final List<Object> instances,
                                        final Field field) {
@@ -199,9 +200,6 @@ public final class Reflections {
      * @param instance the specified instance
      * @param field the specified field instance
      * @return the field value
-     * @see Field#canAccess(Object)
-     * @see Field#setAccessible(boolean)
-     * @see Field#get(Object)
      * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
      *                                      field is inaccessible.
      * @throws SecurityException            if the request is denied by the security manager
@@ -222,6 +220,9 @@ public final class Reflections {
      * @throws NullPointerException         if any parameter is null
      * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#get(Object)
      */
     public static Object getFieldValue(final Object instance,
                                        final Field field) {
@@ -242,11 +243,7 @@ public final class Reflections {
      * @param instance the specified instance
      * @param classInstance the class instance
      * @param fieldName the field name
-     * @return the field value.
-     * @see Class#getDeclaredField(String)
-     * @see Field#canAccess(Object)
-     * @see Field#setAccessible(boolean)
-     * @see Field#get(Object)
+     * @return the field value
      * @throws CheckedWrapperException
      *         <ul>
      *     <li>
@@ -274,6 +271,10 @@ public final class Reflections {
      * @throws NullPointerException         if any parameter is null
      * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Class#getDeclaredField(String)
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#get(Object)
      */
     public static Object getFieldValue(final Object instance,
                                        final Class<?> classInstance,
@@ -287,11 +288,7 @@ public final class Reflections {
      *
      * @param instance the specified instance. If requested field is static the specified instance can be {@link Class} instance.
      * @param fieldName the field name
-     * @return the field value.
-     * @see Class#getDeclaredField(String)
-     * @see Field#canAccess(Object)
-     * @see Field#setAccessible(boolean)
-     * @see Field#get(Object)
+     * @return the field value
      * @throws CheckedWrapperException
      *         <ul>
      *     <li>
@@ -319,6 +316,10 @@ public final class Reflections {
      * @throws NullPointerException         if any parameter is null
      * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Class#getDeclaredField(String)
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#get(Object)
      */
     public static Object getFieldValue(final Object instance,
                                        final String fieldName) {
@@ -333,7 +334,6 @@ public final class Reflections {
      * @param classInstance the specified class instance
      * @param fieldName the specified field name
      * @return the declared field instance
-     * @see Class#getDeclaredField(String)
      * @throws CheckedWrapperException     if a field with the specified name is not found.
      * @throws NullPointerException        if any parameter is null
      * @throws SecurityException           If a security manager, <i>s</i>, is present and any of the following conditions is met:
@@ -354,6 +354,7 @@ public final class Reflections {
      *          of this class
      *      </li>
      * </ul>
+     * @see Class#getDeclaredField(String)
      */
     public static Field getDeclaredField(final Class<?> classInstance,
                                          final String fieldName) {
@@ -366,10 +367,6 @@ public final class Reflections {
      * @param instance the specified instances
      * @param fieldName the specified field name
      * @param value the new value to set
-     * @see Class#getDeclaredField(String)
-     * @see Field#canAccess(Object)
-     * @see Field#setAccessible(boolean)
-     * @see Field#set(Object, Object)
      * @throws IllegalArgumentException
      *         <ul>
      *      <li>
@@ -392,6 +389,10 @@ public final class Reflections {
      * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
      *                                      field is either inaccessible or final.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Class#getDeclaredField(String)
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#set(Object, Object)
      */
     public static void setFieldValue(final Object instance,
                                      final String fieldName,
@@ -409,9 +410,6 @@ public final class Reflections {
      * @param instances the specified instances
      * @param field the specified field instance
      * @param value the new value to set
-     * @see Field#canAccess(Object)
-     * @see Field#setAccessible(boolean)
-     * @see Field#set(Object, Object)
      * @throws IllegalArgumentException
      *         <ul>
      *      <li>
@@ -434,6 +432,9 @@ public final class Reflections {
      * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
      *                                      field is either inaccessible or final.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#set(Object, Object)
      */
     public static void setFieldValue(final List<Object> instances,
                                      final Field field,
@@ -458,9 +459,6 @@ public final class Reflections {
      * @param instance the specified instance
      * @param field the specified field instance
      * @param value the new value to set
-     * @see Field#canAccess(Object)
-     * @see Field#setAccessible(boolean)
-     * @see Field#set(Object, Object)
      * @throws IllegalArgumentException
      *         <ul>
      *      <li>
@@ -480,6 +478,9 @@ public final class Reflections {
      * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
      *                                      field is either inaccessible or final.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#set(Object, Object)
      */
     public static void setFieldValue(final Object instance,
                                      final Field field,
@@ -506,9 +507,6 @@ public final class Reflections {
      * @param methodName the specified method name
      * @param args       the arguments for the method
      * @return the method result
-     * @see Method#canAccess(Object)
-     * @see Method#setAccessible(boolean)
-     * @see Method#invoke(Object, Object...)
      * @throws CheckedWrapperException
      *         <ul>
      *     <li>
@@ -539,6 +537,9 @@ public final class Reflections {
      * @throws NullPointerException         if any parameter is null
      * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Method#canAccess(Object)
+     * @see Method#setAccessible(boolean)
+     * @see Method#invoke(Object, Object...)
      */
     @SuppressWarnings("UnusedReturnValue")
     public static Object invokeMethod(final List<Object> instances,
@@ -549,7 +550,7 @@ public final class Reflections {
             Method method;
             try {
                 method = findMethod(instance.getClass(), methodName, parameterTypes);
-            } catch (final CheckedWrapperException ignore) {
+            } catch (final CheckedWrapperException ignored) {
                 method = null;
             }
             if (method != null) {
@@ -573,9 +574,6 @@ public final class Reflections {
      * @param methodName the specified method name
      * @param args       the arguments for the method
      * @return the method result
-     * @see Method#canAccess(Object)
-     * @see Method#setAccessible(boolean)
-     * @see Method#invoke(Object, Object...)
      * @throws CheckedWrapperException
      *         <ul>
      *     <li>
@@ -603,6 +601,9 @@ public final class Reflections {
      * @throws NullPointerException         if any parameter is null
      * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Method#canAccess(Object)
+     * @see Method#setAccessible(boolean)
+     * @see Method#invoke(Object, Object...)
      */
     @SuppressWarnings("UnusedReturnValue")
     public static Object invokeMethod(final Object instance,
@@ -624,7 +625,6 @@ public final class Reflections {
      * @param method   the specified method name
      * @param args     the arguments for the method
      * @return the method result
-     * @see Method#invoke(Object, Object...)
      * @throws CheckedWrapperException
      *         <ul>
      *     <li>
@@ -652,6 +652,7 @@ public final class Reflections {
      * @throws NullPointerException         if any parameter is null
      * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
      * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Method#invoke(Object, Object...)
      */
     public static Object invokeMethod(final Object instance,
                                       final Method method,
@@ -1061,7 +1062,7 @@ public final class Reflections {
                     ex,
                     "Class ? must contain a required constructor: ?<init>(?)",
                     targetClass.getName(),
-                    setAccessibleIfRequired ? "" : "public ",
+                    setAccessibleIfRequired ? EMPTY_STRING : "public ",
                     Arrays.stream(argTypes)
                             .map(Class::getName)
                             .collect(joining(","))
@@ -1090,7 +1091,7 @@ public final class Reflections {
                                                 final String methodNameCandidate) {
         try {
             return clazz.getMethod(methodNameCandidate).getName();
-        } catch (final NoSuchMethodException ignore) {
+        } catch (final NoSuchMethodException ignored) {
             for (final Method method : clazz.getMethods()) {
                 if (method.getName().equals(methodNameCandidate)) {
                     return methodNameCandidate;
@@ -1115,7 +1116,7 @@ public final class Reflections {
                                                final String fieldNameCandidate) {
         try {
             return clazz.getField(fieldNameCandidate).getName();
-        } catch (final NoSuchFieldException ignore) {
+        } catch (final NoSuchFieldException ignored) {
             for (final Field field : clazz.getFields()) {
                 if (field.getName().equals(fieldNameCandidate)) {
                     return fieldNameCandidate;
@@ -1202,7 +1203,7 @@ public final class Reflections {
             for (final Class<?> superClass : allSuperClasses(clazz)) {
                 try {
                     return superClass.getDeclaredField(fieldName);
-                } catch (final NoSuchFieldException ignore) {
+                } catch (final NoSuchFieldException ignored) {
                     // do nothing
                 }
             }
@@ -1219,7 +1220,7 @@ public final class Reflections {
             for (final Class<?> superClass : allSuperClasses(clazz)) {
                 try {
                     return superClass.getDeclaredMethod(methodName, parameterTypes);
-                } catch (final NoSuchMethodException ignore) {
+                } catch (final NoSuchMethodException ignored) {
                     // do nothing
                 }
             }

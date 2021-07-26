@@ -30,6 +30,7 @@ import static io.rxmicro.annotation.processor.common.util.Elements.isVirtualType
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAccessibleDefaultConstructor;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateModuleDeclaration;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateTypeElement;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 
 /**
@@ -43,7 +44,7 @@ public final class ModelTypeElements {
                                                           final TypeMirror type,
                                                           final String prefix,
                                                           final ModelFieldBuilderOptions options) {
-        final String validPrefix = prefix == null || prefix.isEmpty() ? "" : prefix + ": ";
+        final String validPrefix = prefix == null || prefix.isEmpty() ? EMPTY_STRING : prefix + ": ";
         final Optional<TypeElement> optionalTypeElement = asTypeElement(type);
         if (optionalTypeElement.isPresent()) {
             final TypeElement typeElement = optionalTypeElement.get();

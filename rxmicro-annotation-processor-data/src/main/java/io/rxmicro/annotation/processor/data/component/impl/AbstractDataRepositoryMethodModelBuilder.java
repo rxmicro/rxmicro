@@ -76,7 +76,6 @@ public abstract class AbstractDataRepositoryMethodModelBuilder
                      final ClassHeader.Builder classHeaderBuilder,
                      final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
                      final DataGenerationContext<DMF, DMC> dataGenerationContext) {
-        final ExecutableElement repositoryMethod = dataRepositoryMethodSignature.getMethod();
         final MethodResult methodResult = dataRepositoryMethodSignature.getMethodResult();
 
         classHeaderBuilder.addImports(methodResult.getRequiredImports().toArray(EMPTY_STRING_ARRAY));
@@ -84,6 +83,7 @@ public abstract class AbstractDataRepositoryMethodModelBuilder
                 .forEach(p -> classHeaderBuilder.addImports(p.getRequiredImports().toArray(EMPTY_STRING_ARRAY)));
         addCommonImports(classHeaderBuilder, methodResult);
 
+        final ExecutableElement repositoryMethod = dataRepositoryMethodSignature.getMethod();
         final MethodBody body =
                 buildBody(classHeaderBuilder, repositoryMethod, methodResult, dataRepositoryGeneratorConfig, dataGenerationContext);
         return build(dataRepositoryMethodSignature, body);

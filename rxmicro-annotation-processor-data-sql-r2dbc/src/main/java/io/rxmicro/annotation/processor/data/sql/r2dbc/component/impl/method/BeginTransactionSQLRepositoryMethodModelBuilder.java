@@ -50,6 +50,7 @@ import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.RE
 import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_PREDICATE;
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.ISOLATION_LEVEL_GROUP;
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.ISOLATION_LEVEL_PREDICATE;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.data.sql.model.TransactionType.SUPPORTED_TRANSACTION_TYPES;
 import static java.util.stream.Collectors.joining;
 
@@ -101,7 +102,7 @@ public class BeginTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLData
                 templateArguments.put("ISOLATION_LEVEL", v));
         templateArguments.put(
                 "CONNECTION_CREATE_PARAM",
-                dataMethodParams.getSingleParamOfGroup(REQUEST_ID_SUPPLIER_GROUP).map(Variable::getName).orElse("")
+                dataMethodParams.getSingleParamOfGroup(REQUEST_ID_SUPPLIER_GROUP).map(Variable::getName).orElse(EMPTY_STRING)
         );
         return new SQLMethodBody(
                 methodBodyGenerator.generate(

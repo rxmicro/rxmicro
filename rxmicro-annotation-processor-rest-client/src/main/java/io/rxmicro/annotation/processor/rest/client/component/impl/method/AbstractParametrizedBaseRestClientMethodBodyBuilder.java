@@ -26,7 +26,6 @@ import io.rxmicro.annotation.processor.rest.client.model.RestClientMethodBody;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientMethodSignature;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestRequestModel;
-import io.rxmicro.annotation.processor.rest.model.RestResponseModel;
 import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
 import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
 import io.rxmicro.rest.client.detail.RequestModelExtractor;
@@ -55,7 +54,6 @@ public abstract class AbstractParametrizedBaseRestClientMethodBodyBuilder extend
         validate(methodSignature, staticQueryParameters);
         customizeClassHeaderBuilder(classHeaderBuilder);
         final RestRequestModel requestModel = methodSignature.getRequestModel();
-        final RestResponseModel responseModel = methodSignature.getResponseModel();
         final TypeElement parameterType = requestModel.getRequiredRequestType();
         final RestObjectModelClass modelClass = storage.getModelClass(parameterType.asType().toString()).orElseThrow();
 
@@ -66,7 +64,9 @@ public abstract class AbstractParametrizedBaseRestClientMethodBodyBuilder extend
         templateArguments.put("MODEL", requestModel.getRequiredVariableName());
         templateArguments.put("EXTRACTOR", getModelTransformerInstanceName(parameterType, RequestModelExtractor.class));
 
-        addValidators(environmentContext, storage, classHeaderBuilder, parameterType, responseModel, templateArguments);
+        addValidators(
+                environmentContext, storage, classHeaderBuilder, parameterType, methodSignature.getResponseModel(), templateArguments
+        );
         addPathBuilder(methodSignature, templateArguments);
         final boolean isRequestClassVirtual = isVirtualTypeElement(requestModel.getRequiredRequestType());
         templateArguments.put("IS_REQUEST_CLASS_VIRTUAL", isRequestClassVirtual);

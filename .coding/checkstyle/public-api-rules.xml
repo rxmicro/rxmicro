@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-  ~ Copyright (c) 2020. http://rxmicro.io
+  ~ Copyright (c) 2019. http://devonline.academy
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@
 <!-- https://checkstyle.sourceforge.io/config.html#Checker -->
 <module name="Checker">
     <property name="charset" value="UTF-8"/>
+    <property name="fileExtensions" value="java, properties, xml"/>
     <property name="severity" value="error"/>
     <property name="haltOnException" value="true"/>
     <property name="tabWidth" value="4"/>
@@ -32,87 +33,148 @@
         <property name="fileNamePattern" value="module\-info\.java$"/>
     </module>
 
-    <module name="JavadocPackage"/>
+    <module name="JavadocPackage">
+        <property name="allowLegacy" value="false"/>
+        <property name="fileExtensions" value=".java"/>
+    </module>
 
     <module name="TreeWalker">
-
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_design.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <module name="DesignForExtension">
-            <property name="ignoredAnnotations" value="Override"/>
+            <property name="ignoredAnnotations"
+                      value="Override, Test, BeforeEach, AfterEach, BeforeAll, AfterAll"/>
+            <property name="requiredJavadocPhrase" value=".*"/>
         </module>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_javadoc.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+        <!-- https://docs.oracle.com/en/java/javase/11/docs/specs/doc-comment-spec.html#block-tags -->
         <module name="AtclauseOrder">
-            <property name="id" value="TypeAtclauseOrder"/>
+            <property name="id" value="PackageAtclauseOrder"/>
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
             <property name="tagOrder"
-                      value="@author, @deprecated, @hidden, @see, @link, @since"/>
-            <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, CTOR_DEF"/>
+                      value="@apiNote, @implSpec, @implNote, @author, @version, @hidden, @see, @since, @serialField"/>
+            <property name="target" value="PACKAGE_DEF"/>
         </module>
         <module name="AtclauseOrder">
-            <property name="id" value="MethodAtclauseOrder"/>
+            <property name="id" value="TypeAtclauseOrder"/>
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
             <property name="tagOrder"
-                      value="@author, @deprecated, @hidden, @param, @return, @see, @link, @since, @throws"/>
-            <property name="target" value="METHOD_DEF, CTOR_DEF"/>
+                      value="@apiNote, @implSpec, @implNote,
+                             @author, @version, @hidden, @param, @see, @since, @serialField, @deprecated"/>
+            <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, RECORD_DEF"/>
+        </module>
+        <module name="AtclauseOrder">
+            <property name="id" value="ExecutableAtclauseOrder"/>
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+            <property name="tagOrder"
+                      value="@apiNote, @implSpec, @implNote, @author, @version, @hidden,
+                             @param, @return, @throws, @see, @since, @serialData, @deprecated"/>
+            <property name="target" value="METHOD_DEF, CTOR_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="AtclauseOrder">
             <property name="id" value="VariableAtclauseOrder"/>
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
             <property name="tagOrder"
-                      value="@author, @deprecated, @hidden, @see, @since"/>
+                      value="@author, @hidden, @see, @since, @serial, @serialField, @deprecated"/>
             <property name="target" value="VARIABLE_DEF"/>
         </module>
         <module name="InvalidJavadocPosition"/>
-        <module name="JavadocBlockTagLocation"/>
-        <module name="JavadocContentLocationCheck"/>
+        <module name="JavadocBlockTagLocation">
+            <property name="tags"
+                      value="author, deprecated, exception, hidden, param, provides, return, see,
+                             serial, serialData, serialField, since, throws, uses, version,
+                             apiNote, implSpec, implNote"/>
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+        </module>
+        <module name="JavadocContentLocationCheck">
+            <property name="location" value="second_line"/>
+        </module>
         <module name="JavadocMethod">
             <property name="allowedAnnotations" value="Override"/>
             <property name="validateThrows" value="true"/>
+            <property name="accessModifiers" value="public, protected, package, private"/>
             <property name="allowMissingParamTags" value="false"/>
             <property name="allowMissingReturnTag" value="false"/>
-            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF"/>
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
         </module>
-        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+        <module name="JavadocMissingLeadingAsterisk">
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+        </module>
+        <module name="JavadocMissingWhitespaceAfterAsterisk">
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+        </module>
         <module name="JavadocParagraph">
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
             <property name="allowNewlineParagraph" value="false"/>
         </module>
         <module name="JavadocStyle">
             <property name="scope" value="protected"/>
+            <property name="excludeScope" value="private"/>
+            <property name="checkFirstSentence" value="true"/>
+            <property name="endOfSentenceFormat" value="([.?!][ \t\n\r\f&lt;])|([.?!]$)"/>
             <property name="checkEmptyJavadoc" value="true"/>
             <property name="checkHtml" value="true"/>
             <property name="tokens"
-                      value="ANNOTATION_DEF, ANNOTATION_FIELD_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF, INTERFACE_DEF,
-                             METHOD_DEF, PACKAGE_DEF, VARIABLE_DEF"/>
+                      value="ANNOTATION_DEF, ANNOTATION_FIELD_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF,
+                             INTERFACE_DEF, METHOD_DEF, PACKAGE_DEF, VARIABLE_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="JavadocTagContinuationIndentation">
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
             <property name="offset" value="8"/>
         </module>
         <module name="JavadocType">
             <property name="scope" value="protected"/>
+            <property name="excludeScope" value="private"/>
+            <property name="allowMissingParamTags" value="false"/>
+            <property name="allowUnknownTags" value="false"/>
             <property name="allowedAnnotations" value="Generated"/>
+            <property name="tokens" value="INTERFACE_DEF, CLASS_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
         </module>
         <module name="JavadocVariable">
             <property name="scope" value="protected"/>
+            <property name="excludeScope" value="private"/>
+            <property name="ignoreNamePattern" value="not-specified-enum-const-pattern"/>
             <property name="tokens" value="ENUM_CONSTANT_DEF"/>
         </module>
         <module name="MissingJavadocMethod">
-            <property name="scope" value="protected"/>
+            <property name="minLineCount" value="-1"/>
             <property name="allowedAnnotations" value="Override"/>
-            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF"/>
+            <property name="scope" value="protected"/>
+            <property name="excludeScope" value="private"/>
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+            <property name="ignoreMethodNamesRegex" value="not-specified-method-name-regexp"/>
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="MissingJavadocPackage"/>
         <module name="MissingJavadocType">
             <property name="scope" value="public"/>
-            <property name="tokens" value="INTERFACE_DEF, CLASS_DEF, ENUM_DEF, ANNOTATION_DEF"/>
+            <property name="skipAnnotations" value="Generated"/>
+            <property name="tokens" value="INTERFACE_DEF, CLASS_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
         </module>
         <module name="NonEmptyAtclauseDescription">
-            <property name="javadocTokens" value="PARAM_LITERAL, RETURN_LITERAL, THROWS_LITERAL, EXCEPTION_LITERAL, DEPRECATED_LITERAL"/>
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+            <property name="javadocTokens"
+                      value="PARAM_LITERAL, RETURN_LITERAL, THROWS_LITERAL, EXCEPTION_LITERAL, DEPRECATED_LITERAL"/>
         </module>
-        <module name="SingleLineJavadoc"/>
-        <module name="SummaryJavadocCheck"/>
-        <!-- The RxMicro framework does not use custom javadoc tags: -->
+        <module name="RequireEmptyLineBeforeBlockTagGroup">
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+        </module>
+        <module name="SingleLineJavadoc">
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+            <property name="ignoredTags" value=""/>
+            <property name="ignoreInlineTags" value="true"/>
+        </module>
+        <module name="SummaryJavadocCheck">
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+            <property name="forbiddenSummaryFragments" value="^$"/>
+            <property name="period" value="."/>
+        </module>
+        <!-- Custom javadoc tags: -->
         <!--module name="WriteTag"/-->
     </module>
 </module>

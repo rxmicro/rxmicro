@@ -41,9 +41,18 @@ public final class HttpServers {
     public static int getRandomFreePort() {
         try (ServerSocket serverSocket = new ServerSocket(0)) {
             return serverSocket.getLocalPort();
-        } catch (final IOException ignore) {
-            return new Random().nextInt(MAX_RANDOM_PORT - MIN_RANDOM_PORT + 1) + MIN_RANDOM_PORT;
+        } catch (final IOException ignored) {
+            return RandomHolder.RANDOM.nextInt(MAX_RANDOM_PORT - MIN_RANDOM_PORT + 1) + MIN_RANDOM_PORT;
         }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.10
+     */
+    private static final class RandomHolder {
+
+        private static final Random RANDOM = new Random();
     }
 
     private HttpServers() {

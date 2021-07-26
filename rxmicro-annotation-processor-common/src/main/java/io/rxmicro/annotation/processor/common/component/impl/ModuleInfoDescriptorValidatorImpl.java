@@ -37,6 +37,7 @@ import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.CommonConstants.VirtualModuleInfoConstants.RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_REFLECTION_MODULE;
@@ -56,9 +57,9 @@ public final class ModuleInfoDescriptorValidatorImpl extends BaseProcessorCompon
             validateThatDocumentationModuleIsStatic(moduleElement);
         }
         if (moduleElement.isUnnamed()) {
-            validateDefaultPackage(getElements().getPackageElement(""), true);
+            validateDefaultPackage(getElements().getPackageElement(EMPTY_STRING), true);
         } else {
-            validateDefaultPackage(getElements().getPackageElement(moduleElement, ""), false);
+            validateDefaultPackage(getElements().getPackageElement(moduleElement, EMPTY_STRING), false);
             validateThatCustomConfigPackageIsExportedToReflectionModule(moduleElement);
         }
     }

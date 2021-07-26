@@ -59,15 +59,15 @@ final class JULLogger extends AbstractLogger {
     @Override
     protected void log(final Level level,
                        final LoggerEvent loggerEvent) {
-        final RxMicroLogRecord record;
+        final RxMicroLogRecord logRecord;
         if (loggerEvent instanceof RxMicroLogRecord.RxMicroLogRecordHolder) {
-            record = ((RxMicroLogRecord.RxMicroLogRecordHolder) loggerEvent).getRecord();
+            logRecord = ((RxMicroLogRecord.RxMicroLogRecordHolder) loggerEvent).getLogRecord();
         } else {
-            record = (RxMicroLogRecord) loggerEvent;
+            logRecord = (RxMicroLogRecord) loggerEvent;
         }
-        record.setLoggerName(name);
-        record.setLevel(getJulLevel(level));
-        logger.log(record);
+        logRecord.setLoggerName(name);
+        logRecord.setLevel(getJulLevel(level));
+        logger.log(logRecord);
     }
 
     @Override

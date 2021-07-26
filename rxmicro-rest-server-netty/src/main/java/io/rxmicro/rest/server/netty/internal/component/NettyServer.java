@@ -92,7 +92,7 @@ final class NettyServer implements Runnable {
             logStartedMessage();
             latch.countDown();
             channelFuture.channel().closeFuture().sync();
-        } catch (final InterruptedException ignore) {
+        } catch (final InterruptedException ignored) {
             LOGGER.info("Retrieved shutdown request ...");
         } finally {
             final Future<?> workerGroupStopFuture = workerGroup.shutdownGracefully();

@@ -18,74 +18,65 @@
         "-//Checkstyle//DTD SuppressionFilter Configuration 1.0//EN"
         "https://checkstyle.org/dtds/suppressions_1_0.dtd">
 <suppressions>
-    <!-- These classes contain utility methods -->
-    <suppress checks="ParameterNumber"
-              files="ExCollections.java|HttpHeaders.java|QueryParams.java|JsonFactory.java"/>
 
     <!-- These classes are a top level ones, which must catch ALL possible types of exceptions and log it -->
-    <suppress checks="IllegalCatch"
-              files="LoggerImplProviderFactoryHelper.java|BaseRestControllerMethod.java|SharableNettyRequestHandler.java"/>
-    <suppress checks="IllegalCatch"
-              files="RxMicroAnnotationProcessor.java|AbstractRxMicroProcessor.java|Injects.java|DbUnitTestExtension.java|Safes.java"/>
-    <suppress checks="IllegalCatch"
-              files="TestedProcessProxy.java|JULLoggerImplProvider.java|InstanceContainer.java"/>
+    <suppress files="RxMicroAnnotationProcessor.java" checks="IllegalCatch"/>
+    <suppress files="AbstractRxMicroProcessor.java" checks="IllegalCatch"/>
+    <suppress files="Injects.java" checks="IllegalCatch"/>
+    <suppress files="LoggerImplProviderFactoryHelper.java" checks="IllegalCatch"/>
+    <suppress files="BaseRestControllerMethod.java" checks="IllegalCatch"/>
+    <suppress files="SharableNettyRequestHandler.java" checks="IllegalCatch"/>
+    <suppress files="InstanceContainer.java" checks="IllegalCatch"/>
+    <suppress files="DbUnitTestExtension.java" checks="IllegalCatch"/>
+    <suppress files="TestedProcessProxy.java" checks="IllegalCatch"/>
+    <suppress files="Safes.java" checks="IllegalCatch"/>
 
-    <!-- Safe.Consumer is basic interface for testing  -->
-    <!-- LoggerImplProvider is basic interface for extension  -->
-    <suppress checks="IllegalThrows"
-              files="Safes.java|LoggerImplProvider.java"/>
+    <!-- Simplest configuration -->
+    <suppress files="ExternalModule.java" checks="MultipleStringLiterals"/>
 
-    <!-- java.util.Date support for compatibility only! -->
-    <suppress checks="IllegalType"
-              files="TypeFixer.java"/>
+    <!-- These classes are class-configurator ones -->
+    <suppress files="RestClientModuleClassStructuresBuilder.java" checks="ClassFanOutComplexity"/>
+    <suppress files="RestServerModuleClassStructuresBuilder.java" checks="ClassFanOutComplexity"/>
 
-    <!-- For improvement of readability -->
-    <suppress checks="MultipleStringLiterals"
-              files="ExternalModule.java"/>
+    <!-- MongoCodecsConfigurator is a class-configurator -->
+    <suppress files="MongoCodecsConfigurator.java" checks="ClassFanOutComplexity"/>
+    <suppress files="MongoCodecsConfigurator.java" checks="ClassDataAbstractionCoupling"/>
 
-    <!-- This is lazy init exception -->
-    <suppress checks="MutableException"
-              files="HttpCallFailedException.java"/>
+    <!-- ModelFromJsonConverter is util class designed for extension! -->
+    <suppress files="ModelFromJsonConverter.java" checks="ClassFanOutComplexity"/>
+    <suppress files="ModelFromJsonConverter.java" checks="MethodCount"/>
+
+    <!-- This class contains utility methods -->
+    <suppress files="ExCollections.java" checks="ParameterNumber"/>
+
+    <!-- This class contains utility methods -->
+    <suppress files="HttpHeaders.java" checks="ParameterNumber"/>
+
+    <!-- This class contains utility methods -->
+    <suppress files="QueryParams.java" checks="ParameterNumber"/>
+
+    <!-- This class contains utility methods -->
+    <suppress files="JsonFactory.java" checks="ParameterNumber"/>
 
     <!-- This is a logger -->
-    <suppress checks="MethodCount"
-              files="Logger.java|AbstractLogger.java"/>
-    <suppress checks="FileLength"
-              files="Logger.java"/>
+    <suppress files="Logger.java" checks="FileLength"/>
+    <suppress files="Logger.java" checks="MethodCount"/>
+    <suppress files="AbstractLogger.java" checks="FileLength"/>
+    <suppress files="AbstractLogger.java" checks="MethodCount"/>
 
-    <!-- This is a simple expression -->
-    <suppress checks="BooleanExpressionComplexity"
-              files="IntegrationTestValidator.java|DBUnitTestValidator.java|JsonDelimiters.java|JsonValueReader.java"/>
+    <!-- HttpCallFailedException must support lazy init -->
+    <suppress files="HttpCallFailedException.java" checks="MutableException"/>
 
-    <!-- This is a class-configurator -->
-    <suppress checks="ClassFanOutComplexity"
-              files="MongoCodecsConfigurator.java"/>
-    <suppress checks="ClassDataAbstractionCoupling"
-              files="MongoCodecsConfigurator.java"/>
+    <!-- There are bit operations -->
+    <suppress files="PartlyRandom96BitsRequestIdGenerator.java" checks="MagicNumber"/>
+    <suppress files="Deterministic96BitsRequestIdGenerator.java" checks="MagicNumber"/>
 
-    <!-- It seems that these are checkstyle bugs  -->
-    <suppress checks="ReturnCount"
-              files="Configs.java"
-              lines="111-127"/>
+    <!-- orderByColumnMap must be defined before while loop -->
+    <suppress files="DatabaseStateVerifier.java" checks="VariableDeclarationUsageDistance"/>
 
-    <!-- This is an util class -->
-    <suppress checks="NPathComplexity"
-              files="TypeValidators.java"/>
+    <!-- This is test util class -->
+    <suppress files="Safes.java" checks="IllegalThrows"/>
 
-    <!-- There are no public alternatives to com.sun.source.util.Trees -->
-    <suppress checks="IllegalImport"
-              files="ModelExceptionErrorResponseCustomBuilder.java"/>
-
-    <!-- This is utility class that used by generated converters -->
-    <suppress checks="MethodCount"
-              files="ModelFromJsonConverter.java"/>
-
-    <!-- This is bit operations -->
-    <suppress checks="MagicNumber"
-              files="PartlyRandom96BitsRequestIdGenerator.java|Deterministic96BitsRequestIdGenerator.java"/>
-
-    <!-- Binary format is very usable for this case -->
-    <suppress checks="IllegalTokenText"
-              lines="81"
-              files="Deterministic96BitsRequestIdGenerator.java"/>
+    <!-- Test class can contains old types -->
+    <suppress files="TypeFixer.java" checks="IllegalType"/>
 </suppressions>

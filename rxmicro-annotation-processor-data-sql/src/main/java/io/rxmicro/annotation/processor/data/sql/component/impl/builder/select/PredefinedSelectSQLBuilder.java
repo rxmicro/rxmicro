@@ -89,7 +89,6 @@ public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC exten
                                            final ExecutableElement method,
                                            final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor) {
         final List<String> sqlTokens = new ArrayList<>(parsedSQL.getSqlTokens());
-        final String originalSQL = joinTokensToSQL(sqlTokens);
         validateSelectStatement(method, sqlTokens);
         final boolean shouldExpandAsterisk = parsedSQL.getAnnotation().expandAsterisk() &&
                 sqlMethodDescriptor.getEntityResult().isPresent();
@@ -109,7 +108,7 @@ public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC exten
                 sqlTokens,
                 sqlMethodDescriptor.getParams(),
                 variableValuesMap,
-                originalSQL,
+                joinTokensToSQL(parsedSQL.getSqlTokens()),
                 sqlMethodDescriptor
         );
     }

@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.local.RxMicroEnvironment.isRuntimeStrictModeEnabled;
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Formats.format;
@@ -128,7 +129,7 @@ public final class StaticResourceRestController extends AbstractRestController {
         final List<Registration> registrations = new ArrayList<>(2);
         if (!exactResourcePaths.isEmpty()) {
             registrations.add(new Registration(
-                    "",
+                    EMPTY_STRING,
                     "handleExact",
                     paramTypes,
                     this::handleExact,
@@ -141,7 +142,7 @@ public final class StaticResourceRestController extends AbstractRestController {
         }
         if (!resourcePathTemplates.isEmpty()) {
             registrations.add(new Registration(
-                    "",
+                    EMPTY_STRING,
                     "handleTemplate",
                     paramTypes,
                     this::handleTemplate,

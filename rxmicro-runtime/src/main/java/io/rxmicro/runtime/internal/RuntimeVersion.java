@@ -70,7 +70,7 @@ public final class RuntimeVersion {
                     return unresolved;
                 }
             }
-        } catch (final IOException ignore) {
+        } catch (final IOException ignored) {
             return unresolved;
         }
     }

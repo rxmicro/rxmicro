@@ -24,6 +24,8 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class SourceCodeResource {
 
+    private static final String JAVA_EXTENSION_WITH_DOT = ".java";
+
     private static final String SOURCE_OUTPUT = "SOURCE_OUTPUT";
 
     private final String originalClasspathResource;
@@ -45,11 +47,11 @@ public final class SourceCodeResource {
     private String buildFullClassName(final String outputFolder,
                                       final String resource) {
         final String temp;
-        if (resource.endsWith(".java")) {
+        if (resource.endsWith(JAVA_EXTENSION_WITH_DOT)) {
             if (resource.startsWith(outputFolder)) {
-                temp = resource.substring(outputFolder.length(), resource.length() - 5);
+                temp = resource.substring(outputFolder.length(), resource.length() - JAVA_EXTENSION_WITH_DOT.length());
             } else {
-                temp = resource.substring(0, resource.length() - 5);
+                temp = resource.substring(0, resource.length() - JAVA_EXTENSION_WITH_DOT.length());
             }
         } else {
             if (resource.startsWith(outputFolder)) {

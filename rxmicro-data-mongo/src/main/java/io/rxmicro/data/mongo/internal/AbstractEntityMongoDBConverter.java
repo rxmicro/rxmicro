@@ -430,7 +430,7 @@ public abstract class AbstractEntityMongoDBConverter {
         } else {
             try {
                 return Enum.valueOf(type, value.toString());
-            } catch (final IllegalArgumentException ignore) {
+            } catch (final IllegalArgumentException ignored) {
                 throw new InvalidValueTypeException(
                         "Invalid value for \"?\" field: Expected one of the following '?' but actual is '?'!",
                         fieldName, Arrays.toString(type.getEnumConstants()), value.toString()

@@ -68,8 +68,6 @@ public final class UpdateDocumentOperationMongoRepositoryMethodModelBuilder
                                  final MethodParameterReader methodParameterReader,
                                  final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
                                  final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-        final Variable document = getDocument(method, methodParameterReader, dataGenerationContext);
-
         final Map<String, Object> templateArguments = new HashMap<>();
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);
         templateArguments.put("RETURN", methodResult);
@@ -77,6 +75,7 @@ public final class UpdateDocumentOperationMongoRepositoryMethodModelBuilder
         templateArguments.put("FILTER",
                 bsonExpressionBuilder.build(method, classHeaderBuilder, annotation.filter(), methodParameterReader));
 
+        final Variable document = getDocument(method, methodParameterReader, dataGenerationContext);
         templateArguments.put("UPSERT", annotation.upsert());
         templateArguments.put("DOCUMENT", document.getName());
         templateArguments.put("DOCUMENT_CONVERTER", getModelTransformerInstanceName(

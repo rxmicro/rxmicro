@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -61,5 +62,5 @@ public @interface Distinct {
      *
      * @return the query that specifies the documents from which to retrieve the distinct values.
      */
-    String query() default "";
+    String query() default EMPTY_STRING;
 }

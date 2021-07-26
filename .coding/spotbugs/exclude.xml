@@ -20,17 +20,65 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0
                 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
-
-    <!--This is util class and it must support direct cast for list or set instances.-->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- This is util class and it must support direct cast for list or set instances -->
     <Match>
         <Class name="io.rxmicro.common.util.ExCollections"/>
         <Or>
-            <Method name="unmodifiableList" params="java.util.Collection" />
-            <Method name="unmodifiableOrderedSet" params="java.util.Collection" />
+            <Method name="unmodifiableList" params="java.util.Collection"/>
+            <Method name="unmodifiableOrderedSet" params="java.util.Collection"/>
         </Or>
         <Bug pattern="BC_BAD_CAST_TO_ABSTRACT_COLLECTION"/>
     </Match>
-
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!--This is spotbugs issue. Spotbugs does not resolve try-with-resources statement correctly.
+        Read more:
+        https://github.com/spotbugs/spotbugs/issues?q=is%3Aissue+is%3Aopen+Redundant+nullcheck
+        -->
+    <Match>
+        <Class name="io.rxmicro.runtime.internal.RuntimeVersion"/>
+        <Method name="tryReadPomProperties"/>
+        <Or>
+            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="io.rxmicro.resource.ClasspathResources"/>
+        <Method name="readLines"/>
+        <Or>
+            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="io.rxmicro.resource.PropertiesResources"/>
+        <Method name="loadProperties"/>
+        <Or>
+            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
+        </Or>
+    </Match>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Configs$Builder used to configure a global Configs instance. -->
+    <Match>
+        <Class name="io.rxmicro.config.Configs$Builder"/>
+        <Method name="build"/>
+        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
+    </Match>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- This is simplest wat to add an empty object support -->
+    <Match>
+        <Or>
+            <Class name="io.rxmicro.http.HttpHeaders"/>
+            <Class name="io.rxmicro.http.QueryParams"/>
+        </Or>
+        <Bug pattern="IC_SUPERCLASS_USES_SUBCLASS_DURING_INITIALIZATION"/>
+    </Match>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!--Model instances must support fields with `null` values.
         `Null` value means that field contains no data.
         Developer of model class must decide how `null` value for Boolean type must be converted to boolean primitive.-->
@@ -44,87 +92,28 @@
         <Method name="toBoolean" params="java.lang.Object,java.lang.String"  />
         <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
     </Match>
-
-    <!--This class does not use reflection, it uses annotation processing API.
-        It seems that it is issue in spotbugs tool.-->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- TODO: Temporary excluded -->
     <Match>
-        <Class name="io.rxmicro.annotation.processor.rest.component.impl.builder.HeaderRestModelFieldBuilder"/>
-        <Method name="build" />
+        <Or>
+            <Bug pattern="MS_EXPOSE_REP"/>
+            <Bug pattern="EI_EXPOSE_REP"/>
+            <Bug pattern="EI_EXPOSE_REP2"/>
+        </Or>
+    </Match>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- It seems that spotbugs can't resolve annotations for annotation processors correctly -->
+    <Match>
         <Bug pattern="DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION"/>
     </Match>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- It seems that spotbugs can't detect singleton pattern. -->
     <Match>
-        <Class name="io.rxmicro.annotation.processor.rest.component.impl.builder.ParameterRestModelFieldBuilder"/>
-        <Method name="build" />
-        <Bug pattern="DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION"/>
+        <Class name="io.rxmicro.test.HttpServers"/>
+        <Method name="getRandomFreePort" />
+        <Bug pattern="DMI_RANDOM_USED_ONLY_ONCE"/>
     </Match>
-
-    <!--Direct access increases a performance.
-        Besides that it is a class for internal use only!-->
-    <Match>
-        <Class name="io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse"/>
-        <Method name="getContent" />
-        <Bug pattern="EI_EXPOSE_REP"/>
-    </Match>
-    <Match>
-        <Class name="io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse"/>
-        <Method name="setContent" />
-        <Bug pattern="EI_EXPOSE_REP2"/>
-    </Match>
-    <Match>
-        <Class name="io.rxmicro.rest.model.HttpCallFailedException"/>
-        <Method name="getBody" />
-        <Bug pattern="EI_EXPOSE_REP"/>
-    </Match>
-
-    <!--Configs$Builder used to configure a global Configs instance.-->
-    <Match>
-        <Class name="io.rxmicro.config.Configs$Builder"/>
-        <Method name="build" />
-        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
-    </Match>
-
-    <!--This is spotbugs issue. Spotbug does not resolve try-with-resources statement correctly.
-        Read more:
-        https://github.com/spotbugs/spotbugs/issues?q=is%3Aissue+is%3Aopen+Redundant+nullcheck
-        -->
-    <Match>
-        <Class name="io.rxmicro.runtime.internal.RuntimeVersion"/>
-        <Method name="tryReadPomProperties" />
-        <Or>
-            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
-        </Or>
-    </Match>
-    <Match>
-        <Class name="io.rxmicro.resource.ClasspathResources"/>
-        <Method name="readLines" />
-        <Or>
-            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
-        </Or>
-    </Match>
-    <Match>
-        <Class name="io.rxmicro.resource.PropertiesResources"/>
-        <Method name="loadProperties" />
-        <Or>
-            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
-        </Or>
-    </Match>
-    <Match>
-        <Class name="io.rxmicro.annotation.processor.common.component.impl.ClassWriterImpl"/>
-        <Method name="write" />
-        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
-    </Match>
-    <Match>
-        <Class name="io.rxmicro.test.dbunit.internal.component.AbstractDatabaseStateChanger"/>
-        <Method name="executeJdbcStatements" />
-        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
-    </Match>
-
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- equals method is not used for these classes: -->
     <Match>
         <Class name="io.rxmicro.test.dbunit.internal.data.value.InstantIntervalValue"/>

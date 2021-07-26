@@ -39,10 +39,10 @@ public final class RequestIdBiConsumer extends AbstractBiConsumer {
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
+                       final LogRecord logRecord) {
         String requestId;
-        if (record instanceof RxMicroLogRecord) {
-            requestId = ((RxMicroLogRecord) record).getRequestId();
+        if (logRecord instanceof RxMicroLogRecord) {
+            requestId = ((RxMicroLogRecord) logRecord).getRequestId();
             if (requestId == null) {
                 requestId = UNDEFINED_REQUEST_ID;
             }

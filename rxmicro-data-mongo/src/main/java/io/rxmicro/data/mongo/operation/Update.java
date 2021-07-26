@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -54,7 +55,7 @@ public @interface Update {
      *
      * @return the modifications to apply.
      */
-    String update() default "";
+    String update() default EMPTY_STRING;
 
     /**
      * Returns the selection criteria for the update.
@@ -67,7 +68,7 @@ public @interface Update {
      *
      * @return the selection criteria for the update.
      */
-    String filter() default "";
+    String filter() default EMPTY_STRING;
 
     /**
      * Returns {@code true} if Mongo server must create a new document if no documents match the filter.

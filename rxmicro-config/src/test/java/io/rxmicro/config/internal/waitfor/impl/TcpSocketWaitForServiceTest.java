@@ -114,7 +114,7 @@ final class TcpSocketWaitForServiceTest {
     private static int getRandomFreePort() {
         try (ServerSocket serverSocket = new ServerSocket(0)) {
             return serverSocket.getLocalPort();
-        } catch (final IOException ignore) {
+        } catch (final IOException ignored) {
             return 9876;
         }
     }

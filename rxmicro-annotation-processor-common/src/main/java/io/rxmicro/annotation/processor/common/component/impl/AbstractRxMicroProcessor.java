@@ -93,7 +93,7 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
             } catch (final InterruptProcessingException ex) {
                 getMessager().printMessage(ERROR, ex.getMessage(), ex.getElement());
                 return false;
-            } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
+            } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignored) {
                 // do nothing, because all errors already printed
                 return false;
             } catch (final Throwable throwable) {

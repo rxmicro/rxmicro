@@ -25,6 +25,7 @@ import io.rxmicro.rest.client.RestClientConfig;
 
 import java.time.Duration;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
 import static io.rxmicro.http.ProtocolSchema.HTTP;
@@ -39,13 +40,13 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
 
     private static final int DEFAULT_HTTP_PORT = 8080;
 
-    private String baseUrlPath = "";
+    private String baseUrlPath = EMPTY_STRING;
 
     private BaseUrlPath.Position baseUrlPosition = BaseUrlPath.Position.AFTER_VERSION;
 
     private Version.Strategy versionStrategy = Version.Strategy.URL_PATH;
 
-    private String versionValue = "";
+    private String versionValue = EMPTY_STRING;
 
     public Version.Strategy getVersionStrategy() {
         return versionStrategy;

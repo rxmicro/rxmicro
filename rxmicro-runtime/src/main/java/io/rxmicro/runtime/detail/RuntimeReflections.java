@@ -109,7 +109,7 @@ public final class RuntimeReflections {
                 setAccessibleConsumer.accept(method);
             }
             return method;
-        } catch (final NoSuchMethodException ignore) {
+        } catch (final NoSuchMethodException ignored) {
             throw new InvalidStateException(
                     "Method '?.?(?)' is not defined",
                     cl.getName(),

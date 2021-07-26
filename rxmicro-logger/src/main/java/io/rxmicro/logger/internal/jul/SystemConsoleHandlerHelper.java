@@ -99,7 +99,7 @@ public final class SystemConsoleHandlerHelper {
         if (level != null) {
             try {
                 return Optional.of(parseLevel(level));
-            } catch (final IllegalArgumentException ignore) {
+            } catch (final IllegalArgumentException ignored) {
                 logUnsupportedLevelValueAsWarning(property, level);
             }
         }
@@ -114,7 +114,7 @@ public final class SystemConsoleHandlerHelper {
             for (final String level : list.split(",")) {
                 try {
                     levels.add(parseLevel(level));
-                } catch (final IllegalArgumentException ignore) {
+                } catch (final IllegalArgumentException ignored) {
                     logUnsupportedLevelValueAsWarning(property, level);
                 }
             }
@@ -129,7 +129,7 @@ public final class SystemConsoleHandlerHelper {
     private static Level parseLevel(final String levelValue) {
         try {
             return getJulLevel(io.rxmicro.logger.Level.valueOf(levelValue));
-        } catch (final IllegalArgumentException ignore) {
+        } catch (final IllegalArgumentException ignored) {
             return Level.parse(levelValue);
         }
     }

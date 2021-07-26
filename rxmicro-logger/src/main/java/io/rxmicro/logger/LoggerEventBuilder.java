@@ -166,13 +166,13 @@ public interface LoggerEventBuilder {
     /**
      * Returns a new instance of logger event.
      *
-     * @return a new instance of logger event.
+     * @return a new instance of logger event
+     * @throws io.rxmicro.common.InvalidStateException if the logger event already built
      * @see Logger#trace(LoggerEvent)
      * @see Logger#debug(LoggerEvent)
      * @see Logger#info(LoggerEvent)
      * @see Logger#warn(LoggerEvent)
      * @see Logger#error(LoggerEvent)
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
     LoggerEvent build();
 }

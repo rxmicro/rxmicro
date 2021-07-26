@@ -72,9 +72,9 @@ public final class Environments {
      *
      * @param expression the specified expression that can contains variables
      * @return the resolved expression without variables
+     * @throws IllegalArgumentException if the specified expression contains undefined variable or has invalid syntax
      * @see System#getenv()
      * @since 0.6
-     * @throws IllegalArgumentException if the specified expression contains undefined variable or has invalid syntax
      */
     public static String resolveEnvironmentVariables(final String expression) {
         return resolveVariables(expression, System.getenv());
@@ -89,8 +89,8 @@ public final class Environments {
      * @param expression the specified expression that can contains variables
      * @param variableValues the variable map that contains the pairs of names nad values
      * @return the resolved expression without variables
-     * @since 0.6
      * @throws IllegalArgumentException if the specified expression contains undefined variable or has invalid syntax
+     * @since 0.6
      */
     public static String resolveVariables(final String expression,
                                           final Map<String, String> variableValues) {

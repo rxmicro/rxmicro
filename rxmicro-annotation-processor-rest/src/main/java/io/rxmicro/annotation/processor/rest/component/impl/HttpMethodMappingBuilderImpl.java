@@ -99,9 +99,6 @@ public final class HttpMethodMappingBuilderImpl extends BaseUrlBuilder implement
                                      final ParentUrl parentUrl,
                                      final String path,
                                      final boolean httpBody) {
-        final HttpMethodMapping.Builder builder = new HttpMethodMapping.Builder()
-                .setMethod(annotationClass)
-                .setHttpBody(httpBody);
         validateNotNull(executableElement, path, "Invalid URL path mapping");
         validateThatPathIsTrimmedValue(executableElement, path, "Invalid URL path mapping");
         final String normalizeUrlPath = normalizeUrlPath(path);
@@ -112,6 +109,9 @@ public final class HttpMethodMappingBuilderImpl extends BaseUrlBuilder implement
                     normalizeUrlPath, path
             );
         }
+        final HttpMethodMapping.Builder builder = new HttpMethodMapping.Builder()
+                .setMethod(annotationClass)
+                .setHttpBody(httpBody);
         final String fullPath = parentUrl.getFullUrlPath(path);
         if (path.contains("${")) {
             final UrlSegments urlSegments = pathVariableExtractor.extractPathSegments(executableElement, fullPath);

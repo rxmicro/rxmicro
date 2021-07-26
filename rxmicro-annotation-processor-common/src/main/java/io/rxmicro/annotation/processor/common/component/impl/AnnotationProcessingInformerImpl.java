@@ -23,6 +23,7 @@ import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 import java.math.BigDecimal;
 
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.LOG_MESSAGE_LINE_DELIMITER;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.CommonConstants.NANOS_IN_1_SECOND;
 import static java.math.RoundingMode.HALF_UP;
 
@@ -37,11 +38,11 @@ public final class AnnotationProcessingInformerImpl extends BaseProcessorCompone
 
     @Override
     public void annotationProcessingStarted(final AnnotationProcessorType type) {
-        info("");
+        info(EMPTY_STRING);
         info(LOG_MESSAGE_LINE_DELIMITER);
         info(type.infoMessage());
         info(LOG_MESSAGE_LINE_DELIMITER);
-        info("");
+        info(EMPTY_STRING);
     }
 
     @Override

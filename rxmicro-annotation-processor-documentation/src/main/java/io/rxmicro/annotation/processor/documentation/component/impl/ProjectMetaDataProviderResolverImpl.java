@@ -44,6 +44,7 @@ import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.tools.StandardLocation.SOURCE_OUTPUT;
 
@@ -67,13 +68,13 @@ public final class ProjectMetaDataProviderResolverImpl extends BaseProcessorComp
     private Optional<File> getPomXmlAbsolutePath() {
         try {
             final FileObject tempResource = getFiler()
-                    .createResource(SOURCE_OUTPUT, "", "test.properties");
+                    .createResource(SOURCE_OUTPUT, EMPTY_STRING, "test.properties");
             try {
                 final URI uri = tempResource.toUri();
                 File directory;
                 try {
                     directory = new File(uri).getParentFile();
-                } catch (final IllegalArgumentException ignore) {
+                } catch (final IllegalArgumentException ignored) {
                     // uri is not a file
                     return Optional.empty();
                 }

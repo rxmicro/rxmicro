@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -55,7 +56,7 @@ public @interface CountDocuments {
      *
      * @return the query selection criteria
      */
-    String query() default "";
+    String query() default EMPTY_STRING;
 
     /**
      * Returns the maximum number of documents to count.
@@ -76,5 +77,5 @@ public @interface CountDocuments {
      *
      * @return the index name or the index specification to use for the query.
      */
-    String hint() default "";
+    String hint() default EMPTY_STRING;
 }

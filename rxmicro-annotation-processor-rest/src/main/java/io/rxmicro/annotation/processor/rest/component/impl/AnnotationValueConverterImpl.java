@@ -82,10 +82,10 @@ public final class AnnotationValueConverterImpl implements AnnotationValueConver
             classHeaderBuilder.addImports(fullClassName);
             return getSimpleName(fullClassName) + ".class";
         } else if (isEnumConstantParameter(value)) {
-            final VariableElement var = (VariableElement) value;
-            final String fullClassName = var.asType().toString();
+            final VariableElement variableElement = (VariableElement) value;
+            final String fullClassName = variableElement.asType().toString();
             classHeaderBuilder.addImports(fullClassName);
-            return format("?.?", getSimpleName(fullClassName), var.getSimpleName().toString());
+            return format("?.?", getSimpleName(fullClassName), variableElement.getSimpleName().toString());
         } else if (isArrayParameter(value) && supportArrays) {
             return arrayToString(owner, classHeaderBuilder, (List<AnnotationValue>) value);
         } else {

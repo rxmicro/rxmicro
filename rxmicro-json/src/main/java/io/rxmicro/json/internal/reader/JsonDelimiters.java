@@ -43,7 +43,7 @@ public final class JsonDelimiters {
     private static final int VERTICAL_TAB = 0x0B;
 
     static boolean isIgnoredDelimiter(final char ch) {
-        return ch == ' ' || ch == '\u00A0' || ch == '\t' || ch == '\n' || ch == '\r' || ch == VERTICAL_TAB;
+        return isSpace(ch) || ch == '\t' || ch == '\n' || ch == '\r' || ch == VERTICAL_TAB;
     }
 
     static boolean isJsonObjectDelimiter(final char ch) {
@@ -86,6 +86,10 @@ public final class JsonDelimiters {
                 getCurrentCharacter(iterator),
                 iterator.getIndex()
         );
+    }
+
+    private static boolean isSpace(final char ch) {
+        return ch == ' ' || ch == '\u00A0';
     }
 
     private static String getCurrentCharacter(final StringIterator iterator) {

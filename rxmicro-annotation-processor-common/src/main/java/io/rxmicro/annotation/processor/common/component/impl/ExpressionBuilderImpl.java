@@ -64,12 +64,12 @@ public final class ExpressionBuilderImpl implements ExpressionBuilder {
     }
 
     private String getGetterName(final TypeElement configClass,
-                                 final VariableElement var) {
-        final List<ExecutableElement> getters = findGetters(configClass, var);
+                                 final VariableElement variableElement) {
+        final List<ExecutableElement> getters = findGetters(configClass, variableElement);
         if (getters.isEmpty()) {
             throw new InterruptProcessingException(configClass,
                     "Missing a getter. Add a getter for '?.?' field",
-                    configClass.getQualifiedName(), var.getSimpleName());
+                    configClass.getQualifiedName(), variableElement.getSimpleName());
         }
         return getters.get(0).getSimpleName().toString();
     }

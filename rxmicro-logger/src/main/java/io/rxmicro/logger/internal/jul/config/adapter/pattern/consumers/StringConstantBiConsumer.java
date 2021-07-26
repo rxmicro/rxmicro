@@ -37,7 +37,7 @@ public final class StringConstantBiConsumer implements BiConsumer<MessageBuilder
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
+                       final LogRecord logRecord) {
         messageBuilder.append(value);
     }
 

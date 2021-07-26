@@ -47,9 +47,9 @@ public final class FileNameBiConsumer extends AbstractBiConsumer {
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
-        if (record instanceof RxMicroLogRecord) {
-            messageBuilder.append(((RxMicroLogRecord) record).getFileName());
+                       final LogRecord logRecord) {
+        if (logRecord instanceof RxMicroLogRecord) {
+            messageBuilder.append(((RxMicroLogRecord) logRecord).getFileName());
         } else {
             messageBuilder.append((String) null);
         }

@@ -115,7 +115,7 @@ public final class ConstraintAnnotationExtractorImpl extends BaseProcessorCompon
                                                  ? extends AnnotationValue> elementValues) {
         try {
             return (boolean) getAnnotationValue(elementValues, "off");
-        } catch (final InternalErrorException ignore) {
+        } catch (final InternalErrorException ignored) {
             throw new InterruptProcessingException(
                     annotationMirror.getAnnotationType().asElement(),
                     "Add the required annotation parameter: \"boolean off() default false;\"." +

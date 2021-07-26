@@ -50,7 +50,7 @@ public final class ToCustomTypeConverter {
                     } else {
                         return usePublicStaticFinalConstant(destinationType, fullClass, constName);
                     }
-                } catch (final ClassNotFoundException ignore) {
+                } catch (final ClassNotFoundException ignored) {
                     throw new ConfigException(
                             "Can't convert '?' to '?', because '?' class not defined!",
                             value, destinationType, fullClassName
@@ -67,7 +67,7 @@ public final class ToCustomTypeConverter {
                                              final String constName) {
         try {
             return Optional.of(Enum.valueOf((Class<? extends Enum>) fullClass, constName));
-        } catch (final IllegalArgumentException ignore) {
+        } catch (final IllegalArgumentException ignored) {
             throw new ConfigException(
                     "Can't convert '@?.?' to '?', because '?' ? does not contain '?' enum constant!",
                     fullClass.getName(), constName, destinationType, fullClass.getName(), getKind(fullClass), constName
@@ -99,7 +99,7 @@ public final class ToCustomTypeConverter {
                 );
             }
             return Optional.of(Reflections.getFieldValue((Object) null, declaredField));
-        } catch (final NoSuchFieldException ignore) {
+        } catch (final NoSuchFieldException ignored) {
             throw new ConfigException(
                     "Can't convert '@?.?' to '?', because '?' ? does not contain '?' public static final field!",
                     fullClass.getName(), constName, destinationType, fullClass.getName(), getKind(fullClass), constName

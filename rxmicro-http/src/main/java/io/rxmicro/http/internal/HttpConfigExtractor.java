@@ -51,7 +51,7 @@ public final class HttpConfigExtractor {
             connectionStringSource.delete(0, index + PROTOCOL_SEPARATOR.length());
             try {
                 return ProtocolSchema.valueOf(schema.toUpperCase(ENGLISH));
-            } catch (final IllegalArgumentException ignore) {
+            } catch (final IllegalArgumentException ignored) {
                 throw new ConfigException(
                         "Unsupported protocol schema: '?'! Only following schemas are supported: ?",
                         schema,
@@ -87,7 +87,7 @@ public final class HttpConfigExtractor {
         } else {
             try {
                 return Integer.parseInt(connectionStringSource.toString());
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 throw new ConfigException(
                         "Invalid port value: expected a number, but actual is '?'!",
                         connectionStringSource.toString()

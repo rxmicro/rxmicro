@@ -133,7 +133,7 @@ public abstract class ObjectModelClass<T extends ModelField> extends ModelClass 
 
     @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
     public boolean isParamEntriesPresentAtThisOrAnyParent() {
-        return isParamEntriesPresent() || (parent != null && parent.isParamEntriesPresentAtThisOrAnyParent());
+        return isParamEntriesPresent() || parent != null && parent.isParamEntriesPresentAtThisOrAnyParent();
     }
 
     public List<TypeMirror> getModelFieldTypes() {

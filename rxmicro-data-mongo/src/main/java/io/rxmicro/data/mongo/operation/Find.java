@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -54,7 +55,7 @@ public @interface Find {
      *
      * @return the selection filter using query operators.
      */
-    String query() default "";
+    String query() default EMPTY_STRING;
 
     /**
      * Returns the query projection.
@@ -74,7 +75,7 @@ public @interface Find {
      *
      * @return the query projection
      */
-    String projection() default "";
+    String projection() default EMPTY_STRING;
 
     /**
      * Returns the index to use for the find operation.
@@ -87,7 +88,7 @@ public @interface Find {
      *
      * @return the index to use for the find operation
      */
-    String hint() default "";
+    String hint() default EMPTY_STRING;
 
     /**
      * Returns the sort expression.
@@ -100,7 +101,7 @@ public @interface Find {
      *
      * @return the sort expression
      */
-    String sort() default "";
+    String sort() default EMPTY_STRING;
 
     /**
      * Returns the limit of the result set.

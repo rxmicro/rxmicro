@@ -405,10 +405,10 @@ public final class PatternFormatter extends Formatter {
     }
 
     @Override
-    public String format(final LogRecord record) {
+    public String format(final LogRecord logRecord) {
         final MessageBuilder messageBuilder = messageBuilderSupplier.get();
         for (final BiConsumer<MessageBuilder, LogRecord> biConsumer : biConsumers) {
-            biConsumer.accept(messageBuilder, record);
+            biConsumer.accept(messageBuilder, logRecord);
         }
         return messageBuilder.build();
     }

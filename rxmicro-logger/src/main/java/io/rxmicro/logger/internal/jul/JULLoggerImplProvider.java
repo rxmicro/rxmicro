@@ -33,6 +33,7 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.stream.Stream;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.logger.LoggerConfigSources.getLoggerConfigSources;
 import static io.rxmicro.logger.LoggerConstants.CONFIGURATION_PROPERTIES_HIDE;
@@ -64,9 +65,9 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
             logInternal(
                     Level.INFO,
                     Stream.of(
-                            Stream.of("Using java.util.logging with the following config:", ""),
+                            Stream.of("Using java.util.logging with the following config:", EMPTY_STRING),
                             config.entrySet().stream().map(e -> format("\t?=?", e.getKey(), e.getValue())),
-                            Stream.of("")
+                            Stream.of(EMPTY_STRING)
                     ).flatMap(identity()).collect(joining(lineSeparator()))
             );
         }

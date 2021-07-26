@@ -108,19 +108,20 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
             );
         }
         final Optional<RestObjectModelClass> responseModelClass = getResponseModelClass(method, restControllerClassStructureStorage);
-        return responseModelClass.map(cl -> {
+        if (responseModelClass.isPresent()) {
+            final RestObjectModelClass modelClass = responseModelClass.get();
             if (resourceDefinition.withJsonSchema()) {
                 responseBuilder.setSchema(toJsonString(
                         jsonSchemaBuilder.getJsonObjectSchema(
-                                environmentContext, projectMetaData.getProjectDirectory(), cl), true
+                                environmentContext, projectMetaData.getProjectDirectory(), modelClass), true
                 ));
             }
-            descriptionReader.readDescription(cl.getModelTypeElement(), projectMetaData.getProjectDirectory())
+            descriptionReader.readDescription(modelClass.getModelTypeElement(), projectMetaData.getProjectDirectory())
                     .ifPresent(responseBuilder::setDescription);
             final boolean withReadMore = resourceDefinition.withReadMore();
             return responseBuilder
                     .setHeaders(resourceDefinition.withHeadersDescriptionTable() ?
-                            buildResponseHeaders(environmentContext, resourceDefinition, projectMetaData, cl, withReadMore) :
+                            buildResponseHeaders(environmentContext, resourceDefinition, projectMetaData, modelClass, withReadMore) :
                             List.of()
                     )
                     .setParameters(resourceDefinition.withBodyParametersDescriptionTable() ?
@@ -128,12 +129,14 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
                                     environmentContext,
                                     resourceDefinition.withStandardDescriptions(),
                                     projectMetaData.getProjectDirectory(),
-                                    cl, PARAMETER, withReadMore
+                                    modelClass, PARAMETER, withReadMore
                             ) :
                             List.of()
                     )
                     .build();
-        }).orElseGet(responseBuilder::build);
+        } else {
+            return responseBuilder.build();
+        }
     }
 
     @Override

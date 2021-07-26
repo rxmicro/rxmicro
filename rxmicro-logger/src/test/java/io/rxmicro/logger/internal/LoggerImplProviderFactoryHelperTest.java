@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
@@ -59,7 +60,7 @@ final class LoggerImplProviderFactoryHelperTest {
                     .split(lineSeparator()))
                     .collect(toList());
             assertEquals("Can't setup logger impl factory: test", lines.get(0));
-            assertEquals("java.lang.Throwable: test", lines.get(1));
+            assertEquals("java.io.IOException: test", lines.get(1));
         } finally {
             System.setErr(ORIGINAL_SYS_ERROR);
         }
@@ -72,8 +73,8 @@ final class LoggerImplProviderFactoryHelperTest {
     public static final class TestLoggerImplProvider implements LoggerImplProvider {
 
         @Override
-        public void setup() throws Throwable {
-            throw new Throwable("test");
+        public void setup() throws IOException {
+            throw new IOException("test");
         }
 
         @Override

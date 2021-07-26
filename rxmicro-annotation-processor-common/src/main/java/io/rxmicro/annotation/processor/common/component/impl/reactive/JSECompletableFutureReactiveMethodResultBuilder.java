@@ -40,6 +40,8 @@ import static io.rxmicro.annotation.processor.common.util.validators.TypeValidat
 @Singleton
 public final class JSECompletableFutureReactiveMethodResultBuilder implements ReactiveMethodResultBuilder {
 
+    private static final String INVALID_RETURN_TYPE_PREFIX = "Invalid return type";
+
     @Override
     public boolean isSupport(final ExecutableElement method) {
         return isFuture(method.getReturnType());
@@ -49,7 +51,7 @@ public final class JSECompletableFutureReactiveMethodResultBuilder implements Re
     public MethodResult build(final ExecutableElement method,
                               final SupportedTypesProvider supportedTypesProvider) {
         final TypeMirror returnType = method.getReturnType();
-        validateGenericType(method, returnType, "Invalid return type");
+        validateGenericType(method, returnType, INVALID_RETURN_TYPE_PREFIX);
         final TypeMirror reactiveType = getTypes().erasure(returnType);
         final TypeMirror genericType = ((DeclaredType) returnType).getTypeArguments().get(0);
 
@@ -58,12 +60,12 @@ public final class JSECompletableFutureReactiveMethodResultBuilder implements Re
         final boolean optional;
         final boolean isGenericList = supportedTypesProvider.getCollectionContainers().contains(getTypes().erasure(genericType));
         if (isGenericList) {
-            validateGenericType(method, genericType, "Invalid return type");
+            validateGenericType(method, genericType, INVALID_RETURN_TYPE_PREFIX);
             resultType = ((DeclaredType) genericType).getTypeArguments().get(0);
             oneItem = false;
             optional = false;
         } else if (getTypes().erasure(genericType).toString().equals(Optional.class.getName())) {
-            validateGenericType(method, genericType, "Invalid return type");
+            validateGenericType(method, genericType, INVALID_RETURN_TYPE_PREFIX);
             resultType = ((DeclaredType) genericType).getTypeArguments().get(0);
             validateNotVoid(method, resultType);
             oneItem = true;

@@ -21,6 +21,7 @@ import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -50,7 +51,7 @@ public @interface SimpleErrorResponse {
      *
      * @return the error description
      */
-    String description() default "";
+    String description() default EMPTY_STRING;
 
     /**
      * Returns the variable definitions for the provided error description and(or) exampleErrorMessage, using key-value format.
@@ -86,7 +87,7 @@ public @interface SimpleErrorResponse {
      *
      * @return the included description
      */
-    IncludeDescription includeDescription() default @IncludeDescription(resource = "");
+    IncludeDescription includeDescription() default @IncludeDescription(resource = EMPTY_STRING);
 
     /**
      * Returns the param names.

@@ -88,7 +88,7 @@ public abstract class ModelReader<T> extends FromStringValueConverter {
                 String decodedValue;
                 try {
                     decodedValue = decode(value, StandardCharsets.UTF_8);
-                } catch (final IllegalArgumentException ignore) {
+                } catch (final IllegalArgumentException ignored) {
                     decodedValue = value;
                 }
                 queryParams.setOrAdd(name, decodedValue);

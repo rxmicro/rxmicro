@@ -21,6 +21,7 @@ import io.rxmicro.rest.Version;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 
@@ -77,7 +78,7 @@ public final class ParentUrl {
 
     @Override
     public String toString() {
-        return getFullUrlPath("");
+        return getFullUrlPath(EMPTY_STRING);
     }
 
     /**

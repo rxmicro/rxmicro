@@ -48,6 +48,7 @@ import static io.rxmicro.annotation.processor.common.util.Elements.findSetter;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.startsWith;
 import static io.rxmicro.config.Config.getDefaultNameSpace;
@@ -143,7 +144,7 @@ public final class Annotations {
     }
 
     public static List<Map.Entry<String, DefaultConfigProxyValue>> getValidatedDefaultConfigValues(final ModuleElement moduleElement) {
-        final List<Map.Entry<String, DefaultConfigProxyValue>> values = getDefaultConfigValues("", moduleElement);
+        final List<Map.Entry<String, DefaultConfigProxyValue>> values = getDefaultConfigValues(EMPTY_STRING, moduleElement);
         validateDefaultConfigValues(moduleElement, values);
         return values;
     }

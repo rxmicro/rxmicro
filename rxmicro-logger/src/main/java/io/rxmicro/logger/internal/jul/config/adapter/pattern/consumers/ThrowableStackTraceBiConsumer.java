@@ -39,11 +39,11 @@ public final class ThrowableStackTraceBiConsumer implements BiConsumer<MessageBu
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
-        if (record.getThrown() != null) {
+                       final LogRecord logRecord) {
+        if (logRecord.getThrown() != null) {
             final StringWriter sw = new StringWriter();
             final PrintWriter pw = new PrintWriter(sw);
-            record.getThrown().printStackTrace(pw);
+            logRecord.getThrown().printStackTrace(pw);
             pw.flush();
             if (singleLineEnabled) {
                 messageBuilder.append(lineSeparator());

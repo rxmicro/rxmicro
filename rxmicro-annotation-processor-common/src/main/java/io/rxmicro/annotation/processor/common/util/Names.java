@@ -31,9 +31,13 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
  */
 public final class Names {
 
+    private static final String PRIMITIVE_NOT_ALLOWED_HERE_ERROR_MESSAGE = "Primitive not allowed here";
+
+    private static final String DEFAULT_PACKAGE_NOT_ALLOWED_ERROR_MESSAGE = "Default package not allowed";
+
     public static String getPackageName(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException("Primitive not allowed here");
+            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE_ERROR_MESSAGE);
         }
         return getPackageName(getTypeWithoutGeneric(type));
     }
@@ -45,14 +49,14 @@ public final class Names {
     public static String getPackageName(final String className) {
         final int lastDot = className.lastIndexOf('.');
         if (lastDot == -1) {
-            throw new InternalErrorException("Package <default> not allowed");
+            throw new InternalErrorException(DEFAULT_PACKAGE_NOT_ALLOWED_ERROR_MESSAGE);
         }
         return className.substring(0, lastDot);
     }
 
     public static String getSimpleName(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException("Primitive not allowed here");
+            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE_ERROR_MESSAGE);
         }
         final StringBuilder nameBuilder = new StringBuilder();
         populate(nameBuilder, type);
@@ -79,7 +83,7 @@ public final class Names {
 
     public static String getGenericType(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException("Primitive not allowed here");
+            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE_ERROR_MESSAGE);
         }
         final String string = type.toString();
         return string.substring(string.indexOf('<') + 1, string.lastIndexOf('>'));
@@ -87,7 +91,7 @@ public final class Names {
 
     public static String getTypeWithoutGeneric(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException("Primitive not allowed here");
+            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE_ERROR_MESSAGE);
         }
         final String string = type.toString();
         final int index = string.indexOf('<');

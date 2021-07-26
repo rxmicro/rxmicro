@@ -214,7 +214,7 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
      */
     public static final class Builder implements LoggerEventBuilder {
 
-        private final RxMicroLogRecord record = new RxMicroLogRecord();
+        private final RxMicroLogRecord logRecord = new RxMicroLogRecord();
 
         private String messageOrTemplate;
 
@@ -227,7 +227,7 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
         @Override
         public Builder setRequestIdSupplier(final RequestIdSupplier requestIdSupplier) {
             validateBuilderState();
-            record.requestIdSupplier = require(requestIdSupplier);
+            logRecord.requestIdSupplier = require(requestIdSupplier);
             return this;
         }
 
@@ -240,7 +240,7 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
                 throw new IllegalArgumentException("'sourceLineNumber' parameter must be > 0!");
             }
             validateBuilderState();
-            record.setStackFrame(require(sourceClassName), require(sourceMethodName), require(sourceFileName), sourceLineNumber);
+            logRecord.setStackFrame(require(sourceClassName), require(sourceMethodName), require(sourceFileName), sourceLineNumber);
             return this;
         }
 
@@ -249,7 +249,7 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
             validateBuilderState();
             validateMessageState();
             messageOrTemplate = require(message);
-            record.setMessage(messageOrTemplate);
+            logRecord.setMessage(messageOrTemplate);
             return this;
         }
 
@@ -283,7 +283,7 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
             validateBuilderState();
             // See LogRecord#MIN_SEQUENTIAL_THREAD_ID and LogRecord#defaultThreadID()
             if (threadId < Integer.MAX_VALUE / 2) {
-                record.setThreadID((int) threadId);
+                logRecord.setThreadID((int) threadId);
             }
             return this;
         }
@@ -291,14 +291,14 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
         @Override
         public Builder setThreadName(final String threadName) {
             validateBuilderState();
-            record.setThreadName(threadName);
+            logRecord.setThreadName(threadName);
             return this;
         }
 
         @Override
         public Builder setThrowable(final Throwable throwable) {
             validateBuilderState();
-            record.setThrown(require(throwable));
+            logRecord.setThrown(require(throwable));
             return this;
         }
 
@@ -307,9 +307,9 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
             validateBuilderState();
             built = true;
             if (templateArgs != null) {
-                return new RxMicroLogRecordHolder(record, messageOrTemplate, templateArgs, areTemplateArgsSuppliers);
+                return new RxMicroLogRecordHolder(logRecord, messageOrTemplate, templateArgs, areTemplateArgsSuppliers);
             } else {
-                return record;
+                return logRecord;
             }
         }
 
@@ -337,7 +337,7 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
      */
     public static final class RxMicroLogRecordHolder implements LoggerEvent {
 
-        private final RxMicroLogRecord record;
+        private final RxMicroLogRecord logRecord;
 
         private final String template;
 
@@ -345,22 +345,28 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
 
         private final boolean areTemplateArgsSuppliers;
 
-        private RxMicroLogRecordHolder(final RxMicroLogRecord record,
+        private boolean returned;
+
+        private RxMicroLogRecordHolder(final RxMicroLogRecord logRecord,
                                        final String template,
                                        final Object[] args,
                                        final boolean areTemplateArgsSuppliers) {
-            this.record = record;
+            this.logRecord = logRecord;
             this.template = template;
             this.args = args;
             this.areTemplateArgsSuppliers = areTemplateArgsSuppliers;
         }
 
-        public RxMicroLogRecord getRecord() {
-            record.setMessage(getFormattedMessage(template, args, areTemplateArgsSuppliers));
-            if (record.getThreadName() == null) {
-                record.setThreadName(Thread.currentThread().getName());
+        public RxMicroLogRecord getLogRecord() {
+            if (returned) {
+                throw new InvalidStateException("Log record already returned!");
             }
-            return record;
+            logRecord.setMessage(getFormattedMessage(template, args, areTemplateArgsSuppliers));
+            if (logRecord.getThreadName() == null) {
+                logRecord.setThreadName(Thread.currentThread().getName());
+            }
+            returned = true;
+            return logRecord;
         }
 
         private static String getFormattedMessage(final String template,

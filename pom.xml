@@ -159,9 +159,9 @@
         <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
 
         <!-- Code quality -->
-        <spotbugs.version>4.2.3</spotbugs.version>
+        <spotbugs.version>4.3.0</spotbugs.version>
         <pmd.version>6.35.0</pmd.version>
-        <checkstyle.version>8.43</checkstyle.version>
+        <checkstyle.version>8.44</checkstyle.version>
 
         <!-- Maven core plugins -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
@@ -185,14 +185,14 @@
 
         <!-- Code quality plugins -->
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.1.4</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.3.0</spotbugs-maven-plugin.version>
         <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
-        <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
+        <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
 
         <!-- Code quality plugin configuration properties -->
         <spotbugs-maven-plugin.failOnError>true</spotbugs-maven-plugin.failOnError>
         <maven-pmd-plugin.failOnViolation>true</maven-pmd-plugin.failOnViolation>
-        <maven-checkstyle-plugin.failOnViolation>true</maven-checkstyle-plugin.failOnViolation>
+        <checkstyle-maven-plugin.failOnViolation>true</checkstyle-maven-plugin.failOnViolation>
     </properties>
 
     <profiles>
@@ -383,7 +383,7 @@
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
-                                <phase>verify</phase>
+                                <phase>process-classes</phase>
                             </execution>
                         </executions>
                         <configuration>
@@ -448,7 +448,7 @@
                                     <configLocation>.coding/checkstyle/common-rules.xml</configLocation>
                                     <suppressionsLocation>.coding/checkstyle/common-suppressions.xml</suppressionsLocation>
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                                    <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
+                                    <failOnViolation>${checkstyle-maven-plugin.failOnViolation}</failOnViolation>
                                 </configuration>
                             </execution>
                             <execution>
@@ -461,7 +461,7 @@
                                     <configLocation>.coding/checkstyle/public-api-rules.xml</configLocation>
                                     <suppressionsLocation>.coding/checkstyle/public-api-suppressions.xml</suppressionsLocation>
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                                    <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
+                                    <failOnViolation>${checkstyle-maven-plugin.failOnViolation}</failOnViolation>
                                     <excludes>io/rxmicro/annotation/processor/**, **/detail/**, **/local/**, **/internal/**</excludes>
                                 </configuration>
                             </execution>
@@ -486,7 +486,7 @@
                                     <configLocation>.coding/checkstyle/common-rules.xml</configLocation>
                                     <suppressionsLocation>.coding/checkstyle/common-suppressions.xml</suppressionsLocation>
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                                    <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
+                                    <failOnViolation>${checkstyle-maven-plugin.failOnViolation}</failOnViolation>
                                 </configuration>
                             </reportSet>
                             <reportSet>
@@ -499,7 +499,7 @@
                                     <configLocation>.coding/checkstyle/public-api-rules.xml</configLocation>
                                     <suppressionsLocation>.coding/checkstyle/public-api-suppressions.xml</suppressionsLocation>
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                                    <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
+                                    <failOnViolation>${checkstyle-maven-plugin.failOnViolation}</failOnViolation>
                                     <excludes>io/rxmicro/annotation/processor/**, **/detail/**, **/local/**, **/internal/**</excludes>
                                 </configuration>
                             </reportSet>

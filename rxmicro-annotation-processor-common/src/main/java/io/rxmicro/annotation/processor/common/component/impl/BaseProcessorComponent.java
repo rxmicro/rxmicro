@@ -56,7 +56,7 @@ public class BaseProcessorComponent {
             final String stringLogLevel = getStringOption(RX_MICRO_LOG_LEVEL, RX_MICRO_LOG_LEVEL_DEFAULT_VALUE.name());
             try {
                 level = LogLevel.valueOf(stringLogLevel);
-            } catch (final IllegalArgumentException ignore) {
+            } catch (final IllegalArgumentException ignored) {
                 getMessager().printMessage(
                         Diagnostic.Kind.MANDATORY_WARNING,
                         format("Unsupported logger level for the RxMicro Annotation Processor: '?'. " +
@@ -214,7 +214,7 @@ public class BaseProcessorComponent {
         if (value != null) {
             try {
                 return Integer.parseInt(value);
-            } catch (final NumberFormatException ignore) {
+            } catch (final NumberFormatException ignored) {
                 // do nothing: return defaultValue
             }
         }

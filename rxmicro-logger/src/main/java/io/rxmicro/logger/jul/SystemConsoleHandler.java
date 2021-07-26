@@ -182,8 +182,8 @@ public final class SystemConsoleHandler extends Handler {
     }
 
     @Override
-    public void publish(final LogRecord record) {
-        handler.publish(record);
+    public void publish(final LogRecord logRecord) {
+        handler.publish(logRecord);
         handler.flush();
     }
 
@@ -219,12 +219,12 @@ public final class SystemConsoleHandler extends Handler {
         }
 
         @Override
-        public void publish(final LogRecord record) {
-            if (errStreamForPredicate.test(record.getLevel())) {
-                sysErrStreamHandler.publish(record);
+        public void publish(final LogRecord logRecord) {
+            if (errStreamForPredicate.test(logRecord.getLevel())) {
+                sysErrStreamHandler.publish(logRecord);
                 sysErrStreamHandler.flush();
             } else {
-                sysOutStreamHandler.publish(record);
+                sysOutStreamHandler.publish(logRecord);
                 sysOutStreamHandler.flush();
             }
         }

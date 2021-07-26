@@ -38,6 +38,7 @@ import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_C
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_REQUEST;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_RESPONSE;
 import static io.rxmicro.annotation.processor.common.util.Errors.IMPOSSIBLE_ERROR_ANNOTATION_NOT_FOUND_SUPPLIER;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.http.local.HttpValidators.validateParameterName;
 
 /**
@@ -60,7 +61,7 @@ public final class ParameterRestModelFieldBuilder extends BaseProcessorComponent
                                 final int nestedLevel) {
         final VariableElement field = annotated.getField();
         final ParameterMappingStrategy strategy = typeElement.getAnnotation(ParameterMappingStrategy.class);
-        final String customParameterName = parameter != null ? parameter.value() : "";
+        final String customParameterName = parameter != null ? parameter.value() : EMPTY_STRING;
         final String modelName = annotated.getModelName(customParameterName, strategy, () -> strategy.value());
         if (!modelNames.add(modelName)) {
             error(

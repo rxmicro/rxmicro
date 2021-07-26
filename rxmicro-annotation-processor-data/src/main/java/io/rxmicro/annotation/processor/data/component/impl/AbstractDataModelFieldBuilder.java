@@ -35,6 +35,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
+
 /**
  * @author nedis
  * @since 0.1
@@ -99,7 +101,7 @@ public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, 
                                  final AnnotatedModelElement annotated) {
         final Column column = annotated.getAnnotation(Column.class);
         final ColumnMappingStrategy strategy = typeElement.getAnnotation(ColumnMappingStrategy.class);
-        return getModelName(column != null ? column.value() : "", strategy, fieldName, () -> strategy.value());
+        return getModelName(column != null ? column.value() : EMPTY_STRING, strategy, fieldName, () -> strategy.value());
     }
 
     protected abstract boolean isColumnId(AnnotatedModelElement annotated);

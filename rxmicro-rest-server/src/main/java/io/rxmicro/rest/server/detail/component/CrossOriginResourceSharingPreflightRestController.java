@@ -35,6 +35,7 @@ import java.util.Set;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.http.HttpStandardHeaderNames.ACCESS_CONTROL_ALLOW_CREDENTIALS;
 import static io.rxmicro.http.HttpStandardHeaderNames.ACCESS_CONTROL_ALLOW_HEADERS;
 import static io.rxmicro.http.HttpStandardHeaderNames.ACCESS_CONTROL_ALLOW_METHODS;
@@ -80,7 +81,7 @@ public final class CrossOriginResourceSharingPreflightRestController extends Abs
         registrar.register(
                 this,
                 new Registration(
-                        "",
+                        EMPTY_STRING,
                         "handle",
                         paramTypes,
                         this::handle,
@@ -90,7 +91,7 @@ public final class CrossOriginResourceSharingPreflightRestController extends Abs
                                 .collect(toList())
                 ),
                 new Registration(
-                        "",
+                        EMPTY_STRING,
                         "handle",
                         paramTypes,
                         this::handle,

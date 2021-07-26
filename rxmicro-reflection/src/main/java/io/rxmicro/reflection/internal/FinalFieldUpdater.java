@@ -39,7 +39,7 @@ public final class FinalFieldUpdater {
             field.set(instance, value);
         } catch (final IllegalAccessException ex) {
             throw new CheckedWrapperException(ex);
-        } catch (final NoSuchFieldException ignore) {
+        } catch (final NoSuchFieldException ignored) {
             // Read more: https://bugs.openjdk.java.net/browse/JDK-8217225
             throw new IllegalArgumentException(format(
                     "Can't update final field: ?. Read more: https://bugs.openjdk.java.net/browse/JDK-8217225",

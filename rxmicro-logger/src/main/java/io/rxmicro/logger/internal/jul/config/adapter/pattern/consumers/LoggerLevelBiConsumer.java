@@ -37,7 +37,7 @@ public final class LoggerLevelBiConsumer extends AbstractBiConsumer {
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
-                       final LogRecord record) {
-        messageBuilder.append(getRxMicroLevel(record.getLevel()));
+                       final LogRecord logRecord) {
+        messageBuilder.append(getRxMicroLevel(logRecord.getLevel()));
     }
 }

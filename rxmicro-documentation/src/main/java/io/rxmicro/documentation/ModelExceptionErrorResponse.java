@@ -23,6 +23,7 @@ import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -61,7 +62,7 @@ public @interface ModelExceptionErrorResponse {
      *
      * @return the custom description for the current http error exception.
      */
-    String description() default "";
+    String description() default EMPTY_STRING;
 
     /**
      * Returns the custom included description if it is necessary add a complex formatted description.
@@ -72,7 +73,7 @@ public @interface ModelExceptionErrorResponse {
      *
      * @return the custom included description
      */
-    IncludeDescription includeDescription() default @IncludeDescription(resource = "");
+    IncludeDescription includeDescription() default @IncludeDescription(resource = EMPTY_STRING);
 
     /**
      * Returns the variable definitions for the provided error description, using key-value format.

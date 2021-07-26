@@ -45,6 +45,6 @@ public final class ModelReaderBuilderImpl
                                                   final RestObjectModelClass modelClass) {
         return modelClass.isModelClassReturnedByRestMethod() ||
                 modelClass.isHeadersOrPathVariablesOrInternalsPresent() ||
-                (mappedRestObjectModelClass.getReaderType().isQueryPresent() && modelClass.isParamEntriesPresent());
+                mappedRestObjectModelClass.getReaderType().isQueryPresent() && modelClass.isParamEntriesPresent();
     }
 }

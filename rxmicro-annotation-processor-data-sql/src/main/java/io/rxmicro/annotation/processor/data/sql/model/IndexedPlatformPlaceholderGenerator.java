@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.data.sql.model;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -32,7 +33,7 @@ public final class IndexedPlatformPlaceholderGenerator implements PlatformPlaceh
 
     public static IndexedPlatformPlaceholderGenerator createPrefixedGenerator(final String prefix,
                                                                               final int startValue) {
-        return new IndexedPlatformPlaceholderGenerator(prefix, startValue, "");
+        return new IndexedPlatformPlaceholderGenerator(prefix, startValue, EMPTY_STRING);
     }
 
     private IndexedPlatformPlaceholderGenerator(final String prefix,

@@ -228,7 +228,7 @@ public final class NumberValidatorsImpl extends BaseProcessorComponent implement
                                           final Class<? extends Annotation> annotationClass) {
         try {
             return new BigInteger(removeUnderscoresIfPresent(value));
-        } catch (final NumberFormatException ignore) {
+        } catch (final NumberFormatException ignored) {
             error(
                     modelField.getElementAnnotatedBy(annotationClass),
                     ERROR_MESSAGE_PREFIX + "Expected an integer number",
@@ -243,7 +243,7 @@ public final class NumberValidatorsImpl extends BaseProcessorComponent implement
                                           final Class<? extends Annotation> annotationClass) {
         try {
             return new BigDecimal(removeUnderscoresIfPresent(value));
-        } catch (final NumberFormatException ignore) {
+        } catch (final NumberFormatException ignored) {
             error(
                     modelField.getElementAnnotatedBy(annotationClass),
                     ERROR_MESSAGE_PREFIX + "Expected a number",

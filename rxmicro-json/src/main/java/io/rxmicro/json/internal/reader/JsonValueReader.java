@@ -153,7 +153,7 @@ final class JsonValueReader {
         final StringBuilder sb = new StringBuilder();
         while (iterator.next()) {
             final char current = iterator.getCurrent();
-            if (current >= '0' && current <= '9' || current >= 'a' && current <= 'f' || current >= 'A' && current <= 'F') {
+            if (isAsciiDigit(current) || isLatinLowercaseLetter(current) || isLaticUppercaseLetter(current)) {
                 sb.append(current);
             } else {
                 break;
@@ -167,6 +167,18 @@ final class JsonValueReader {
         } else {
             throw new JsonException("Expected a valid Unicode character, but actual is '\\u?'. Index=?", sb, iterator.getIndex());
         }
+    }
+
+    private static boolean isAsciiDigit(final char current) {
+        return current >= '0' && current <= '9';
+    }
+
+    private static boolean isLatinLowercaseLetter(final char current) {
+        return current >= 'a' && current <= 'f';
+    }
+
+    private static boolean isLaticUppercaseLetter(final char current) {
+        return current >= 'A' && current <= 'F';
     }
 
     private JsonValueReader() {

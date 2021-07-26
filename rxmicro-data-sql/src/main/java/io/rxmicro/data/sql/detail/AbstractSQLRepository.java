@@ -24,6 +24,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -72,7 +73,7 @@ public abstract class AbstractSQLRepository extends AbstractDataRepository {
 
     private String getWithParamsPhrase(final Object... params) {
         if (params.length == 0) {
-            return "";
+            return EMPTY_STRING;
         } else {
             return format(" with params ?", paramsToString(params));
         }

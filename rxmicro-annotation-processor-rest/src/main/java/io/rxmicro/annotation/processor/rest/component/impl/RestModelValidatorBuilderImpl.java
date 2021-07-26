@@ -45,6 +45,7 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Numbers.removeUnderscoresIfPresent;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -176,7 +177,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                 ));
         if (parameterOrder.isEmpty()) {
             if (map.isEmpty()) {
-                return "";
+                return EMPTY_STRING;
             } else if (map.size() == 1) {
                 return map.entrySet().iterator().next().getValue();
             } else {

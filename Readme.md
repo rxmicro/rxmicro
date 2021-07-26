@@ -53,6 +53,21 @@ See [CHECK_LISTS.md](.github/CHECK_LISTS.md).
 
 ## Code Quality
 
+### Checkstyle (https://checkstyle.sourceforge.io/)
+
+* *([Custom common checkstyle](.coding/checkstyle/common-rules.xml) profile with 
+[common-suppressions](.coding/checkstyle/common-suppressions.xml) for all classes)*
+* *([Custom public checkstyle](.coding/checkstyle/public-api-rules.xml) profile with 
+[public-api-suppressions](.coding/checkstyle/public-api-suppressions.xml) for public classes)*
+
+Verify via `checkstyle`:
+
+```
+mvn --fail-at-end -P checkstyle clean process-classes
+```
+
+If build failed find `reported by Checkstyle` phrase at the console output...
+
 ### Spotbugs (https://spotbugs.github.io/)
 
 *(Standard spotbugs profile with [excludes](.coding/spotbugs/exclude.xml))*
@@ -60,16 +75,10 @@ See [CHECK_LISTS.md](.github/CHECK_LISTS.md).
 Verify via `spotbugs`:
 
 ```
-mvn --fail-at-end -DskipTests -P spotbugs clean verify
+mvn --fail-at-end -P spotbugs clean process-classes
 ```
 
 If build failed find `Total bugs` phrase at the console output...
-
-```
-mvn --fail-at-end -DskipTests -P spotbugs \ 
-        -Dspotbugs-maven-plugin.failOnError=false \
-                clean verify site site:stage
-```
 
 ### PMD (https://pmd.github.io/)
 
@@ -90,42 +99,23 @@ mvn --fail-at-end -DskipTests -P pmd \
                 clean verify site site:stage
 ```
 
-### Checkstyle (https://checkstyle.sourceforge.io/)
-
-* *([Custom common checkstyle](.coding/checkstyle/common-rules.xml) profile with 
-[common-suppressions](.coding/checkstyle/common-suppressions.xml) for all classes)*
-* *([Custom public checkstyle](.coding/checkstyle/public-api-rules.xml) profile with 
-[public-api-suppressions](.coding/checkstyle/public-api-suppressions.xml) for public classes)*
-
-Verify via `checkstyle`:
-
-```
-mvn --fail-at-end -DskipTests -P checkstyle clean verify
-```
-
-If build failed find `reported by Checkstyle` phrase at the console output...
-
-```
-mvn --fail-at-end -DskipTests -P checkstyle \
-        -Dmaven-checkstyle-plugin.failOnViolation=false \
-                clean verify site site:stage
-```
-
 ### All tools
 
 Verify via `spotbugs`, `pmd`, `checkstyle`:
 
 ```
-mvn --fail-at-end -DskipTests -P spotbugs,pmd,checkstyle clean verify
+mvn --fail-at-end -P checkstyle,spotbugs,pmd clean process-classes
 ```
 
 If build failed find `Total bugs`, `PMD Failure`, `reported by Checkstyle` phrase at the console output...
 
+### Html reports 
+
 ```
-mvn --fail-at-end -DskipTests -P spotbugs,pmd,checkstyle \
+mvn --fail-at-end -DskipTests -P checkstyle,spotbugs,pmd \
+        -Dcheckstyle-maven-plugin.failOnViolation=false \
         -Dspotbugs-maven-plugin.failOnError=false \
         -Dmaven-pmd-plugin.failOnViolation=false \
-        -Dmaven-checkstyle-plugin.failOnViolation=false \
                 clean verify site site:stage
 ```
 

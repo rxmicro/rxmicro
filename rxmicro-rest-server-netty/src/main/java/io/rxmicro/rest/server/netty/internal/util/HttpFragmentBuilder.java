@@ -25,6 +25,7 @@ import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 
 import java.util.Optional;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static java.lang.System.lineSeparator;
@@ -53,7 +54,7 @@ public final class HttpFragmentBuilder {
                 request.getUri(),
                 request.isQueryStringPresent() ?
                         '?' + secrets.hideAllSecretsIn(request.getQueryString()) :
-                        ""
+                        EMPTY_STRING
         );
     }
 
@@ -85,6 +86,6 @@ public final class HttpFragmentBuilder {
         return httpContentHolder.isFileContent() ? "<file content>" :
                 httpContentHolder.isContentPresent() ?
                         secrets.hideAllSecretsIn(new String(httpContentHolder.getContent(), UTF_8)) :
-                        "";
+                        EMPTY_STRING;
     }
 }

@@ -21,6 +21,7 @@ import io.rxmicro.common.ImpossibleException;
 import java.util.List;
 import java.util.Locale;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Strings.capitalize;
 import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static io.rxmicro.model.ModelConstants.HYPHEN_DELIMITER;
@@ -78,7 +79,7 @@ public enum MappingStrategy {
     /**
      * Example: {@code HelloWorld = helloWorld}.
      */
-    CAPITALIZE_CAMEL_CASE("");
+    CAPITALIZE_CAMEL_CASE(EMPTY_STRING);
 
     private final String delimiter;
 

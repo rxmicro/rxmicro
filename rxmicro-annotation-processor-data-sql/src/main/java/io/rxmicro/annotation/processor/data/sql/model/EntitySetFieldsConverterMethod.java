@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.data.sql.model;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.model.MappingStrategy.CAPITALIZE_CAMEL_CASE;
 
 /**
@@ -27,7 +28,7 @@ public final class EntitySetFieldsConverterMethod extends EntityConverterMethod 
     public EntitySetFieldsConverterMethod(final SQLStatement sqlStatement) {
         super("set" + (
                         sqlStatement.isDefaultColumnOrder() ?
-                                "" :
+                                EMPTY_STRING :
                                 CAPITALIZE_CAMEL_CASE.getModelName(sqlStatement.getResultColumns())),
                 sqlStatement.getResultColumns()
         );

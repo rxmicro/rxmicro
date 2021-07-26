@@ -25,6 +25,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.logger.RequestIdSupplier.UNDEFINED_REQUEST_ID;
@@ -62,14 +63,14 @@ final class JdkHttpClientLogger {
                 () -> requestId,
                 "HTTP request sent:\n? ?\n?\n\n?",
                 format("? ?", request.method(), secrets.hideAllSecretsIn(request.uri().toString())),
-                request.version().map(Enum::toString).orElse(""),
+                request.version().map(Enum::toString).orElse(EMPTY_STRING),
                 request.headers().map().entrySet().stream()
                         .flatMap(e -> e.getValue().stream().map(v -> entry(e.getKey(), v)))
                         .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
                 requestBody != null ?
                         secrets.hideAllSecretsIn(new String(requestBody, UTF_8)) :
-                        ""
+                        EMPTY_STRING
         );
         return response.whenComplete((resp, th) -> {
             if (resp != null) {
@@ -85,7 +86,7 @@ final class JdkHttpClientLogger {
                                 .collect(joining(lineSeparator())),
                         resp.body().length > 0 ?
                                 secrets.hideAllSecretsIn(new String(resp.body(), UTF_8)) :
-                                ""
+                                EMPTY_STRING
                 );
             }
         });
@@ -105,7 +106,7 @@ final class JdkHttpClientLogger {
                 () -> requestId,
                 "HTTP request sent: '?'?",
                 format("? ?", request.method(), uri),
-                requestBody == null ? "" : format(" with ? request body bytes", requestBody.length)
+                requestBody == null ? EMPTY_STRING : format(" with ? request body bytes", requestBody.length)
         );
         return response.whenComplete((resp, th) -> {
             if (resp != null) {

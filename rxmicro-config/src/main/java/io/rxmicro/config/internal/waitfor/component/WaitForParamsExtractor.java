@@ -36,6 +36,8 @@ import static java.lang.System.lineSeparator;
  */
 public final class WaitForParamsExtractor {
 
+    private static final String SPACE_DELIMITER = " ";
+
     public static List<String> extractWaitForParams(final String... commandLineArgs) {
         validateEnvVariables();
         if (commandLineArgs.length > 0) {
@@ -111,7 +113,7 @@ public final class WaitForParamsExtractor {
 
     private static List<String> getParamsFromEvnVariablesOrJavaSystemProperties(final String nullableValue) {
         final List<String> result = Optional.ofNullable(nullableValue)
-                .map(values -> Arrays.asList(values.split(" ")))
+                .map(values -> Arrays.asList(values.split(SPACE_DELIMITER)))
                 .orElse(null);
         if (result != null) {
             if (result.isEmpty()) {
@@ -126,15 +128,19 @@ public final class WaitForParamsExtractor {
     private static void validateOnlyOneWaitForConfigurationPerProject(final List<String> commandLineArguments) {
         final List<String> sources = new ArrayList<>();
         if (!commandLineArguments.isEmpty()) {
-            sources.add(format("Command line arguments: ?", String.join(" ", commandLineArguments)));
+            sources.add(format("Command line arguments: ?", String.join(SPACE_DELIMITER, commandLineArguments)));
         }
         List<String> params = getParamsFromEvnVariablesOrJavaSystemProperties(System.getProperty(WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME));
         if (!params.isEmpty()) {
-            sources.add(format("? Java system property: ?", WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME, String.join(" ", params)));
+            sources.add(
+                    format("? Java system property: ?", WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME, String.join(SPACE_DELIMITER, params))
+            );
         }
         params = getParamsFromEvnVariablesOrJavaSystemProperties(System.getenv(WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME));
         if (!params.isEmpty()) {
-            sources.add(format("? environment variable: ?", WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME, String.join(" ", params)));
+            sources.add(
+                    format("? environment variable: ?", WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME, String.join(SPACE_DELIMITER, params))
+            );
         }
         if (sources.size() > 1) {
             throw new ConfigException(

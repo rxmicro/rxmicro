@@ -31,7 +31,7 @@ public final class LoggerNameBiConsumer extends AbstractClassNameBiConsumer {
     }
 
     @Override
-    protected String getName(final LogRecord record) {
-        return record.getLoggerName();
+    protected String getName(final LogRecord logRecord) {
+        return logRecord.getLoggerName();
     }
 }

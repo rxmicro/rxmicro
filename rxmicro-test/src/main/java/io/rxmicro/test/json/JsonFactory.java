@@ -69,10 +69,10 @@ public final class JsonFactory {
      * @param message the error message template
      * @param args the error message template arguments
      * @return the short-lived unmodified ordered {@link Map} that represents a JSON object with
-     *          the specified error message according to standard error JSON model structure.
-     * @see io.rxmicro.http.error.HttpErrorException
+     *          the specified error message according to standard error JSON model structure
      * @throws NullPointerException if the error message template is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     * @see io.rxmicro.http.error.HttpErrorException
      */
     public static Map<String, Object> jsonErrorObject(final String message,
                                                       final Object... args) {

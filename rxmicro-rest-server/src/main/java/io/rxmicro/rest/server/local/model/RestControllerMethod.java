@@ -20,6 +20,7 @@ import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
+import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.internal.BaseRestControllerMethod;
 
 import java.util.List;
@@ -43,17 +44,11 @@ public final class RestControllerMethod extends BaseRestControllerMethod {
 
     private final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> function;
 
-    public RestControllerMethod(
-            final String parentUrl,
-            final AbstractRestController restController,
-            final String methodName,
-            final List<Class<?>> paramTypes,
-            final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> function,
-            final boolean corsRequestPossible) {
-        super(parentUrl, restController, corsRequestPossible);
-        this.methodName = require(methodName);
-        this.paramTypes = unmodifiableList(paramTypes);
-        this.function = require(function);
+    public RestControllerMethod(final Registration registration, final AbstractRestController restController) {
+        super(registration.getParentUrl(), restController, registration.isCorsRequestPossible());
+        this.methodName = require(registration.getMethodName());
+        this.paramTypes = unmodifiableList(registration.getParamTypes());
+        this.function = require(registration.getMethod());
     }
 
     @Override

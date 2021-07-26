@@ -36,7 +36,7 @@ on:
       - 'rxmicro-*/src/test/java/**'
       - '.github/workflows/verify-on-push.yml'
   pull_request:
-    types: [assigned, opened, edited, reopened]
+    types: [ assigned, opened, edited, reopened ]
     paths:
       - 'rxmicro-*/src/main/java/**'
       - 'rxmicro-*/src/test/java/**'
@@ -254,7 +254,7 @@ jobs:
           - graalvm-native-image-mongo-data-repository
           - graalvm-native-image-postgres-data-repository
           - graalvm-native-image-quick-start
-        maven-profile: ['default']
+        maven-profile: [ 'default' ]
         include:
           - group: graalvm-native-image-rest-client
             maven-profile: 'jdk-http-client'

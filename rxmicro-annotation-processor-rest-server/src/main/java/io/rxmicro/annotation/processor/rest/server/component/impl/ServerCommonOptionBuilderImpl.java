@@ -30,6 +30,7 @@ import javax.lang.model.element.Element;
 
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
+import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
 
@@ -68,7 +69,7 @@ public final class ServerCommonOptionBuilderImpl extends BaseProcessorComponent 
                     );
                 }
             }
-            final String parent = parentUrl.getFullUrlPath("");
+            final String parent = parentUrl.getFullUrlPath(EMPTY_STRING);
             if (value.startsWith(parent)) {
                 return value;
             } else {
