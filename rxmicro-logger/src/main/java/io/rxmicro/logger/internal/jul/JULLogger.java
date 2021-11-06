@@ -22,6 +22,8 @@ import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.logger.impl.AbstractLogger;
 import io.rxmicro.logger.internal.jul.config.adapter.RxMicroLogRecord;
 
+import java.util.logging.LogRecord;
+
 import static io.rxmicro.logger.internal.jul.LevelMappings.getJulLevel;
 
 /**
@@ -59,12 +61,7 @@ final class JULLogger extends AbstractLogger {
     @Override
     protected void log(final Level level,
                        final LoggerEvent loggerEvent) {
-        final RxMicroLogRecord logRecord;
-        if (loggerEvent instanceof RxMicroLogRecord.RxMicroLogRecordHolder) {
-            logRecord = ((RxMicroLogRecord.RxMicroLogRecordHolder) loggerEvent).getLogRecord();
-        } else {
-            logRecord = (RxMicroLogRecord) loggerEvent;
-        }
+        final LogRecord logRecord = loggerEvent.getLogRecord();
         logRecord.setLoggerName(name);
         logRecord.setLevel(getJulLevel(level));
         logger.log(logRecord);

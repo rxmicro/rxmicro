@@ -16,6 +16,8 @@
 
 package io.rxmicro.logger;
 
+import java.util.logging.LogRecord;
+
 /**
  * Represents a logger event with custom data that can be logged.
  *
@@ -31,4 +33,11 @@ package io.rxmicro.logger;
  */
 public interface LoggerEvent {
 
+    /**
+     * Returns the logger record that associated with this event.
+     *
+     * @return the logger record that associated with this event
+     * @throws IllegalArgumentException if current logger event contains a message template with redundant placeholders or missing arguments
+     */
+    LogRecord getLogRecord();
 }

@@ -22,6 +22,7 @@ import io.rxmicro.logger.RequestIdSupplier;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.logging.LogRecord;
 import java.util.stream.Stream;
 
 /**
@@ -35,6 +36,10 @@ final class AbstractLoggerTestFactory {
     static final RequestIdSupplier REQUEST_ID_SUPPLIER = () -> "TestRequestId";
 
     static final LoggerEvent LOGGER_EVENT = new LoggerEvent() {
+        @Override
+        public LogRecord getLogRecord() {
+            return null;
+        }
     };
 
     static Stream<Consumer<Logger>> createLoggerEventStream() {

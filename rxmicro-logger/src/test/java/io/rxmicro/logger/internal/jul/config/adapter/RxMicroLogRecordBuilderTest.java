@@ -16,7 +16,6 @@
 
 package io.rxmicro.logger.internal.jul.config.adapter;
 
-import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.logger.RequestIdSupplier;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -34,6 +33,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -77,22 +77,20 @@ final class RxMicroLogRecordBuilderTest {
     @ParameterizedTest
     @ArgumentsSource(AllMethodsArgumentsProvider.class)
     @Order(4)
-    void all_methods_should_throw_InvalidStateException_if_logger_event_already_built(final Consumer<RxMicroLogRecord.Builder> consumer) {
+    void all_methods_should_not_throw_any_exceptions_if_logger_event_already_built(final Consumer<RxMicroLogRecord.Builder> consumer) {
         builder.build();
 
-        final InvalidStateException exception = assertThrows(InvalidStateException.class, () -> consumer.accept(builder));
-        assertEquals("The logger event already built! Create a new instance of the logger event builder!", exception.getMessage());
+        assertDoesNotThrow(() -> consumer.accept(builder));
     }
 
     @ParameterizedTest
     @ArgumentsSource(SetMessageArgumentsProvider.class)
     @Order(5)
-    void setMessage_should_throw_InvalidStateException_if_message_already_set(final Consumer<RxMicroLogRecord.Builder> first,
-                                                                              final Consumer<RxMicroLogRecord.Builder> second) {
+    void setMessage_should_not_throw_any_exceptions_if_message_already_set(final Consumer<RxMicroLogRecord.Builder> first,
+                                                                           final Consumer<RxMicroLogRecord.Builder> second) {
         first.accept(builder);
 
-        final InvalidStateException exception = assertThrows(InvalidStateException.class, () -> second.accept(builder));
-        assertEquals("Message already set: message: 1-2!", exception.getMessage());
+        assertDoesNotThrow(() -> second.accept(builder));
     }
 
     /**

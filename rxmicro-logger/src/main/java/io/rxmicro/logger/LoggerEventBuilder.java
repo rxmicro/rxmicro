@@ -23,6 +23,9 @@ import java.util.function.Supplier;
 /**
  * Represents a logger event builder instance that should be used for building a {@link LoggerEvent} instance.
  *
+ * <p>
+ * FYI: A single {@link LoggerEventBuilder} instance can be used to build different {@link LoggerEvent} instances.
+ *
  * @author nedis
  * @see LoggerFactory#newLoggerEventBuilder()
  * @see LoggerEventBuilder
@@ -41,7 +44,6 @@ public interface LoggerEventBuilder {
      * @param requestIdSupplier the {@link RequestIdSupplier} instance.
      * @return the reference to this  {@link LoggerEventBuilder} instance.
      * @throws NullPointerException if the specified {@code requestIdSupplier} is {@code null}.
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
     @BuilderMethod
     LoggerEventBuilder setRequestIdSupplier(RequestIdSupplier requestIdSupplier);
@@ -54,10 +56,9 @@ public interface LoggerEventBuilder {
      * @param sourceFileName the file name.
      * @param sourceLineNumber the line number.
      * @return the reference to this  {@link LoggerEventBuilder} instance.
-     * @throws NullPointerException if the specified {@code sourceClassName} or {@code sourceMethodName} or {@code sourceFileName} is
+     * @throws NullPointerException if the specified {@code sourceClassName} or {@code sourceMethodName} or {@code sourceFileName} are
      *                              {@code null}.
      * @throws IllegalArgumentException if specified {@code sourceLineNumber} is invalid.
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
     @BuilderMethod
     LoggerEventBuilder setStackFrame(String sourceClassName,
@@ -71,7 +72,6 @@ public interface LoggerEventBuilder {
      * @param message the logged message.
      * @return the reference to this  {@link LoggerEventBuilder} instance.
      * @throws NullPointerException if the specified {@code message} is {@code null}.
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
     @BuilderMethod
     LoggerEventBuilder setMessage(String message);
@@ -83,14 +83,12 @@ public interface LoggerEventBuilder {
      * The message is built only if appropriate logger level is enabled!
      *
      * <p>
-     * <i>(FYI: This constructor uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
+     * <i>(FYI: To build a message the {@link io.rxmicro.common.util.Formats#format(String, Object...)} method will be used.)</i>
      *
      * @param template the message template.
      * @param suppliers the argument suppliers
      * @return the reference to this  {@link LoggerEventBuilder} instance.
-     * @throws NullPointerException if the specified {@code template} is {@code null}.
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
+     * @throws NullPointerException if the specified {@code template} or {@code suppliers} are {@code null}.
      */
     @BuilderMethod
     LoggerEventBuilder setMessage(String template,
@@ -103,14 +101,12 @@ public interface LoggerEventBuilder {
      * The message is built only if appropriate logger level is enabled!
      *
      * <p>
-     * <i>(FYI: This constructor uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
+     * <i>(FYI: To build a message the {@link io.rxmicro.common.util.Formats#format(String, Object...)} method will be used.)</i>
      *
      * @param template the message template.
      * @param args the message template arguments
      * @return the reference to this  {@link LoggerEventBuilder} instance.
-     * @throws NullPointerException if the specified {@code template} is {@code null}.
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
+     * @throws NullPointerException if the specified {@code template} or {@code args} are {@code null}.
      */
     @BuilderMethod
     LoggerEventBuilder setMessage(String template,
@@ -122,7 +118,6 @@ public interface LoggerEventBuilder {
      * @param threadId the thread id.
      * @return the reference to this  {@link LoggerEventBuilder} instance.
      * @throws IllegalArgumentException if specified {@code threadId} is invalid.
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
     @BuilderMethod
     LoggerEventBuilder setThreadId(long threadId);
@@ -133,7 +128,6 @@ public interface LoggerEventBuilder {
      * @param threadName the thread name.
      * @return the reference to this  {@link LoggerEventBuilder} instance.
      * @throws NullPointerException if the specified {@code threadName} is {@code null}.
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
     @BuilderMethod
     LoggerEventBuilder setThreadName(String threadName);
@@ -144,7 +138,6 @@ public interface LoggerEventBuilder {
      * @param thread the specified thread.
      * @return the reference to this  {@link LoggerEventBuilder} instance.
      * @throws NullPointerException if the specified {@code thread} is {@code null}.
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
     @BuilderMethod
     default LoggerEventBuilder setThread(final Thread thread) {
@@ -158,7 +151,6 @@ public interface LoggerEventBuilder {
      * @param throwable the throwable instance.
      * @return the reference to this  {@link LoggerEventBuilder} instance.
      * @throws NullPointerException if the specified {@code throwable} is {@code null}.
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
     @BuilderMethod
     LoggerEventBuilder setThrowable(Throwable throwable);
@@ -167,7 +159,6 @@ public interface LoggerEventBuilder {
      * Returns a new instance of logger event.
      *
      * @return a new instance of logger event
-     * @throws io.rxmicro.common.InvalidStateException if the logger event already built
      * @see Logger#trace(LoggerEvent)
      * @see Logger#debug(LoggerEvent)
      * @see Logger#info(LoggerEvent)
