@@ -21,6 +21,15 @@
         xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0
                 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- It seems that Spotbugs can't detect these bugs correctly -->
+    <Match>
+        <Or>
+            <Bug pattern="MS_EXPOSE_REP"/>
+            <Bug pattern="EI_EXPOSE_REP"/>
+            <Bug pattern="EI_EXPOSE_REP2"/>
+        </Or>
+    </Match>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- This is util class and it must support direct cast for list or set instances -->
     <Match>
         <Class name="io.rxmicro.common.util.ExCollections"/>
@@ -36,20 +45,10 @@
         https://github.com/spotbugs/spotbugs/issues?q=is%3Aissue+is%3Aopen+Redundant+nullcheck
         -->
     <Match>
-        <Class name="io.rxmicro.runtime.internal.RuntimeVersion"/>
-        <Method name="tryReadPomProperties"/>
-        <Or>
-            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
-        </Or>
-    </Match>
-    <Match>
         <Class name="io.rxmicro.resource.ClasspathResources"/>
         <Method name="readLines"/>
         <Or>
             <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
             <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
         </Or>
     </Match>
@@ -58,9 +57,21 @@
         <Method name="loadProperties"/>
         <Or>
             <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
-            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
             <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
         </Or>
+    </Match>
+    <Match>
+        <Class name="io.rxmicro.runtime.internal.RuntimeVersion"/>
+        <Method name="tryReadPomProperties"/>
+        <Or>
+            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="io.rxmicro.test.dbunit.internal.component.AbstractDatabaseStateChanger"/>
+        <Method name="executeJdbcStatements"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
     </Match>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- Configs$Builder used to configure a global Configs instance. -->
@@ -68,15 +79,6 @@
         <Class name="io.rxmicro.config.Configs$Builder"/>
         <Method name="build"/>
         <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
-    </Match>
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- This is simplest wat to add an empty object support -->
-    <Match>
-        <Or>
-            <Class name="io.rxmicro.http.HttpHeaders"/>
-            <Class name="io.rxmicro.http.QueryParams"/>
-        </Or>
-        <Bug pattern="IC_SUPERCLASS_USES_SUBCLASS_DURING_INITIALIZATION"/>
     </Match>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!--Model instances must support fields with `null` values.
@@ -93,25 +95,9 @@
         <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
     </Match>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- TODO: Temporary excluded -->
-    <Match>
-        <Or>
-            <Bug pattern="MS_EXPOSE_REP"/>
-            <Bug pattern="EI_EXPOSE_REP"/>
-            <Bug pattern="EI_EXPOSE_REP2"/>
-        </Or>
-    </Match>
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- It seems that spotbugs can't resolve annotations for annotation processors correctly -->
     <Match>
         <Bug pattern="DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION"/>
-    </Match>
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- It seems that spotbugs can't detect singleton pattern. -->
-    <Match>
-        <Class name="io.rxmicro.test.HttpServers"/>
-        <Method name="getRandomFreePort" />
-        <Bug pattern="DMI_RANDOM_USED_ONLY_ONCE"/>
     </Match>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- equals method is not used for these classes: -->
@@ -123,4 +109,6 @@
         <Class name="io.rxmicro.test.dbunit.internal.data.value.LongIntervalValue"/>
         <Bug pattern="EQ_COMPARETO_USE_OBJECT_EQUALS"/>
     </Match>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
 </FindBugsFilter>
