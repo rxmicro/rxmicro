@@ -145,5 +145,10 @@
             <artifactId>maven-model</artifactId>
             <version>${maven-model.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apiguardian</groupId>
+            <artifactId>apiguardian-api</artifactId>
+            <version>${external.lib.apiguardian-api.version}</version>
+        </dependency>
     </dependencies>
 </project>
