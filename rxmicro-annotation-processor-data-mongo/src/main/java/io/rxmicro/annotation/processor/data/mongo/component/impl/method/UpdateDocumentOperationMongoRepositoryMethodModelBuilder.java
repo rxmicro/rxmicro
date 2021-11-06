@@ -72,8 +72,6 @@ public final class UpdateDocumentOperationMongoRepositoryMethodModelBuilder
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);
         templateArguments.put("RETURN", methodResult);
         final Update annotation = method.getAnnotation(Update.class);
-        templateArguments.put("FILTER",
-                bsonExpressionBuilder.build(method, classHeaderBuilder, annotation.filter(), methodParameterReader));
 
         final Variable document = getDocument(method, methodParameterReader, dataGenerationContext);
         templateArguments.put("UPSERT", annotation.upsert());
@@ -82,6 +80,9 @@ public final class UpdateDocumentOperationMongoRepositoryMethodModelBuilder
                 getSimpleName(document.getType()),
                 EntityToMongoDBConverter.class)
         );
+        templateArguments.put("FILTER",
+                bsonExpressionBuilder.build(method, classHeaderBuilder, annotation.filter(), methodParameterReader));
+
         return methodBodyGenerator.generate(
                 "data/mongo/method/$$MongoRepositoryUpdateDocumentMethodBodyTemplate.javaftl",
                 templateArguments
