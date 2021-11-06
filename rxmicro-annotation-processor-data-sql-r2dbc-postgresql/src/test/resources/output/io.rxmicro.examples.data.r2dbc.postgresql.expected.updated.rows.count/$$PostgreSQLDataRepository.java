@@ -79,7 +79,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta)))
-                                .map(ignore -> (Account)throwExceptionIfNotEmptyResult(generatedSQL))
+                                .map(ignored -> (Account)throwExceptionIfNotEmptyResult(generatedSQL))
                         )
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
