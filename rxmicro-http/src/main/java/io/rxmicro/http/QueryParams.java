@@ -38,17 +38,12 @@ import static java.util.Map.entry;
 public interface QueryParams {
 
     /**
-     * Empty HTTP query parameters instance.
-     */
-    QueryParams EMPTY_QUERY_PARAMS = EmptyQueryParams.INSTANCE;
-
-    /**
      * Returns the empty HTTP query parameters instance.
      *
      * @return the empty HTTP query parameters instance
      */
     static QueryParams of() {
-        return EMPTY_QUERY_PARAMS;
+        return EmptyQueryParams.INSTANCE;
     }
 
     /**

@@ -25,7 +25,6 @@ import io.rxmicro.test.mockito.httpclient.internal.AbstractHttpResponseMock;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
 import static io.rxmicro.http.HttpVersion.HTTP_1_1;
 
 /**
@@ -149,7 +148,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
             return new HttpResponseMock(
                     status == 0 ? DEFAULT_STATUS_CODE : status,
                     Optional.ofNullable(version).orElse(HTTP_1_1),
-                    Optional.ofNullable(headers).orElse(EMPTY_HEADERS),
+                    Optional.ofNullable(headers).orElse(HttpHeaders.of()),
                     body,
                     returnRequestBody
             );

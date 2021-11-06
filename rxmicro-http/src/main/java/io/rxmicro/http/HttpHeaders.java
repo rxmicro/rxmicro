@@ -38,17 +38,12 @@ import static java.util.Map.entry;
 public interface HttpHeaders {
 
     /**
-     * Empty HTTP headers instance.
-     */
-    HttpHeaders EMPTY_HEADERS = EmptyHttpHeaders.INSTANCE;
-
-    /**
      * Returns the empty HTTP headers instance.
      *
      * @return the empty HTTP headers instance
      */
     static HttpHeaders of() {
-        return EMPTY_HEADERS;
+        return EmptyHttpHeaders.INSTANCE;
     }
 
     /**

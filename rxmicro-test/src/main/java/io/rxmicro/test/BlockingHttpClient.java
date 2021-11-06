@@ -21,7 +21,6 @@ import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.client.HttpClientTimeoutException;
 import io.rxmicro.runtime.AutoRelease;
 
-import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
 import static io.rxmicro.http.QueryParams.joinPath;
 
 /**
@@ -95,7 +94,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse get(final String path) {
-        return send(GET, path, EMPTY_HEADERS);
+        return send(GET, path, HttpHeaders.of());
     }
 
     /**
@@ -127,7 +126,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse get(final String path,
                                    final QueryParams parameters) {
-        return send(GET, joinPath(path, parameters), EMPTY_HEADERS);
+        return send(GET, joinPath(path, parameters), HttpHeaders.of());
     }
 
     // ------------------------------------------------ HEAD METHOD ----------------------------------------------------
@@ -157,7 +156,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse head(final String path) {
-        return send(HEAD, path, EMPTY_HEADERS);
+        return send(HEAD, path, HttpHeaders.of());
     }
 
     /**
@@ -189,7 +188,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse head(final String path,
                                     final QueryParams parameters) {
-        return send(HEAD, joinPath(path, parameters), EMPTY_HEADERS);
+        return send(HEAD, joinPath(path, parameters), HttpHeaders.of());
     }
 
     // ----------------------------------------------- DELETE METHOD ---------------------------------------------------
@@ -219,7 +218,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse delete(final String path) {
-        return send(DELETE, path, EMPTY_HEADERS);
+        return send(DELETE, path, HttpHeaders.of());
     }
 
     /**
@@ -251,7 +250,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse delete(final String path,
                                       final QueryParams parameters) {
-        return send(DELETE, joinPath(path, parameters), EMPTY_HEADERS);
+        return send(DELETE, joinPath(path, parameters), HttpHeaders.of());
     }
 
     // ---------------------------------------------- OPTIONS METHOD ---------------------------------------------------
@@ -281,7 +280,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse options(final String path) {
-        return send(OPTIONS, path, EMPTY_HEADERS);
+        return send(OPTIONS, path, HttpHeaders.of());
     }
 
     /**
@@ -313,7 +312,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse options(final String path,
                                        final QueryParams parameters) {
-        return send(OPTIONS, joinPath(path, parameters), EMPTY_HEADERS);
+        return send(OPTIONS, joinPath(path, parameters), HttpHeaders.of());
     }
 
     // ------------------------------------------------ POST METHOD ----------------------------------------------------
@@ -343,7 +342,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path) {
-        return send(POST, path, EMPTY_HEADERS);
+        return send(POST, path, HttpHeaders.of());
     }
 
     /**
@@ -375,7 +374,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse post(final String path,
                                     final QueryParams parameters) {
-        return send(POST, joinPath(path, parameters), EMPTY_HEADERS);
+        return send(POST, joinPath(path, parameters), HttpHeaders.of());
     }
 
     /**
@@ -407,7 +406,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse post(final String path,
                                     final Object body) {
-        return send(POST, path, EMPTY_HEADERS, body);
+        return send(POST, path, HttpHeaders.of(), body);
     }
 
     // ------------------------------------------------- PUT METHOD ----------------------------------------------------
@@ -437,7 +436,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path) {
-        return send(PUT, path, EMPTY_HEADERS);
+        return send(PUT, path, HttpHeaders.of());
     }
 
     /**
@@ -469,7 +468,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse put(final String path,
                                    final QueryParams parameters) {
-        return send(PUT, joinPath(path, parameters), EMPTY_HEADERS);
+        return send(PUT, joinPath(path, parameters), HttpHeaders.of());
     }
 
     /**
@@ -501,7 +500,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse put(final String path,
                                    final Object body) {
-        return send(PUT, path, EMPTY_HEADERS, body);
+        return send(PUT, path, HttpHeaders.of(), body);
     }
 
     // ------------------------------------------------ PATCH METHOD ---------------------------------------------------
@@ -531,7 +530,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path) {
-        return send(PATCH, path, EMPTY_HEADERS);
+        return send(PATCH, path, HttpHeaders.of());
     }
 
     /**
@@ -563,7 +562,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse patch(final String path,
                                      final QueryParams parameters) {
-        return send(PATCH, joinPath(path, parameters), EMPTY_HEADERS);
+        return send(PATCH, joinPath(path, parameters), HttpHeaders.of());
     }
 
     /**
@@ -595,7 +594,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse patch(final String path,
                                      final Object body) {
-        return send(PATCH, path, EMPTY_HEADERS, body);
+        return send(PATCH, path, HttpHeaders.of(), body);
     }
 
     // ------------------------------------------------ ANY METHODS ----------------------------------------------------
@@ -627,7 +626,7 @@ public interface BlockingHttpClient extends AutoRelease {
      */
     default ClientHttpResponse send(String method,
                                     String path) {
-        return send(method, path, EMPTY_HEADERS);
+        return send(method, path, HttpHeaders.of());
     }
 
     /**
@@ -661,6 +660,6 @@ public interface BlockingHttpClient extends AutoRelease {
     default ClientHttpResponse send(String method,
                                     String path,
                                     Object body) {
-        return send(method, path, EMPTY_HEADERS, body);
+        return send(method, path, HttpHeaders.of(), body);
     }
 }

@@ -23,8 +23,6 @@ import io.rxmicro.test.mockito.httpclient.internal.model.HttpResponseImpl;
 
 import java.util.Optional;
 
-import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
-
 /**
  * @author nedis
  * @since 0.1
@@ -59,13 +57,13 @@ public abstract class AbstractHttpResponseMock {
 
     protected HttpResponse getClientHttpResponse() {
         if (body == null) {
-            return new HttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(EMPTY_HEADERS));
+            return new HttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(HttpHeaders.of()));
         } else {
-            return new HttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(EMPTY_HEADERS), body);
+            return new HttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(HttpHeaders.of()), body);
         }
     }
 
     protected HttpResponse getClientHttpResponse(final Object body) {
-        return new HttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(EMPTY_HEADERS), body);
+        return new HttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(HttpHeaders.of()), body);
     }
 }

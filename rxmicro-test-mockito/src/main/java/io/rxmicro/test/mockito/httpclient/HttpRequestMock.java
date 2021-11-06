@@ -30,7 +30,6 @@ import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
-import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
 import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
 import static io.rxmicro.rest.Version.Strategy.HEADER;
 import static io.rxmicro.rest.Version.Strategy.URL_PATH;
@@ -74,7 +73,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
 
         private String path;
 
-        private HttpHeaders headers = EMPTY_HEADERS;
+        private HttpHeaders headers = HttpHeaders.of();
 
         private QueryParams queryParameters;
 
