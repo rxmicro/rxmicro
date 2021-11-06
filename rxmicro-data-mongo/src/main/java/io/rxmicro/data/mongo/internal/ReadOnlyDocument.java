@@ -30,6 +30,8 @@ import java.util.function.Function;
  */
 public class ReadOnlyDocument extends Document {
 
+    private static final long serialVersionUID = 7281460372915585520L;
+
     @Override
     public Document append(final String key, final Object value) {
         throw new UnsupportedOperationException();

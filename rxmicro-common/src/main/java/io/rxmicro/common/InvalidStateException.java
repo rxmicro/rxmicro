@@ -26,6 +26,8 @@ import io.rxmicro.common.util.Formats;
  */
 public final class InvalidStateException extends RxMicroException {
 
+    private static final long serialVersionUID = -152576916638467253L;
+
     /**
      * Creates a new {@link InvalidStateException} instance with error message.
      *

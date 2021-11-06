@@ -37,6 +37,8 @@ import static java.util.stream.Collectors.joining;
  */
 public abstract class HttpCallFailedException extends HttpErrorException {
 
+    private static final long serialVersionUID = -5123474100491750132L;
+
     private final HttpVersion version;
 
     private final HttpHeaders headers;

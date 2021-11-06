@@ -43,6 +43,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class ModelReaderTest {
 
     private final ModelReader<Object> reader = new ModelReader<>() {
@@ -57,8 +58,8 @@ final class ModelReaderTest {
     @Order(1)
     @ParameterizedTest
     @ArgumentsSource(QueryParamsProvider.class)
-    void extractParams_should_extract_query_params_correctly(final String query,
-                                                             final String expected) {
+    void method_extractParams_should_extract_query_params_correctly(final String query,
+                                                                    final String expected) {
         assertEquals(
                 expected,
                 reader.extractParams(query).toString()

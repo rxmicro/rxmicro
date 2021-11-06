@@ -32,7 +32,7 @@ import static java.util.stream.Collectors.toUnmodifiableMap;
 public final class LevelMappings {
 
     static {
-        JDK6448699Bug.fix();
+        JDK6448699BugHelper.fix();
     }
 
     private static final java.util.logging.Level[] JUL_LEVELS = {

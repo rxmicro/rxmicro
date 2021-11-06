@@ -20,7 +20,15 @@ package test;
  * @author nedis
  * @since 0.7.3
  */
-public class TestClass {
+@SuppressWarnings({
+        "PMD.UnusedPrivateField",
+        "PMD.FieldNamingConventions",
+        "PMD.FinalFieldCouldBeStatic",
+        "PMD.AvoidProtectedFieldInFinalClass",
+        "PMD.MutableStaticState",
+        "unused"
+})
+public final class TestClass {
 
     public final String NOT_STATIC = "NOT_STATIC";
 

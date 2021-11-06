@@ -203,7 +203,7 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
 
     @Override
     public void release() {
-
+        // do nothing
     }
 
     @Override

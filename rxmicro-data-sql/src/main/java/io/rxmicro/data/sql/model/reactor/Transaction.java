@@ -16,6 +16,7 @@
 
 package io.rxmicro.data.sql.model.reactor;
 
+import io.rxmicro.common.meta.ReactiveMethodResult;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
 import reactor.core.publisher.Mono;
@@ -141,5 +142,6 @@ public interface Transaction {
      * @return the {@link Mono} that indicates that the transaction level has been configured
      * @throws NullPointerException if {@code isolationLevel} is {@code null}
      */
+    @ReactiveMethodResult
     Mono<Void> setIsolationLevel(IsolationLevel isolationLevel);
 }

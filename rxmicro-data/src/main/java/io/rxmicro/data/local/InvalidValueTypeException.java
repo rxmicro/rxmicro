@@ -24,6 +24,8 @@ import io.rxmicro.data.DataException;
  */
 public final class InvalidValueTypeException extends DataException {
 
+    private static final long serialVersionUID = 8097718935142541513L;
+
     public InvalidValueTypeException(final String message,
                                      final Object... args) {
         super(message, args);

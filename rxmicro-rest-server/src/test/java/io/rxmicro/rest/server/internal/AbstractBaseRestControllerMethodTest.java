@@ -40,6 +40,13 @@ import static io.rxmicro.logger.LoggerImplProviderFactory.setLoggerImplFactory;
  *
  * @since 0.1
  */
+@SuppressWarnings({
+        "PMD.ExcessivePublicCount",
+        "PMD.ExcessiveClassLength",
+        "PMD.ProperLogger",
+        "PMD.CyclomaticComplexity",
+        "PMD.TooManyMethods"
+})
 abstract class AbstractBaseRestControllerMethodTest {
 
     private static final MockLoggerImplProvider MOCK_LOGGER_IMPL_PROVIDER = new MockLoggerImplProvider();
@@ -108,6 +115,7 @@ abstract class AbstractBaseRestControllerMethodTest {
 
         @Override
         public void setup() {
+            // do nothing
         }
 
         @Override

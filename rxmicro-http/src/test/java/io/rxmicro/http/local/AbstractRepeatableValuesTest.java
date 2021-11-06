@@ -35,13 +35,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class AbstractRepeatableValuesTest {
 
     private final Headers headers = new Headers();
 
     @Test
     @Order(1)
-    void add_should_add_new_value_for_existing_added_header() {
+    void method_add_should_add_new_value_for_existing_added_header() {
         headers.add("Header1", "value1");
         headers.add("Header1", "value2");
 
@@ -56,7 +57,7 @@ final class AbstractRepeatableValuesTest {
 
     @Test
     @Order(2)
-    void add_should_add_new_value_for_existing_set_header() {
+    void method_add_should_add_new_value_for_existing_set_header() {
         headers.set("Header1", "value1");
         headers.add("Header1", "value2");
 
@@ -71,7 +72,7 @@ final class AbstractRepeatableValuesTest {
 
     @Test
     @Order(3)
-    void set_should_update_value_for_set_header() {
+    void method_set_should_update_value_for_set_header() {
         headers.set("Header1", "value1");
         headers.set("Header1", "value2");
 
@@ -85,7 +86,7 @@ final class AbstractRepeatableValuesTest {
 
     @Test
     @Order(4)
-    void set_should_update_value_for_added_header() {
+    void method_set_should_update_value_for_added_header() {
         headers.add("Header1", "value1");
         headers.set("Header1", "value2");
 
@@ -99,7 +100,7 @@ final class AbstractRepeatableValuesTest {
 
     @Test
     @Order(5)
-    void setOrAddAll_add_new_values_for_existing_added_headers() {
+    void method_setOrAddAll_add_new_values_for_existing_added_headers() {
         headers.add("Header1", "value1");
         headers.add("Header1", "value2");
 
@@ -121,7 +122,7 @@ final class AbstractRepeatableValuesTest {
 
     @Test
     @Order(6)
-    void setOrAddAll_add_new_values_for_existing_set_header() {
+    void method_setOrAddAll_add_new_values_for_existing_set_header() {
         headers.set("Header1", "value1");
 
         final Headers childHeaders = new Headers();
@@ -143,7 +144,7 @@ final class AbstractRepeatableValuesTest {
 
     @Test
     @Order(7)
-    void setOrAddAll_should_update_value_for_all_added_headers() {
+    void method_setOrAddAll_should_update_value_for_all_added_headers() {
         headers.add("Header1", "value1");
         headers.add("Header1", "value2");
 
@@ -161,7 +162,7 @@ final class AbstractRepeatableValuesTest {
 
     @Test
     @Order(8)
-    void setOrAddAll_should_update_value_for_set_header() {
+    void method_setOrAddAll_should_update_value_for_set_header() {
         headers.set("Header1", "value1");
 
         final Headers childHeaders = new Headers();
@@ -178,7 +179,7 @@ final class AbstractRepeatableValuesTest {
 
     @Test
     @Order(9)
-    void setOrAddAll_should_copy_all_headers() {
+    void method_setOrAddAll_should_copy_all_headers() {
         final Headers childHeaders = new Headers();
         childHeaders.add("Header1", "value1");
         childHeaders.add("Header1", "value2");
@@ -204,7 +205,7 @@ final class AbstractRepeatableValuesTest {
 
     @Test
     @Order(10)
-    void constructor_should_copy_all_headers() {
+    void method_constructor_should_copy_all_headers() {
         headers.add("Header1", "value1");
         headers.add("Header1", "value2");
         headers.add("Header1", "value3");

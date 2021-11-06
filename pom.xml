@@ -309,10 +309,17 @@
                             </execution>
                         </executions>
                         <configuration>
+                            <includeTests>true</includeTests>
+                            <linkXRef>false</linkXRef>
                             <rulesets>
-                                <ruleset>
-                                    ${basedir}/../.coding/pmd/ruleset.xml
-                                </ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-bestpractices.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-codestyle.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-design.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-documentation.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-errorprone.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-multithreading.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-performance.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-security.xml</ruleset>
                             </rulesets>
                         </configuration>
                     </plugin>
@@ -325,9 +332,14 @@
                         <artifactId>maven-pmd-plugin</artifactId>
                         <configuration>
                             <rulesets>
-                                <ruleset>
-                                    ${basedir}/../.coding/pmd/ruleset.xml
-                                </ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-bestpractices.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-codestyle.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-design.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-documentation.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-errorprone.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-multithreading.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-performance.xml</ruleset>
+                                <ruleset>${basedir}/../.coding/pmd/ruleset-security.xml</ruleset>
                             </rulesets>
                         </configuration>
                         <reportSets>

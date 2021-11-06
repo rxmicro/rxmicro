@@ -70,9 +70,6 @@ public final class AnyHttpErrorHttpResponseBuilder extends ErrorHandler {
                 getCustomExceptionWriter((Class<HttpErrorException>) ex.getClass());
         if (optional.isPresent()) {
             final CustomExceptionWriter<HttpErrorException> writer = optional.get();
-            final HttpResponse response = logHttpErrorExceptions ?
-                    new HttpResponseProxy(httpResponseBuilder.build()) :
-                    httpResponseBuilder.build();
             if (restServerConfig.isEnableAdditionalValidations()) {
                 try {
                     writer.validate(ex);
@@ -81,6 +78,9 @@ public final class AnyHttpErrorHttpResponseBuilder extends ErrorHandler {
                     return processStandardError(requestIdSupplier, exception, logHttpErrorExceptions);
                 }
             }
+            final HttpResponse response = logHttpErrorExceptions ?
+                    new HttpResponseProxy(httpResponseBuilder.build()) :
+                    httpResponseBuilder.build();
             response.setStatus(ex.getStatusCode());
             writer.write(ex, response);
             if (logHttpErrorExceptions) {

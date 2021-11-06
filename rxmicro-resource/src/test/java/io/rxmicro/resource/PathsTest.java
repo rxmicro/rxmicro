@@ -60,8 +60,8 @@ final class PathsTest {
             "./jul.properties;          /tmp/work-dir/jul.properties",
             "/tmp/work-dir/jul.txt;     /tmp/work-dir/jul.txt"
     })
-    void createPath_should_create_absolute_path_with_supported_variables(final String path,
-                                                                         final String expectedResult) {
+    void method_createPath_should_create_absolute_path_with_supported_variables(final String path,
+                                                                                final String expectedResult) {
         assertEquals(expectedResult, Paths.createPath(path).toString());
     }
 

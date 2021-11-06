@@ -38,6 +38,6 @@ public abstract class CustomExceptionWriter<T extends HttpErrorException> extend
     }
 
     public void validate(final T exception) {
-
+        // do nothing: sub classes can override this method
     }
 }

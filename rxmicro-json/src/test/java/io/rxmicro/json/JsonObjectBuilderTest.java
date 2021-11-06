@@ -49,7 +49,7 @@ final class JsonObjectBuilderTest {
     @ParameterizedTest
     @Order(1)
     @ArgumentsSource(EmptyValuesArgumentsProvider.class)
-    void put_should_ignore_null_and_empty_values(final Object value) {
+    void method_put_should_ignore_null_and_empty_values(final Object value) {
         if (value instanceof Collection) {
             jsonObjectBuilder.put("empty", (Collection<?>) value);
         } else if (value instanceof Map) {

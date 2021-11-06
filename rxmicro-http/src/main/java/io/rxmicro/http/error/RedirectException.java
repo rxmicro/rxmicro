@@ -36,6 +36,8 @@ import static io.rxmicro.common.util.Strings.startsWith;
  */
 public abstract class RedirectException extends HttpErrorException {
 
+    private static final long serialVersionUID = -2055706966189346269L;
+
     private final String location;
 
     private final boolean absolute;

@@ -33,6 +33,7 @@ import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
 import static java.lang.reflect.Proxy.isProxyClass;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +46,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SuppressWarnings({"AssertEqualsBetweenInconvertibleTypes", "SimplifiableJUnitAssertion"})
 final class StubsTest {
 
-    private static final double DOUBLE_DELTA = 0.00000001;
+    private static final double DOUBLE_DELTA = 0.000_000_01;
 
     private static final float FLOAT_DELTA = (float) DOUBLE_DELTA;
 
     @Test
+    @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
     void Should_support_all_default_types() {
         final Component component = stub(Component.class);
 
@@ -86,8 +88,8 @@ final class StubsTest {
         assertEquals("defaultMethod", component.defaultMethod());
 
         assertEquals("Component Stub", component.toString());
-        assertFalse(component.equals(stub(Component.class)));
-        assertTrue(component.hashCode() != 0);
+        assertNotEquals(component, stub(Component.class));
+        assertNotEquals(0, component.hashCode());
         assertTrue(isProxyClass(component.getClass()));
     }
 

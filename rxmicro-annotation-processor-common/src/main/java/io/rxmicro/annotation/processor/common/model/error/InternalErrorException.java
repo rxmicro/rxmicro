@@ -24,6 +24,8 @@ import io.rxmicro.common.RxMicroException;
  */
 public final class InternalErrorException extends RxMicroException {
 
+    private static final long serialVersionUID = 3628531187816165512L;
+
     public InternalErrorException(final String message,
                                   final Object... args) {
         super(message, args);

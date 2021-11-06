@@ -29,8 +29,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -49,8 +49,8 @@ final class ReleaseModuleTest {
 
     @Test
     @Order(1)
-    void pom_xml_of_release_module_should_contain_all_dependencies() throws IOException, XmlPullParserException {
-        final File rootDirectory = TestUtil.getRootDirectory();
+    void file_pom_xml_of_release_module_should_contain_all_dependencies() throws IOException, XmlPullParserException {
+        final File rootDirectory = TestUtils.getRootDirectory();
         final File pomXml = new File(rootDirectory.getAbsolutePath() + "/release/pom.xml");
         if (!pomXml.exists()) {
             fail("pom.xml of release module not found. Is it valid root directory: " + rootDirectory.getAbsolutePath() + "?");
@@ -71,7 +71,7 @@ final class ReleaseModuleTest {
 
     private Set<String> getDependencyArtifacts(final File pomXml) throws IOException, XmlPullParserException {
         final MavenXpp3Reader mavenXpp3Reader = new MavenXpp3Reader();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pomXml))) {
+        try (BufferedReader bufferedReader = Files.newBufferedReader(pomXml.toPath())) {
             final Model model = mavenXpp3Reader.read(bufferedReader);
             return model.getDependencies().stream().map(Dependency::getArtifactId).collect(toSet());
         }

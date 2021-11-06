@@ -213,6 +213,7 @@ final class AnnotationValueConverterImplTest extends AbstractRxMicroAnnotationPr
      *
      * @since 0.2
      */
+    @SuppressWarnings("PMD.AvoidBranchingStatementAsLastInLoop")
     static final class TestAnnotationProcessor extends AbstractProcessor {
 
         @Override

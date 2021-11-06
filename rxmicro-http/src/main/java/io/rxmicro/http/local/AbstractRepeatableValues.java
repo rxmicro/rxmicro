@@ -197,6 +197,8 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
      */
     private static final class ListImpl extends ArrayList<String> {
 
+        private static final long serialVersionUID = -1884208655227885063L;
+
         private ListImpl(final String value) {
             super(1);
             add(value);

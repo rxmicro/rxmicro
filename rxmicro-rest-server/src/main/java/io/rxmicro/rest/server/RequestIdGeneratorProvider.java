@@ -59,6 +59,8 @@ public interface RequestIdGeneratorProvider {
      */
     class CurrentRequestIdGeneratorCantBeUsedException extends RxMicroException {
 
+        private static final long serialVersionUID = -71336724050725169L;
+
         /**
          * Creates a default instance with the specified request id generator.
          *

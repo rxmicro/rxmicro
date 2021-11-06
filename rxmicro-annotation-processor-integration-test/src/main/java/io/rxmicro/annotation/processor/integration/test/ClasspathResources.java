@@ -53,8 +53,11 @@ public final class ClasspathResources {
                                                          final Predicate<String> resourcePredicate) {
         final Set<String> resources = new TreeSet<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(getResource(folder).openStream(), UTF_8))) {
-            String line;
-            while ((line = br.readLine()) != null) {
+            while (true) {
+                final String line = br.readLine();
+                if (line == null) {
+                    break;
+                }
                 if (resourcePredicate.test(line)) {
                     resources.add(line);
                 }
@@ -77,8 +80,11 @@ public final class ClasspathResources {
                                 final String folder,
                                 final Predicate<String> resourcePredicate) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(getResource(folder).openStream(), UTF_8))) {
-            String line;
-            while ((line = br.readLine()) != null) {
+            while (true) {
+                final String line = br.readLine();
+                if (line == null) {
+                    break;
+                }
                 final String resource = normalize(folder + "/" + line);
                 //If current resource is directory (i.e. resource with name without extension)
                 if (line.indexOf('.') == -1) {
@@ -87,6 +93,7 @@ public final class ClasspathResources {
                     resources.add(resource);
                 }
             }
+
         } catch (final IOException ex) {
             throw new ResourceException(ex, "Can't read resources from folder: ?", folder);
         }

@@ -31,7 +31,7 @@ import static java.util.logging.Logger.GLOBAL_LOGGER_NAME;
 public final class InternalLoggerHelper {
 
     static {
-        JDK6448699Bug.fix();
+        JDK6448699BugHelper.fix();
     }
 
     private static final Logger LOGGER = Logger.getGlobal();

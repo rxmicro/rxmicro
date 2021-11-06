@@ -82,27 +82,27 @@ final class TestFactory {
         @Override
         public void log(final Level level,
                         final LoggerEvent loggerEvent) {
-
+            // do nothing
         }
 
         @Override
         public void log(final Level level,
                         final String message) {
-
+            // do nothing
         }
 
         @Override
         public void log(final Level level,
                         final String message,
                         final Throwable throwable) {
-
+            // do nothing
         }
 
         @Override
         public void log(final RequestIdSupplier requestIdSupplier,
                         final Level level,
                         final String message) {
-
+            // do nothing
         }
 
         @Override
@@ -110,7 +110,7 @@ final class TestFactory {
                         final Level level,
                         final String message,
                         final Throwable throwable) {
-
+            // do nothing
         }
 
         @Override

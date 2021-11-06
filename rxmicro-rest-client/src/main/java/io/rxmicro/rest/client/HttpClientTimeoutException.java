@@ -36,6 +36,8 @@ public final class HttpClientTimeoutException extends HttpErrorException {
      */
     public static final int STATUS_CODE = GATEWAY_TIMEOUT_504;
 
+    private static final long serialVersionUID = -2004797069034953753L;
+
     /**
      * Creates a HTTP error with error message.
      *

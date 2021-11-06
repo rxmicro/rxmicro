@@ -47,6 +47,9 @@ public final class AnyValues {
      */
     @SuppressWarnings("NullableProblems")
     private static final class TempDocument extends Document {
+
+        private static final long serialVersionUID = 4916175951040763157L;
+
         private final String name;
 
         private TempDocument(final String name) {

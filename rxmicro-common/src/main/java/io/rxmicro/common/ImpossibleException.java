@@ -37,6 +37,8 @@ import io.rxmicro.common.util.Formats;
  */
 public final class ImpossibleException extends RxMicroException {
 
+    private static final long serialVersionUID = -4324085717093293344L;
+
     /**
      * Creates a new {@link ImpossibleException} instance with error message.
      *

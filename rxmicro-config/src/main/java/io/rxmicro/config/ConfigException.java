@@ -27,6 +27,8 @@ import io.rxmicro.common.util.Formats;
  */
 public final class ConfigException extends RxMicroException {
 
+    private static final long serialVersionUID = -1452460496582794302L;
+
     /**
      * Default constructor to build {@link ConfigException} instance.
      *

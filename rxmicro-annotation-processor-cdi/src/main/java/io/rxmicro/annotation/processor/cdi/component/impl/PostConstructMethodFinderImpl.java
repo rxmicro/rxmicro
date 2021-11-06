@@ -48,7 +48,7 @@ public final class PostConstructMethodFinderImpl implements PostConstructMethodF
     @Override
     public Optional<PostConstructMethod> findMethod(final TypeElement beanTypeElement) {
         final List<ExecutableElement> methods = allMethods(beanTypeElement, el ->
-                el.getSimpleName().toString().equals(PostConstruct.DEFAULT_POST_CONSTRUCT_METHOD_NAME) ||
+                PostConstruct.DEFAULT_POST_CONSTRUCT_METHOD_NAME.equals(el.getSimpleName().toString()) ||
                         el.getAnnotation(PostConstruct.class) != null);
         validateMethods(methods);
         if (methods.size() > 1) {

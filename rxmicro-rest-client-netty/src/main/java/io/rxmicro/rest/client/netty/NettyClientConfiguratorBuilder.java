@@ -17,6 +17,7 @@
 package io.rxmicro.rest.client.netty;
 
 import io.netty.channel.ChannelOption;
+import io.rxmicro.common.meta.BuilderMethod;
 import reactor.netty.http.client.HttpResponseDecoderSpec;
 
 /**
@@ -40,6 +41,7 @@ public interface NettyClientConfiguratorBuilder {
      * @throws NullPointerException if {@code option} or {@code value} is {@code null}
      * @throws IllegalStateException if Netty configurator already built
      */
+    @BuilderMethod
     <T> NettyClientConfiguratorBuilder setClientOption(ChannelOption<T> option,
                                                        T value);
 

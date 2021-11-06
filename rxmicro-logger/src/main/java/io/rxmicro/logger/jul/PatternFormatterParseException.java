@@ -26,6 +26,8 @@ import io.rxmicro.common.RxMicroException;
  */
 public final class PatternFormatterParseException extends RxMicroException {
 
+    private static final long serialVersionUID = 3267837451744988106L;
+
     /**
      * Creates an instance of {@link PatternFormatterParseException} class.
      *

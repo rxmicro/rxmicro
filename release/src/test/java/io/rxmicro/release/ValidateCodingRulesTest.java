@@ -30,9 +30,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileVisitResult;
@@ -51,7 +49,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.release.TestUtil.getRootDirectory;
+import static io.rxmicro.release.TestUtils.getRootDirectory;
 import static java.util.Spliterator.IMMUTABLE;
 import static java.util.Spliterator.NONNULL;
 import static java.util.Spliterator.ORDERED;
@@ -73,7 +71,7 @@ final class ValidateCodingRulesTest {
     @ParameterizedTest
     @Order(1)
     @ArgumentsSource(CheckstyleCommonSuppressionClassFileArgumentsProvider.class)
-    void checkstyle_suppressions_should_contain_existing_classes(final String fileName) throws IOException {
+    void file_checkstyle_suppressions_should_contain_existing_classes(final String fileName) throws IOException {
         if (fileNames == null) {
             fileNames = new HashSet<>();
             Files.walkFileTree(getRootDirectory().toPath(), new SimpleFileVisitor<>() {
@@ -88,7 +86,7 @@ final class ValidateCodingRulesTest {
         if (!fileNames.contains(fileName)) {
             fail(format(
                     "'?' class not found! Remove this class from " +
-                            "'.coding/pmd/common-suppressions.xml' or '.coding/pmd/public-api-suppressions.xml' file!",
+                            "'.coding/checkstyle/common-suppressions.xml' or '.coding/checkstyle/public-api-suppressions.xml' file!",
                     fileName
             ));
         }
@@ -97,7 +95,7 @@ final class ValidateCodingRulesTest {
     @ParameterizedTest
     @Order(2)
     @ArgumentsSource(ExcludePmdClassArgumentsProvider.class)
-    void exclude_pmd_properties_should_contain_existing_classes(final String className) {
+    void file_exclude_pmd_properties_should_contain_existing_classes(final String className) {
         try {
             Class.forName(className);
         } catch (final ClassNotFoundException ignored) {
@@ -108,7 +106,7 @@ final class ValidateCodingRulesTest {
     @ParameterizedTest
     @Order(3)
     @ArgumentsSource(ExcludeCpdClassArgumentsProvider.class)
-    void exclude_cpd_properties_should_contain_existing_classes(final String className) {
+    void file_exclude_cpd_properties_should_contain_existing_classes(final String className) {
         try {
             Class.forName(className);
         } catch (final ClassNotFoundException ignored) {
@@ -119,7 +117,7 @@ final class ValidateCodingRulesTest {
     @ParameterizedTest
     @Order(4)
     @ArgumentsSource(SpotbugsExcludeClassArgumentsProvider.class)
-    void spotbugs_exclude_xml_should_contain_existing_classes(final String className) {
+    void file_spotbugs_exclude_xml_should_contain_existing_classes(final String className) {
         try {
             Class.forName(className);
         } catch (final ClassNotFoundException ignored) {
@@ -167,7 +165,7 @@ final class ValidateCodingRulesTest {
         public Stream<? extends Arguments> provideArguments(final ExtensionContext context) throws IOException {
             final File excludePmdProperties = getCodingConfigFile("/.coding/pmd/exclude-pmd.properties");
             final Properties properties = new Properties();
-            try (InputStream in = new BufferedInputStream(new FileInputStream(excludePmdProperties))) {
+            try (InputStream in = Files.newInputStream(excludePmdProperties.toPath())) {
                 properties.load(in);
             }
             return properties.keySet().stream().map(Arguments::arguments);
@@ -224,7 +222,7 @@ final class ValidateCodingRulesTest {
 
         private final String attributeName;
 
-        private int i;
+        private int index;
 
         public NodeListIterator(final NodeList nodeList,
                                 final String attributeName) {
@@ -234,12 +232,12 @@ final class ValidateCodingRulesTest {
 
         @Override
         public boolean hasNext() {
-            return i < nodeList.getLength();
+            return index < nodeList.getLength();
         }
 
         @Override
         public String next() {
-            return ((Element) nodeList.item(i++)).getAttribute(attributeName);
+            return ((Element) nodeList.item(index++)).getAttribute(attributeName);
         }
     }
 

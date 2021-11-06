@@ -33,8 +33,8 @@ public interface DataMethodParamsResolver {
                              Map<String, Predicate<VariableElement>> groupRules,
                              boolean allowShareVariableForGroups);
 
-    default DataMethodParams resolve(ExecutableElement method,
-                                     Map<String, Predicate<VariableElement>> groupRules) {
+    default DataMethodParams resolve(final ExecutableElement method,
+                                     final Map<String, Predicate<VariableElement>> groupRules) {
         return resolve(method, groupRules, false);
     }
 }

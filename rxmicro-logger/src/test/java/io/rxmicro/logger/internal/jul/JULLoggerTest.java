@@ -43,6 +43,7 @@ import static org.mockito.Mockito.verify;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.ProperLogger"})
 final class JULLoggerTest {
 
     private static final String NAME = "test";
@@ -51,25 +52,25 @@ final class JULLoggerTest {
 
     private final RequestIdSupplier requestIdSupplier = () -> "TestRequestId";
 
-    private final JULLogger julLogger = new JULLogger(NAME);
+    private final JULLogger logger = new JULLogger(NAME);
 
     private final java.util.logging.Logger realLogger = spy(java.util.logging.Logger.getLogger(NAME));
 
     @BeforeEach
     void beforeEach() {
-        setFieldValue(julLogger, "logger", realLogger);
+        setFieldValue(logger, "logger", realLogger);
     }
 
     @Test
     @Order(1)
-    void getName() {
-        assertEquals(NAME, julLogger.getName());
+    void method_getName() {
+        assertEquals(NAME, logger.getName());
     }
 
     @Test
     @Order(2)
-    void isLevelEnabled() {
-        julLogger.isLevelEnabled(Level.DEBUG);
+    void method_isLevelEnabled() {
+        logger.isLevelEnabled(Level.DEBUG);
 
         verify(realLogger).isLoggable(java.util.logging.Level.FINE);
     }
@@ -84,7 +85,7 @@ final class JULLoggerTest {
             }
         };
 
-        julLogger.log(Level.DEBUG, new RxMicroLogRecord.Builder()
+        logger.log(Level.DEBUG, new RxMicroLogRecord.Builder()
                 .setRequestIdSupplier(requestIdSupplier)
                 .setStackFrame("Class", "method", "file", 15)
                 .setMessage("message")
@@ -92,7 +93,7 @@ final class JULLoggerTest {
                 .setThrowable(throwable)
                 .build());
 
-        ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
+        final ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
         verify(realLogger).log(argumentCaptor.capture());
         final RxMicroLogRecord record = argumentCaptor.getValue();
 
@@ -112,11 +113,11 @@ final class JULLoggerTest {
     @Order(4)
     void log_the_specified_logger_event_with_message_template() {
 
-        julLogger.log(Level.DEBUG, new RxMicroLogRecord.Builder()
+        logger.log(Level.DEBUG, new RxMicroLogRecord.Builder()
                 .setMessage("message: ?-?", 1, 2)
                 .build());
 
-        ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
+        final ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
         verify(realLogger).log(argumentCaptor.capture());
         final RxMicroLogRecord record = argumentCaptor.getValue();
 
@@ -127,9 +128,9 @@ final class JULLoggerTest {
     @Test
     @Order(5)
     void log_message_only() {
-        julLogger.log(Level.DEBUG, "debug");
+        logger.log(Level.DEBUG, "debug");
 
-        ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
+        final ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
         verify(realLogger).log(argumentCaptor.capture());
         final RxMicroLogRecord record = argumentCaptor.getValue();
 
@@ -142,9 +143,9 @@ final class JULLoggerTest {
     @Test
     @Order(6)
     void log_message_with_throwable() {
-        julLogger.log(Level.DEBUG, "debug", throwable);
+        logger.log(Level.DEBUG, "debug", throwable);
 
-        ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
+        final ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
         verify(realLogger).log(argumentCaptor.capture());
         final RxMicroLogRecord record = argumentCaptor.getValue();
 
@@ -157,9 +158,9 @@ final class JULLoggerTest {
     @Test
     @Order(7)
     void log_request_id_supplier_with_message() {
-        julLogger.log(requestIdSupplier, Level.DEBUG, "debug");
+        logger.log(requestIdSupplier, Level.DEBUG, "debug");
 
-        ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
+        final ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
         verify(realLogger).log(argumentCaptor.capture());
         final RxMicroLogRecord record = argumentCaptor.getValue();
 
@@ -172,9 +173,9 @@ final class JULLoggerTest {
     @Test
     @Order(8)
     void log_request_id_supplier_with_message_and_throwable() {
-        julLogger.log(requestIdSupplier, Level.DEBUG, "debug", throwable);
+        logger.log(requestIdSupplier, Level.DEBUG, "debug", throwable);
 
-        ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
+        final ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
         verify(realLogger).log(argumentCaptor.capture());
         final RxMicroLogRecord record = argumentCaptor.getValue();
 

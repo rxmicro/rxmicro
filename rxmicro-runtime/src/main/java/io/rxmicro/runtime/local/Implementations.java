@@ -126,6 +126,8 @@ public final class Implementations {
      */
     public static final class ImplementationLoadFailedException extends RxMicroException {
 
+        private static final long serialVersionUID = -8920626942775702136L;
+
         private ImplementationLoadFailedException(final String message,
                                                   final Object... args) {
             super(message, args);

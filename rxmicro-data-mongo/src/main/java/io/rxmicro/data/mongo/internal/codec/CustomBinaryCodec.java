@@ -58,6 +58,8 @@ public class CustomBinaryCodec extends BinaryCodec {
      */
     public static final class UUIDBinary extends Binary {
 
+        private static final long serialVersionUID = -8833008901439078207L;
+
         private final UuidRepresentation uuidRepresentation;
 
         public UUIDBinary(final byte type,

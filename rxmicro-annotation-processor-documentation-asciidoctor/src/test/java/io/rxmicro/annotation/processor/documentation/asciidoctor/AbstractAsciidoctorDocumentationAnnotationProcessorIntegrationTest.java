@@ -58,6 +58,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author nedis
  * @since 0.7.2
  */
+@SuppressWarnings({"PMD.LongVariable", "PMD.MutableStaticState"})
 public abstract class AbstractAsciidoctorDocumentationAnnotationProcessorIntegrationTest
         extends AbstractRxMicroAnnotationProcessorIntegrationTest {
 

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2020. https://rxmicro.io
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~~~~~ Root page: https://pmd.github.io/latest/pmd_rules_java.html ~~~~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~~~ https://pmd.github.io/latest/pmd_userdocs_making_rulesets.html ~~~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~ https://pmd.github.io/pmd-6.40.0/pmd_rules_java_bestpractices.html ~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<ruleset name="Default Maven PMD Plugin Ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0
+                            http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>RxMicro best practices ruleset</description>
+    <!-- Unfortunately protected modifier allows creating an instance of class inside the package,
+         thus the abstract modifier is a guarantor to prevent a direct instantiation: -->
+    <!-- rule ref="category/java/bestpractices.xml/AbstractClassWithoutAbstractMethod"/ -->
+    <rule ref="category/java/bestpractices.xml/AccessorClassGeneration"/>
+    <!-- The private modifier guarantees an access from class body only: -->
+    <!-- rule ref="category/java/bestpractices.xml/AccessorMethodGeneration"/ -->
+    <rule ref="category/java/bestpractices.xml/ArrayIsStoredDirectly">
+        <properties>
+            <property name="allowPrivate" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/AvoidMessageDigestField"/>
+    <rule ref="category/java/bestpractices.xml/AvoidPrintStackTrace"/>
+    <rule ref="category/java/bestpractices.xml/AvoidReassigningCatchVariables"/>
+    <rule ref="category/java/bestpractices.xml/AvoidReassigningLoopVariables">
+        <properties>
+            <property name="foreachReassign" value="deny"/>
+            <property name="forReassign" value="deny"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/AvoidReassigningParameters"/>
+    <rule ref="category/java/bestpractices.xml/AvoidStringBufferField"/>
+    <rule ref="category/java/bestpractices.xml/AvoidUsingHardCodedIP">
+        <properties>
+            <property name="checkAddressTypes" value="IPv4 mapped IPv6|IPv6|IPv4"/>
+        </properties>
+    </rule>
+    <!-- The RxMicro framework does not use JDBC: -->
+    <!-- rule ref="category/java/bestpractices.xml/CheckResultSet"/ -->
+    <rule ref="category/java/bestpractices.xml/ConstantsInInterface">
+        <properties>
+            <property name="ignoreIfHasMethods" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/DefaultLabelNotLastInSwitchStmt"/>
+    <rule ref="category/java/bestpractices.xml/DoubleBraceInitialization"/>
+    <!-- Sometimes for loop has the better performance than Foreach: -->
+    <!-- rule ref="category/java/bestpractices.xml/ForLoopCanBeForeach"/ -->
+    <rule ref="category/java/bestpractices.xml/ForLoopVariableCount">
+        <properties>
+            <property name="maximumVariables" value="1"/>
+        </properties>
+    </rule>
+    <!-- This rule useful, but unfortunately this rule can't detect method invoke hierarchy: -->
+    <!-- rule ref="category/java/bestpractices.xml/GuardLogStatement"/ -->
+
+    <!-- The RxMicro framework does not use JUnit4: -->
+    <!-- rule ref="category/java/bestpractices.xml/JUnit4SuitesShouldUseSuiteAnnotation"/>
+    <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseAfterAnnotation"/>
+    <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseBeforeAnnotation"/>
+    <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseTestAnnotation"/ -->
+    <rule ref="category/java/bestpractices.xml/JUnit5TestShouldBePackagePrivate"/>
+    <!-- Message for assert methods must be optional!!! -->
+    <!-- rule ref="category/java/bestpractices.xml/JUnitAssertionsShouldIncludeMessage"/-->
+    <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts">
+        <properties>
+            <property name="maximumAsserts" value="15"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert"/>
+    <!-- The RxMicro framework does not use JUnit4: -->
+    <!-- rule ref="category/java/bestpractices.xml/JUnitUseExpected"/ -->
+    <rule ref="category/java/bestpractices.xml/LiteralsFirstInComparisons"/>
+    <rule ref="category/java/bestpractices.xml/LooseCoupling"/>
+    <rule ref="category/java/bestpractices.xml/MethodReturnsInternalArray"/>
+    <rule ref="category/java/bestpractices.xml/MissingOverride"/>
+    <rule ref="category/java/bestpractices.xml/OneDeclarationPerLine">
+        <properties>
+            <property name="strictMode" value="true"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml/LiteralsFirstInComparisons"/>
+    <!-- Sometimes original stacktrace is redundant, because the exception class name contains all required information: -->
+    <!-- rule ref="category/java/bestpractices.xml/PreserveStackTrace"/ -->
+    <rule ref="category/java/bestpractices.xml/PrimitiveWrapperInstantiation"/>
+    <rule ref="category/java/bestpractices.xml/ReplaceEnumerationWithIterator"/>
+    <rule ref="category/java/bestpractices.xml/ReplaceHashtableWithMap"/>
+    <rule ref="category/java/bestpractices.xml/ReplaceVectorWithList"/>
+    <rule ref="category/java/bestpractices.xml/SimplifiableTestAssertion"/>
+    <rule ref="category/java/bestpractices.xml/SwitchStmtsShouldHaveDefault"/>
+    <rule ref="category/java/bestpractices.xml/SystemPrintln"/>
+    <!-- This rule works incorrectly, because does not ignore the overridden methods! -->
+    <!-- rule ref="category/java/bestpractices.xml/UnusedAssignment">
+        <properties>
+            <property name="checkUnusedPrefixIncrement" value="true" />
+            <property name="reportUnusedVariables" value="false" />
+        </properties>
+    </rule -->
+    <rule ref="category/java/bestpractices.xml/UnusedFormalParameter">
+        <properties>
+            <property name="checkAll" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/UnusedLocalVariable"/>
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateField">
+        <properties>
+            <property name="ignoredAnnotations"
+                      value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.EqualsAndHashCode|
+                            lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|lombok.experimental.Delegate|
+                            java.lang.Deprecated|
+                            javafx.fxml.FXML|
+                            org.mockito.Mock"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
+        <properties>
+            <property name="ignoredAnnotations" value="java.lang.Deprecated"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/UseCollectionIsEmpty"/>
+    <rule ref="category/java/bestpractices.xml/UseStandardCharsets"/>
+    <rule ref="category/java/bestpractices.xml/UseTryWithResources">
+        <properties>
+            <property name="closeMethods" value="close,closeQuietly"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/UseVarargs"/>
+    <rule ref="category/java/bestpractices.xml/WhileLoopWithLiteralBoolean"/>
+</ruleset>

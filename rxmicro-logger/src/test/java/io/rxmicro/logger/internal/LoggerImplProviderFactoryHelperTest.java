@@ -50,7 +50,7 @@ final class LoggerImplProviderFactoryHelperTest {
 
     @Test
     @Order(1)
-    void createAndSetupLoggerImplProvider_should_log_all_exceptions() {
+    void method_createAndSetupLoggerImplProvider_should_log_all_exceptions() {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setErr(new PrintStream(byteArrayOutputStream));
         try {

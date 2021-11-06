@@ -56,7 +56,7 @@ public final class BadHttpRequestRestController extends AbstractRestController {
                         EMPTY_STRING,
                         "handle",
                         List.of(PathVariableMapping.class, HttpRequest.class),
-                        this::handle,
+                        (pathVariableMapping, request) -> handle(),
                         false,
                         requestMappingRule
                 )
@@ -79,8 +79,7 @@ public final class BadHttpRequestRestController extends AbstractRestController {
         return BadHttpRequestRestController.class;
     }
 
-    private CompletionStage<HttpResponse> handle(final PathVariableMapping pathVariableMapping,
-                                                 final HttpRequest request) {
+    private CompletionStage<HttpResponse> handle() {
         return badHttpRequestStage;
     }
 }

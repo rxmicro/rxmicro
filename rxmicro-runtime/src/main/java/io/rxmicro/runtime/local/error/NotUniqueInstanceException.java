@@ -24,6 +24,8 @@ import io.rxmicro.common.RxMicroException;
  */
 public final class NotUniqueInstanceException extends RxMicroException {
 
+    private static final long serialVersionUID = -1108989524898884406L;
+
     public NotUniqueInstanceException(final Class<?> type) {
         super("Detected a few implementations for type: ?", type.getName());
     }

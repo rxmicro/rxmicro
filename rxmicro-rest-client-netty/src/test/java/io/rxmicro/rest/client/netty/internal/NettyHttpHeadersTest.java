@@ -37,55 +37,56 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class NettyHttpHeadersTest {
 
     private final NettyHttpHeaders headers = new NettyHttpHeaders(new DefaultHttpHeaders().add("name", "value"));
 
     @Test
     @Order(1)
-    void getValue() {
+    void method_getValue() {
         assertEquals("value", headers.getValue("name"));
     }
 
     @Test
     @Order(2)
-    void getValues() {
+    void method_getValues() {
         assertEquals(List.of("value"), headers.getValues("name"));
     }
 
     @Test
     @Order(3)
-    void contains() {
+    void method_contains() {
         assertTrue(headers.contains("name"));
     }
 
     @Test
     @Order(4)
-    void getEntries() {
+    void method_getEntries() {
         assertEquals(List.of(entry("name", "value")), headers.getEntries());
     }
 
     @Test
     @Order(5)
-    void size() {
+    void method_size() {
         assertEquals(1, headers.size());
     }
 
     @Test
     @Order(6)
-    void isNotEmpty_should_return_true() {
+    void method_isNotEmpty_should_return_true() {
         assertTrue(headers.isNotEmpty());
     }
 
     @Test
     @Order(7)
-    void isNotEmpty_should_return_false() {
+    void method_isNotEmpty_should_return_false() {
         assertFalse(new NettyHttpHeaders(new DefaultHttpHeaders()).isNotEmpty());
     }
 
     @Test
     @Order(8)
-    void testToString() {
+    void method_toString() {
         assertEquals("NettyHttpHeaders {name: value}", headers.toString());
     }
 }

@@ -41,6 +41,7 @@ import static org.mockito.Mockito.when;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("PMD.ProperLogger")
 final class LoggerImplProviderFactoryTest {
 
     @Mock

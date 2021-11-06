@@ -33,6 +33,8 @@ public final class InternalHttpErrorException extends HttpErrorException {
      */
     public static final int STATUS_CODE = INTERNAL_SERVER_ERROR_500;
 
+    private static final long serialVersionUID = 5146600426189100766L;
+
     /**
      * Creates an internal HTTP error with error message.
      *

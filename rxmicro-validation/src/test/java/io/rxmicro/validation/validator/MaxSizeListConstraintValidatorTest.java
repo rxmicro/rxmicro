@@ -39,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author nedis
  * @since 0.7
  */
+// CPD-OFF Read more: https://pmd.github.io/pmd-6.13.0/pmd_userdocs_cpd.html#suppression
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class MaxSizeListConstraintValidatorTest extends AbstractConstraintValidatorTest<List<?>> {
@@ -87,3 +88,4 @@ final class MaxSizeListConstraintValidatorTest extends AbstractConstraintValidat
         assertEquals("Use 'validate' instead!", exception.getMessage());
     }
 }
+// CPD-ON Read more: https://pmd.github.io/pmd-6.13.0/pmd_userdocs_cpd.html#suppression

@@ -45,7 +45,7 @@ import static io.rxmicro.reflection.Reflections.instantiate;
 public final class SystemConsoleHandlerHelper {
 
     static {
-        JDK6448699Bug.fix();
+        JDK6448699BugHelper.fix();
     }
 
     private static final String FULL_CLASS_NAME = SystemConsoleHandler.class.getName();

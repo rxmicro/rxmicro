@@ -34,6 +34,8 @@ public final class UnexpectedResponseException extends HttpErrorException {
      */
     public static final int STATUS_CODE = INTERNAL_SERVER_ERROR_500;
 
+    private static final long serialVersionUID = -5143852417532778495L;
+
     /**
      * Creates a HTTP error with error message.
      *

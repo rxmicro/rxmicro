@@ -52,6 +52,7 @@ import static org.junit.jupiter.api.condition.OS.WINDOWS;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class PatternFormatterTest {
 
     @ParameterizedTest
@@ -149,7 +150,7 @@ final class PatternFormatterTest {
 
     @Order(3)
     @Test
-    void toString_should_display_all_configured_consumers() {
+    void method_toString_should_display_all_configured_consumers() {
         final String pattern = "%logger %class %date %file %line %message %method %n %level %relative %thread %requestId";
         final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern, false, null));
 
@@ -249,7 +250,7 @@ final class PatternFormatterTest {
         );
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "PMD.AvoidAccessibilityAlteration"})
     private void setRelativeTimeStart(final PatternFormatter patternFormatter) throws NoSuchFieldException, IllegalAccessException {
         final Field biConsumersField = PatternFormatter.class.getDeclaredField("biConsumers");
         if (!biConsumersField.canAccess(patternFormatter)) {

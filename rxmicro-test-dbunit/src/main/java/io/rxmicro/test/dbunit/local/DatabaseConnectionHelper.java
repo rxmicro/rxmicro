@@ -69,7 +69,7 @@ public final class DatabaseConnectionHelper {
     }
 
     public static boolean isCurrentDatabaseConnectionShared() {
-        return sharedDatabaseConnection != null && DATABASE_CONNECTION_THREAD_LOCAL.get() == sharedDatabaseConnection;
+        return sharedDatabaseConnection != null && sharedDatabaseConnection.equals(DATABASE_CONNECTION_THREAD_LOCAL.get());
     }
 
     public static void releaseCurrentDatabaseConnection() {
@@ -97,7 +97,7 @@ public final class DatabaseConnectionHelper {
     }
 
     private static void closeDatabaseConnection(final DatabaseConnection connection) {
-        if (connection != sharedDatabaseConnection) {
+        if (!connection.equals(sharedDatabaseConnection)) {
             forceCloseDatabaseConnection(connection);
         }
     }

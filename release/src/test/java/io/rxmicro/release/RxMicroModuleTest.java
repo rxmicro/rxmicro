@@ -61,7 +61,7 @@ final class RxMicroModuleTest {
     @Test
     @Order(1)
     void Should_contain_all_declared_modules() {
-        final File rootDirectory = TestUtil.getRootDirectory();
+        final File rootDirectory = TestUtils.getRootDirectory();
         final File[] modules = rootDirectory.listFiles((dir, name) -> name.startsWith("rxmicro-"));
         if (modules == null) {
             fail("Module directories not found. Is it valid root directory: " + rootDirectory.getAbsolutePath() + "?");
@@ -84,7 +84,7 @@ final class RxMicroModuleTest {
     @Test
     @Order(2)
     void Should_not_contain_redundant_modules() {
-        final File rootDirectory = TestUtil.getRootDirectory();
+        final File rootDirectory = TestUtils.getRootDirectory();
         for (final RxMicroModule rxMicroModule : RxMicroModule.values()) {
             final File moduleDir = new File(rootDirectory, rxMicroModule.getName().replace('.', '-'));
             if (!moduleDir.exists()) {

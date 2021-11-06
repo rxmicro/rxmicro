@@ -145,7 +145,6 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                         e.getKey().hasAnnotation(Nullable.class)));
     }
 
-    @SuppressWarnings("SimplifiableConditionalExpression")
     private void extractFieldValidators(final ModelValidatorClassStructure.Builder builder,
                                         final RestModelField restModelField,
                                         final ModelClass modelFieldType) {
@@ -154,7 +153,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
             annotationValueValidator.validate(m, restModelField);
             final String constraintConstructorArg = getConstraintConstructorArguments(builder, restModelField, m);
             final String constructorArg = getConstructorArgs(builder, modelFieldType, constraintConstructorArg, m.isIterableConstraint());
-            final boolean validateIterable = m.isIterableConstraint() ? false : modelFieldType.isIterable();
+            final boolean validateIterable = !m.isIterableConstraint() && modelFieldType.isIterable();
 
             builder.add(restModelField, modelFieldType, m, constructorArg, validateIterable);
         });

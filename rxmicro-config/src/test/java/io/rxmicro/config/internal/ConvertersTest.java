@@ -30,6 +30,7 @@ import java.lang.annotation.Retention;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
@@ -49,19 +50,18 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 final class ConvertersTest {
 
     static Stream<Arguments> convertWithoutTypeDefinitionArguments() {
+        final Map<String, String> map = new LinkedHashMap<>();
+        map.put("k1", "v1");
+        map.put("k2", "v2");
+
         return Stream.of(
                 arguments("true", true, true, Boolean.TRUE),
                 arguments("false", true, true, Boolean.FALSE),
                 arguments("a,b,c", true, true, List.of("a", "b", "c")),
-                arguments("k1=v1,k2=v2", true, true, unmodifiableOrderedMap(new LinkedHashMap<>() {
-                    {
-                        put("k1", "v1");
-                        put("k2", "v2");
-                    }
-                })),
-                arguments("987654321", true, true, 987654321L),
-                arguments("-987654321", true, true, -987654321L),
-                arguments("+987654321", true, true, 987654321L),
+                arguments("k1=v1,k2=v2", true, true, unmodifiableOrderedMap(map)),
+                arguments("987654321", true, true, 987_654_321L),
+                arguments("-987654321", true, true, -987_654_321L),
+                arguments("+987654321", true, true, 987_654_321L),
                 arguments("3.14", true, true, new BigDecimal("3.14")),
                 arguments("-3.14", true, true, new BigDecimal("-3.14")),
                 arguments("+3.14", true, true, new BigDecimal("+3.14")),
@@ -126,6 +126,7 @@ final class ConvertersTest {
      * @author nedis
      * @since 0.7.2
      */
+    @SuppressWarnings("PMD.ConstantsInInterface")
     private interface TestInterface {
 
         TestInterface VALUE = new TestInterface() {

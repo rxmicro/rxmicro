@@ -17,6 +17,7 @@
 package io.rxmicro.common.util;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
@@ -33,31 +34,28 @@ public final class Requires {
      * Checks that the specified object reference is not {@code null}.
      *
      * <p>
-     * The main advantage of this method comparing with {@link java.util.Objects#requireNonNull(Object)} is the ability to replace
+     * The main advantage of this method comparing with {@link Objects#requireNonNull(Object)} is the ability to replace
      * {@code if} statement by the {@code assert} one.
-     * This replacement can increase the performance of the RxMicro framework.
+     * This replacement can increase the performance of the RxMicro framework in future.
      *
      * @param instance the specified object
      * @param <T> the type of the reference
      * @return {@code obj} if not {@code null}
      * @throws NullPointerException if the specified object is {@code null}
-     * @see java.util.Objects#requireNonNull(Object)
+     * @see Objects#requireNonNull(Object)
      */
     public static <T> T require(final T instance) {
         //assert instance != null;
-        if (instance == null) {
-            throw new NullPointerException();
-        }
-        return instance;
+        return Objects.requireNonNull(instance);
     }
 
     /**
      * Checks that the specified object reference is not {@code null} and throws a exception with custom message if it is.
      *
      * <p>
-     * The main advantage of this method comparing with {@link java.util.Objects#requireNonNull(Object, String)} is the ability to replace
+     * The main advantage of this method comparing with {@link Objects#requireNonNull(Object, String)} is the ability to replace
      * {@code if} statement by the {@code assert} one.
-     * This replacement can increase the performance of the RxMicro framework.
+     * This replacement can increase the performance of the RxMicro framework in future.
      *
      * @param instance the specified object
      * @param message the message template
@@ -66,23 +64,20 @@ public final class Requires {
      * @return {@code obj} if not {@code null}
      * @throws NullPointerException if the message template is {@code null} or the specified object is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
-     * @see java.util.Objects#requireNonNull(Object, String)
+     * @see Objects#requireNonNull(Object, String)
      */
     public static <T> T require(final T instance,
                                 final String message,
                                 final Object... args) {
         //assert instance != null : format(message, args);
-        if (instance == null) {
-            throw new NullPointerException(format(message, args));
-        }
-        return instance;
+        return Objects.requireNonNull(instance, format(message, args));
     }
 
     /**
      * Checks that the specified object reference is not {@code null} and throws a exception with custom message if it is.
      *
      * <p>
-     * The main advantage of this method comparing with {@link java.util.Objects#requireNonNull(Object, String)} is the ability to replace
+     * The main advantage of this method comparing with {@link Objects#requireNonNull(Object, String)} is the ability to replace
      * {@code if} statement by the {@code assert} one.
      * This replacement can increase the performance of the RxMicro framework.
      *
@@ -93,17 +88,14 @@ public final class Requires {
      * @return {@code obj} if not {@code null}
      * @throws NullPointerException if the message template is {@code null} or the specified object is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
-     * @see java.util.Objects#requireNonNull(Object, String)
+     * @see Objects#requireNonNull(Object, String)
      */
     @SafeVarargs
     public static <T> T require(final T instance,
                                 final String message,
                                 final Supplier<Object>... suppliers) {
-        //assert instance != null : format(message, args);
-        if (instance == null) {
-            throw new NullPointerException(format(message, Arrays.stream(suppliers).map(Supplier::get).toArray()));
-        }
-        return instance;
+        //assert instance != null : format(message, Arrays.stream(suppliers).map(Supplier::get).toArray());
+        return Objects.requireNonNull(instance, format(message, Arrays.stream(suppliers).map(Supplier::get).toArray()));
     }
 
     private Requires() {

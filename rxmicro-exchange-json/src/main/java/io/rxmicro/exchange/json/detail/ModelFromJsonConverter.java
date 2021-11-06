@@ -258,15 +258,16 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                                                 final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
-                try {
-                    final List<Boolean> result = (List<Boolean>) list;
-                    boolean last = false;
-                    for (int i = 0; i < result.size(); i++) {
-                        last = result.get(i);
+                final List<?> result = (List<?>) list;
+                boolean valid = true;
+                for (int i = 0; i < result.size(); i++) {
+                    if (result.get(i).getClass() != Boolean.class) {
+                        valid = false;
+                        break;
                     }
-                    return unmodifiableList(result);
-                } catch (final ClassCastException ignored) {
-                    //goto throw new ValidationException
+                }
+                if (valid) {
+                    return unmodifiableList((List<Boolean>) list);
                 }
             }
             throw new ValidationException(
@@ -987,15 +988,16 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                                               final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
-                try {
-                    final List<String> result = (List<String>) list;
-                    String last;
-                    for (int i = 0; i < result.size(); i++) {
-                        last = result.get(i);
+                final List<?> result = (List<?>) list;
+                boolean valid = true;
+                for (int i = 0; i < result.size(); i++) {
+                    if (result.get(i).getClass() != String.class) {
+                        valid = false;
+                        break;
                     }
-                    return unmodifiableList(result);
-                } catch (final ClassCastException ignored) {
-                    //goto throw new ValidationException
+                }
+                if (valid) {
+                    return unmodifiableList((List<String>) list);
                 }
             }
             throw createExpectedArrayOfStringsValidationException(list, modelName);

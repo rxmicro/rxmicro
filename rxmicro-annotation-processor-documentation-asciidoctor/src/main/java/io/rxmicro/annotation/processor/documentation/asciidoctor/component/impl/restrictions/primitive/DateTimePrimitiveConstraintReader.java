@@ -40,6 +40,13 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMor
  */
 public final class DateTimePrimitiveConstraintReader extends ConstraintReader {
 
+    /**
+     * @see #addTypeFormat
+     */
+    @ReadMore(
+            caption = "What is UTC?",
+            link = "https://en.wikipedia.org/wiki/Coordinated_Universal_Time"
+    )
     private final List<AnnotationConstraintReader> annotationConstraintReaders = List.of(
 
             (annotated, restrictions, readMores, descriptionBuilder) -> {
@@ -85,12 +92,6 @@ public final class DateTimePrimitiveConstraintReader extends ConstraintReader {
             }
     );
 
-    @ReadMore(
-            caption = "What is UTC?",
-            link = "https://en.wikipedia.org/wiki/Coordinated_Universal_Time"
-    )
-    private Instant instant;
-
     @Override
     public void readIfConstraintEnabled(final Map.Entry<RestModelField, ModelClass> entry,
                                         final List<String> restrictions,
@@ -107,7 +108,7 @@ public final class DateTimePrimitiveConstraintReader extends ConstraintReader {
         if (Instant.class.getName().equals(annotated.getFieldClass().toString())) {
             restrictions.add("format: UTC");
             try {
-                readMores.add(getClass().getDeclaredField("instant").getAnnotation(ReadMore.class));
+                readMores.add(getClass().getDeclaredField("annotationConstraintReaders").getAnnotation(ReadMore.class));
             } catch (final NoSuchFieldException ex) {
                 throw new ImpossibleException(ex, "Field `instant` must be declared!");
             }

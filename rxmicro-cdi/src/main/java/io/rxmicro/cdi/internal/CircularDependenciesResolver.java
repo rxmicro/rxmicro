@@ -73,6 +73,8 @@ public final class CircularDependenciesResolver {
      */
     private static final class CircularDependenciesDetectedException extends RxMicroException {
 
+        private static final long serialVersionUID = -5861381667161418746L;
+
         private CircularDependenciesDetectedException(final Object... args) {
             super(
                     false,

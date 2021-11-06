@@ -39,6 +39,8 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
 
+    private static final long serialVersionUID = 2754105492942720819L;
+
     private static final RequestIdSupplier UNDEFINED_REQUEST_ID_SUPPLIER = () -> null;
 
     private RequestIdSupplier requestIdSupplier;

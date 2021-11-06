@@ -220,7 +220,7 @@ public final class ModelValidatorClassStructure extends ClassStructure
                         final String constructorArgs,
                         final boolean validateIterable) {
             final boolean isStateless = (constructorArgs == null || constructorArgs.isEmpty()) &&
-                    getPackageName(modelValidatorCreatorDescriptor.getValidatorFullClassName()).equals(STANDARD_VALIDATOR_PACKAGE);
+                    STANDARD_VALIDATOR_PACKAGE.equals(getPackageName(modelValidatorCreatorDescriptor.getValidatorFullClassName()));
             final String validatorClass = getValidatorClassName(modelValidatorCreatorDescriptor.getValidatorFullClassName());
             final String instanceName;
             if (isStateless) {

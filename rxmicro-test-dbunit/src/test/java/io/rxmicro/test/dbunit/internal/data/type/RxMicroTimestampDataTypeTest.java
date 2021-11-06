@@ -50,14 +50,14 @@ final class RxMicroTimestampDataTypeTest {
 
     @Test
     @Order(1)
-    void parseString_should_support_ISO_instant_format() throws TypeCastException {
+    void method_parseString_should_support_ISO_instant_format() throws TypeCastException {
         final Object actual = dataType.parseString("2020-10-30T16:36:09Z");
         assertEquals(Timestamp.from(EXPECTED_INSTANT), actual);
     }
 
     @Test
     @Order(2)
-    void parseString_should_support_yyyy_MM_dd_HH_mm_ss_format_using_configured_timezone() throws TypeCastException {
+    void method_parseString_should_support_yyyy_MM_dd_HH_mm_ss_format_using_configured_timezone() throws TypeCastException {
         final Object actual = dataType.parseString("2020-10-30 16:36:09");
         assertEquals(Timestamp.from(EXPECTED_INSTANT), actual);
     }

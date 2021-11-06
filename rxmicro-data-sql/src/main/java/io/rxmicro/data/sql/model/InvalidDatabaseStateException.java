@@ -30,6 +30,8 @@ import io.rxmicro.common.util.Formats;
  */
 public final class InvalidDatabaseStateException extends RxMicroException {
 
+    private static final long serialVersionUID = 7410727509107181319L;
+
     /**
      * Creates a new {@link InvalidDatabaseStateException} instance with error message.
      *

@@ -40,7 +40,7 @@ final class ExternalModuleTest {
     @ParameterizedTest
     @EnumSource(ExternalModule.class)
     @Order(1)
-    void Library_files_should_be_exist(final ExternalModule externalModule) {
+    void library_files_should_be_exist(final ExternalModule externalModule) {
         assertTrue(
                 new File(externalModule.getJarPath()).exists(),
                 format("'?'  not found", externalModule.getJarPath())

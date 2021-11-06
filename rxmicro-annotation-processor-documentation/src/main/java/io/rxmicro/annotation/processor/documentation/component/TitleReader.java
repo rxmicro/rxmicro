@@ -27,7 +27,7 @@ public interface TitleReader {
 
     Optional<String> getTitle(Element element);
 
-    default String readTitleOrDefault(Element element) {
+    default String readTitleOrDefault(final Element element) {
         return getTitle(element).orElseGet(() -> getDefaultTitle(element));
     }
 

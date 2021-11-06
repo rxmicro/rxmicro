@@ -58,7 +58,7 @@ final class JsonToStringBuilderTest {
 
     @Test
     @Order(1)
-    void toString_should_return_built_string() {
+    void method_toString_should_return_built_string() {
         builder.beginObject().endObject();
         assertEquals(builder.build(), builder.toString());
     }

@@ -18,6 +18,9 @@ package io.rxmicro.annotation.processor.common.util;
 
 import io.rxmicro.annotation.processor.config.LogLevel;
 
+import static io.rxmicro.common.util.SystemPrintlnHelper.printStackTraceToStdErr;
+import static io.rxmicro.common.util.SystemPrintlnHelper.printlnToStdOut;
+
 /**
  * @author nedis
  * @since 0.4
@@ -26,11 +29,11 @@ public final class InternalLoggers {
 
     public static void logMessage(final LogLevel level,
                                   final String message) {
-        System.out.println("[" + level + "] " + message);
+        printlnToStdOut("[" + level + "] " + message);
     }
 
     public static void logThrowableStackTrace(final Throwable throwable) {
-        throwable.printStackTrace();
+        printStackTraceToStdErr(throwable);
     }
 
     private InternalLoggers() {

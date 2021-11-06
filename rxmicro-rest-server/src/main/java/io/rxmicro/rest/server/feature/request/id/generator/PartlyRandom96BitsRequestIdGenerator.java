@@ -32,7 +32,7 @@ import java.util.Base64;
  * </a>
  *
  * <p>
- * If a {@link DeterministicValueProvider#CURRENT_TIME_IN_MILLIS_AS_DETERMINISTIC_VALUE_PROVIDER} is used as
+ * If a {@link DeterministicValueProvider#CURRENT_TIME_IN_MILLIS_PROVIDER} is used as
  * ${@link DeterministicValueProvider} that least significant {@code 44 bits} can contains milliseconds for {@code 557.46} years.
  *
  * <p>

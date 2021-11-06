@@ -76,8 +76,11 @@ public final class ClasspathResources {
     private static List<String> readLines(final InputStream in) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(in, UTF_8))) {
             final List<String> lines = new ArrayList<>();
-            String line;
-            while ((line = br.readLine()) != null) {
+            while (true) {
+                final String line = br.readLine();
+                if (line == null) {
+                    break;
+                }
                 lines.add(line);
             }
             return lines;

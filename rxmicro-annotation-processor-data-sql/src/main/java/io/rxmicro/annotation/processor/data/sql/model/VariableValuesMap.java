@@ -26,6 +26,8 @@ import java.util.Optional;
  */
 public final class VariableValuesMap extends HashMap<String, Object> {
 
+    private static final long serialVersionUID = -7903598806143380422L;
+
     public VariableValuesMap() {
         // Default constructor
     }

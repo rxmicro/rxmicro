@@ -29,6 +29,7 @@ import java.util.stream.Stream;
  * @author nedis
  * @since 0.7.3
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class AbstractLoggerTestFactory {
 
     static final Throwable THROWABLE = new Throwable("test");
@@ -356,5 +357,8 @@ final class AbstractLoggerTestFactory {
                 Logger::isWarnEnabled,
                 Logger::isErrorEnabled
         );
+    }
+
+    private AbstractLoggerTestFactory() {
     }
 }

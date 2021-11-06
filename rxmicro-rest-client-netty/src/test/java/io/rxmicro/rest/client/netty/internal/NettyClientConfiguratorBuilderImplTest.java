@@ -53,7 +53,7 @@ final class NettyClientConfiguratorBuilderImplTest {
 
     @Test
     @Order(2)
-    void setClientOption_should_throw_IllegalStateException() {
+    void method_setClientOption_should_throw_IllegalStateException() {
         final NettyClientConfiguratorBuilderImpl builder = new NettyClientConfiguratorBuilderImpl(TEST_NAMESPACE);
         PROCESSED_NAMESPACES.add(TEST_NAMESPACE);
         final IllegalStateException exception =
@@ -63,7 +63,7 @@ final class NettyClientConfiguratorBuilderImplTest {
 
     @Test
     @Order(3)
-    void getHttpResponseDecoderSpec_should_throw_IllegalStateException() {
+    void method_getHttpResponseDecoderSpec_should_throw_IllegalStateException() {
         final NettyClientConfiguratorBuilderImpl builder = new NettyClientConfiguratorBuilderImpl(TEST_NAMESPACE);
         PROCESSED_NAMESPACES.add(TEST_NAMESPACE);
         final IllegalStateException exception =

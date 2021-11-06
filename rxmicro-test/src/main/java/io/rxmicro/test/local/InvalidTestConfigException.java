@@ -27,6 +27,8 @@ import io.rxmicro.common.util.Formats;
  */
 public final class InvalidTestConfigException extends RxMicroException {
 
+    private static final long serialVersionUID = 7257690622901075539L;
+
     /**
      * Creates a {@link InvalidTestConfigException} instance
      *

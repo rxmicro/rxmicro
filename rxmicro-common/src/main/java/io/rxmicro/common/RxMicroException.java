@@ -33,6 +33,8 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public class RxMicroException extends RuntimeException {
 
+    private static final long serialVersionUID = -6702503405202825623L;
+
     /**
      * Creates a new {@link RxMicroException} instance with error message.
      *

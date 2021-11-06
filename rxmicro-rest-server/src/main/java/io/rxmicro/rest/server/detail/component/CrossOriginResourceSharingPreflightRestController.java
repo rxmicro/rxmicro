@@ -84,7 +84,7 @@ public final class CrossOriginResourceSharingPreflightRestController extends Abs
                         EMPTY_STRING,
                         "handle",
                         paramTypes,
-                        this::handle,
+                        (pathVariableMapping, request) -> handle(request),
                         false,
                         exactUrlMapping.keySet().stream()
                                 .map(u -> new ExactUrlRequestMappingRule(OPTIONS.name(), u, false))
@@ -94,7 +94,7 @@ public final class CrossOriginResourceSharingPreflightRestController extends Abs
                         EMPTY_STRING,
                         "handle",
                         paramTypes,
-                        this::handle,
+                        (pathVariableMapping, request) -> handle(request),
                         false,
                         urlTemplateMapping.stream()
                                 .map(r -> new WithUrlPathVariablesRequestMappingRule(OPTIONS.name(), r.getUrlSegments(), false))
@@ -111,8 +111,7 @@ public final class CrossOriginResourceSharingPreflightRestController extends Abs
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     // https://www.w3.org/TR/cors/#preflight-request
     // https://www.html5rocks.com/static/images/cors_server_flowchart.png
-    private CompletionStage<HttpResponse> handle(final PathVariableMapping pathVariableMapping,
-                                                 final HttpRequest request) {
+    private CompletionStage<HttpResponse> handle(final HttpRequest request) {
         final String origin = request.getHeaders().getValue(ORIGIN);
         validateOrigin(origin);
         final CrossOriginResourceSharingResource resource = getResource(request);

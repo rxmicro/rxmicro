@@ -24,6 +24,8 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
  */
 public final class InterruptProcessingBecauseAFewErrorsFoundException extends RuntimeException {
 
+    private static final long serialVersionUID = -2719521807103786852L;
+
     public InterruptProcessingBecauseAFewErrorsFoundException() {
         if (doesNotContainCompilationErrors()) {
             throw new InternalErrorException("Can't interrupt processing because not errors found!");

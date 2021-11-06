@@ -42,8 +42,8 @@ final class LevelMappingsTest {
             "TRACE;     FINEST",
             "ALL;       ALL"
     })
-    void getJulLevel_should_convert_level_correctly(final String rxMicroLevel,
-                                                    final String expectedJulLevel) {
+    void method_getJulLevel_should_convert_level_correctly(final String rxMicroLevel,
+                                                           final String expectedJulLevel) {
         final java.util.logging.Level actualLevel = getJulLevel(Level.valueOf(rxMicroLevel));
 
         assertEquals(expectedJulLevel, actualLevel.getName());

@@ -30,12 +30,12 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.common.util.SystemPrintlnHelper.printStackTraceToStdErr;
 import static io.rxmicro.config.detail.DefaultConfigValueBuilder.putDefaultConfigValue;
 import static io.rxmicro.config.internal.ExternalSourceProviderFactory.setCurrentDir;
 import static io.rxmicro.config.internal.ExternalSourceProviderFactory.setEnvironmentVariables;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
-import static java.nio.file.Files.createDirectories;
 
 /**
  * @author nedis
@@ -48,10 +48,10 @@ public abstract class AbstractConfigsIntegrationTest {
     private static final Path TEMP_DIRECTORY =
             Paths.get(System.getProperty("java.io.tmpdir") + "/rxmicro-configs-integration-test").toAbsolutePath();
 
-    private static Thread DELETE_TEMP_DIR_SHUTDOWN_HOOK;
+    private static Thread deleteTempDirShutdownHook;
 
     private String mkDir(final String relativePath) throws IOException {
-        return createDirectories(Paths.get(TEMP_DIRECTORY.toString() + "/" + relativePath)).toAbsolutePath().toString();
+        return Files.createDirectories(Paths.get(TEMP_DIRECTORY.toString() + "/" + relativePath)).toAbsolutePath().toString();
     }
 
     @BeforeEach
@@ -98,12 +98,12 @@ public abstract class AbstractConfigsIntegrationTest {
 
         new Configs.Builder()
                 .withAllConfigSources()
-                .withCommandLineArguments(new String[]{"test.commandLineArguments=commandLineArguments"})
+                .withCommandLineArguments("test.commandLineArguments=commandLineArguments")
                 .build();
 
-        if (DELETE_TEMP_DIR_SHUTDOWN_HOOK == null) {
-            DELETE_TEMP_DIR_SHUTDOWN_HOOK = new Thread(this::deleteTempDirectory, "DELETE_TEMP_DIR_SHUTDOWN_HOOK");
-            Runtime.getRuntime().addShutdownHook(DELETE_TEMP_DIR_SHUTDOWN_HOOK);
+        if (deleteTempDirShutdownHook == null) {
+            deleteTempDirShutdownHook = new Thread(this::deleteTempDirectory, "DELETE_TEMP_DIR_SHUTDOWN_HOOK");
+            Runtime.getRuntime().addShutdownHook(deleteTempDirShutdownHook);
         }
     }
 
@@ -133,7 +133,7 @@ public abstract class AbstractConfigsIntegrationTest {
                             try {
                                 Files.delete(dir);
                             } catch (final DirectoryNotEmptyException ex) {
-                                ex.printStackTrace();
+                                printStackTraceToStdErr(ex);
                             }
                             return FileVisitResult.CONTINUE;
                         }
@@ -142,7 +142,7 @@ public abstract class AbstractConfigsIntegrationTest {
                     Files.delete(TEMP_DIRECTORY);
                 }
             } catch (final IOException io) {
-                io.printStackTrace();
+                printStackTraceToStdErr(io);
             }
         }
     }

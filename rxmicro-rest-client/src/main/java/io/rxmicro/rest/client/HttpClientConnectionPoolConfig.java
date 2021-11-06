@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.client;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpConfig;
 
 import java.time.Duration;
@@ -101,6 +102,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * @return the reference to this {@link HttpClientConnectionPoolConfig} instance
      * @throws NullPointerException if evictionInterval is null
      */
+    @BuilderMethod
     public HttpClientConnectionPoolConfig setEvictionInterval(final Duration evictionInterval) {
         this.evictionInterval = require(evictionInterval);
         return this;
@@ -123,6 +125,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * @return the reference to this {@link HttpClientConnectionPoolConfig} instance
      * @throws IllegalArgumentException if maxConnections is negative
      */
+    @BuilderMethod
     public HttpClientConnectionPoolConfig setMaxConnections(final int maxConnections) {
         if (maxConnections <= 0) {
             throw new IllegalArgumentException("Max Connections value must be strictly positive");
@@ -156,6 +159,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * @return the reference to this {@link HttpClientConnectionPoolConfig} instance
      * @throws IllegalArgumentException if pendingAcquireMaxCount is negative
      */
+    @BuilderMethod
     public HttpClientConnectionPoolConfig setPendingAcquireMaxCount(final int pendingAcquireMaxCount) {
         if (pendingAcquireMaxCount != -1 && pendingAcquireMaxCount <= 0) {
             throw new IllegalArgumentException("Pending acquire max count must be strictly positive");
@@ -182,6 +186,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * @return the reference to this {@link HttpClientConnectionPoolConfig} instance
      * @throws NullPointerException if pendingAcquireTimeout is null
      */
+    @BuilderMethod
     public HttpClientConnectionPoolConfig setPendingAcquireTimeout(final Duration pendingAcquireTimeout) {
         this.pendingAcquireTimeout = require(pendingAcquireTimeout);
         return this;
@@ -203,6 +208,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * @return the reference to this {@link HttpClientConnectionPoolConfig} instance
      * @throws NullPointerException if maxIdleTime is null
      */
+    @BuilderMethod
     public HttpClientConnectionPoolConfig setMaxIdleTime(final Duration maxIdleTime) {
         this.maxIdleTime = require(maxIdleTime);
         return this;
@@ -224,6 +230,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * @return the reference to this {@link HttpClientConnectionPoolConfig} instance
      * @throws NullPointerException if maxLifeTime is null
      */
+    @BuilderMethod
     public HttpClientConnectionPoolConfig setMaxLifeTime(final Duration maxLifeTime) {
         this.maxLifeTime = require(maxLifeTime);
         return this;
@@ -245,6 +252,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * @return the reference to this {@link HttpClientConnectionPoolConfig} instance
      * @throws NullPointerException if leasingStrategy is null
      */
+    @BuilderMethod
     public HttpClientConnectionPoolConfig setLeasingStrategy(final LeasingStrategy leasingStrategy) {
         this.leasingStrategy = require(leasingStrategy);
         return this;

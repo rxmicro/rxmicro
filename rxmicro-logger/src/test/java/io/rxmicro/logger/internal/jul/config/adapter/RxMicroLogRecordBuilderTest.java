@@ -52,7 +52,7 @@ final class RxMicroLogRecordBuilderTest {
 
     @Test
     @Order(1)
-    void setStackFrame_should_throw_IllegalArgumentException_if_sourceLineNumber_is_invalid() {
+    void method_setStackFrame_should_throw_IllegalArgumentException_if_sourceLineNumber_is_invalid() {
         final IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> builder.setStackFrame("", "", "", -1));
         assertEquals("'sourceLineNumber' parameter must be > 0!", exception.getMessage());
@@ -60,7 +60,7 @@ final class RxMicroLogRecordBuilderTest {
 
     @Test
     @Order(2)
-    void setThreadId_should_throw_IllegalArgumentException_if_threadId_is_invalid() {
+    void method_setThreadId_should_throw_IllegalArgumentException_if_threadId_is_invalid() {
         final IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> builder.setThreadId(-1));
         assertEquals("'threadId' parameter must be > 0!", exception.getMessage());
@@ -68,7 +68,7 @@ final class RxMicroLogRecordBuilderTest {
 
     @Test
     @Order(3)
-    void setThreadId_should_not_set_threadID_if_it_has_large_value() {
+    void method_setThreadId_should_not_set_threadID_if_it_has_large_value() {
         builder.setThreadId(Integer.MAX_VALUE);
 
         assertNotEquals(Integer.MAX_VALUE, ((RxMicroLogRecord) builder.build()).getThreadID());
@@ -86,8 +86,8 @@ final class RxMicroLogRecordBuilderTest {
     @ParameterizedTest
     @ArgumentsSource(SetMessageArgumentsProvider.class)
     @Order(5)
-    void setMessage_should_not_throw_any_exceptions_if_message_already_set(final Consumer<RxMicroLogRecord.Builder> first,
-                                                                           final Consumer<RxMicroLogRecord.Builder> second) {
+    void method_setMessage_should_not_throw_any_exceptions_if_message_already_set(final Consumer<RxMicroLogRecord.Builder> first,
+                                                                                  final Consumer<RxMicroLogRecord.Builder> second) {
         first.accept(builder);
 
         assertDoesNotThrow(() -> second.accept(builder));

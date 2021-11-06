@@ -27,6 +27,8 @@ import io.rxmicro.rest.model.HttpCallFailedException;
  */
 final class HttpClientCallFailedException extends HttpCallFailedException {
 
+    private static final long serialVersionUID = 5112461424918937566L;
+
     HttpClientCallFailedException(final HttpResponse httpResponse) {
         super(
                 httpResponse.getStatusCode(),

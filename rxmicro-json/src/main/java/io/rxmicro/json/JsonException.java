@@ -29,6 +29,8 @@ import io.rxmicro.common.RxMicroException;
  */
 public final class JsonException extends RxMicroException {
 
+    private static final long serialVersionUID = -680991406865212816L;
+
     /**
      * Creates a new {@link JsonException} instance with the specified error message.
      *

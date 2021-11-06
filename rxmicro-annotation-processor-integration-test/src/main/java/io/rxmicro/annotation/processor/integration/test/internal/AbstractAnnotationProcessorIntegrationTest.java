@@ -176,6 +176,7 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
         }
     }
 
+    @SuppressWarnings("PMD.AvoidAccessibilityAlteration")
     private JavaFileObject getActual(final JavaFileObjectSubject javaFileObjectSubject) {
         try {
             if (javaFileObjectSubjectActualField == null) {

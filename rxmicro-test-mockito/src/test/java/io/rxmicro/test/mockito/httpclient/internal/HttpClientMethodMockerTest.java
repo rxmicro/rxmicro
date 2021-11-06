@@ -52,6 +52,7 @@ import static org.mockito.Mockito.when;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class HttpClientMethodMockerTest {
 
     private final HttpClientMethodMocker httpClientMethodMocker = new HttpClientMethodMocker();

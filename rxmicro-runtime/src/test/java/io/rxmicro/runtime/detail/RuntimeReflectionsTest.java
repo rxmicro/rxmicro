@@ -42,11 +42,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class RuntimeReflectionsTest {
 
     @Test
     @Order(1)
-    void setFieldValue_should_wrap_IllegalAccessException() {
+    void method_setFieldValue_should_wrap_IllegalAccessException() {
         final CheckedWrapperException exception = assertThrows(CheckedWrapperException.class, () ->
                 setFieldValue(new TestClass(), "value", "test", null));
 
@@ -62,7 +63,7 @@ final class RuntimeReflectionsTest {
 
     @Test
     @Order(2)
-    void setFieldValue_should_throw_InvalidStateException_if_field_not_found() {
+    void method_setFieldValue_should_throw_InvalidStateException_if_field_not_found() {
         final InvalidStateException exception = assertThrows(InvalidStateException.class, () ->
                 setFieldValue(new TestClass(), "not_found", "test", null));
 
@@ -74,7 +75,7 @@ final class RuntimeReflectionsTest {
 
     @Test
     @Order(3)
-    void setFieldValue_should_throw_InvalidStateException_if_class_contains_field_duplicate() {
+    void method_setFieldValue_should_throw_InvalidStateException_if_class_contains_field_duplicate() {
         final Consumer<Field> fieldConsumer = field -> field.setAccessible(true);
         final InvalidStateException exception = assertThrows(InvalidStateException.class, () ->
                 setFieldValue(new Child(), "value", "test", fieldConsumer));
@@ -87,7 +88,7 @@ final class RuntimeReflectionsTest {
 
     @Test
     @Order(4)
-    void getFieldValue_should_wrap_IllegalAccessException() {
+    void method_getFieldValue_should_wrap_IllegalAccessException() {
         final Consumer<Field> fieldConsumer = field -> {
         };
         final CheckedWrapperException exception = assertThrows(CheckedWrapperException.class, () ->
@@ -105,7 +106,7 @@ final class RuntimeReflectionsTest {
 
     @Test
     @Order(5)
-    void getFieldValue_should_throw_InvalidStateException_if_field_not_found() {
+    void method_getFieldValue_should_throw_InvalidStateException_if_field_not_found() {
         final Consumer<Field> fieldConsumer = field -> {
         };
         final InvalidStateException exception = assertThrows(InvalidStateException.class, () ->
@@ -119,7 +120,7 @@ final class RuntimeReflectionsTest {
 
     @Test
     @Order(6)
-    void getFieldValue_should_throw_InvalidStateException_if_class_contains_field_duplicate() {
+    void method_getFieldValue_should_throw_InvalidStateException_if_class_contains_field_duplicate() {
         final Consumer<Field> fieldConsumer = field -> field.setAccessible(true);
         final InvalidStateException exception = assertThrows(InvalidStateException.class, () ->
                 getFieldValue(new Child(), "value", fieldConsumer));
@@ -132,7 +133,7 @@ final class RuntimeReflectionsTest {
 
     @Test
     @Order(7)
-    void invoke_should_wrap_IllegalAccessException() {
+    void method_invoke_should_wrap_IllegalAccessException() {
         final CheckedWrapperException exception = assertThrows(CheckedWrapperException.class, () ->
                 invoke(new TestClass(), "privateMethod", null));
 
@@ -148,7 +149,7 @@ final class RuntimeReflectionsTest {
 
     @Test
     @Order(8)
-    void invoke_should_wrap_InvocationTargetException() {
+    void method_invoke_should_wrap_InvocationTargetException() {
         final Consumer<Method> methodConsumer = method -> {
         };
         final CheckedWrapperException exception = assertThrows(CheckedWrapperException.class, () ->
@@ -166,7 +167,7 @@ final class RuntimeReflectionsTest {
 
     @Test
     @Order(9)
-    void invoke_should_throw_InvalidStateException_if_method_not_found() {
+    void method_invoke_should_throw_InvalidStateException_if_method_not_found() {
         final Consumer<Method> methodConsumer = method -> {
         };
         final InvalidStateException exception = assertThrows(InvalidStateException.class, () ->
@@ -182,13 +183,20 @@ final class RuntimeReflectionsTest {
      * @author nedis
      * @since 0.7.3
      */
-    @SuppressWarnings("FieldMayBeFinal")
+    @SuppressWarnings({
+            "FieldMayBeFinal",
+            "PMD.UnusedPrivateField",
+            "PMD.UnusedPrivateMethod",
+            "PMD.ImmutableField",
+            "PMD.AvoidThrowingRawExceptionTypes",
+            "unused"
+    })
     private static class TestClass {
 
         private String value = "init";
 
         private void privateMethod() {
-
+            // do nothing
         }
 
         public static void methodThatThrowsException() {
@@ -200,6 +208,7 @@ final class RuntimeReflectionsTest {
      * @author nedis
      * @since 0.7.3
      */
+    @SuppressWarnings("unused")
     static class Child extends TestClass {
 
         static final int CONSTANT = 1;

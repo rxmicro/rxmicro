@@ -24,6 +24,7 @@ import io.reactivex.rxjava3.core.MaybeSource;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleSource;
 import io.reactivex.rxjava3.functions.Function;
+import io.rxmicro.common.meta.ReactiveMethodResult;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
 import org.reactivestreams.Publisher;
@@ -223,5 +224,6 @@ public interface Transaction {
      * @return the {@link Completable} that indicates that the transaction level has been configured
      * @throws NullPointerException if {@code isolationLevel} is {@code null}
      */
+    @ReactiveMethodResult
     Completable setIsolationLevel(IsolationLevel isolationLevel);
 }

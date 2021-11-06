@@ -16,6 +16,7 @@
 
 package io.rxmicro.data.sql.model.completablefuture;
 
+import io.rxmicro.common.meta.ReactiveMethodResult;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
 
@@ -113,5 +114,6 @@ public interface Transaction {
      * @return the {@link CompletableFuture} that indicates that the transaction level has been configured
      * @throws NullPointerException if {@code isolationLevel} is {@code null}
      */
+    @ReactiveMethodResult
     CompletableFuture<Void> setIsolationLevel(IsolationLevel isolationLevel);
 }

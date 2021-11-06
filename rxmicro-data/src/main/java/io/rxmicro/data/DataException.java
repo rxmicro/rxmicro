@@ -27,6 +27,8 @@ import io.rxmicro.common.util.Formats;
  */
 public abstract class DataException extends RxMicroException {
 
+    private static final long serialVersionUID = 6496473449889328700L;
+
     /**
      * Creates a data error with error message.
      *

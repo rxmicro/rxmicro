@@ -49,7 +49,7 @@ final class UppercaseConstraintValidatorTest extends AbstractConstraintValidator
     @Test
     @Order(10)
     void Should_ignore_validation_for_empty_string() {
-        assertDoesNotThrow(() -> validator.validate("", type, fieldName));
+        assertDoesNotThrow(() -> validator.validate("", TYPE, FIELD_NAME));
     }
 
     @Test

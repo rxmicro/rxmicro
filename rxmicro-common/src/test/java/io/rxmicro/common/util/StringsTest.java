@@ -41,14 +41,14 @@ final class StringsTest {
 
     @Test
     @Order(1)
-    void split_should_convert_null_to_empty_list() {
+    void method_split_should_convert_null_to_empty_list() {
         final List<String> actual = assertDoesNotThrow(() -> split(null, ","));
         assertEquals(List.of(), actual);
     }
 
     @Test
     @Order(2)
-    void split_should_convert_empty_string_to_empty_list() {
+    void method_split_should_convert_empty_string_to_empty_list() {
         final List<String> actual = assertDoesNotThrow(() -> split("", ","));
         assertEquals(List.of(), actual);
     }
@@ -62,28 +62,28 @@ final class StringsTest {
             ",,,,,"
     })
     @Order(3)
-    void split_should_convert_string_with_delimiters_only_to_empty_list(final String source) {
+    void method_split_should_convert_string_with_delimiters_only_to_empty_list(final String source) {
         final List<String> actual = assertDoesNotThrow(() -> split(source, ","));
         assertEquals(List.of(), actual);
     }
 
     @Test
     @Order(4)
-    void split_should_return_a_singleton_list_if_delimiters_not_found() {
+    void method_split_should_return_a_singleton_list_if_delimiters_not_found() {
         final List<String> actual = assertDoesNotThrow(() -> split("value1", ","));
         assertEquals(List.of("value1"), actual);
     }
 
     @Test
     @Order(5)
-    void split_should_split_by_delimiter_correctly() {
+    void method_split_should_split_by_delimiter_correctly() {
         final List<String> actual = assertDoesNotThrow(() -> split("value1,value2,value3", ","));
         assertEquals(List.of("value1", "value2", "value3"), actual);
     }
 
     @Test
     @Order(6)
-    void split_should_ignore_a_last_comma() {
+    void method_split_should_ignore_a_last_comma() {
         final List<String> actual = assertDoesNotThrow(() -> split("value1,value2,value3,", ","));
         assertEquals(List.of("value1", "value2", "value3"), actual);
     }

@@ -48,129 +48,130 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class JsonTypesTest {
 
     @Test
     @Order(1)
-    void isJsonObject_should_return_true() {
+    void method_isJsonObject_should_return_true() {
         assertTrue(isJsonObject(Map.of()));
     }
 
     @Test
     @Order(2)
-    void isJsonObject_should_return_false() {
+    void method_isJsonObject_should_return_false() {
         assertFalse(isJsonObject(List.of()));
     }
 
     @Test
     @Order(3)
-    void asJsonObject_should_convert_correctly() {
+    void method_asJsonObject_should_convert_correctly() {
         assertDoesNotThrow(() -> asJsonObject(Map.of()));
     }
 
     @Test
     @Order(4)
-    void asJsonObject_should_throw_JsonException() {
+    void method_asJsonObject_should_throw_JsonException() {
         final JsonException exception = assertThrows(JsonException.class, () -> asJsonObject("string"));
         assertEquals("Not a json object: string", exception.getMessage());
     }
 
     @Test
     @Order(5)
-    void isJsonArray_should_return_true() {
+    void method_isJsonArray_should_return_true() {
         assertTrue(isJsonArray(List.of()));
     }
 
     @Test
     @Order(6)
-    void isJsonArray_should_return_false() {
+    void method_isJsonArray_should_return_false() {
         assertFalse(isJsonArray(Map.of()));
     }
 
     @Test
     @Order(7)
-    void asJsonArray_should_convert_correctly() {
+    void method_asJsonArray_should_convert_correctly() {
         assertDoesNotThrow(() -> asJsonArray(List.of()));
     }
 
     @Test
     @Order(8)
-    void asJsonArray_should_throw_JsonException() {
+    void method_asJsonArray_should_throw_JsonException() {
         final JsonException exception = assertThrows(JsonException.class, () -> asJsonArray("string"));
         assertEquals("Not a json array: string", exception.getMessage());
     }
 
     @Test
     @Order(9)
-    void isJsonString_should_return_true() {
+    void method_isJsonString_should_return_true() {
         assertTrue(isJsonString("string"));
     }
 
     @Test
     @Order(10)
-    void isJsonString_should_return_false() {
+    void method_isJsonString_should_return_false() {
         assertFalse(isJsonString(true));
     }
 
     @Test
     @Order(11)
-    void asJsonString_should_convert_correctly() {
+    void method_asJsonString_should_convert_correctly() {
         assertDoesNotThrow(() -> asJsonString("string"));
     }
 
     @Test
     @Order(12)
-    void asJsonString_should_throw_JsonException() {
+    void method_asJsonString_should_throw_JsonException() {
         final JsonException exception = assertThrows(JsonException.class, () -> asJsonString(true));
         assertEquals("Not a json string: true", exception.getMessage());
     }
 
     @Test
     @Order(13)
-    void isJsonNumber_should_return_true() {
+    void method_isJsonNumber_should_return_true() {
         assertTrue(isJsonNumber(new JsonNumber("1")));
     }
 
     @Test
     @Order(14)
-    void isJsonNumber_should_return_false() {
+    void method_isJsonNumber_should_return_false() {
         assertFalse(isJsonNumber("string"));
     }
 
     @Test
     @Order(15)
-    void asJsonNumber_should_convert_correctly() {
+    void method_asJsonNumber_should_convert_correctly() {
         assertDoesNotThrow(() -> asJsonNumber(new JsonNumber("1")));
     }
 
     @Test
     @Order(16)
-    void asJsonNumber_should_throw_JsonException() {
+    void method_asJsonNumber_should_throw_JsonException() {
         final JsonException exception = assertThrows(JsonException.class, () -> asJsonNumber("string"));
         assertEquals("Not a json number: string", exception.getMessage());
     }
 
     @Test
     @Order(17)
-    void isJsonBoolean_should_return_true() {
+    void method_isJsonBoolean_should_return_true() {
         assertTrue(isJsonBoolean(true));
     }
 
     @Test
     @Order(18)
-    void isJsonBoolean_should_return_false() {
+    void method_isJsonBoolean_should_return_false() {
         assertFalse(isJsonBoolean("string"));
     }
 
     @Test
     @Order(19)
-    void asJsonBoolean_should_convert_correctly() {
+    void method_asJsonBoolean_should_convert_correctly() {
         assertDoesNotThrow(() -> asJsonBoolean(true));
     }
 
     @Test
     @Order(20)
-    void asJsonBoolean_should_throw_JsonException() {
+    void method_asJsonBoolean_should_throw_JsonException() {
         final JsonException exception = assertThrows(JsonException.class, () -> asJsonBoolean("string"));
         assertEquals("Not a json boolean: string", exception.getMessage());
     }

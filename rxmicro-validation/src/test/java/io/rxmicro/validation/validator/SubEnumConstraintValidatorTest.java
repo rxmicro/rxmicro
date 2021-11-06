@@ -41,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class SubEnumConstraintValidatorTest extends AbstractConstraintValidatorTest<TimeUnit> {
 
     @Override

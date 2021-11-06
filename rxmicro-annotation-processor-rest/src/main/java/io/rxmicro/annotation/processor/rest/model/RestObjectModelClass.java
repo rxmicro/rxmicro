@@ -180,11 +180,6 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
         return headers.entrySet();
     }
 
-    @Override
-    public Set<Map.Entry<RestModelField, ModelClass>> getParamEntries() {
-        return super.getParamEntries();
-    }
-
     public Set<Map.Entry<RestModelField, ModelClass>> getPathVariableEntries() {
         return pathVariables.entrySet();
     }

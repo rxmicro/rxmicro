@@ -60,7 +60,7 @@ final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstrain
                                                  final String maxValue,
                                                  final boolean inclusive) {
         assertDoesNotThrow(() -> new MinBigDecimalNumberConstraintValidator(maxValue, inclusive)
-                .validate(new BigDecimal(actual), type, fieldName));
+                .validate(new BigDecimal(actual), TYPE, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -74,7 +74,7 @@ final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstrain
     void Should_throw_ValidationException_when_numbers_equal_and_inclusive_is_false(final String actual) {
         final ValidationException exception = assertThrows(ValidationException.class, () ->
                 new MinBigDecimalNumberConstraintValidator("10", false)
-                        .validate(new BigDecimal(actual), type, fieldName)
+                        .validate(new BigDecimal(actual), TYPE, FIELD_NAME)
         );
         assertEquals(
                 format("Invalid parameter \"fieldName\": Expected that value > 10, but actual is ?!", actual),
@@ -86,7 +86,7 @@ final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstrain
     void Should_throw_ValidationException_when_numbers_not_equal_inclusive_is_true() {
         final ValidationException exception = assertThrows(ValidationException.class, () ->
                 new MinBigDecimalNumberConstraintValidator("10", true)
-                        .validate(new BigDecimal("5"), type, fieldName)
+                        .validate(new BigDecimal("5"), TYPE, FIELD_NAME)
         );
         assertEquals(
                 "Invalid parameter \"fieldName\": Expected that value >= 10, but actual is 5!",
@@ -99,7 +99,7 @@ final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstrain
     void Should_throw_ValidationException_when_numbers_not_equal_inclusive_is_false() {
         final ValidationException exception = assertThrows(ValidationException.class, () ->
                 new MinBigDecimalNumberConstraintValidator("10", false)
-                        .validate(new BigDecimal("5"), type, fieldName)
+                        .validate(new BigDecimal("5"), TYPE, FIELD_NAME)
         );
         assertEquals(
                 "Invalid parameter \"fieldName\": Expected that value > 10, but actual is 5!",

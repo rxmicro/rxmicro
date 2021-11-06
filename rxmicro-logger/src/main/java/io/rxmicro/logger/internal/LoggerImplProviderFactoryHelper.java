@@ -20,6 +20,9 @@ import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.JULLoggerImplProvider;
 import io.rxmicro.reflection.Reflections;
 
+import static io.rxmicro.common.util.SystemPrintlnHelper.printStackTraceToStdErr;
+import static io.rxmicro.common.util.SystemPrintlnHelper.printlnToStdErr;
+
 /**
  * @author nedis
  * @since 0.7.3
@@ -31,8 +34,8 @@ public final class LoggerImplProviderFactoryHelper {
         try {
             provider.setup();
         } catch (final Throwable throwable) {
-            System.err.println("Can't setup logger impl factory: " + throwable.getMessage());
-            throwable.printStackTrace();
+            printlnToStdErr("Can't setup logger impl factory: " + throwable.getMessage());
+            printStackTraceToStdErr(throwable);
         }
         return provider;
     }

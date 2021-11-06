@@ -230,27 +230,35 @@ public final class SystemConsoleHandler extends Handler {
         }
 
         @Override
-        public synchronized void setEncoding(final String encoding) throws UnsupportedEncodingException {
-            sysErrStreamHandler.setEncoding(encoding);
-            sysOutStreamHandler.setEncoding(encoding);
+        public void setEncoding(final String encoding) throws UnsupportedEncodingException {
+            synchronized (this) {
+                sysErrStreamHandler.setEncoding(encoding);
+                sysOutStreamHandler.setEncoding(encoding);
+            }
         }
 
         @Override
-        public synchronized void setFilter(final Filter newFilter) {
-            sysErrStreamHandler.setFilter(newFilter);
-            sysOutStreamHandler.setFilter(newFilter);
+        public void setFilter(final Filter newFilter) {
+            synchronized (this) {
+                sysErrStreamHandler.setFilter(newFilter);
+                sysOutStreamHandler.setFilter(newFilter);
+            }
         }
 
         @Override
-        public synchronized void setLevel(final Level newLevel) {
-            sysErrStreamHandler.setLevel(newLevel);
-            sysOutStreamHandler.setLevel(newLevel);
+        public void setLevel(final Level newLevel) {
+            synchronized (this) {
+                sysErrStreamHandler.setLevel(newLevel);
+                sysOutStreamHandler.setLevel(newLevel);
+            }
         }
 
         @Override
-        public synchronized void setFormatter(final Formatter newFormatter) {
-            sysErrStreamHandler.setFormatter(newFormatter);
-            sysOutStreamHandler.setFormatter(newFormatter);
+        public void setFormatter(final Formatter newFormatter) {
+            synchronized (this) {
+                sysErrStreamHandler.setFormatter(newFormatter);
+                sysOutStreamHandler.setFormatter(newFormatter);
+            }
         }
 
         @Override

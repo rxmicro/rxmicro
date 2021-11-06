@@ -27,9 +27,9 @@ final class NettyTransports {
 
     static boolean isEPollNativeAdded() {
         try {
-            checkIfClassFound(Epoll.class);
+            Class.forName(Epoll.class.getName());
             return true;
-        } catch (final NoClassDefFoundError ignored) {
+        } catch (final NoClassDefFoundError | ClassNotFoundException ignored) {
             return false;
         }
     }
@@ -44,9 +44,9 @@ final class NettyTransports {
 
     static boolean isKQueueNativeAdded() {
         try {
-            checkIfClassFound(KQueue.class);
+            Class.forName(KQueue.class.getName());
             return true;
-        } catch (final NoClassDefFoundError ignored) {
+        } catch (final NoClassDefFoundError | ClassNotFoundException ignored) {
             return false;
         }
     }
@@ -57,10 +57,6 @@ final class NettyTransports {
 
     static Throwable getKQueueNativeUnavailabilityCause() {
         return KQueue.unavailabilityCause();
-    }
-
-    private static void checkIfClassFound(final Class<?> className) {
-        // do nothing
     }
 
     private NettyTransports() {

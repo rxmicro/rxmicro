@@ -24,6 +24,8 @@ import io.rxmicro.common.RxMicroException;
  */
 public final class InstanceNotFoundException extends RxMicroException {
 
+    private static final long serialVersionUID = -4579938153771869764L;
+
     public InstanceNotFoundException(final String message,
                                      final Object... args) {
         super(message, args);

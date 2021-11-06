@@ -27,6 +27,8 @@ import io.rxmicro.common.util.Formats;
  */
 public final class CheckedWrapperException extends RxMicroException {
 
+    private static final long serialVersionUID = 930053263723131097L;
+
     /**
      * Creates a new {@link CheckedWrapperException} instance with error message and cause.
      *

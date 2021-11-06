@@ -32,7 +32,7 @@ import java.util.function.Supplier;
 import static io.rxmicro.rest.server.feature.request.id.generator.Deterministic96BitsRequestIdGenerator.DEFAULT_CHECKSUM_ALGORITHM;
 import static io.rxmicro.rest.server.feature.request.id.generator.Deterministic96BitsRequestIdGenerator.DEFAULT_COUNTER_INCREMENT_VALUE;
 import static io.rxmicro.rest.server.feature.request.id.generator.Deterministic96BitsRequestIdGenerator.DEFAULT_RANDOMIZE_MASK;
-import static io.rxmicro.rest.server.feature.request.id.generator.DeterministicValueProvider.CURRENT_TIME_IN_MILLIS_AS_DETERMINISTIC_VALUE_PROVIDER;
+import static io.rxmicro.rest.server.feature.request.id.generator.DeterministicValueProvider.CURRENT_TIME_IN_MILLIS_PROVIDER;
 import static io.rxmicro.rest.server.feature.request.id.generator.RandomRequestIdGenerator.DEFAULT_RANDOM_REQUEST_ID_LENGTH_IN_BYTES;
 import static io.rxmicro.rest.server.feature.request.id.generator.RandomRequestIdGenerator.DEFAULT_RANDOM_UUID_REQUEST_ID_LENGTH_IN_BYTES;
 
@@ -74,11 +74,11 @@ public enum PredefinedRequestIdGeneratorProvider implements RequestIdGeneratorPr
      * This request id generator returns 96 bit request id with 52 random and 44 deterministic bits.
      *
      * @see PartlyRandom96BitsRequestIdGenerator
-     * @see DeterministicValueProvider#CURRENT_TIME_IN_MILLIS_AS_DETERMINISTIC_VALUE_PROVIDER
+     * @see DeterministicValueProvider#CURRENT_TIME_IN_MILLIS_PROVIDER
      */
     PARTLY_RANDOM_96_BITS(() ->
             new PartlyRandom96BitsRequestIdGenerator(
-                    CURRENT_TIME_IN_MILLIS_AS_DETERMINISTIC_VALUE_PROVIDER
+                    CURRENT_TIME_IN_MILLIS_PROVIDER
             )
     ),
 
@@ -86,14 +86,14 @@ public enum PredefinedRequestIdGeneratorProvider implements RequestIdGeneratorPr
      * This request id generator returns 96 deterministic bit request id.
      *
      * @see Deterministic96BitsRequestIdGenerator
-     * @see DeterministicValueProvider#CURRENT_TIME_IN_MILLIS_AS_DETERMINISTIC_VALUE_PROVIDER
+     * @see DeterministicValueProvider#CURRENT_TIME_IN_MILLIS_PROVIDER
      * @see Deterministic96BitsRequestIdGenerator#DEFAULT_CHECKSUM_ALGORITHM
      * @see Deterministic96BitsRequestIdGenerator#DEFAULT_COUNTER_INCREMENT_VALUE
      * @see Deterministic96BitsRequestIdGenerator#DEFAULT_RANDOMIZE_MASK
      */
     DETERMINISTIC_96_BITS(() ->
             new Deterministic96BitsRequestIdGenerator(
-                    CURRENT_TIME_IN_MILLIS_AS_DETERMINISTIC_VALUE_PROVIDER,
+                    CURRENT_TIME_IN_MILLIS_PROVIDER,
                     DEFAULT_CHECKSUM_ALGORITHM,
                     DEFAULT_COUNTER_INCREMENT_VALUE,
                     DEFAULT_RANDOMIZE_MASK

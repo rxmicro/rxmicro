@@ -63,7 +63,7 @@ public final class HttpHealthCheckRestController extends AbstractRestController 
                         EMPTY_STRING,
                         "handle",
                         List.of(PathVariableMapping.class, HttpRequest.class),
-                        this::handle,
+                        (pathVariableMapping, request) -> handle(request),
                         false,
                         httpHealthCheckRegistrations.stream()
                                 .map(r -> new ExactUrlRequestMappingRule(r.getMethod(), r.getEndpoint(), false))
@@ -77,8 +77,7 @@ public final class HttpHealthCheckRestController extends AbstractRestController 
         return HttpHealthCheckRestController.class;
     }
 
-    private CompletionStage<HttpResponse> handle(final PathVariableMapping pathVariableMapping,
-                                                 final HttpRequest request) {
+    private CompletionStage<HttpResponse> handle(final HttpRequest request) {
         if (!restServerConfig.isDisableLoggerMessagesForHttpHealthChecks()) {
             LOGGER.trace(request, "http health check successful");
         }

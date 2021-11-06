@@ -65,6 +65,7 @@ import static org.mockito.Mockito.verify;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.ProperLogger")
 final class AbstractLoggerTest {
 
     private final AtomicBoolean levelEnabled = new AtomicBoolean(false);
@@ -84,27 +85,27 @@ final class AbstractLoggerTest {
         @Override
         protected void log(final Level level,
                            final LoggerEvent loggerEvent) {
-
+            // do nothing
         }
 
         @Override
         protected void log(final Level level,
                            final String message) {
-
+            // do nothing
         }
 
         @Override
         protected void log(final Level level,
                            final String message,
                            final Throwable throwable) {
-
+            // do nothing
         }
 
         @Override
         protected void log(final RequestIdSupplier requestIdSupplier,
                            final Level level,
                            final String message) {
-
+            // do nothing
         }
 
         @Override
@@ -112,7 +113,7 @@ final class AbstractLoggerTest {
                            final Level level,
                            final String message,
                            final Throwable throwable) {
-
+            // do nothing
         }
     });
 
@@ -124,12 +125,7 @@ final class AbstractLoggerTest {
 
         loggerConsumer.accept(logger);
 
-        verify(logger, times(1)).isLevelEnabled(any(Level.class));
-        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
-        verify(logger, never()).log(any(Level.class), anyString());
-        verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
+        verifyLoggerSpy(LogMethod.NONE);
     }
 
     @Order(2)
@@ -140,12 +136,7 @@ final class AbstractLoggerTest {
 
         loggerConsumer.accept(logger);
 
-        verify(logger, times(1)).isLevelEnabled(any(Level.class));
-        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
-        verify(logger, times(1)).log(any(Level.class), anyString());
-        verify(logger, never()).log(any(Level.class), eq("123456"), any(Throwable.class));
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
+        verifyLoggerSpy(LogMethod.MESSAGE);
     }
 
     @Order(3)
@@ -156,12 +147,7 @@ final class AbstractLoggerTest {
 
         loggerConsumer.accept(logger);
 
-        verify(logger, times(1)).isLevelEnabled(any(Level.class));
-        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
-        verify(logger, never()).log(any(Level.class), anyString());
-        verify(logger, times(1)).log(any(Level.class), eq("123456"), eq(THROWABLE));
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
+        verifyLoggerSpy(LogMethod.MESSAGE_AND_THROWABLE);
     }
 
     @Order(4)
@@ -172,12 +158,7 @@ final class AbstractLoggerTest {
 
         loggerConsumer.accept(logger);
 
-        verify(logger, times(1)).isLevelEnabled(any(Level.class));
-        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
-        verify(logger, never()).log(any(Level.class), anyString());
-        verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
-        verify(logger, times(1)).log(eq(REQUEST_ID_SUPPLIER), any(Level.class), eq("123456"));
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
+        verifyLoggerSpy(LogMethod.REQUEST_ID_SUPPLIER_AND_MESSAGE);
     }
 
     @Order(5)
@@ -188,12 +169,7 @@ final class AbstractLoggerTest {
 
         loggerConsumer.accept(logger);
 
-        verify(logger, times(1)).isLevelEnabled(any(Level.class));
-        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
-        verify(logger, never()).log(any(Level.class), anyString());
-        verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
-        verify(logger, times(1)).log(eq(REQUEST_ID_SUPPLIER), any(Level.class), eq("123456"), eq(THROWABLE));
+        verifyLoggerSpy(LogMethod.REQUEST_ID_SUPPLIER_MESSAGE_AND_THROWABLE);
     }
 
     @Order(6)
@@ -204,12 +180,7 @@ final class AbstractLoggerTest {
 
         loggerConsumer.accept(logger);
 
-        verify(logger, times(1)).isLevelEnabled(any(Level.class));
-        verify(logger, times(1)).log(any(Level.class), eq(LOGGER_EVENT));
-        verify(logger, never()).log(any(Level.class), anyString());
-        verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
+        verifyLoggerSpy(LogMethod.LOG_EVENT);
     }
 
     @Order(7)
@@ -228,12 +199,7 @@ final class AbstractLoggerTest {
                     .build());
         }
 
-        verify(logger, times(1)).isLevelEnabled(any(Level.class));
-        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
-        verify(logger, never()).log(any(Level.class), anyString());
-        verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
+        verifyLoggerSpy(LogMethod.NONE);
     }
 
     @Order(8)
@@ -244,11 +210,55 @@ final class AbstractLoggerTest {
 
         assertTrue(loggerConsumer.apply(logger));
 
+        verifyLoggerSpy(LogMethod.NONE);
+    }
+
+    /**
+     * @author nedis
+     * @since 0.10
+     */
+    private enum LogMethod {
+
+        NONE,
+
+        LOG_EVENT,
+
+        MESSAGE,
+
+        MESSAGE_AND_THROWABLE,
+
+        REQUEST_ID_SUPPLIER_AND_MESSAGE,
+
+        REQUEST_ID_SUPPLIER_MESSAGE_AND_THROWABLE
+    }
+
+    private void verifyLoggerSpy(final LogMethod logMethod) {
         verify(logger, times(1)).isLevelEnabled(any(Level.class));
-        verify(logger, never()).log(any(Level.class), anyString());
-        verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
-        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
-        verify(logger, never()).log(eq(REQUEST_ID_SUPPLIER), any(Level.class), anyString(), eq(THROWABLE));
+        if (logMethod == LogMethod.LOG_EVENT) {
+            verify(logger, times(1)).log(any(Level.class), eq(LOGGER_EVENT));
+        } else {
+            verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
+        }
+        if (logMethod == LogMethod.MESSAGE) {
+            verify(logger, times(1)).log(any(Level.class), anyString());
+        } else {
+            verify(logger, never()).log(any(Level.class), anyString());
+        }
+        if (logMethod == LogMethod.MESSAGE_AND_THROWABLE) {
+            verify(logger, times(1)).log(any(Level.class), eq("123456"), eq(THROWABLE));
+        } else {
+            verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
+        }
+        if (logMethod == LogMethod.REQUEST_ID_SUPPLIER_AND_MESSAGE) {
+            verify(logger, times(1)).log(eq(REQUEST_ID_SUPPLIER), any(Level.class), eq("123456"));
+        } else {
+            verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
+        }
+        if (logMethod == LogMethod.REQUEST_ID_SUPPLIER_MESSAGE_AND_THROWABLE) {
+            verify(logger, times(1)).log(eq(REQUEST_ID_SUPPLIER), any(Level.class), eq("123456"), eq(THROWABLE));
+        } else {
+            verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
+        }
     }
 
     /**

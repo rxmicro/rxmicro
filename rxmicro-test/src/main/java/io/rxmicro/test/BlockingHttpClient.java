@@ -624,8 +624,8 @@ public interface BlockingHttpClient extends AutoRelease {
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
-    default ClientHttpResponse send(String method,
-                                    String path) {
+    default ClientHttpResponse send(final String method,
+                                    final String path) {
         return send(method, path, HttpHeaders.of());
     }
 
@@ -657,9 +657,9 @@ public interface BlockingHttpClient extends AutoRelease {
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
-    default ClientHttpResponse send(String method,
-                                    String path,
-                                    Object body) {
+    default ClientHttpResponse send(final String method,
+                                    final String path,
+                                    final Object body) {
         return send(method, path, HttpHeaders.of(), body);
     }
 }

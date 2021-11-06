@@ -26,6 +26,8 @@ import io.rxmicro.common.RxMicroException;
  */
 public final class ServiceYetNotAvailableException extends RxMicroException {
 
+    private static final long serialVersionUID = -9146228228195897479L;
+
     /**
      * Default constructor to build {@link ServiceYetNotAvailableException} instance.
      *

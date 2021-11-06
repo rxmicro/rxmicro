@@ -27,6 +27,8 @@ import io.rxmicro.common.util.Formats;
  */
 public final class ResourceException extends RxMicroException {
 
+    private static final long serialVersionUID = 3339709000198947089L;
+
     /**
      * Creates a {@link ResourceException} instance.
      *

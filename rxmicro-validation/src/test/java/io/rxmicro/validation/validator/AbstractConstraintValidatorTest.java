@@ -30,9 +30,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  */
 abstract class AbstractConstraintValidatorTest<T> {
 
-    final HttpModelType type = HttpModelType.PARAMETER;
+    static final HttpModelType TYPE = HttpModelType.PARAMETER;
 
-    final String fieldName = "fieldName";
+    static final String FIELD_NAME = "fieldName";
 
     final ConstraintValidator<T> validator = instantiate();
 
@@ -41,6 +41,6 @@ abstract class AbstractConstraintValidatorTest<T> {
     @Test
     @Order(1)
     void Should_process_null_value_as_valid_argument() {
-        assertDoesNotThrow(() -> validator.validate(null, type, fieldName));
+        assertDoesNotThrow(() -> validator.validate(null, TYPE, FIELD_NAME));
     }
 }

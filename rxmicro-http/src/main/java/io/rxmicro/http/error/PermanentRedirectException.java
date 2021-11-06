@@ -33,6 +33,8 @@ public final class PermanentRedirectException extends RedirectException {
      */
     public static final int STATUS_CODE = PERMANENT_REDIRECT_308;
 
+    private static final long serialVersionUID = 6505371544088593341L;
+
     /**
      * Creates a Permanent Redirect instance with new URL path.
      *

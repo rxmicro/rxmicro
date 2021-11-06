@@ -149,10 +149,9 @@ public final class DbUnitTestExtension implements
         logBeforeEach(LOGGER, context);
         // It is necessary to set connection after @BeforeAll, before @BeforeEach and only once per class.
         // See https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
-        if (retrieveConnectionStrategy == PER_TEST_CLASS) {
-            if (!isCurrentDatabaseConnectionPresent() || isCurrentDatabaseConnectionShared()) {
-                setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()), false);
-            }
+        if (retrieveConnectionStrategy == PER_TEST_CLASS &&
+                (!isCurrentDatabaseConnectionPresent() || isCurrentDatabaseConnectionShared())) {
+            setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()), false);
         }
     }
 

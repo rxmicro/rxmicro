@@ -27,7 +27,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Indicates a builder method.
  *
  * <p>
- * Used by PMD plugin.
+ * Used by PMD plugin. See {@code ruleset-codestyle.xml} file.
  *
  * <p>
  * See <a href="https://github.com/pmd/pmd/issues/2462">https://github.com/pmd/pmd/issues/2462</a>

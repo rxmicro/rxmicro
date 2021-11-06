@@ -91,7 +91,7 @@ Verify via `pmd`:
 mvn --fail-at-end -DskipTests -P pmd clean verify
 ```
 
-If build failed find `PMD Failure` phrase at the console output...
+If build failed find `PMD Failure` or `CPD Failure` phrase(s) at the console output...
 
 ```
 mvn --fail-at-end -DskipTests -P pmd \

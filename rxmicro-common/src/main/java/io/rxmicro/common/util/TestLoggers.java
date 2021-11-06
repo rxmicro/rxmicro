@@ -17,6 +17,7 @@
 package io.rxmicro.common.util;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.SystemPrintlnHelper.printlnToStdOut;
 
 /**
  * Simplest logger utils for test runtime only.
@@ -65,7 +66,7 @@ public final class TestLoggers {
     private static void logTestMessage(final String level,
                                        final String message,
                                        final Object... args) {
-        System.out.println(format("[?] ", level) + format(message, args));
+        printlnToStdOut(format("[?] ", level) + format(message, args));
     }
 
     private TestLoggers() {

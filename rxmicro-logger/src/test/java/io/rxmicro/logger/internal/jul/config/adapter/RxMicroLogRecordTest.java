@@ -41,7 +41,7 @@ final class RxMicroLogRecordTest {
 
     @Test
     @Order(1)
-    void setSourceClassName_should_throw_UnsupportedOperationException() {
+    void method_setSourceClassName_should_throw_UnsupportedOperationException() {
         final UnsupportedOperationException exception =
                 assertThrows(UnsupportedOperationException.class, () -> record.setSourceClassName("Class"));
         assertEquals("Use setStackFrame() instead!", exception.getMessage());
@@ -49,7 +49,7 @@ final class RxMicroLogRecordTest {
 
     @Test
     @Order(2)
-    void setSourceMethodName_should_throw_UnsupportedOperationException() {
+    void method_setSourceMethodName_should_throw_UnsupportedOperationException() {
         final UnsupportedOperationException exception =
                 assertThrows(UnsupportedOperationException.class, () -> record.setSourceMethodName("method"));
         assertEquals("Use setStackFrame() instead!", exception.getMessage());
@@ -57,25 +57,25 @@ final class RxMicroLogRecordTest {
 
     @Test
     @Order(3)
-    void getSourceClassName_should_invoke_extractDataFromStackFrameIfPossible() {
+    void method_getSourceClassName_should_invoke_extractDataFromStackFrameIfPossible() {
         assertNull(record.getSourceClassName());
     }
 
     @Test
     @Order(4)
-    void getSourceMethodName_should_invoke_extractDataFromStackFrameIfPossible() {
+    void method_getSourceMethodName_should_invoke_extractDataFromStackFrameIfPossible() {
         assertNull(record.getSourceMethodName());
     }
 
     @Test
     @Order(5)
-    void getFileName_should_invoke_extractDataFromStackFrameIfPossible() {
+    void method_getFileName_should_invoke_extractDataFromStackFrameIfPossible() {
         assertNull(record.getFileName());
     }
 
     @Test
     @Order(6)
-    void getLineNumber_should_invoke_extractDataFromStackFrameIfPossible() {
+    void method_getLineNumber_should_invoke_extractDataFromStackFrameIfPossible() {
         assertEquals(0, record.getLineNumber());
     }
 }

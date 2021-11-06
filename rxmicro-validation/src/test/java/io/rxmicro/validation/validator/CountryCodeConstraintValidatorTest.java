@@ -43,6 +43,7 @@ import static org.mockito.Mockito.mock;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class CountryCodeConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
 
     @Override

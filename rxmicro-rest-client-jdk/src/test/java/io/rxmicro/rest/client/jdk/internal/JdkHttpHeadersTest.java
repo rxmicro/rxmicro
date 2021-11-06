@@ -39,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class JdkHttpHeadersTest {
 
     private final JdkHttpHeaders headers = new JdkHttpHeaders(
@@ -50,56 +51,56 @@ final class JdkHttpHeadersTest {
 
     @Test
     @Order(1)
-    void getValue_should_return_value() {
+    void method_getValue_should_return_value() {
         assertEquals("value", headers.getValue("name"));
     }
 
     @Test
     @Order(2)
-    void getValue_should_return_null() {
+    void method_getValue_should_return_null() {
         assertNull(headers.getValue("not_found"));
         assertNull(headers.getValue("empty"));
     }
 
     @Test
     @Order(3)
-    void getValues() {
+    void method_getValues() {
         assertEquals(List.of("value"), headers.getValues("name"));
     }
 
     @Test
     @Order(4)
-    void contains() {
+    void method_contains() {
         assertTrue(headers.contains("name"));
     }
 
     @Test
     @Order(5)
-    void getEntries() {
+    void method_getEntries() {
         assertEquals(List.of(entry("name", "value")), headers.getEntries());
     }
 
     @Test
     @Order(6)
-    void size() {
+    void method_size() {
         assertEquals(1, headers.size());
     }
 
     @Test
     @Order(7)
-    void isNotEmpty_should_return_true() {
+    void method_isNotEmpty_should_return_true() {
         assertTrue(headers.isNotEmpty());
     }
 
     @Test
     @Order(8)
-    void isNotEmpty_should_return_false() {
+    void method_isNotEmpty_should_return_false() {
         assertFalse(new JdkHttpHeaders(HttpHeaders.of(Map.of(), (s1, s2) -> true)).isNotEmpty());
     }
 
     @Test
     @Order(9)
-    void testToString() {
+    void method_toString() {
         assertEquals("JdkHttpHeaders {name: value}", headers.toString());
     }
 }

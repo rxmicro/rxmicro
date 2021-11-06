@@ -27,6 +27,8 @@ import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.common.util.SystemPrintlnHelper.printStackTraceToStdOut;
+import static io.rxmicro.common.util.SystemPrintlnHelper.printlnToStdOut;
 
 /**
  * @author nedis
@@ -184,11 +186,11 @@ public final class TestedProcessProxy extends Process {
             try (InputStream inputStream = process.getInputStream()) {
                 inputStream.transferTo(System.out);
             } catch (final Throwable throwable) {
-                System.out.println(format(
+                printlnToStdOut(format(
                         "Can't display process output: process=`?`, message=?",
                         processInfoToString(process), throwable.getMessage()
                 ));
-                throwable.printStackTrace(System.out);
+                printStackTraceToStdOut(throwable);
             }
         }
 

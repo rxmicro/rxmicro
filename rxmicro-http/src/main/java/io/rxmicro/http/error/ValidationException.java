@@ -35,6 +35,8 @@ public final class ValidationException extends HttpErrorException {
      */
     public static final int STATUS_CODE = BAD_REQUEST_400;
 
+    private static final long serialVersionUID = -8098761883085613715L;
+
     /**
      * Creates a {@code Bad Request} HTTP error with error message.
      *

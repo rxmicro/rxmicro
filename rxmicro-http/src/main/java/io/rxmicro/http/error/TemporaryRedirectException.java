@@ -33,6 +33,8 @@ public final class TemporaryRedirectException extends RedirectException {
      */
     public static final int STATUS_CODE = TEMPORARY_REDIRECT_307;
 
+    private static final long serialVersionUID = -2268993570678368244L;
+
     /**
      * Creates a Temporary Redirect instance with new URL path.
      *

@@ -94,10 +94,10 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
      */
     private static final class LatinAlphabetHelper {
 
-        private static Set<Character> buildLatinAlphabet(final boolean allowsUppercase,
-                                                         final boolean allowsLowercase,
-                                                         final boolean allowsDigits,
-                                                         final String punctuations) {
+        static Set<Character> buildLatinAlphabet(final boolean allowsUppercase,
+                                                 final boolean allowsLowercase,
+                                                 final boolean allowsDigits,
+                                                 final String punctuations) {
             final StringBuilder builder = new StringBuilder(69);
             if (allowsUppercase) {
                 builder.append("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
@@ -115,6 +115,9 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
                 }
             }
             return builder.toString().chars().mapToObj(ch -> (char) ch).collect(Collectors.toSet());
+        }
+
+        private LatinAlphabetHelper() {
         }
     }
 }

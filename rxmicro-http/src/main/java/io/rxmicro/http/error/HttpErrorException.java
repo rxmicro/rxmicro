@@ -69,6 +69,8 @@ import io.rxmicro.common.util.Formats;
  */
 public abstract class HttpErrorException extends RxMicroException {
 
+    private static final long serialVersionUID = 7016885559938999584L;
+
     private static final int MIN_SUPPORTED_INFORMATIONAL_CODE = 100;
 
     private static final int MAX_SUPPORTED_INFORMATIONAL_CODE = 199;

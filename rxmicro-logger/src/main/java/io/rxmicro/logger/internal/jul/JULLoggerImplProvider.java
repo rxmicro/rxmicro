@@ -52,7 +52,7 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
     private final Map<String, Logger> loggerCache = new ConcurrentHashMap<>();
 
     static {
-        JDK6448699Bug.fix();
+        JDK6448699BugHelper.fix();
     }
 
     @Override

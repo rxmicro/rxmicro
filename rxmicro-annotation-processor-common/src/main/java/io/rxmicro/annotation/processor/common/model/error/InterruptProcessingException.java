@@ -31,6 +31,8 @@ public final class InterruptProcessingException extends RxMicroException {
 
     public static final String READ_MORE_TEMPLATE = " Read more at ?";
 
+    private static final long serialVersionUID = -6812752960494861818L;
+
     private final Element element;
 
     public InterruptProcessingException(final Element element,

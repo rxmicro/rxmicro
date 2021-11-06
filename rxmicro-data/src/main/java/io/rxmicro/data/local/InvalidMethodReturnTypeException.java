@@ -24,6 +24,8 @@ import io.rxmicro.data.DataException;
  */
 public final class InvalidMethodReturnTypeException extends DataException {
 
+    private static final long serialVersionUID = 8274016042295733154L;
+
     public InvalidMethodReturnTypeException(final String message,
                                             final Object... args) {
         super(message, args);

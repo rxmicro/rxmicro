@@ -29,10 +29,6 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.data.sql.model.IsolationLevel.READ_COMMITTED;
-import static io.rxmicro.data.sql.model.IsolationLevel.READ_UNCOMMITTED;
-import static io.rxmicro.data.sql.model.IsolationLevel.REPEATABLE_READ;
-import static io.rxmicro.data.sql.model.IsolationLevel.SERIALIZABLE;
 
 /**
  * @author nedis
@@ -41,17 +37,17 @@ import static io.rxmicro.data.sql.model.IsolationLevel.SERIALIZABLE;
 public abstract class AbstractTransaction {
 
     private static final Map<IsolationLevel, io.r2dbc.spi.IsolationLevel> MAPPING = Map.of(
-            READ_COMMITTED, io.r2dbc.spi.IsolationLevel.READ_COMMITTED,
-            READ_UNCOMMITTED, io.r2dbc.spi.IsolationLevel.READ_UNCOMMITTED,
-            REPEATABLE_READ, io.r2dbc.spi.IsolationLevel.REPEATABLE_READ,
-            SERIALIZABLE, io.r2dbc.spi.IsolationLevel.SERIALIZABLE
+            IsolationLevel.READ_COMMITTED, io.r2dbc.spi.IsolationLevel.READ_COMMITTED,
+            IsolationLevel.READ_UNCOMMITTED, io.r2dbc.spi.IsolationLevel.READ_UNCOMMITTED,
+            IsolationLevel.REPEATABLE_READ, io.r2dbc.spi.IsolationLevel.REPEATABLE_READ,
+            IsolationLevel.SERIALIZABLE, io.r2dbc.spi.IsolationLevel.SERIALIZABLE
     );
 
     private static final Map<io.r2dbc.spi.IsolationLevel, IsolationLevel> REVERSE_MAPPING = Map.of(
-            io.r2dbc.spi.IsolationLevel.READ_COMMITTED, READ_COMMITTED,
-            io.r2dbc.spi.IsolationLevel.READ_UNCOMMITTED, READ_UNCOMMITTED,
-            io.r2dbc.spi.IsolationLevel.REPEATABLE_READ, REPEATABLE_READ,
-            io.r2dbc.spi.IsolationLevel.SERIALIZABLE, SERIALIZABLE
+            io.r2dbc.spi.IsolationLevel.READ_COMMITTED, IsolationLevel.READ_COMMITTED,
+            io.r2dbc.spi.IsolationLevel.READ_UNCOMMITTED, IsolationLevel.READ_UNCOMMITTED,
+            io.r2dbc.spi.IsolationLevel.REPEATABLE_READ, IsolationLevel.REPEATABLE_READ,
+            io.r2dbc.spi.IsolationLevel.SERIALIZABLE, IsolationLevel.SERIALIZABLE
     );
 
     private final RepositoryConnection connection;
@@ -123,7 +119,7 @@ public abstract class AbstractTransaction {
     @SuppressWarnings("UnusedReturnValue")
     public final IsolationLevel getIsolationLevel() {
         checkActive();
-        return REVERSE_MAPPING.getOrDefault(connection.getTransactionIsolationLevel(), READ_COMMITTED);
+        return REVERSE_MAPPING.getOrDefault(connection.getTransactionIsolationLevel(), IsolationLevel.READ_COMMITTED);
     }
 
     protected Publisher<Void> baseSetIsolationLevel(final IsolationLevel isolationLevel) {
