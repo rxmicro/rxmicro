@@ -120,6 +120,15 @@ jobs:
         with:
           java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
 
+      - name: Prepare mvn settings for 'release' profile
+        run: |
+          cp -f .mvn/settings.xml ~/.m2/settings.xml
+          sed -i 's/OSSRH_PASSWORD/${{ secrets.OSSRH_PASSWORD}}/' ~/.m2/settings.xml
+          sed -i 's/OSSRH_PASSPHRASE/${{ secrets.OSSRH_PASSPHRASE}}/' ~/.m2/settings.xml
+          echo '${{secrets.SIGN_KEY}}' > rxmicro.txt
+          gpg --quiet --batch --yes --passphrase="${{ secrets.OSSRH_PASSPHRASE}}" --allow-secret-key-import --import rxmicro.txt
+        if: ${{ matrix.profile == 'release' }}
+
       - name: Verify
         run: mvn --fail-at-end -DskipTests -P ${{ matrix.profile }} verify
   # -----------------------------------------------------------------------------------------------------
