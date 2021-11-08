@@ -59,7 +59,9 @@ public final class Statements {
                             "For null param use 'WHERE column IS NULL' instead of 'WHERE column=?', " +
                             "where '?' is placeholder for 'null' value!",
                     sql,
-                    i + 1
+                    i + 1,
+                    '?',
+                    '?'
             );
             statement.bind(i, param);
         }
