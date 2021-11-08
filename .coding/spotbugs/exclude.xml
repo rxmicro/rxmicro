@@ -86,12 +86,12 @@
         Developer of model class must decide how `null` value for Boolean type must be converted to boolean primitive.-->
     <Match>
         <Class name="io.rxmicro.rest.local.FromStringValueConverter"/>
-        <Method name="toBoolean" params="java.lang.String,io.rxmicro.rest.model.HttpModelType,java.lang.String"  />
+        <Method name="toBoolean" params="java.lang.String,io.rxmicro.rest.model.HttpModelType,java.lang.String"/>
         <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
     </Match>
     <Match>
         <Class name="io.rxmicro.exchange.json.detail.ModelFromJsonConverter"/>
-        <Method name="toBoolean" params="java.lang.Object,java.lang.String"  />
+        <Method name="toBoolean" params="java.lang.Object,java.lang.String"/>
         <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
     </Match>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -110,5 +110,4 @@
         <Bug pattern="EQ_COMPARETO_USE_OBJECT_EQUALS"/>
     </Match>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
 </FindBugsFilter>
