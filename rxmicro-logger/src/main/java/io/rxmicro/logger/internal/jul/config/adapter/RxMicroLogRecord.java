@@ -43,7 +43,7 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
 
     private static final RequestIdSupplier UNDEFINED_REQUEST_ID_SUPPLIER = () -> null;
 
-    private RequestIdSupplier requestIdSupplier;
+    private transient RequestIdSupplier requestIdSupplier;
 
     private String threadName;
 
