@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Environments.isCurrentOsWindows;
-import static io.rxmicro.common.util.Requires.require;
 import static java.lang.System.lineSeparator;
 
 /**
@@ -70,25 +69,35 @@ public final class Formats {
      * Formats the string template using specified arguments.
      *
      * <p>
+     * This method never throws any exception.
+     *
+     * <p>
+     * If provided arguments are invalid, this method produces formatted string with unprocessed placeholders or 'Unused arguments' suffix.
+     * See examples section below for details.
+     *
+     * <p>
      * Use {@value #FORMAT_PLACEHOLDER_CHAR} character as placeholder for argument.
      *
      * <p>
      * <i>(This method also replaces '\n' character by {@link System#lineSeparator()}.)</i>
      *
      * <p>
-     * For example:
+     * Examples:
      * <pre><code>
-     * final Object[] args = {"Hello", "world!"};
-     * System.out.println(Formats.format("? ?", "args));
+     * format("? ?!", "Hello", "world")                 ->   Hello world!
+     * format("? ?!", "Hello")                          ->   Hello ?!
+     * format("? ? ? ?!", "Hello", "world")             ->   Hello world ? ?!
+     * format("? ?!", "Hello", "world", "or", "java")   ->   Hello world! -> Unused arguments: [or, java]
+     * format(null, "or", "java")                       ->   null -> Unused arguments: [or, java]
      * </code></pre>
-     * produces the following output:
-     * {@code Hello world!}
+     *
+     * <p>
+     * This method never returns {@code null}!
+     * If {@code messageTemplate} is null and {@code arg} is empty, the {@code "null"} string returned!
      *
      * @param messageTemplate   the message template
      * @param args              the message template arguments
      * @return the formatted string
-     * @throws NullPointerException if the string template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public static String format(final String messageTemplate,
                                 final Object... args) {
@@ -149,7 +158,7 @@ public final class Formats {
     }
 
     private static String formatWithoutArguments(final String messageTemplate) {
-        if (IS_CURRENT_OS_WINDOWS) {
+        if (IS_CURRENT_OS_WINDOWS && messageTemplate != null) {
             final StringBuilder sb = new StringBuilder(messageTemplate.length());
             for (int i = 0; i < messageTemplate.length(); i++) {
                 final char ch = messageTemplate.charAt(i);
@@ -160,35 +169,43 @@ public final class Formats {
                 }
             }
             return sb.toString();
-        } else {
-            return require(messageTemplate);
         }
+        return String.valueOf(messageTemplate);
     }
 
     private static String formatWithArguments(final String messageTemplate,
                                               final Object... args) {
-        final StringBuilder sb = new StringBuilder(messageTemplate.length() * 3 / 2);
-        int index = 0;
-        try {
+        if (messageTemplate == null) {
+            return "null -> Unused arguments: " + Arrays.toString(args);
+        } else {
+            final StringBuilder sb = new StringBuilder(messageTemplate.length() * 3 / 2);
+            int index = 0;
             for (int i = 0; i < messageTemplate.length(); i++) {
                 final char ch = messageTemplate.charAt(i);
                 if (ch == '\n') {
                     sb.append(LINE_SEPARATOR);
                 } else if (ch == FORMAT_PLACEHOLDER_CHAR) {
-                    sb.append(args[index++]);
+                    if (index < args.length) {
+                        sb.append(args[index++]);
+                    } else {
+                        sb.append(FORMAT_PLACEHOLDER_CHAR);
+                    }
                 } else {
                     sb.append(ch);
                 }
             }
-        } catch (final ArrayIndexOutOfBoundsException ignored) {
-            throw new IllegalArgumentException(
-                    "Redundant placeholder or missing argument: {{" + messageTemplate + "}} with " + Arrays.toString(args));
+            if (index < args.length) {
+                sb.append(" -> Unused arguments: [");
+                for (int i = index; i < args.length; i++) {
+                    if (i != index) {
+                        sb.append(", ");
+                    }
+                    sb.append(args[i]);
+                }
+                sb.append(']');
+            }
+            return sb.toString();
         }
-        if (index != args.length) {
-            throw new IllegalArgumentException(
-                    "Missing placeholder or redundant argument: {{" + messageTemplate + "}} with " + Arrays.toString(args));
-        }
-        return sb.toString();
     }
 
     private static String getUnits(final List<String> parts) {

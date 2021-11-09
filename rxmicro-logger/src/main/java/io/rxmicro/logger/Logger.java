@@ -81,8 +81,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Object arg1);
@@ -96,8 +94,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Object arg1,
@@ -113,8 +109,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Object arg1,
@@ -132,8 +126,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Object arg1,
@@ -153,8 +145,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Object arg1,
@@ -171,8 +161,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Object... arguments);
@@ -185,8 +173,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Supplier<?> arg1);
@@ -200,8 +186,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Supplier<?> arg1,
@@ -217,8 +201,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Supplier<?> arg1,
@@ -236,8 +218,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Supplier<?> arg1,
@@ -257,8 +237,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Supplier<?> arg1,
@@ -275,8 +253,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(String format,
                Supplier<?>... suppliers);
@@ -299,8 +275,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -316,8 +290,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -335,8 +307,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -356,8 +326,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -379,8 +347,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -399,8 +365,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -415,8 +379,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -432,8 +394,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -451,8 +411,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -472,8 +430,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -495,8 +451,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -515,8 +469,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(Throwable throwable,
                String format,
@@ -540,8 +492,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -557,8 +507,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -576,8 +524,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -597,8 +543,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -620,8 +564,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -640,8 +582,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -656,8 +596,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -673,8 +611,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -692,8 +628,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -713,8 +647,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -736,8 +668,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -756,8 +686,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -784,8 +712,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -803,8 +729,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -824,8 +748,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -847,8 +769,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -872,8 +792,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -894,8 +812,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -912,8 +828,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -931,8 +845,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -952,8 +864,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -975,8 +885,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1000,8 +908,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1022,8 +928,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1068,8 +972,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Object arg1);
@@ -1083,8 +985,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Object arg1,
@@ -1100,8 +1000,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Object arg1,
@@ -1119,8 +1017,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Object arg1,
@@ -1140,8 +1036,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Object arg1,
@@ -1158,8 +1052,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Object... arguments);
@@ -1172,8 +1064,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Supplier<?> arg1);
@@ -1187,8 +1077,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Supplier<?> arg1,
@@ -1204,8 +1092,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Supplier<?> arg1,
@@ -1223,8 +1109,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Supplier<?> arg1,
@@ -1244,8 +1128,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Supplier<?> arg1,
@@ -1262,8 +1144,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(String format,
                Supplier<?>... suppliers);
@@ -1286,8 +1166,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1303,8 +1181,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1322,8 +1198,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1343,8 +1217,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1366,8 +1238,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1386,8 +1256,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1402,8 +1270,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1419,8 +1285,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1438,8 +1302,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1459,8 +1321,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1482,8 +1342,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1502,8 +1360,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1527,8 +1383,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1544,8 +1398,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1563,8 +1415,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1584,8 +1434,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1607,8 +1455,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1627,8 +1473,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1643,8 +1487,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1660,8 +1502,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1679,8 +1519,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1700,8 +1538,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1723,8 +1559,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1743,8 +1577,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1771,8 +1603,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1790,8 +1620,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1811,8 +1639,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1834,8 +1660,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1859,8 +1683,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1881,8 +1703,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1899,8 +1719,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1918,8 +1736,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1939,8 +1755,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1962,8 +1776,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1987,8 +1799,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -2009,8 +1819,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -2055,8 +1863,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Object arg1);
@@ -2070,8 +1876,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Object arg1,
@@ -2087,8 +1891,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Object arg1,
@@ -2106,8 +1908,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Object arg1,
@@ -2127,8 +1927,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Object arg1,
@@ -2145,8 +1943,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Object... arguments);
@@ -2159,8 +1955,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Supplier<?> arg1);
@@ -2174,8 +1968,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Supplier<?> arg1,
@@ -2191,8 +1983,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Supplier<?> arg1,
@@ -2210,8 +2000,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Supplier<?> arg1,
@@ -2231,8 +2019,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Supplier<?> arg1,
@@ -2249,8 +2035,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
               Supplier<?>... suppliers);
@@ -2273,8 +2057,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2290,8 +2072,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2309,8 +2089,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2330,8 +2108,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2353,8 +2129,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2373,8 +2147,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2389,8 +2161,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2406,8 +2176,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2425,8 +2193,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2446,8 +2212,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2469,8 +2233,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2489,8 +2251,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(Throwable throwable,
               String format,
@@ -2514,8 +2274,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2531,8 +2289,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2550,8 +2306,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2571,8 +2325,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2594,8 +2346,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2614,8 +2364,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2630,8 +2378,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2647,8 +2393,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2666,8 +2410,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2687,8 +2429,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2710,8 +2450,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2730,8 +2468,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2758,8 +2494,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2777,8 +2511,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2798,8 +2530,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2821,8 +2551,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2846,8 +2574,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2868,8 +2594,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2886,8 +2610,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2905,8 +2627,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2926,8 +2646,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2949,8 +2667,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2974,8 +2690,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2996,8 +2710,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3042,8 +2754,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Object arg1);
@@ -3057,8 +2767,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Object arg1,
@@ -3074,8 +2782,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Object arg1,
@@ -3093,8 +2799,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Object arg1,
@@ -3114,8 +2818,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Object arg1,
@@ -3132,8 +2834,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Object... arguments);
@@ -3146,8 +2846,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Supplier<?> arg1);
@@ -3161,8 +2859,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Supplier<?> arg1,
@@ -3178,8 +2874,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Supplier<?> arg1,
@@ -3197,8 +2891,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Supplier<?> arg1,
@@ -3218,8 +2910,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Supplier<?> arg1,
@@ -3236,8 +2926,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(String format,
               Supplier<?>... suppliers);
@@ -3261,8 +2949,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3278,8 +2964,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3297,8 +2981,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3318,8 +3000,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3341,8 +3021,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3361,8 +3039,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3377,8 +3053,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3394,8 +3068,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3413,8 +3085,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3434,8 +3104,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3457,8 +3125,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3477,8 +3143,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3502,8 +3166,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3519,8 +3181,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3538,8 +3198,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3559,8 +3217,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3582,8 +3238,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3602,8 +3256,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3618,8 +3270,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3635,8 +3285,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3654,8 +3302,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3675,8 +3321,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3698,8 +3342,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3718,8 +3360,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3746,8 +3386,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3765,8 +3403,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3786,8 +3422,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3809,8 +3443,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3834,8 +3466,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3856,8 +3486,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3874,8 +3502,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3893,8 +3519,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3914,8 +3538,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3937,8 +3559,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3962,8 +3582,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3984,8 +3602,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -4030,8 +3646,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Object arg1);
@@ -4045,8 +3659,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Object arg1,
@@ -4062,8 +3674,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Object arg1,
@@ -4081,8 +3691,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Object arg1,
@@ -4102,8 +3710,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Object arg1,
@@ -4120,8 +3726,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Object... arguments);
@@ -4134,8 +3738,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Supplier<?> arg1);
@@ -4149,8 +3751,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Supplier<?> arg1,
@@ -4166,8 +3766,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Supplier<?> arg1,
@@ -4185,8 +3783,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Supplier<?> arg1,
@@ -4206,8 +3802,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Supplier<?> arg1,
@@ -4224,8 +3818,6 @@ public interface Logger {
      *
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(String format,
                Supplier<?>... suppliers);
@@ -4248,8 +3840,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4265,8 +3855,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4284,8 +3872,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4305,8 +3891,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4328,8 +3912,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4348,8 +3930,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4364,8 +3944,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4381,8 +3959,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4400,8 +3976,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4421,8 +3995,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4444,8 +4016,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4464,8 +4034,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(Throwable throwable,
                String format,
@@ -4489,8 +4057,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4506,8 +4072,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4525,8 +4089,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4546,8 +4108,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4569,8 +4129,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4589,8 +4147,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4605,8 +4161,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4622,8 +4176,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4641,8 +4193,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4662,8 +4212,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4685,8 +4233,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4705,8 +4251,6 @@ public interface Logger {
      * @param requestIdSupplier the request id supplier.
      * @param format the format string
      * @param suppliers the argument suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4733,8 +4277,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4752,8 +4294,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4773,8 +4313,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4796,8 +4334,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4821,8 +4357,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4843,8 +4377,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arguments the arguments
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4861,8 +4393,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param arg1 the argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4880,8 +4410,6 @@ public interface Logger {
      * @param format the format string
      * @param arg1 the first argument
      * @param arg2 the second argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4901,8 +4429,6 @@ public interface Logger {
      * @param arg1 the first argument
      * @param arg2 the second argument
      * @param arg3 the third argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4924,8 +4450,6 @@ public interface Logger {
      * @param arg2 the second argument
      * @param arg3 the third argument
      * @param arg4 the forth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4949,8 +4473,6 @@ public interface Logger {
      * @param arg3 the third argument
      * @param arg4 the forth argument
      * @param arg5 the fifth argument
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4971,8 +4493,6 @@ public interface Logger {
      * @param throwable the throwable
      * @param format the format string
      * @param suppliers the suppliers
-     * @throws NullPointerException if {@code format} is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,

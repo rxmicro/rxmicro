@@ -51,8 +51,6 @@ public final class UnexpectedResponseException extends HttpErrorException {
      *
      * @param message the error message template
      * @param args the error message template argument
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public UnexpectedResponseException(final String message,
                                        final Object... args) {

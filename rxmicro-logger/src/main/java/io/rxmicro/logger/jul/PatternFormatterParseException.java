@@ -36,8 +36,6 @@ public final class PatternFormatterParseException extends RxMicroException {
      *
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public PatternFormatterParseException(final String message,
                                           final Object... args) {

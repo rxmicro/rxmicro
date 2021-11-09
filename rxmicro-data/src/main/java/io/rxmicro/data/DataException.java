@@ -37,8 +37,6 @@ public abstract class DataException extends RxMicroException {
      *
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     protected DataException(final String message,
                             final Object... args) {
@@ -54,8 +52,6 @@ public abstract class DataException extends RxMicroException {
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
      * @param message error message or error message template
      * @param args error message template arguments
-     * @throws NullPointerException if the error message template or cause is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     protected DataException(final Throwable cause,
                             final String message,

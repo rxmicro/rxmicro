@@ -37,8 +37,6 @@ public final class ConfigException extends RxMicroException {
      *
      * @param message the error message template
      * @param args the message template arguments
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public ConfigException(final String message,
                            final Object... args) {

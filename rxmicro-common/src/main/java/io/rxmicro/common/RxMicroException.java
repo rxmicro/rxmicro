@@ -19,7 +19,6 @@ package io.rxmicro.common;
 import io.rxmicro.common.util.Formats;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Requires.require;
 
 /**
  * Basic exception class for all RxMicro modules.
@@ -39,10 +38,9 @@ public class RxMicroException extends RuntimeException {
      * Creates a new {@link RxMicroException} instance with error message.
      *
      * @param message the error message
-     * @throws NullPointerException if the error message is {@code null}
      */
     protected RxMicroException(final String message) {
-        super(require(message));
+        super(message);
     }
 
     /**
@@ -53,8 +51,6 @@ public class RxMicroException extends RuntimeException {
      *
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     protected RxMicroException(final String message,
                                final Object... args) {
@@ -66,11 +62,10 @@ public class RxMicroException extends RuntimeException {
      *
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
      * @param message the error message
-     * @throws NullPointerException if the error message or cause is {@code null}
      */
     protected RxMicroException(final Throwable cause,
                                final String message) {
-        super(require(message), require(cause));
+        super(message, cause);
     }
 
     /**
@@ -82,23 +77,20 @@ public class RxMicroException extends RuntimeException {
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template or cause is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     protected RxMicroException(final Throwable cause,
                                final String message,
                                final Object... args) {
-        super(format(message, args), require(cause));
+        super(format(message, args), cause);
     }
 
     /**
      * Creates a new {@link RxMicroException} instance with cause only.
      *
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
-     * @throws NullPointerException if the cause is {@code null}
      */
     protected RxMicroException(final Throwable cause) {
-        super(require(cause));
+        super(cause);
     }
 
     /**
@@ -126,12 +118,11 @@ public class RxMicroException extends RuntimeException {
      * @param enableSuppression whether or not suppression is enabled or disabled
      * @param writableStackTrace whether or not the stack trace should be writable
      * @param message the error message
-     * @throws NullPointerException if the error message is {@code null}
      */
     protected RxMicroException(final boolean enableSuppression,
                                final boolean writableStackTrace,
                                final String message) {
-        super(require(message), null, enableSuppression, writableStackTrace);
+        super(message, null, enableSuppression, writableStackTrace);
     }
 
     /**
@@ -148,8 +139,6 @@ public class RxMicroException extends RuntimeException {
      * @param writableStackTrace whether or not the stack trace should be writable
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     protected RxMicroException(final boolean enableSuppression,
                                final boolean writableStackTrace,
@@ -172,14 +161,12 @@ public class RxMicroException extends RuntimeException {
      * @param enableSuppression whether or not suppression is enabled or disabled
      * @param writableStackTrace whether or not the stack trace should be writable
      * @param message the error message
-     * @throws NullPointerException if the error message or cause is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     protected RxMicroException(final Throwable cause,
                                final boolean enableSuppression,
                                final boolean writableStackTrace,
                                final String message) {
-        super(require(message), require(cause), enableSuppression, writableStackTrace);
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 
     /**
@@ -197,14 +184,12 @@ public class RxMicroException extends RuntimeException {
      * @param writableStackTrace whether or not the stack trace should be writable
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template or cause is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     protected RxMicroException(final Throwable cause,
                                final boolean enableSuppression,
                                final boolean writableStackTrace,
                                final String message,
                                final Object... args) {
-        super(format(message, args), require(cause), enableSuppression, writableStackTrace);
+        super(format(message, args), cause, enableSuppression, writableStackTrace);
     }
 }

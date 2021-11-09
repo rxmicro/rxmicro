@@ -46,7 +46,6 @@ public final class InternalHttpErrorException extends HttpErrorException {
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
      * @param message the error message
-     * @throws NullPointerException if the error message is {@code null}
      */
     public InternalHttpErrorException(final String message) {
         super(STATUS_CODE, message);
@@ -67,8 +66,6 @@ public final class InternalHttpErrorException extends HttpErrorException {
      *
      * @param message the error message template
      * @param args the error message template argument
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public InternalHttpErrorException(final String message,
                                       final Object... args) {

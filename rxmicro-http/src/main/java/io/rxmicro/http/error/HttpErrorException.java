@@ -105,7 +105,6 @@ public abstract class HttpErrorException extends RxMicroException {
      *
      * @param statusCode the status code
      * @param message the error message
-     * @throws NullPointerException if the error message is {@code null}
      */
     protected HttpErrorException(final int statusCode,
                                  final String message) {
@@ -129,8 +128,6 @@ public abstract class HttpErrorException extends RxMicroException {
      * @param statusCode the status code
      * @param message the error message template
      * @param args the error message template argument
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     protected HttpErrorException(final int statusCode,
                                  final String message,

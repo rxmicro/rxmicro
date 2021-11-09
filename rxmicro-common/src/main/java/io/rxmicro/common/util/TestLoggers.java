@@ -35,12 +35,10 @@ public final class TestLoggers {
      * Log the message at the {@code INFO} level.
      *
      * <p>
-     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format info message.)</i>
+     * <i>(FYI: This method uses {@link Formats#format(String, Object...)} method to format info message.)</i>
      *
      * @param messageTemplate   the message template
      * @param args              the message template arguments
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public static void logInfoTestMessage(final String messageTemplate,
                                           final Object... args) {
@@ -51,12 +49,10 @@ public final class TestLoggers {
      * Log the message at the {@code ERROR} level.
      *
      * <p>
-     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     * <i>(FYI: This method uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param messageTemplate   the message template
      * @param args              the message template arguments
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public static void logErrorTestMessage(final String messageTemplate,
                                            final Object... args) {

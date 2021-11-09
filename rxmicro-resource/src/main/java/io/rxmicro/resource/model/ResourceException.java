@@ -37,8 +37,6 @@ public final class ResourceException extends RxMicroException {
      *
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public ResourceException(final String message,
                              final Object... args) {
@@ -54,8 +52,6 @@ public final class ResourceException extends RxMicroException {
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template or cause is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public ResourceException(final Throwable cause,
                              final String message,

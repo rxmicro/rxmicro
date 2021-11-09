@@ -35,7 +35,6 @@ public final class JsonException extends RxMicroException {
      * Creates a new {@link JsonException} instance with the specified error message.
      *
      * @param message the error message
-     * @throws NullPointerException if the error message is {@code null}
      */
     public JsonException(final String message) {
         super(message);
@@ -49,8 +48,6 @@ public final class JsonException extends RxMicroException {
      *
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public JsonException(final String message,
                          final Object... args) {
@@ -66,8 +63,6 @@ public final class JsonException extends RxMicroException {
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template or cause is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public JsonException(final Throwable cause,
                          final String message,

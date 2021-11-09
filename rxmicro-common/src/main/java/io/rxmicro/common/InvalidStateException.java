@@ -32,7 +32,6 @@ public final class InvalidStateException extends RxMicroException {
      * Creates a new {@link InvalidStateException} instance with error message.
      *
      * @param message the error message
-     * @throws NullPointerException if the error message is {@code null}
      */
     public InvalidStateException(final String message) {
         super(message);
@@ -46,8 +45,6 @@ public final class InvalidStateException extends RxMicroException {
      *
      * @param message the error message template
      * @param args the error message template arguments
-     * @throws NullPointerException if the error message template is {@code null}
-     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public InvalidStateException(final String message,
                                  final Object... args) {
