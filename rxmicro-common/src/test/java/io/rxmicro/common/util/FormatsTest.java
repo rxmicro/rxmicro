@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class FormatsTest {
 
     @Order(1)
