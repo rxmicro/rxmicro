@@ -36,6 +36,7 @@
                              lombok.RequiredArgsConstructor|lombok.AllArgsConstructor" />
         </properties>
     </rule -->
+
     <rule ref="category/java/codestyle.xml/AvoidDollarSigns"/>
     <rule ref="category/java/codestyle.xml/AvoidProtectedFieldInFinalClass"/>
     <rule ref="category/java/codestyle.xml/AvoidProtectedMethodInFinalClassNotExtending"/>
@@ -45,8 +46,10 @@
             <property name="checkParameterizedMethods" value="false"/>
         </properties>
     </rule>
-    <!-- Conflicts with checkstyle:AvoidNoArgumentSuperConstructorCall rule: -->
+
+    <!-- Conflicts with checkstyle.AvoidNoArgumentSuperConstructorCall rule: -->
     <!-- rule ref="category/java/codestyle.xml/CallSuperInConstructor" /-->
+
     <rule ref="category/java/codestyle.xml/ClassNamingConventions">
         <properties>
             <property name="classPattern" value="[A-Z][a-zA-Z0-9]*"/>
@@ -58,11 +61,13 @@
                       value="[A-Z][a-zA-Z0-9]+(Runtime|Factory|Helper|Customizer|Environment|s)"/>
         </properties>
     </rule>
+
     <!-- This rule is useful, but unfortunately IDEA breaks source code during auto formatting: -->
     <!-- rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier"/ -->
 
     <!-- This rule does not do anything useful: -->
     <!-- rule ref="category/java/codestyle.xml/ConfusingTernary"/ -->
+
     <rule ref="category/java/codestyle.xml/ControlStatementBraces">
         <properties>
             <property name="checkIfElseStmt" value="true"/>
@@ -74,8 +79,10 @@
             <property name="allowEmptyLoop" value="false"/>
         </properties>
     </rule>
+
     <!-- Empty methods can reduce total amount of code: -->
     <!-- rule ref="category/java/codestyle.xml/EmptyMethodInAbstractClassShouldBeAbstract" /-->
+
     <rule ref="category/java/codestyle.xml/ExtendsObject"/>
     <rule ref="category/java/codestyle.xml/FieldDeclarationsShouldBeAtStartOfClass">
         <properties>
@@ -104,8 +111,10 @@
             <property name="explicitLambdaParameterPattern" value="[a-z][a-zA-Z0-9]*"/>
         </properties>
     </rule>
-    <!-- A single letter is not enough to create a readable generic variable name: -->
+
+    <!-- Validated by checkstyle.ClassTypeParameterName -->
     <!-- rule ref="category/java/codestyle.xml/GenericsNaming"/ -->
+
     <rule ref="category/java/codestyle.xml/IdenticalCatchBranches"/>
     <rule ref="category/java/codestyle.xml/LinguisticNaming">
         <properties>
@@ -124,9 +133,11 @@
             <property name="booleanFieldPrefixes" value="is|has|can|have|will|should"/>
         </properties>
     </rule>
+
     <!-- EJB specific rules: -->
     <!-- rule ref="category/java/codestyle.xml/LocalHomeNamingConvention"/>
     <rule ref="category/java/codestyle.xml/LocalInterfaceSessionNamingConvention"/ -->
+
     <rule ref="category/java/codestyle.xml/LocalVariableCouldBeFinal">
         <properties>
             <property name="ignoreForEachDecl" value="false"/>
@@ -144,8 +155,10 @@
             <property name="minimum" value="49"/>
         </properties>
     </rule>
+
     <!-- EJB specific rule: -->
     <!-- rule ref="category/java/codestyle.xml/MDBAndSessionBeanNamingConvention"/ -->
+
     <rule ref="category/java/codestyle.xml/MethodArgumentCouldBeFinal"/>
     <rule ref="category/java/codestyle.xml/MethodNamingConventions">
         <properties>
@@ -158,13 +171,17 @@
         </properties>
     </rule>
     <rule ref="category/java/codestyle.xml/NoPackage"/>
+
     <!-- It seems that this rule can't be applied for any complex project:-->
     <!-- rule ref="category/java/codestyle.xml/OnlyOneReturn"/ -->
+
     <rule ref="category/java/codestyle.xml/PackageCase"/>
     <rule ref="category/java/codestyle.xml/PrematureDeclaration"/>
+
     <!-- EJB specific rules: -->
     <!-- rule ref="category/java/codestyle.xml/RemoteInterfaceNamingConvention"/ -->
     <!-- rule ref="category/java/codestyle.xml/RemoteSessionInterfaceNamingConvention"/ -->
+
     <rule ref="category/java/codestyle.xml/ShortClassName">
         <properties>
             <property name="minimum" value="4"/>
@@ -180,9 +197,11 @@
             <property name="minimum" value="2"/>
         </properties>
     </rule>
+
     <!-- The RxMicro framework team loves to use static imports.
          All modern IDEs can highlight static methods, so it can't be a problem: -->
     <!-- rule ref="category/java/codestyle.xml/TooManyStaticImports"/ -->
+
     <rule ref="category/java/codestyle.xml/UnnecessaryAnnotationValueElement"/>
     <rule ref="category/java/codestyle.xml/UnnecessaryCast"/>
     <rule ref="category/java/codestyle.xml/UnnecessaryConstructor">

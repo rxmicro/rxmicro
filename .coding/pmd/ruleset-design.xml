@@ -29,16 +29,24 @@
     <description>RxMicro design ruleset</description>
 
     <rule ref="category/java/design.xml/AbstractClassWithoutAnyMethod"/>
-    <rule ref="category/java/design.xml/AvoidCatchingGenericException"/>
-    <rule ref="category/java/design.xml/AvoidDeeplyNestedIfStmts">
+
+    <!-- Validated by checkstyle.IllegalCatch -->
+    <!-- rule ref="category/java/design.xml/AvoidCatchingGenericException"/ -->
+
+    <!-- Validated by checkstyle.NestedIfDepth -->
+    <!-- rule ref="category/java/design.xml/AvoidDeeplyNestedIfStmts">
         <properties>
             <property name="problemDepth" value="3"/>
         </properties>
-    </rule>
+    </rule -->
+
     <rule ref="category/java/design.xml/AvoidRethrowingException"/>
     <rule ref="category/java/design.xml/AvoidThrowingNewInstanceOfSameException"/>
-    <rule ref="category/java/design.xml/AvoidThrowingNullPointerException"/>
-    <rule ref="category/java/design.xml/AvoidThrowingRawExceptionTypes"/>
+
+    <!-- Validated by checkstyle.IllegalThrows -->
+    <!-- rule ref="category/java/design.xml/AvoidThrowingNullPointerException"/ -->
+    <!-- rule ref="category/java/design.xml/AvoidThrowingRawExceptionTypes"/ -->
+
     <rule ref="category/java/design.xml/AvoidUncheckedExceptionsInSignatures"/>
     <rule ref="category/java/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
     <rule ref="category/java/design.xml/CognitiveComplexity">
@@ -59,38 +67,47 @@
             <property name="cycloOptions" value=""/>
         </properties>
     </rule>
+
     <!-- The RxMicro framework team prefers to use Java Beans than DataClasses: -->
     <!-- rule ref="category/java/design.xml/DataClass"/ -->
+
     <rule ref="category/java/design.xml/DoNotExtendJavaLangError"/>
     <rule ref="category/java/design.xml/ExceptionAsFlowControl"/>
-    <rule ref="category/java/design.xml/ExcessiveClassLength">
+
+    <!-- Validated by checkstyle.JavaFileLength -->
+    <!-- rule ref="category/java/design.xml/ExcessiveClassLength">
         <properties>
             <property name="minimum" value="1000.0"/>
         </properties>
-    </rule>
+    </rule -->
+
     <rule ref="category/java/design.xml/ExcessiveImports">
         <properties>
             <property name="minimum" value="100.0"/>
         </properties>
     </rule>
-    <!-- Validated by checkstyle: -->
+
+    <!-- Validated by checkstyle.MethodReturnCount -->
     <!-- rule ref="category/java/design.xml/ExcessiveMethodLength">
         <properties>
             <property name="minimum" value="100.0" />
         </properties>
     </rule -->
 
-    <!-- Validated by checkstyle: -->
+    <!-- Validated by checkstyle.ParameterNumber -->
     <!-- rule ref="category/java/design.xml/ExcessiveParameterList">
         <properties>
             <property name="minimum" value="10.0" />
         </properties>
     </rule -->
-    <rule ref="category/java/design.xml/ExcessivePublicCount">
+
+    <!-- Validated by checkstyle.MethodCount -->
+    <!-- rule ref="category/java/design.xml/ExcessivePublicCount">
         <properties>
             <property name="minimum" value="45.0"/>
         </properties>
-    </rule>
+    </rule -->
+
     <rule ref="category/java/design.xml/FinalFieldCouldBeStatic"/>
     <rule ref="category/java/design.xml/GodClass"/>
     <rule ref="category/java/design.xml/ImmutableField">
@@ -100,11 +117,15 @@
                              lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor"/>
         </properties>
     </rule>
+
     <!-- This rule is very complex to support: -->
     <!-- rule ref="category/java/design.xml/LawOfDemeter"/ -->
+
     <rule ref="category/java/design.xml/LogicInversion"/>
+
     <!-- This rule is redundant, because JPMS solves this problem:  -->
     <!-- rule ref="category/java/design.xml/LoosePackageCoupling"/ -->
+
     <rule ref="category/java/design.xml/MutableStaticState"/>
     <rule ref="category/java/design.xml/NcssCount">
         <properties>
@@ -127,6 +148,7 @@
     <rule ref="category/java/design.xml/SimplifyBooleanExpressions"/>
     <rule ref="category/java/design.xml/SimplifyBooleanReturns"/>
     <rule ref="category/java/design.xml/SimplifyConditional"/>
+
     <!-- This rule does not do anything useful: -->
     <!-- rule ref="category/java/design.xml/SingularField">
         <properties>
@@ -138,6 +160,7 @@
             <property name="disallowNotAssignment" value="true" />
         </properties>
     </rule -->
+
     <rule ref="category/java/design.xml/SwitchDensity">
         <properties>
             <property name="minimum" value="10.0"/>
@@ -148,11 +171,14 @@
             <property name="maxfields" value="20"/>
         </properties>
     </rule>
-    <rule ref="category/java/design.xml/TooManyMethods">
+
+    <!-- Validated by checkstyle.MethodCount -->
+    <!-- rule ref="category/java/design.xml/TooManyMethods">
         <properties>
             <property name="maxmethods" value="32"/>
         </properties>
-    </rule>
+    </rule -->
+
     <rule ref="category/java/design.xml/UselessOverridingMethod">
         <properties>
             <property name="ignoreAnnotations" value="false"/>

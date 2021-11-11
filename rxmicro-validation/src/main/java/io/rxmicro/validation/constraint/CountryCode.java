@@ -109,14 +109,30 @@ public @interface CountryCode {
             this.description = description;
         }
 
+        /**
+         * Returns the current country code type.
+         *
+         * @return the current country code type.
+         */
         public String getType() {
             return name().substring(ISO_3166_1_PREFIX_LENGTH).toLowerCase(Locale.ENGLISH).replace("_", "-");
         }
 
+        /**
+         * Returns the current country code description.
+         *
+         * @return the current country code description.
+         */
         public String getDescription() {
             return description;
         }
 
+        /**
+         * Returns the read more link for the current country code value.
+         *
+         * @return the read more link for the current country code value.
+         * @throws ImpossibleException if @{@link ReadMore} annotation is missing. This exception should be never thrown!
+         */
         public ReadMore getReadMore() {
             try {
                 return getClass().getDeclaredField(name()).getAnnotation(ReadMore.class);

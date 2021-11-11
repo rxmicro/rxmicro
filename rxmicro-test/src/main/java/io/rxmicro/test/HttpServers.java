@@ -46,15 +46,17 @@ public final class HttpServers {
         }
     }
 
+    private HttpServers() {
+    }
+
     /**
+     * Lazy init singleton for {@link Random} instance.
+     *
      * @author nedis
      * @since 0.10
      */
     private static final class RandomHolder {
 
         private static final Random RANDOM = new Random();
-    }
-
-    private HttpServers() {
     }
 }

@@ -30,20 +30,27 @@
 
     <rule ref="category/java/multithreading.xml/AvoidSynchronizedAtMethodLevel"/>
     <rule ref="category/java/multithreading.xml/AvoidThreadGroup"/>
+
     <!-- Sometimes using of volatile is required. See: https://www.ibm.com/developerworks/java/library/j-jtp06197/index.html -->
     <!-- rule ref="category/java/multithreading.xml/AvoidUsingVolatile"/ -->
+
     <!-- JEE specific rule: -->
     <!-- rule ref="category/java/multithreading.xml/DoNotUseThreads"/ -->
+
     <rule ref="category/java/multithreading.xml/DontCallThreadRun"/>
     <rule ref="category/java/multithreading.xml/DoubleCheckedLocking"/>
+
     <!-- Reactive stream libs do not require the thread safe singletons: -->
     <!-- rule ref="category/java/multithreading.xml/NonThreadSafeSingleton"/ -->
+
     <rule ref="category/java/multithreading.xml/UnsynchronizedStaticFormatter">
         <properties>
             <property name="allowMethodLevelSynchronization" value="false"/>
         </properties>
     </rule>
+
     <!-- ConcurrentHashMap is not actual for reactive programming! -->
     <!-- rule ref="category/java/multithreading.xml/UseConcurrentHashMap" /-->
+
     <rule ref="category/java/multithreading.xml/UseNotifyAllInsteadOfNotify"/>
 </ruleset>

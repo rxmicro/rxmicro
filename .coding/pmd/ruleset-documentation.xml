@@ -27,15 +27,15 @@
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0
                             http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
     <description>RxMicro documentation ruleset</description>
-    <!-- Validated by checkstyle: -->
-    <!-- rule ref="category/java/documentation.xml/CommentContent">
-        <properties>
-            <property name="caseSensitive" value="false" />
-            <property name="disallowedTerms" value="idiot|jerk" />
-        </properties>
-    </rule -->
 
-    <!-- Validated by checkstyle: -->
+    <rule ref="category/java/documentation.xml/CommentContent">
+        <properties>
+            <property name="caseSensitive" value="false"/>
+            <property name="disallowedTerms" value="idiot|jerk"/>
+        </properties>
+    </rule>
+
+    <!-- Should be validated by public-api-rules.xml rules for checkstyle -->
     <!-- rule ref="category/java/documentation.xml/CommentRequired">
         <properties>
             <property name="methodWithOverrideCommentRequirement" value="Ignored" />
@@ -50,7 +50,7 @@
         </properties>
     </rule -->
 
-    <!-- Validated by checkstyle: -->
+    <!-- Project specific setting -->
     <!-- rule ref="category/java/documentation.xml/CommentSize">
         <properties>
             <property name="maxLines" value="6" />

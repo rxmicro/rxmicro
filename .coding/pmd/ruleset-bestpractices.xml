@@ -27,12 +27,15 @@
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0
                             http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
     <description>RxMicro best practices ruleset</description>
+
     <!-- Unfortunately protected modifier allows creating an instance of class inside the package,
          thus the abstract modifier is a guarantor to prevent a direct instantiation: -->
     <!-- rule ref="category/java/bestpractices.xml/AbstractClassWithoutAbstractMethod"/ -->
-    <rule ref="category/java/bestpractices.xml/AccessorClassGeneration"/>
+
     <!-- The private modifier guarantees an access from class body only: -->
+    <!-- rule ref="category/java/bestpractices.xml/AccessorClassGeneration"/ -->
     <!-- rule ref="category/java/bestpractices.xml/AccessorMethodGeneration"/ -->
+
     <rule ref="category/java/bestpractices.xml/ArrayIsStoredDirectly">
         <properties>
             <property name="allowPrivate" value="true"/>
@@ -54,22 +57,31 @@
             <property name="checkAddressTypes" value="IPv4 mapped IPv6|IPv6|IPv4"/>
         </properties>
     </rule>
+
     <!-- The RxMicro framework does not use JDBC: -->
     <!-- rule ref="category/java/bestpractices.xml/CheckResultSet"/ -->
+
     <rule ref="category/java/bestpractices.xml/ConstantsInInterface">
         <properties>
             <property name="ignoreIfHasMethods" value="true"/>
         </properties>
     </rule>
-    <rule ref="category/java/bestpractices.xml/DefaultLabelNotLastInSwitchStmt"/>
-    <rule ref="category/java/bestpractices.xml/DoubleBraceInitialization"/>
+
+    <!-- Validated by checkstyle.DefaultComesLast -->
+    <!-- rule ref="category/java/bestpractices.xml/DefaultLabelNotLastInSwitchStmt"/ -->
+
+    <!-- Validated by checkstyle.AvoidDoubleBraceInitialization -->
+    <!-- rule ref="category/java/bestpractices.xml/DoubleBraceInitialization"/ -->
+
     <!-- Sometimes for loop has the better performance than Foreach: -->
     <!-- rule ref="category/java/bestpractices.xml/ForLoopCanBeForeach"/ -->
+
     <rule ref="category/java/bestpractices.xml/ForLoopVariableCount">
         <properties>
             <property name="maximumVariables" value="1"/>
         </properties>
     </rule>
+
     <!-- This rule useful, but unfortunately this rule can't detect method invoke hierarchy: -->
     <!-- rule ref="category/java/bestpractices.xml/GuardLogStatement"/ -->
 
@@ -78,17 +90,22 @@
     <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseAfterAnnotation"/>
     <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseBeforeAnnotation"/>
     <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseTestAnnotation"/ -->
+
     <rule ref="category/java/bestpractices.xml/JUnit5TestShouldBePackagePrivate"/>
+
     <!-- Message for assert methods must be optional!!! -->
     <!-- rule ref="category/java/bestpractices.xml/JUnitAssertionsShouldIncludeMessage"/-->
+
     <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts">
         <properties>
             <property name="maximumAsserts" value="15"/>
         </properties>
     </rule>
     <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert"/>
+
     <!-- The RxMicro framework does not use JUnit4: -->
     <!-- rule ref="category/java/bestpractices.xml/JUnitUseExpected"/ -->
+
     <rule ref="category/java/bestpractices.xml/LiteralsFirstInComparisons"/>
     <rule ref="category/java/bestpractices.xml/LooseCoupling"/>
     <rule ref="category/java/bestpractices.xml/MethodReturnsInternalArray"/>
@@ -99,9 +116,9 @@
         </properties>
     </rule>
 
-    <rule ref="category/java/bestpractices.xml/LiteralsFirstInComparisons"/>
-    <!-- Sometimes original stacktrace is redundant, because the exception class name contains all required information: -->
+    <!-- Sometimes original stacktrace is redundant: -->
     <!-- rule ref="category/java/bestpractices.xml/PreserveStackTrace"/ -->
+
     <rule ref="category/java/bestpractices.xml/PrimitiveWrapperInstantiation"/>
     <rule ref="category/java/bestpractices.xml/ReplaceEnumerationWithIterator"/>
     <rule ref="category/java/bestpractices.xml/ReplaceHashtableWithMap"/>
@@ -109,6 +126,7 @@
     <rule ref="category/java/bestpractices.xml/SimplifiableTestAssertion"/>
     <rule ref="category/java/bestpractices.xml/SwitchStmtsShouldHaveDefault"/>
     <rule ref="category/java/bestpractices.xml/SystemPrintln"/>
+
     <!-- This rule works incorrectly, because does not ignore the overridden methods! -->
     <!-- rule ref="category/java/bestpractices.xml/UnusedAssignment">
         <properties>
@@ -116,6 +134,7 @@
             <property name="reportUnusedVariables" value="false" />
         </properties>
     </rule -->
+
     <rule ref="category/java/bestpractices.xml/UnusedFormalParameter">
         <properties>
             <property name="checkAll" value="false"/>

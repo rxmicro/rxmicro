@@ -96,6 +96,12 @@ public @interface Base64URLEncoded {
         @ReadMore(caption = "What is Base64 Url Encoding?", link = "https://tools.ietf.org/html/rfc4648#section-5")
         URL;
 
+        /**
+         * Returns the read more link for the current alphabet.
+         *
+         * @return the read more link for the current alphabet.
+         * @throws ImpossibleException if @{@link ReadMore} annotation is missing. This exception should be never thrown!
+         */
         public ReadMore getReadMore() {
             try {
                 return getClass().getDeclaredField(name()).getAnnotation(ReadMore.class);

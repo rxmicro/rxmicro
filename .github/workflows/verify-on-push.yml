@@ -97,7 +97,7 @@ jobs:
         profile:
           - spotbugs
           - pmd
-          #- checkstyle
+          - checkstyle
           # 'release' profile verifies generated javadocs
           - release
       fail-fast: false

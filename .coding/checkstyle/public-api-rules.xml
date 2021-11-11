@@ -39,6 +39,15 @@
     </module>
 
     <module name="TreeWalker">
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_annotation.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <module name="MissingDeprecated">
+            <property name="violateExecutionOnNonTightHtml" value="false"/>
+        </module>
+        <module name="MissingOverride">
+            <property name="javaFiveCompatibility" value="false"/>
+        </module>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- https://checkstyle.sourceforge.io/config_design.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -123,10 +132,11 @@
                       value="ANNOTATION_DEF, ANNOTATION_FIELD_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF,
                              INTERFACE_DEF, METHOD_DEF, PACKAGE_DEF, VARIABLE_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
         </module>
-        <module name="JavadocTagContinuationIndentation">
+        <!-- Temporary deactivated, because this rule process html tag incorrectly! -->
+        <!-- module name="JavadocTagContinuationIndentation">
             <property name="violateExecutionOnNonTightHtml" value="false"/>
             <property name="offset" value="8"/>
-        </module>
+        </module -->
         <module name="JavadocType">
             <property name="scope" value="protected"/>
             <property name="excludeScope" value="private"/>

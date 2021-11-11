@@ -102,14 +102,30 @@ public @interface IP {
             this.version = version;
         }
 
+        /**
+         * Returns the JSON format value.
+         *
+         * @return the JSON format value.
+         */
         public String getJsonFormat() {
             return jsonFormat;
         }
 
+        /**
+         * Returns the version value.
+         *
+         * @return the version value.
+         */
         public int getVersion() {
             return version;
         }
 
+        /**
+         * Returns the read more link for the current IP address value.
+         *
+         * @return the read more link for the current IP address value.
+         * @throws ImpossibleException if @{@link ReadMore} annotation is missing. This exception should be never thrown!
+         */
         public ReadMore getReadMore() {
             try {
                 return getClass().getDeclaredField(name()).getAnnotation(ReadMore.class);

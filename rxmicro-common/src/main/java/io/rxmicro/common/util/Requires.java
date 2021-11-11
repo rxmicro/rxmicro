@@ -64,6 +64,7 @@ public final class Requires {
      * @param args the message template arguments
      * @param <T> the type of the reference
      * @return {@code obj} if not {@code null}
+     * @throws NullPointerException if the specified object is {@code null}
      * @see java.util.Objects#requireNonNull(Object, String)
      */
     public static <T> T require(final T instance,
@@ -89,6 +90,7 @@ public final class Requires {
      * @param suppliers the message template argument suppliers
      * @param <T> the type of the reference
      * @return {@code obj} if not {@code null}
+     * @throws NullPointerException if the specified object is {@code null}
      * @see java.util.Objects#requireNonNull(Object, String)
      */
     @SafeVarargs

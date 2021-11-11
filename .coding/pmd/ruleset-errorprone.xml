@@ -46,9 +46,14 @@
             <property name="checkReturnLoopTypes" value="for|do|while"/>
         </properties>
     </rule>
-    <rule ref="category/java/errorprone.xml/AvoidCallingFinalize"/>
-    <rule ref="category/java/errorprone.xml/AvoidCatchingNPE"/>
-    <rule ref="category/java/errorprone.xml/AvoidCatchingThrowable"/>
+
+    <!-- Validated by checkstyle.NoFinalizer -->
+    <!-- rule ref="category/java/errorprone.xml/AvoidCallingFinalize"/ -->
+
+    <!-- Validated by checkstyle.IllegalCatch -->
+    <!-- rule ref="category/java/errorprone.xml/AvoidCatchingNPE"/>
+    <rule ref="category/java/errorprone.xml/AvoidCatchingThrowable"/ -->
+
     <rule ref="category/java/errorprone.xml/AvoidDecimalLiteralsInBigDecimalConstructor"/>
     <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals">
         <properties>
@@ -63,8 +68,10 @@
     <rule ref="category/java/errorprone.xml/AvoidFieldNameMatchingMethodName"/>
     <rule ref="category/java/errorprone.xml/AvoidFieldNameMatchingTypeName"/>
     <rule ref="category/java/errorprone.xml/AvoidInstanceofChecksInCatchClause"/>
-    <!-- Validated by checkstyle: -->
+
+    <!-- Validated by checkstyle.MagicNumber -->
     <!-- rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition"/ -->
+
     <rule ref="category/java/errorprone.xml/AvoidLosingExceptionInformation"/>
     <rule ref="category/java/errorprone.xml/AvoidMultipleUnaryOperators"/>
     <rule ref="category/java/errorprone.xml/AvoidUsingOctalValues">
@@ -72,6 +79,7 @@
             <property name="strict" value="true"/>
         </properties>
     </rule>
+
     <!-- PMD tool detects java bean incorrectly!-->
     <!-- rule ref="category/java/errorprone.xml/BeanMembersShouldSerialize">
         <properties>
@@ -79,10 +87,13 @@
             <property name="prefix" value=""/>
         </properties>
     </rule -->
+
     <rule ref="category/java/errorprone.xml/BrokenNullCheck"/>
+
     <!-- Android specific rules: -->
     <!-- rule ref="category/java/errorprone.xml/CallSuperFirst"/>
     <rule ref="category/java/errorprone.xml/CallSuperLast"/ -->
+
     <rule ref="category/java/errorprone.xml/CheckSkipResult"/>
     <rule ref="category/java/errorprone.xml/ClassCastExceptionWithToArray"/>
     <rule ref="category/java/errorprone.xml/CloneMethodMustBePublic"/>
@@ -110,19 +121,26 @@
     <rule ref="category/java/errorprone.xml/DetachedTestCase"/>
     <rule ref="category/java/errorprone.xml/DoNotCallGarbageCollectionExplicitly"/>
     <rule ref="category/java/errorprone.xml/DoNotExtendJavaLangThrowable"/>
+
     <!-- Android specific rule: -->
     <!-- rule ref="category/java/errorprone.xml/DoNotHardCodeSDCard"/ -->
+
     <rule ref="category/java/errorprone.xml/DoNotTerminateVM"/>
     <rule ref="category/java/errorprone.xml/DoNotThrowExceptionInFinally"/>
     <rule ref="category/java/errorprone.xml/DontImportSun"/>
     <rule ref="category/java/errorprone.xml/DontUseFloatTypeForLoopIndices"/>
-    <rule ref="category/java/errorprone.xml/EmptyCatchBlock">
+
+    <!-- Validated by checkstyle.EmptyCatchBlock -->
+    <!--rule ref="category/java/errorprone.xml/EmptyCatchBlock">
         <properties>
             <property name="allowCommentedBlocks" value="true"/>
             <property name="allowExceptionNameRegex" value="^(ignored|expected)$"/>
         </properties>
-    </rule>
-    <rule ref="category/java/errorprone.xml/EmptyFinalizer"/>
+    </rule-->
+
+    <!-- Conflicts with checkstyle.NoFinalizer -->
+    <!-- rule ref="category/java/errorprone.xml/EmptyFinalizer"/ -->
+
     <rule ref="category/java/errorprone.xml/EmptyFinallyBlock"/>
     <rule ref="category/java/errorprone.xml/EmptyIfStmt"/>
     <rule ref="category/java/errorprone.xml/EmptyInitializer"/>
@@ -133,19 +151,26 @@
     <rule ref="category/java/errorprone.xml/EmptyTryBlock"/>
     <rule ref="category/java/errorprone.xml/EmptyWhileStmt"/>
     <rule ref="category/java/errorprone.xml/EqualsNull"/>
-    <rule ref="category/java/errorprone.xml/FinalizeDoesNotCallSuperFinalize"/>
+
+    <!-- Conflicts with checkstyle.NoFinalizer -->
+    <!-- rule ref="category/java/errorprone.xml/FinalizeDoesNotCallSuperFinalize"/>
     <rule ref="category/java/errorprone.xml/FinalizeOnlyCallsSuperFinalize"/>
     <rule ref="category/java/errorprone.xml/FinalizeOverloaded"/>
-    <rule ref="category/java/errorprone.xml/FinalizeShouldBeProtected"/>
+    <rule ref="category/java/errorprone.xml/FinalizeShouldBeProtected"/ -->
+
     <rule ref="category/java/errorprone.xml/IdempotentOperations"/>
     <rule ref="category/java/errorprone.xml/ImplicitSwitchFallThrough"/>
     <rule ref="category/java/errorprone.xml/InstantiationToGetClass"/>
+
     <!-- The RxMicro framework does not use slf4j or log4j2 libs: -->
     <!-- rule ref="category/java/errorprone.xml/InvalidLogMessageFormat"/ -->
+
     <rule ref="category/java/errorprone.xml/JumbledIncrementer"/>
+
     <!-- The RxMicro framework does not use JUnit3 or JUnit4:-->
     <!-- rule ref="category/java/errorprone.xml/JUnitSpelling"/ -->
     <!-- rule ref="category/java/errorprone.xml/JUnitStaticSuite"/ -->
+
     <rule ref="category/java/errorprone.xml/MethodWithSameNameAsEnclosingClass"/>
     <rule ref="category/java/errorprone.xml/MisplacedNullCheck"/>
     <rule ref="category/java/errorprone.xml/MissingSerialVersionUID"/>
@@ -155,12 +180,16 @@
                       value="org.springframework.beans.factory.annotation.Autowired,javax.inject.Inject"/>
         </properties>
     </rule>
+
     <!-- The RxMicro framework introduces its own logger:-->
     <!-- rule ref="category/java/errorprone.xml/MoreThanOneLogger"/ -->
+
     <rule ref="category/java/errorprone.xml/NonCaseLabelInSwitchStatement"/>
     <rule ref="category/java/errorprone.xml/NonStaticInitializer"/>
+
     <!-- Unfortunately this rule detects the useful operations: init final fields, etc: -->
     <!-- rule ref="category/java/errorprone.xml/NullAssignment"/ -->
+
     <rule ref="category/java/errorprone.xml/OverrideBothEqualsAndHashcode"/>
     <rule ref="category/java/errorprone.xml/ProperCloneImplementation"/>
     <rule ref="category/java/errorprone.xml/ProperLogger">
@@ -175,8 +204,10 @@
     <rule ref="category/java/errorprone.xml/SimpleDateFormatNeedsLocale"/>
     <rule ref="category/java/errorprone.xml/SingleMethodSingleton"/>
     <rule ref="category/java/errorprone.xml/SingletonClassReturningNewInstance"/>
+
     <!-- EJB specific rule: -->
     <!-- rule ref="category/java/errorprone.xml/StaticEJBFieldShouldBeFinal"/ -->
+
     <rule ref="category/java/errorprone.xml/StringBufferInstantiationWithChar"/>
     <rule ref="category/java/errorprone.xml/SuspiciousEqualsMethodName"/>
     <rule ref="category/java/errorprone.xml/SuspiciousHashcodeMethodName"/>
@@ -191,6 +222,8 @@
     <rule ref="category/java/errorprone.xml/UseEqualsToCompareStrings"/>
     <rule ref="category/java/errorprone.xml/UselessOperationOnImmutable"/>
     <rule ref="category/java/errorprone.xml/UseLocaleWithCaseConversions"/>
+
     <!-- JEE specific rule: -->
     <!-- rule ref="category/java/errorprone.xml/UseProperClassLoader"/ -->
+
 </ruleset>

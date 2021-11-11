@@ -36,10 +36,10 @@ public interface NettyClientConfiguratorBuilder {
      * @param value  option value
      * @param <T>    option type
      * @return the reference to this {@link NettyClientConfiguratorBuilder} instance
-     * @see ChannelOption
-     * @see java.util.Map
      * @throws NullPointerException if {@code option} or {@code value} is {@code null}
      * @throws IllegalStateException if Netty configurator already built
+     * @see ChannelOption
+     * @see java.util.Map
      */
     @BuilderMethod
     <T> NettyClientConfiguratorBuilder setClientOption(ChannelOption<T> option,
