@@ -27,10 +27,12 @@ public final class PredefinedUrls {
     /**
      * The predefined URL path for http health check
      */
-    public static final String HTTP_HEALTH_CHECK_ENDPOINT = "/http-health-check";
+    public static final String HTTP_HEALTH_CHECK_ENDPOINT = "/";
 
     /**
      * All supported health check urls.
+     *
+     * FIXME: This set must be configured at compile time with all @EnableHttpHealthCheck.value()s
      */
     public static final Set<String> HEALTH_CHECK_URLS = Set.of(HTTP_HEALTH_CHECK_ENDPOINT);
 

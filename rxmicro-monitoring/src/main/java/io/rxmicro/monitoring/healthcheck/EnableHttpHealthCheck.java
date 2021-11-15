@@ -44,9 +44,14 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface EnableHttpHealthCheck {
 
     /**
-     * The predefined URL path.
+     * Returns the endpoint absolute url path that must be used to send a verification HTTP request.
+     *
+     * <p>
+     * By default, the {@value PredefinedUrls#HTTP_HEALTH_CHECK_ENDPOINT} absolute url path is used!
+     *
+     * @return the endpoint absolute url path that must be used to send a verification HTTP request.
      */
-    String HTTP_HEALTH_CHECK_ENDPOINT = PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
+    String value() default PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
 
     /**
      * Returns the HTTP method that must be used to send a verification HTTP request.

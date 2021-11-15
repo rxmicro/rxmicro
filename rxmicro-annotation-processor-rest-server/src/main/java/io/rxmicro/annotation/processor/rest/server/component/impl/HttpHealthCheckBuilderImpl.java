@@ -27,8 +27,6 @@ import io.rxmicro.monitoring.healthcheck.EnableHttpHealthCheck;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static io.rxmicro.monitoring.healthcheck.EnableHttpHealthCheck.HTTP_HEALTH_CHECK_ENDPOINT;
-
 /**
  * @author nedis
  * @since 0.1
@@ -43,7 +41,7 @@ public final class HttpHealthCheckBuilderImpl implements HttpHealthCheckBuilder 
         final EnableHttpHealthCheck enableHttpHealthCheckOnModule =
                 environmentContext.getCurrentModule().getAnnotation(EnableHttpHealthCheck.class);
         if (enableHttpHealthCheckOnModule != null) {
-            set.add(new HttpHealthCheck(enableHttpHealthCheckOnModule.method(), HTTP_HEALTH_CHECK_ENDPOINT));
+            set.add(new HttpHealthCheck(enableHttpHealthCheckOnModule.method(), enableHttpHealthCheckOnModule.value()));
         }
         for (final RestControllerClassStructure restControllerClassStructure : restControllerClassStructures) {
             final EnableHttpHealthCheck enableHttpHealthCheck =
@@ -56,7 +54,7 @@ public final class HttpHealthCheckBuilderImpl implements HttpHealthCheckBuilder 
                             EnableHttpHealthCheck.class.getName()
                     );
                 }
-                set.add(new HttpHealthCheck(enableHttpHealthCheck.method(), HTTP_HEALTH_CHECK_ENDPOINT));
+                set.add(new HttpHealthCheck(enableHttpHealthCheck.method(), enableHttpHealthCheck.value()));
             }
         }
         return set;
