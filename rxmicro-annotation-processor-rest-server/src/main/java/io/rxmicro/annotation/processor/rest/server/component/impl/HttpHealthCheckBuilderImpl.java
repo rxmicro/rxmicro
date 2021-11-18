@@ -41,7 +41,9 @@ public final class HttpHealthCheckBuilderImpl implements HttpHealthCheckBuilder 
         final EnableHttpHealthCheck enableHttpHealthCheckOnModule =
                 environmentContext.getCurrentModule().getAnnotation(EnableHttpHealthCheck.class);
         if (enableHttpHealthCheckOnModule != null) {
-            set.add(new HttpHealthCheck(enableHttpHealthCheckOnModule.method(), enableHttpHealthCheckOnModule.value()));
+            for (final String urlPath : enableHttpHealthCheckOnModule.value()) {
+                set.add(new HttpHealthCheck(enableHttpHealthCheckOnModule.method(), urlPath));
+            }
         }
         for (final RestControllerClassStructure restControllerClassStructure : restControllerClassStructures) {
             final EnableHttpHealthCheck enableHttpHealthCheck =
@@ -54,7 +56,9 @@ public final class HttpHealthCheckBuilderImpl implements HttpHealthCheckBuilder 
                             EnableHttpHealthCheck.class.getName()
                     );
                 }
-                set.add(new HttpHealthCheck(enableHttpHealthCheck.method(), enableHttpHealthCheck.value()));
+                for (final String urlPath : enableHttpHealthCheck.value()) {
+                    set.add(new HttpHealthCheck(enableHttpHealthCheck.method(), urlPath));
+                }
             }
         }
         return set;
