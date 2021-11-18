@@ -89,13 +89,13 @@ public @interface Select {
     Class<?> entityClass() default Void.class;
 
     /**
-     * It is not recommend to set this parameter to {@code false}.
+     * It is not recommend setting this parameter to {@code false}.
      *
      * <p>
      * If this parameter set to {@code false}, the RxMicro framework will not validate fields order during {@code SELECT} query.
      *
      * @return {@code true} if sql query <code>'SELECT * FROM table1'</code> must be converted
-     *         to <code>'SELECT ${fields} FROM table1'</code> automatically
+     *         to <code>'SELECT ${all-columns} FROM table1'</code> automatically
      */
     boolean expandAsterisk() default true;
 }
