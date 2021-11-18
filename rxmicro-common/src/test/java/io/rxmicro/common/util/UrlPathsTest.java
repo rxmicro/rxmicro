@@ -84,10 +84,38 @@ final class UrlPathsTest {
             "//category/type",
             "///category//type",
             "/////category////type",
-            "///////////category/////////////////////////type"
+            "///////////category/////////////////////////type",
+            "//category/type/",
+            "///category//type//",
+            "/////category////type////",
+            "///////////category/////////////////////////type////////////////////////"
     })
     @Order(5)
     void Should_remove_redundant_splashes(final String path) {
         assertEquals("/category/type", normalizeUrlPath(path));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "/category?name=value",
+            "/category/?name=value",
+            "/category////?name=value",
+            "/category//////?name=value"
+    })
+    @Order(4)
+    void Should_remove_splash_before_query_param_delimiter(final String path) {
+        assertEquals("/category?name=value", normalizeUrlPath(path));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "/?name=value",
+            "//?name=value",
+            "/////?name=value",
+            "///////?name=value"
+    })
+    @Order(4)
+    void Should_save_splash_if_query_param_delimiter_is_the_second_value(final String path) {
+        assertEquals("/?name=value", normalizeUrlPath(path));
     }
 }

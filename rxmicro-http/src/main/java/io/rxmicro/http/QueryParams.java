@@ -336,7 +336,7 @@ public interface QueryParams {
     /**
      * Joins the URL path and HTTP query parameters.
      *
-     * @param path the URL path
+     * @param path the URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the query parameters
      * @return the URL path with joined query parameters
      */

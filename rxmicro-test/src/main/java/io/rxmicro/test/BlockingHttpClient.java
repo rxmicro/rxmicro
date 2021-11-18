@@ -72,7 +72,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code GET} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -87,7 +87,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code GET} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
@@ -100,7 +100,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code GET} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -117,7 +117,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code GET} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -134,7 +134,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code HEAD} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -149,7 +149,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code HEAD} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
@@ -162,7 +162,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code HEAD} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -179,7 +179,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code HEAD} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -196,7 +196,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code DELETE} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -211,7 +211,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code DELETE} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
@@ -224,7 +224,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code DELETE} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -241,7 +241,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code DELETE} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -258,7 +258,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code OPTIONS} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -273,7 +273,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code OPTIONS} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
@@ -286,7 +286,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code OPTIONS} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -303,7 +303,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code OPTIONS} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -320,7 +320,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -335,7 +335,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
@@ -348,7 +348,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -365,7 +365,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -380,7 +380,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -397,7 +397,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -414,7 +414,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -429,7 +429,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
@@ -442,7 +442,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -459,7 +459,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -474,7 +474,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -491,7 +491,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -508,7 +508,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -523,7 +523,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
@@ -536,7 +536,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -553,7 +553,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -568,7 +568,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -585,7 +585,7 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -603,7 +603,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
@@ -618,7 +618,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
@@ -633,7 +633,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -650,7 +650,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
-     * @param path the relative URL path
+     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}

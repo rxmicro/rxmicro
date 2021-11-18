@@ -135,11 +135,15 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
     }
 
     private String getValidPath(final String path) {
-        final String normalizeUrlPath = normalizeUrlPath(nonNull(path, "path"));
-        if (baseUrlPath != null && !normalizeUrlPath.startsWith(baseUrlPath)) {
-            return baseUrlPath + normalizeUrlPath;
+        final String validPath = path == null ? "/" : path;
+        if (baseUrlPath != null) {
+            if (startsWith(validPath, '/')) {
+                return normalizeUrlPath(baseUrlPath + validPath);
+            } else {
+                return normalizeUrlPath(baseUrlPath + '/' + validPath);
+            }
         } else {
-            return normalizeUrlPath;
+            return normalizeUrlPath(path);
         }
     }
 

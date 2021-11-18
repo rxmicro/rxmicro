@@ -35,9 +35,9 @@ public final class QueryParamUtils {
         if (parameters == null || parameters.isEmpty()) {
             return path;
         } else {
-            char delimiter = path.contains("?") ? '&' : '?';
+            char delimiter = path != null && path.contains("?") ? '&' : '?';
             final StringBuilder stringBuilder = new StringBuilder(DEFAULT_PATH_BUILDER_CAPACITY)
-                    .append(path);
+                    .append(path != null ? path : "/");
             for (final Map.Entry<String, String> entry : parameters) {
                 stringBuilder.append(delimiter)
                         .append(entry.getKey()).append('=').append(encode(entry.getValue(), UTF_8));

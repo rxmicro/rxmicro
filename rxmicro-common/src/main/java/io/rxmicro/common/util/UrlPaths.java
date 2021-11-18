@@ -37,6 +37,7 @@ public final class UrlPaths {
      *     <li>Removes last character if it is {@code /}</li>
      *     <li>Removes duplicates of path separator, (i.e. replaces {@code //} by {@code /})</li>
      *     <li>Removes invalid characters: {@value #TO_REMOVE_CHARACTERS}</li>
+     *     <li>Removes {@code /} before {@code ?} charcter</li>
      * </ul>
      *
      * @param path the URL path to normalize
@@ -53,11 +54,18 @@ public final class UrlPaths {
             final char ch = path.charAt(i);
             if (TO_REMOVE_CHARACTERS.indexOf(ch) == -1) {
                 if (ch == '/') {
-                    if (pathBuilder.length() == 0) {
+                    final int length = pathBuilder.length();
+                    if (length == 0) {
                         pathBuilder.append('/');
-                    } else if (pathBuilder.charAt(pathBuilder.length() - 1) != '/') {
+                    } else if (pathBuilder.charAt(length - 1) != '/') {
                         pathBuilder.append('/');
                     }
+                } else if (ch == '?') {
+                    final int lastIndex = pathBuilder.length() - 1;
+                    if (lastIndex > 0 && pathBuilder.charAt(lastIndex) == '/') {
+                        pathBuilder.deleteCharAt(lastIndex);
+                    }
+                    pathBuilder.append('?');
                 } else {
                     pathBuilder.append(ch);
                 }
