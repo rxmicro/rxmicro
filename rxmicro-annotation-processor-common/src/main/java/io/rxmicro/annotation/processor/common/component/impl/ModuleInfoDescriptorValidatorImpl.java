@@ -92,7 +92,7 @@ public final class ModuleInfoDescriptorValidatorImpl extends BaseProcessorCompon
             final Map<String, List<String>> missingExports = getMissingExports(moduleElement, packageElements);
             if (!missingExports.isEmpty()) {
                 throw new InterruptProcessingException(
-                        "https://docs.rxmicro.io/latest/user-guide/core.html#user_defined_configurations",
+                        "https://docs.rxmicro.io/latest/user-guide/core.html#core-config-user-defined-config",
                         moduleElement,
                         "For custom config classes it is necessary to add 'exports' directive to the 'module-info.java'. " +
                                 "The following export directive(s) is(are) missing: {?}.",
