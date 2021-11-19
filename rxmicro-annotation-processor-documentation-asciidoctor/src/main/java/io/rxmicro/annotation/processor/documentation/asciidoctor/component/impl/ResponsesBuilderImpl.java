@@ -49,6 +49,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
@@ -64,6 +65,7 @@ import static io.rxmicro.json.JsonTypes.STRING;
 import static io.rxmicro.rest.model.HttpModelType.HEADER;
 import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static java.util.Map.entry;
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 /**
  * @author nedis
@@ -191,9 +193,13 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
             );
             // Add Request-Id header if not defined!
             if (headers.stream().noneMatch(f -> f.getName().equalsIgnoreCase(REQUEST_ID))) {
-                headers.add(0, buildRequestIdHeaderDocumentedModelField(true));
+                return Stream.concat(
+                        Stream.of(buildRequestIdHeaderDocumentedModelField(true)),
+                        headers.stream()
+                ).collect(toUnmodifiableList());
+            } else {
+                return headers;
             }
-            return headers;
         } else {
             return documentedModelFieldBuilder.buildSimple(
                     environmentContext,

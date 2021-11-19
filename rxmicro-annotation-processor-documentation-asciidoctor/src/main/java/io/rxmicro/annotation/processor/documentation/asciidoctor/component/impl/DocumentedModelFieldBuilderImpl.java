@@ -88,7 +88,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                     environmentContext, withStandardDescriptions, projectDirectory, "Body", list, restObjectModelClass, withReadMore
             );
             list.add(0, list.remove(list.size() - 1));
-            return list;
+            return List.copyOf(list);
         } else {
             throw new InternalErrorException("Unsupported documented HttpModelType: ?", httpModelType);
         }

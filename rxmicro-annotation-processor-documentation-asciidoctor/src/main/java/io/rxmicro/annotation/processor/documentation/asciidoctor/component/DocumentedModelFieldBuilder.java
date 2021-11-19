@@ -17,7 +17,6 @@
 package io.rxmicro.annotation.processor.documentation.asciidoctor.component;
 
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.DocumentedModelField;
 import io.rxmicro.annotation.processor.documentation.model.ReadMoreModel;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
@@ -26,6 +25,7 @@ import io.rxmicro.rest.model.HttpModelType;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMore;
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.OPTIONAL_RESTRICTION;
@@ -70,10 +70,6 @@ public interface DocumentedModelFieldBuilder {
                 httpModelType,
                 withReadMore
         );
-        if (list.size() == 1) {
-            return list.get(0).getValue();
-        } else {
-            throw new InternalErrorException("Invalid DocumentedModelField map size: ?", list.size());
-        }
+        return list.stream().flatMap(entry -> entry.getValue().stream()).collect(Collectors.toUnmodifiableList());
     }
 }

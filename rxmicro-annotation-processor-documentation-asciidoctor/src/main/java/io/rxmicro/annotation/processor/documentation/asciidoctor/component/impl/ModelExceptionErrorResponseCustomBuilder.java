@@ -29,10 +29,12 @@ import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.rest.model.HttpModelType;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildRequestIdHeaderDocumentedModelField;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static java.util.Map.entry;
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 /**
  * @author nedis
@@ -61,9 +63,15 @@ public final class ModelExceptionErrorResponseCustomBuilder extends BaseProcesso
             // Add Request-Id header if not defined!
             if (resourceDefinition.withRequestIdResponseHeader() &&
                     headers.stream().noneMatch(f -> f.getName().equalsIgnoreCase(REQUEST_ID))) {
-                headers.add(0, buildRequestIdHeaderDocumentedModelField(true));
+                responseBuilder.setHeaders(
+                        Stream.concat(
+                                Stream.of(buildRequestIdHeaderDocumentedModelField(true)),
+                                headers.stream()
+                        ).collect(toUnmodifiableList())
+                );
+            } else {
+                responseBuilder.setHeaders(headers);
             }
-            responseBuilder.setHeaders(headers);
         }
     }
 
