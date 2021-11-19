@@ -126,9 +126,10 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
                                    final String path,
                                    final HttpHeaders headers,
                                    final Object body) {
-        validateThatPathNotContainsQueryParams(path);
+        final String validPath = getValidPath(path);
+        validateThatPathNotContainsQueryParams(validPath);
         final byte[] requestBody = requestBodyConverter.apply(nonNull(body, "body"));
-        final HttpRequest request = newRequestBuilder(getValidPath(path), nonNull(headers, "headers").getEntries(), true)
+        final HttpRequest request = newRequestBuilder(validPath, nonNull(headers, "headers").getEntries(), true)
                 .method(nonNull(method, "method"), HttpRequest.BodyPublishers.ofByteArray(requestBody))
                 .build();
         return sendRequest(request);
@@ -195,7 +196,7 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
     }
 
     private void validateThatPathNotContainsQueryParams(final String path) {
-        if (nonNull(path, "path").indexOf('?') != -1) {
+        if (path.indexOf('?') != -1) {
             throw new IllegalArgumentException("Query params not supported here. Use HTTP body instead!");
         }
     }
