@@ -21,6 +21,7 @@ import io.rxmicro.test.json.internal.JsonConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -416,7 +417,7 @@ public final class JsonFactory {
      * @param items JSON array items
      * @return the short-lived unmodified {@link List} that represents the JSON array with the provided items
      */
-    public static List<Object> jsonArray(final List<Object> items) {
+    public static List<Object> jsonArray(final Collection<Object> items) {
         return unmodifiableList(
                 items.stream()
                         .map(JsonConverter::convertIfNecessary)

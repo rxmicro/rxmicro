@@ -18,12 +18,15 @@ package io.rxmicro.test.json.internal;
 
 import io.rxmicro.json.JsonNumber;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.rxmicro.common.util.ExCollections.isUnmodifiableList;
-import static io.rxmicro.common.util.ExCollections.isUnmodifiableMap;
+import static io.rxmicro.common.util.ExCollections.unmodifiableList;
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -32,95 +35,72 @@ import static io.rxmicro.common.util.Formats.format;
  */
 public final class JsonConverter {
 
+    @SuppressWarnings("unchecked")
     public static Object convertIfNecessary(final Object value) {
         if (value == null) {
             return null;
         } else if (value instanceof Map) {
-            return getJsonObject(value);
+            return convertJsonObject((Map<String, ?>) value);
         } else if (value instanceof Iterable) {
-            return getJsonArray(value);
+            return convertJsonArray((Iterable<?>) value);
         } else if (value.getClass().isArray()) {
-            throw new IllegalArgumentException(
-                    "Java array is not valid json object value! Use jsonArray() factory method instead!"
-            );
+            return convertJsonArray(value);
         } else {
-            return getJsonPrimitive(value);
+            return convertJsonPrimitive(value);
         }
     }
 
-    private static Object getJsonPrimitive(final Object value) {
-        if (value instanceof Enum<?>) {
-            return ((Enum<?>) value).name();
+    private static Map<String, Object> convertJsonObject(final Map<String, ?> map) {
+        final Map<String, Object> result = new LinkedHashMap<>();
+        for (final Map.Entry<String, ?> entry : map.entrySet()) {
+            result.put(entry.getKey(), convertIfNecessary(entry.getValue()));
+        }
+        return unmodifiableOrderedMap(result);
+    }
+
+    private static List<Object> convertJsonArray(final Object array) {
+        final List<Object> result = new ArrayList<>();
+        final int length = Array.getLength(array);
+        for (int i = 0; i < length; i++) {
+            result.add(convertIfNecessary(Array.get(array, i)));
+        }
+        return unmodifiableList(result);
+    }
+
+    private static List<Object> convertJsonArray(final Iterable<?> iterable) {
+        final List<Object> result = new ArrayList<>();
+        for (final Object item : iterable) {
+            result.add(convertIfNecessary(item));
+        }
+        return unmodifiableList(result);
+    }
+
+    private static Object convertJsonPrimitive(final Object value) {
+        if (value == null) {
+            return null;
+        } else if (value instanceof Enum<?>) {
+            return value.toString();
         } else if (value instanceof Boolean) {
             return value;
         } else if (value instanceof JsonNumber) {
             return value;
         } else if (value instanceof Number) {
-            return getJsonNumber(value);
-        } else {
+            return convertJavaNumber((Number) value);
+        } else if (value instanceof CharSequence) {
             return value.toString();
+        } else {
+            throw new IllegalArgumentException(
+                    format("Can't convert '?' value of '?' class to json primitive!", value, value.getClass().getName())
+            );
         }
     }
 
-    private static Object getJsonNumber(final Object value) {
+    private static Object convertJavaNumber(final Number value) {
         if (value instanceof BigDecimal) {
             return new JsonNumber(((BigDecimal) value).toPlainString());
         } else {
             return new JsonNumber(value.toString());
         }
-    }
-
-    private static Object getJsonObject(final Object value) {
-        if (isUnmodifiableMap(value)) {
-            validateJsonObject((Map<?, ?>) value);
-            return value;
-        } else {
-            throw new IllegalArgumentException(
-                    "Map is not valid json object value! Use jsonObject() factory method instead!"
-            );
-        }
-    }
-
-    private static Object getJsonArray(final Object value) {
-        if (isUnmodifiableList(value)) {
-            validateJsonArray((List<?>) value);
-            return value;
-        } else {
-            throw new IllegalArgumentException(
-                    "Iterable is not valid json object value! Use jsonArray() factory method instead!"
-            );
-        }
-    }
-
-    private static void validateJsonArray(final List<?> value) {
-        for (final Object o : value) {
-            validateJsonItem(o);
-        }
-    }
-
-    private static void validateJsonObject(final Map<?, ?> map) {
-        for (final Map.Entry<?, ?> entry : map.entrySet()) {
-            validateJsonItem(entry.getValue());
-        }
-    }
-
-    private static void validateJsonItem(final Object object) {
-        if (object instanceof List) {
-            validateJsonArray((List<?>) object);
-        } else if (object instanceof Map) {
-            validateJsonObject((Map<?, ?>) object);
-        } else {
-            validatePrimitive(object);
-        }
-    }
-
-    private static void validatePrimitive(final Object object) {
-        if (object instanceof JsonNumber || object instanceof Boolean || object instanceof String || object == null) {
-            return;
-        }
-        throw new IllegalArgumentException(format(
-                "'?' class is not valid JSON primitive. Use jsonObject() or jsonArray() factory methods instead!",
-                object.getClass().getName()));
     }
 
     private JsonConverter() {
