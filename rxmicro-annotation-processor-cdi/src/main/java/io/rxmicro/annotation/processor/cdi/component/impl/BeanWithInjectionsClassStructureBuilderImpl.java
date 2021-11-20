@@ -28,6 +28,8 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
+import static javax.lang.model.element.Modifier.ABSTRACT;
+
 /**
  * @author nedis
  * @since 0.1
@@ -46,7 +48,8 @@ public final class BeanWithInjectionsClassStructureBuilderImpl
         for (final TypeElement annotation : annotations) {
             for (final Element element : roundEnv.getElementsAnnotatedWith(annotation)) {
                 final TypeElement ownerClass = getOwnerType(element);
-                if (environmentContext.isRxMicroClassShouldBeProcessed(ownerClass) &&
+                if (!ownerClass.getModifiers().contains(ABSTRACT) &&
+                        environmentContext.isRxMicroClassShouldBeProcessed(ownerClass) &&
                         processedTypes.add(ownerClass.asType().toString())) {
                     result.add(buildCDIBeanDefinitionClassStructure(ownerClass));
                 }
