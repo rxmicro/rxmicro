@@ -19,6 +19,7 @@ package io.rxmicro.validation.validator;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.constraint.Numeric;
 
 import java.math.BigDecimal;
 
@@ -35,16 +36,20 @@ public class NumericConstraintValidator implements ConstraintValidator<BigDecima
 
     private final int expectedScale;
 
+    private final Numeric.ValidationType validationType;
+
     /**
      * Creates the default instance of {@link NumericConstraintValidator} with the specified precision and scale.
-     *
-     * @param expectedPrecision the specified precision
+     *  @param expectedPrecision the specified precision
      * @param expectedScale the specified scale
+     * @param validationType the specified validation type
      */
     public NumericConstraintValidator(final int expectedPrecision,
-                                      final int expectedScale) {
+                                      final int expectedScale,
+                                      final Numeric.ValidationType validationType) {
         this.expectedPrecision = expectedPrecision;
         this.expectedScale = expectedScale;
+        this.validationType = validationType;
     }
 
     @Override
@@ -52,18 +57,70 @@ public class NumericConstraintValidator implements ConstraintValidator<BigDecima
                          final HttpModelType httpModelType,
                          final String modelName) {
         if (actual != null) {
-            if (expectedScale != -1 && expectedScale != actual.scale()) {
+            if (expectedScale != -1) {
+                validateScale(actual, httpModelType, modelName);
+            }
+            if (expectedPrecision != -1) {
+                validatePrecision(actual, httpModelType, modelName);
+            }
+        }
+    }
+
+    private void validateScale(final BigDecimal actual,
+                               final HttpModelType httpModelType,
+                               final String modelName) {
+        if (validationType == Numeric.ValidationType.EXACT) {
+            if (expectedScale != actual.scale()) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected scale = ?, but actual is ?!",
                         httpModelType, modelName, expectedScale, actual.scale()
                 );
             }
-            if (expectedPrecision != -1 && expectedPrecision != actual.precision()) {
+        } else if (validationType == Numeric.ValidationType.MIN_SUPPORTED) {
+            if (expectedScale > actual.scale()) {
+                throw new ValidationException(
+                        "Invalid ? \"?\": Min supported scale = ?, but actual is ?!",
+                        httpModelType, modelName, expectedScale, actual.scale()
+                );
+            }
+        } else if (validationType == Numeric.ValidationType.MAX_SUPPORTED) {
+            if (expectedScale < actual.scale()) {
+                throw new ValidationException(
+                        "Invalid ? \"?\": Max supported scale = ?, but actual is ?!",
+                        httpModelType, modelName, expectedScale, actual.scale()
+                );
+            }
+        } else {
+            throw new UnsupportedOperationException("Validation type is unsupported: " + validationType);
+        }
+    }
+
+    private void validatePrecision(final BigDecimal actual,
+                                   final HttpModelType httpModelType,
+                                   final String modelName) {
+        if (validationType == Numeric.ValidationType.EXACT) {
+            if (expectedPrecision != actual.precision()) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected precision = ?, but actual is ?!",
                         httpModelType, modelName, expectedPrecision, actual.precision()
                 );
             }
+        } else if (validationType == Numeric.ValidationType.MIN_SUPPORTED) {
+            if (expectedPrecision > actual.precision()) {
+                throw new ValidationException(
+                        "Invalid ? \"?\": Min supported precision = ?, but actual is ?!",
+                        httpModelType, modelName, expectedPrecision, actual.precision()
+                );
+            }
+        } else if (validationType == Numeric.ValidationType.MAX_SUPPORTED) {
+            if (expectedPrecision < actual.precision()) {
+                throw new ValidationException(
+                        "Invalid ? \"?\": Max supported precision = ?, but actual is ?!",
+                        httpModelType, modelName, expectedPrecision, actual.precision()
+                );
+            }
+        } else {
+            throw new UnsupportedOperationException("Validation type is unsupported: " + validationType);
         }
     }
 }

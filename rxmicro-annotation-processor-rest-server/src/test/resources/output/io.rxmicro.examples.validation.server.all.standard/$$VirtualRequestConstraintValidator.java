@@ -7,6 +7,7 @@ import io.rxmicro.validation.base.LocationAccuracy;
 import io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet;
 import io.rxmicro.validation.constraint.CountryCode.Format;
 import io.rxmicro.validation.constraint.IP.Version;
+import io.rxmicro.validation.constraint.Numeric.ValidationType;
 import io.rxmicro.validation.constraint.TruncatedTime.Truncated;
 import io.rxmicro.validation.validator.AssertFalseConstraintValidator;
 import io.rxmicro.validation.validator.AssertTrueConstraintValidator;
@@ -227,7 +228,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinBigDecimalNumberConstraintValidator("3.1", true);
 
     private final NumericConstraintValidator decimalParameterNumericNumericConstraintValidator =
-            new NumericConstraintValidator(2, 5);
+            new NumericConstraintValidator(2, 5, ValidationType.EXACT);
 
     private final EnumerationCharacterConstraintValidator charParameterEnumerationEnumerationCharacterConstraintValidator =
             new EnumerationCharacterConstraintValidator(List.of("y", "n"));
@@ -413,7 +414,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinSizeListConstraintValidator(2, true);
 
     private final NumericConstraintValidator decimalsNumericNumericConstraintValidator =
-            new NumericConstraintValidator(2, 5);
+            new NumericConstraintValidator(2, 5, ValidationType.EXACT);
 
     private final SizeListConstraintValidator decimalsSizeSizeListConstraintValidator =
             new SizeListConstraintValidator(12);
@@ -641,7 +642,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinSizeSetConstraintValidator(2, true);
 
     private final NumericConstraintValidator decimalSetNumericNumericConstraintValidator =
-            new NumericConstraintValidator(2, 5);
+            new NumericConstraintValidator(2, 5, ValidationType.EXACT);
 
     private final SizeSetConstraintValidator decimalSetSizeSizeSetConstraintValidator =
             new SizeSetConstraintValidator(12);
@@ -869,7 +870,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinSizeMapConstraintValidator(2, true);
 
     private final NumericConstraintValidator decimalMapNumericNumericConstraintValidator =
-            new NumericConstraintValidator(2, 5);
+            new NumericConstraintValidator(2, 5, ValidationType.EXACT);
 
     private final SizeMapConstraintValidator decimalMapSizeSizeMapConstraintValidator =
             new SizeMapConstraintValidator(12);

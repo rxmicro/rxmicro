@@ -48,7 +48,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 )
 @ConstraintParametersOrder({
         "precision",
-        "scale"
+        "scale",
+        "validationType"
 })
 public @interface Numeric {
 
@@ -77,4 +78,69 @@ public @interface Numeric {
      *          {@code -1} if validation of scale must be ignored
      */
     int scale();
+
+
+    /**
+     * Returns the validation type that must be activated for the given scale or precision value(s).
+     *
+     * @return the validation type that must be activated for the given scale or precision value(s).
+     * @see ValidationType#MIN_SUPPORTED
+     * @see ValidationType#MAX_SUPPORTED
+     * @see ValidationType#EXACT
+     */
+    ValidationType validationType() default ValidationType.EXACT;
+
+    /**
+     * Specifies the validation type for scale and(or) precision value(s).
+     *
+     * @author nedis
+     * @since 0.10
+     */
+    enum ValidationType {
+
+        /**
+         * Min supported value for numeric data.
+         *
+         * <p>
+         * For example: <code>@Numeric(scale = 2, validationType = MIN_SUPPORTED)</code>
+         * means that all the following values are valid:
+         * <code>0.01, 0.001, 0.0001, 0.00001, 0.000001, etc.</code>
+         *
+         * <p>
+         * For example: <code>@Numeric(scale = -1, precision = 2, validationType = MIN_SUPPORTED)</code>
+         * means that all the following values are valid:
+         * <code>10, 100, 1000, 10000, 100000 etc. or 0.01, 0.001, 0.0001, 0.00001, 0.000001, etc.</code>
+         */
+        MIN_SUPPORTED,
+
+        /**
+         * Max supported value for numeric data.
+         *
+         * <p>
+         * For example: <code>@Numeric(scale = 2, validationType = MAX_SUPPORTED)</code>
+         * means that all the following values are valid:
+         * <code>0.01, 0.1, 1</code>
+         *
+         * <p>
+         * For example: <code>@Numeric(scale = -1, precision = 2, validationType = MAX_SUPPORTED)</code>
+         * means that all the following values are valid:
+         * <code>0, 1, 10, 0.01, 0.1, 1</code>
+         */
+        MAX_SUPPORTED,
+
+        /**
+         * Exact value for numeric data.
+         *
+         * <p>
+         * For example: <code>@Numeric(scale = 2, validationType = EXACT)</code>
+         * means that the following value is valid only:
+         * <code>0.01</code>
+         *
+         * <p>
+         * For example: <code>@Numeric(scale = -1, precision = 2, validationType = EXACT)</code>
+         * means that the following value is valid only:
+         * <code>10, 0.01, 1.1</code>
+         */
+        EXACT
+    }
 }

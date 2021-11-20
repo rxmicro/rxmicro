@@ -28,7 +28,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * <p>
  * If a constraint validator depends on two or more parameters, then the constraint annotation must be annotated by the
- * {@link ConstraintParametersOrder} annotation, because the java reflection API does not allow to read method order.
+ * {@link ConstraintParametersOrder} annotation, because the java reflection API does not allow reading method order.
  *
  * @author nedis
  * @see io.rxmicro.validation.constraint.LatinAlphabetOnly

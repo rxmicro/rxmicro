@@ -124,10 +124,10 @@ public final class NumberPrimitiveConstraintReader extends ConstraintReader {
             (annotated, restrictions, readMores, descriptionBuilder) -> {
                 final Numeric numeric = annotated.getAnnotation(Numeric.class);
                 if (numeric != null && !numeric.off()) {
-                    if (numeric.precision() > -1) {
+                    if (numeric.precision() != -1) {
                         restrictions.add("precision: " + numeric.precision());
                     }
-                    if (numeric.scale() > -1) {
+                    if (numeric.scale() != -1) {
                         restrictions.add("scale: " + numeric.scale());
                     }
                     getReadMore(Numeric.class).ifPresent(readMores::add);

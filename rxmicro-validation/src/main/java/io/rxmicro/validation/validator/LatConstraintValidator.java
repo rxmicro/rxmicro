@@ -22,6 +22,8 @@ import io.rxmicro.validation.base.LocationAccuracy;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static io.rxmicro.validation.constraint.Numeric.ValidationType.EXACT;
+
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Lat} constraint.
  *
@@ -40,7 +42,7 @@ public final class LatConstraintValidator extends AbstractCompositionConstraintV
         super(List.of(
                 new MinBigDecimalNumberConstraintValidator("-90", true),
                 new MaxBigDecimalNumberConstraintValidator("90", true),
-                new NumericConstraintValidator(-1, locationAccuracy.getCoordinateScale())
+                new NumericConstraintValidator(-1, locationAccuracy.getCoordinateScale(), EXACT)
         ));
     }
 }
