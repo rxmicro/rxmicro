@@ -96,7 +96,7 @@ public final class NettyByteArrayRequestReader {
                 httpFragmentBuilder.buildRemoteClientSocket(ctx, request),
                 httpFragmentBuilder.buildRequestString(request),
                 request.getVersion().getText(),
-                httpFragmentBuilder.buildHeaders(request.isRequestIdGenerated(), request.getHeaders()),
+                httpFragmentBuilder.buildHeaders(request.getHeaders()),
                 httpFragmentBuilder.buildBody(request)
         );
     }

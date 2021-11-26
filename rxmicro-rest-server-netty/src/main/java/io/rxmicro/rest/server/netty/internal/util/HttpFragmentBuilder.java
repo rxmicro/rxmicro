@@ -27,7 +27,6 @@ import java.util.Optional;
 
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
@@ -74,10 +73,8 @@ public final class HttpFragmentBuilder {
         }
     }
 
-    public String buildHeaders(final boolean isRequestIdGenerated,
-                               final HttpHeaders headers) {
+    public String buildHeaders(final HttpHeaders headers) {
         return headers.getEntries().stream()
-                .filter(e -> isRequestIdGenerated && !REQUEST_ID.equals(e.getKey()))
                 .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                 .collect(joining(lineSeparator()));
     }

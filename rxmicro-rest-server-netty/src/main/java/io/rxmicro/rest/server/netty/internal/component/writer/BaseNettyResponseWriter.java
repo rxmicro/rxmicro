@@ -139,7 +139,7 @@ class BaseNettyResponseWriter {
                 startTime == null ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime)),
                 response.getHttpVersion(),
                 response.getStatus(),
-                httpFragmentBuilder.buildHeaders(false, response.getHeaders()),
+                httpFragmentBuilder.buildHeaders(response.getHeaders()),
                 httpFragmentBuilder.buildBody(response)
         );
     }
