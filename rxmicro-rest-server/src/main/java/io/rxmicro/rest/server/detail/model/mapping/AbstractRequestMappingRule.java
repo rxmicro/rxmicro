@@ -76,6 +76,6 @@ abstract class AbstractRequestMappingRule implements RequestMappingRule {
         if (httpBody) {
             stringBuilder.append("<with-body>");
         }
-        return stringBuilder.toString();
+        return stringBuilder.append('"').toString();
     }
 }
