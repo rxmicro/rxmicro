@@ -116,13 +116,16 @@ public final class ModuleInfoDescriptorValidatorImpl extends BaseProcessorCompon
                     final PackageElement packageElement = iterator.next();
                     final String packageName = packageElement.getQualifiedName().toString();
                     if (exportsDirective.getPackage().getQualifiedName().toString().equals(packageName)) {
-                        final List<String> exportTargets = new ArrayList<>(requiredExportTargets);
-                        for (final ModuleElement targetModule : exportsDirective.getTargetModules()) {
-                            final String targetModuleName = targetModule.getQualifiedName().toString();
-                            exportTargets.remove(targetModuleName);
-                        }
-                        if (!exportTargets.isEmpty()) {
-                            missingExports.put(packageName, exportTargets);
+                        final List<? extends ModuleElement> targetModules = exportsDirective.getTargetModules();
+                        if (targetModules != null) {
+                            final List<String> exportTargets = new ArrayList<>(requiredExportTargets);
+                            for (final ModuleElement targetModule : targetModules) {
+                                final String targetModuleName = targetModule.getQualifiedName().toString();
+                                exportTargets.remove(targetModuleName);
+                            }
+                            if (!exportTargets.isEmpty()) {
+                                missingExports.put(packageName, exportTargets);
+                            }
                         }
                         iterator.remove();
                     }
