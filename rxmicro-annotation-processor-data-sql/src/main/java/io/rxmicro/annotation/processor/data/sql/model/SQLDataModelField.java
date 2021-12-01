@@ -161,8 +161,8 @@ public class SQLDataModelField extends DataModelField {
     }
 
     @UsedByFreemarker("$$SQLEntityToSQLDBConverterTemplate.javaftl")
-    public int getLength() {
-        return length;
+    public String getLength() {
+        return String.valueOf(length);
     }
 
     @UsedByFreemarker("$$SQLEntityToSQLDBConverterTemplate.javaftl")
