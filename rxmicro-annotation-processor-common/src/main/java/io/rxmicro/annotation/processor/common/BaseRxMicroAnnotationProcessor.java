@@ -36,6 +36,7 @@ import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorTy
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getMessager;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
+import static io.rxmicro.common.CommonConstants.RX_MICRO_ANNOTATION_PROCESSOR_RUNTIME;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.logger.LoggerImplProviderFactory.isLoggerFactoryInitialized;
@@ -63,26 +64,31 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
     public final boolean process(final EnvironmentContextBuilder environmentContextBuilder,
                                  final Set<? extends TypeElement> annotations,
                                  final RoundEnvironment roundEnv) {
-        if (!isLoggerFactoryInitialized()) {
-            setLoggerImplFactory(new LazyJULLoggerImplProvider());
-        }
-        final Optional<ModuleElement> moduleElementOptional = getCurrentModule(annotations, roundEnv);
-        if (moduleElementOptional.isPresent()) {
-            final ModuleElement currentModule = moduleElementOptional.get();
-            if (currentModule.isUnnamed() && moduleClassStructuresBuilder.isUnnamedModuleDisabled()) {
+        System.setProperty(RX_MICRO_ANNOTATION_PROCESSOR_RUNTIME, "true");
+        try {
+            if (!isLoggerFactoryInitialized()) {
+                setLoggerImplFactory(new LazyJULLoggerImplProvider());
+            }
+            final Optional<ModuleElement> moduleElementOptional = getCurrentModule(annotations, roundEnv);
+            if (moduleElementOptional.isPresent()) {
+                final ModuleElement currentModule = moduleElementOptional.get();
+                if (currentModule.isUnnamed() && moduleClassStructuresBuilder.isUnnamedModuleDisabled()) {
+                    displayModuleError();
+                    return false;
+                } else {
+                    final EnvironmentContext environmentContext =
+                            environmentContextBuilder.build(roundEnv, currentModule);
+                    final List<SourceCode> sourceCodes =
+                            moduleClassStructuresBuilder.buildSourceCode(environmentContext, annotations, roundEnv);
+                    generateClasses(sourceCodes);
+                    return true;
+                }
+            } else {
                 displayModuleError();
                 return false;
-            } else {
-                final EnvironmentContext environmentContext =
-                        environmentContextBuilder.build(roundEnv, currentModule);
-                final List<SourceCode> sourceCodes =
-                        moduleClassStructuresBuilder.buildSourceCode(environmentContext, annotations, roundEnv);
-                generateClasses(sourceCodes);
-                return true;
             }
-        } else {
-            displayModuleError();
-            return false;
+        } finally {
+            System.setProperty(RX_MICRO_ANNOTATION_PROCESSOR_RUNTIME, "false");
         }
     }
 

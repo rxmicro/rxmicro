@@ -18,6 +18,7 @@ package io.rxmicro.runtime.detail;
 
 import io.rxmicro.runtime.internal.RuntimeVersion;
 
+import static io.rxmicro.common.CommonConstants.RX_MICRO_ANNOTATION_PROCESSOR_RUNTIME;
 import static io.rxmicro.common.local.RxMicroEnvironment.isRuntimeStrictModeEnabled;
 import static io.rxmicro.logger.LoggerFactory.getLogger;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
@@ -35,7 +36,7 @@ public final class RxMicroRuntime {
 
     static {
         setRxMicroVersion();
-        if (isRuntimeStrictModeEnabled()) {
+        if (isRuntimeStrictModeEnabled() && !Boolean.getBoolean(RX_MICRO_ANNOTATION_PROCESSOR_RUNTIME)) {
             getLogger(RxMicroRuntime.class).info("!!! RxMicro Runtime Strict Mode is activated !!!");
         }
     }
