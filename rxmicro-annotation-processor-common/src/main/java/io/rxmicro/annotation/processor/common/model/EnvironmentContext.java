@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualModuleElement;
+import io.rxmicro.annotation.processor.common.util.Names;
 import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.runtime.detail.RxMicroRuntime;
 
@@ -26,7 +27,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
@@ -124,6 +127,16 @@ public final class EnvironmentContext {
 
     public List<String> getPackagesThatMustBeOpenedToRxMicroCommonModule() {
         return packagesThatMustBeOpenedToRxMicroCommonModule;
+    }
+
+    public boolean isPackageForTypeExistsInCurrentModule(final String fullClassName) {
+        final String packageName = Names.getPackageName(fullClassName);
+        for (final Element modulePackage : currentModule.getEnclosedElements()) {
+            if (packageName.equals(((PackageElement) modulePackage).getQualifiedName().toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

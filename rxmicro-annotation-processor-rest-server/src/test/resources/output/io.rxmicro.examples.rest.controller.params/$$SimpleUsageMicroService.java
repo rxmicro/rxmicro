@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.controller.params;
 
-import io.rxmicro.examples.rest.controller.params.model.$$RequestModelReader;
-import io.rxmicro.examples.rest.controller.params.model.$$ResponseModelWriter;
+import io.rxmicro.examples.rest.controller.params.model.$$RequestServerModelReader;
+import io.rxmicro.examples.rest.controller.params.model.$$ResponseServerModelWriter;
 import io.rxmicro.examples.rest.controller.params.model.Request;
 import io.rxmicro.examples.rest.controller.params.model.Response;
 import io.rxmicro.http.HttpHeaders;
@@ -23,18 +23,18 @@ public final class $$SimpleUsageMicroService extends AbstractRestController {
 
     private SimpleUsageMicroService restController;
 
-    private $$VirtualSimpleUsageRequestModelReader virtualSimpleUsageRequestModelReader;
+    private $$VirtualSimpleUsageRequestServerModelReader virtualSimpleUsageRequestServerModelReader;
 
-    private $$RequestModelReader requestModelReader;
+    private $$RequestServerModelReader requestServerModelReader;
 
-    private $$ResponseModelWriter responseModelWriter;
+    private $$ResponseServerModelWriter responseServerModelWriter;
 
     @Override
     protected void postConstruct() {
         restController = new SimpleUsageMicroService();
-        virtualSimpleUsageRequestModelReader = new $$VirtualSimpleUsageRequestModelReader();
-        requestModelReader = new $$RequestModelReader();
-        responseModelWriter = new $$ResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        virtualSimpleUsageRequestServerModelReader = new $$VirtualSimpleUsageRequestServerModelReader();
+        requestServerModelReader = new $$RequestServerModelReader();
+        responseServerModelWriter = new $$ResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
     }
 
     @Override
@@ -89,7 +89,7 @@ public final class $$SimpleUsageMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> get1(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Request req = requestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.get1(req)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -97,7 +97,7 @@ public final class $$SimpleUsageMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> get2(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final $$VirtualSimpleUsageRequest req = virtualSimpleUsageRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualSimpleUsageRequest req = virtualSimpleUsageRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.get2(req.endpointVersion, req.useProxy)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -109,7 +109,7 @@ public final class $$SimpleUsageMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        responseModelWriter.write(model, response);
+        responseServerModelWriter.write(model, response);
         return response;
     }
 }

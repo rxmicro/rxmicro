@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Enables a <code>`${schema}://${host}:${port}/${{@code @EnableHttpHealthCheck.value}}`</code> endpoint.
@@ -37,7 +37,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({TYPE, MODULE, ANNOTATION_TYPE})
 public @interface EnableHttpHealthCheck {
 

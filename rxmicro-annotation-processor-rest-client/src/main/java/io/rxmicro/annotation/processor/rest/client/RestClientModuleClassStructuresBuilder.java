@@ -27,11 +27,13 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingBec
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.Elements;
 import io.rxmicro.annotation.processor.rest.RestCommonDependenciesModule;
+import io.rxmicro.annotation.processor.rest.client.component.ParentModelVirtualClassSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.PathBuilderClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.RequestModelExtractorClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.RestClientClassSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.RestClientClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.RestClientModelReaderBuilder;
+import io.rxmicro.annotation.processor.rest.client.model.AbstractRestClientClassSignature;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientClassSignature;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientClassStructure;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientClassStructureStorage;
@@ -48,6 +50,9 @@ import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestGenerationContext;
 import io.rxmicro.annotation.processor.rest.model.VirtualTypeClassStructure;
 import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
+import io.rxmicro.rest.client.ClientRequest;
+import io.rxmicro.rest.client.ClientResponse;
+import io.rxmicro.rest.client.FindAllRestClients;
 import io.rxmicro.rest.client.RestClient;
 import io.rxmicro.rest.model.ExchangeFormat;
 import io.rxmicro.validation.DisableValidation;
@@ -57,6 +62,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
@@ -64,13 +70,20 @@ import static io.rxmicro.annotation.processor.common.util.Injects.injectDependen
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLoggableMethodName;
 import static io.rxmicro.common.util.Formats.format;
+import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
  * @author nedis
  * @since 0.1
  */
 public final class RestClientModuleClassStructuresBuilder extends AbstractModuleClassStructuresBuilder {
+
+    private static final Set<String> PARENT_MODEL_ANNOTATION_NAMES = Set.of(
+            ClientRequest.class.getName(),
+            ClientResponse.class.getName()
+    );
 
     @Inject
     private ModuleGeneratorConfigBuilder<RestClientModuleGeneratorConfig> restClientModuleGeneratorConfigBuilder;
@@ -102,6 +115,9 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
     @Inject
     private RestModelValidatorBuilder restModelValidatorBuilder;
 
+    @Inject
+    private ParentModelVirtualClassSignatureBuilder parentModelVirtualClassSignatureBuilder;
+
     public static RestClientModuleClassStructuresBuilder create() {
         final RestClientModuleClassStructuresBuilder builder = new RestClientModuleClassStructuresBuilder();
         injectDependencies(
@@ -124,9 +140,13 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
-        return Set.of(
-                RestClient.class.getName()
-        );
+        return Stream
+                .of(
+                        Stream.of(RestClient.class.getName(), FindAllRestClients.class.getName()),
+                        PARENT_MODEL_ANNOTATION_NAMES.stream()
+                )
+                .flatMap(identity())
+                .collect(toUnmodifiableSet());
     }
 
     @Override
@@ -136,13 +156,21 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
         try {
             final Set<RestClientClassSignature> classSignatures =
                     restClientClassSignatureBuilder.build(environmentContext, annotations, roundEnv);
-            if (!classSignatures.isEmpty()) {
+            final Set<AbstractRestClientClassSignature> parentModelRestClassSignatures =
+                    parentModelVirtualClassSignatureBuilder.buildVirtualSignatures(environmentContext, annotations, roundEnv);
+
+            if (!classSignatures.isEmpty() || !parentModelRestClassSignatures.isEmpty()) {
+                final Set<AbstractRestClientClassSignature> allSignatures = Stream.concat(
+                        parentModelRestClassSignatures.stream(),
+                        classSignatures.stream()
+                ).collect(toUnmodifiableSet());
+
                 environmentContext.put(restClientModuleGeneratorConfigBuilder.build(environmentContext));
                 logFoundRestClients(classSignatures);
                 final RestGenerationContext restGenerationContext =
-                        restGenerationContextBuilder.build(environmentContext, RestClientModuleGeneratorConfig.class, classSignatures);
+                        restGenerationContextBuilder.build(environmentContext, RestClientModuleGeneratorConfig.class, allSignatures);
                 final RestClientClassStructureStorage restClientClassStructureStorage =
-                        buildRestClientClassStructureStorage(environmentContext, classSignatures, restGenerationContext);
+                        buildRestClientClassStructureStorage(environmentContext, allSignatures, restGenerationContext);
                 final Set<ClassStructure> classStructures = new HashSet<>(restClientClassStructureStorage.getAll());
                 final Set<RestClientClassStructure> restClientClassStructures =
                         restClientClassStructureBuilder.build(environmentContext, restClientClassStructureStorage, classSignatures);
@@ -203,7 +231,7 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
     }
 
     private RestClientClassStructureStorage buildRestClientClassStructureStorage(final EnvironmentContext environmentContext,
-                                                                                 final Set<RestClientClassSignature> classSignatures,
+                                                                                 final Set<AbstractRestClientClassSignature> signatures,
                                                                                  final RestGenerationContext context) {
         final ExchangeFormat clientExchangeFormat =
                 environmentContext.get(RestClientModuleGeneratorConfig.class).getExchangeFormatModule().getExchangeFormat();
@@ -215,7 +243,7 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
         final RestClientClassStructureStorage.Builder builder = new RestClientClassStructureStorage.Builder()
                 .addModelReaders(
                         restClientModelReaderBuilder.build(
-                                context.getFromHttpDataModelClasses(), classSignatures, clientExchangeFormat
+                                context.getFromHttpDataModelClasses(), signatures, clientExchangeFormat
                         )
                 )
                 .addModelFromJsonConverters(

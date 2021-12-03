@@ -45,6 +45,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class NumericConstraintValidatorTest extends AbstractConstraintValidatorTest<BigDecimal> {
 
+    private static final String VALUE = "value";
+
     @Override
     ConstraintValidator<BigDecimal> instantiate() {
         return new NumericConstraintValidator(-1, 2, EXACT);
@@ -53,7 +55,7 @@ final class NumericConstraintValidatorTest extends AbstractConstraintValidatorTe
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(new BigDecimal("0.23"), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(new BigDecimal("0.23"), PARAMETER, VALUE));
     }
 
     @ParameterizedTest
@@ -68,7 +70,7 @@ final class NumericConstraintValidatorTest extends AbstractConstraintValidatorTe
     @Order(12)
     void Should_ignore_any_value(final String value) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(-1, -1, EXACT);
-        assertDoesNotThrow(() -> validator.validate(new BigDecimal(value), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
     }
 
     @ParameterizedTest
@@ -99,7 +101,7 @@ final class NumericConstraintValidatorTest extends AbstractConstraintValidatorTe
                                               final String value,
                                               final Numeric.ValidationType validationType) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(expectedPrecision, expectedScale, validationType);
-        assertDoesNotThrow(() -> validator.validate(new BigDecimal(value), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
     }
 
     @ParameterizedTest
@@ -149,7 +151,7 @@ final class NumericConstraintValidatorTest extends AbstractConstraintValidatorTe
                                           final Numeric.ValidationType validationType) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(expectedPrecision, expectedScale, validationType);
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(new BigDecimal(value), PARAMETER, "value"));
+                assertThrows(ValidationException.class, () -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
         assertEquals(
                 "Invalid parameter \"value\": " + details,
                 exception.getMessage()
@@ -167,7 +169,7 @@ final class NumericConstraintValidatorTest extends AbstractConstraintValidatorTe
                                                     final int expectedScale) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(expectedPrecision, expectedScale, null);
         final UnsupportedOperationException exception =
-                assertThrows(UnsupportedOperationException.class, () -> validator.validate(BigDecimal.ZERO, PARAMETER, "value"));
+                assertThrows(UnsupportedOperationException.class, () -> validator.validate(BigDecimal.ZERO, PARAMETER, VALUE));
         assertEquals("Validation type is unsupported: null", exception.getMessage());
     }
 }

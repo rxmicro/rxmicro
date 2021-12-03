@@ -44,6 +44,8 @@ import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE_VALUE;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
@@ -77,7 +79,10 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
             classStructures.add(getEnvironmentCustomizerClassStructure(environmentContext, classStructures));
         }
         validateClassStructureDuplicates(environmentContext, classStructures);
-        return classStructures.stream().map(cl -> sourceCodeGenerator.generate(cl)).collect(toList());
+        final boolean isLibraryModule = getBooleanOption(RX_MICRO_LIBRARY_MODULE, RX_MICRO_LIBRARY_MODULE_VALUE);
+        return classStructures.stream()
+                .filter(cl -> cl.shouldSourceCodeBeGenerated(environmentContext, isLibraryModule))
+                .map(cl -> sourceCodeGenerator.generate(cl)).collect(toList());
     }
 
     private void validateClassStructureDuplicates(final EnvironmentContext environmentContext,

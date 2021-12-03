@@ -295,10 +295,20 @@ public enum RxMicroModule {
     }
 
     /**
-     * Returns {@code true} if provided package name is RxMicro package.
+     * Returns {@code true} if the provided module full name is RxMicro module.
      *
-     * @param packageName tested package
-     * @return {@code true} if provided package name is RxMicro package
+     * @param moduleFullName the tested module
+     * @return {@code true} if the provided module full name is RxMicro module
+     */
+    public static boolean isRxMicroModule(final String moduleFullName) {
+        return of(moduleFullName).isPresent();
+    }
+
+    /**
+     * Returns {@code true} if the provided package name is RxMicro package.
+     *
+     * @param packageName the tested package
+     * @return {@code true} if the provided package name is RxMicro package
      */
     public static boolean isRxMicroPackage(final String packageName) {
         return Arrays.stream(RxMicroModule.values()).anyMatch(module ->

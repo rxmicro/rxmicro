@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.PACKAGE;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Activates all classes in package and all sub packages annotated by this annotation
@@ -37,7 +37,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({PACKAGE, TYPE})
 public @interface IncludeAll {
 

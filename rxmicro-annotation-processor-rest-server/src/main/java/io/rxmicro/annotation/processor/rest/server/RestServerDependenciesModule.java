@@ -31,6 +31,8 @@ import io.rxmicro.annotation.processor.rest.server.component.DeclaredStaticResou
 import io.rxmicro.annotation.processor.rest.server.component.HttpHealthCheckBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.ModelReaderBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.ModelWriterBuilder;
+import io.rxmicro.annotation.processor.rest.server.component.ParentModelVirtualClassSignatureBuilder;
+import io.rxmicro.annotation.processor.rest.server.component.ParentModelVirtualMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerClassSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerMethodBodyBuilder;
@@ -44,6 +46,8 @@ import io.rxmicro.annotation.processor.rest.server.component.impl.DeclaredStatic
 import io.rxmicro.annotation.processor.rest.server.component.impl.HttpHealthCheckBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.ModelReaderBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.ModelWriterBuilderImpl;
+import io.rxmicro.annotation.processor.rest.server.component.impl.ParentModelVirtualClassSignatureBuilderImpl;
+import io.rxmicro.annotation.processor.rest.server.component.impl.ParentModelVirtualMethodSignatureBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestControllerClassSignatureBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestControllerClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestControllerMethodSignatureBuilderImpl;
@@ -105,6 +109,10 @@ public final class RestServerDependenciesModule extends AbstractModule {
                 .to(DeclaredStaticResourcesResolverImpl.class);
         bind(UrlPathMatchTemplateClassResolver.class)
                 .to(UrlPathMatchTemplateClassResolverImpl.class);
+        bind(ParentModelVirtualClassSignatureBuilder.class)
+                .to(ParentModelVirtualClassSignatureBuilderImpl.class);
+        bind(ParentModelVirtualMethodSignatureBuilder.class)
+                .to(ParentModelVirtualMethodSignatureBuilderImpl.class);
         bindMethodBodyBuilders();
     }
 

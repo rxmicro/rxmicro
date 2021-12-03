@@ -131,7 +131,7 @@ public abstract class ObjectModelClass<T extends ModelField> extends ModelClass 
         return !params.isEmpty();
     }
 
-    @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
+    @UsedByFreemarker("$$RestJsonServerModelWriterTemplate.javaftl")
     public boolean isParamEntriesPresentAtThisOrAnyParent() {
         return isParamEntriesPresent() || parent != null && parent.isParamEntriesPresentAtThisOrAnyParent();
     }

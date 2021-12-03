@@ -23,7 +23,7 @@ import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import io.rxmicro.annotation.processor.rest.server.component.ModelWriterBuilder;
-import io.rxmicro.annotation.processor.rest.server.model.ModelWriterClassStructure;
+import io.rxmicro.annotation.processor.rest.server.model.ServerModelWriterClassStructure;
 import io.rxmicro.rest.ResponseBody;
 import io.rxmicro.rest.model.ExchangeFormat;
 
@@ -33,15 +33,15 @@ import io.rxmicro.rest.model.ExchangeFormat;
  */
 @Singleton
 public final class ModelWriterBuilderImpl
-        extends AbstractRestControllerModelBuilder<ModelWriterClassStructure>
+        extends AbstractRestControllerModelBuilder<ServerModelWriterClassStructure>
         implements ModelWriterBuilder {
 
     @Override
-    protected ModelWriterClassStructure newInstance(final ReaderType readerType,
-                                                    final RestObjectModelClass modelClass,
-                                                    final ExchangeFormat exchangeFormat) {
+    protected ServerModelWriterClassStructure newInstance(final ReaderType readerType,
+                                                          final RestObjectModelClass modelClass,
+                                                          final ExchangeFormat exchangeFormat) {
         validate(modelClass);
-        return new ModelWriterClassStructure(modelClass, exchangeFormat);
+        return new ServerModelWriterClassStructure(modelClass, exchangeFormat);
     }
 
     @Override

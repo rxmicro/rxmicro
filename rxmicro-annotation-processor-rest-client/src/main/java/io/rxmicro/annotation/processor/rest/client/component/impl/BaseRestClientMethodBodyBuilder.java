@@ -31,7 +31,7 @@ import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
 import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.client.RestClientGeneratorConfig;
-import io.rxmicro.rest.client.detail.ModelReader;
+import io.rxmicro.rest.client.detail.ClientModelReader;
 import io.rxmicro.rest.client.detail.PathBuilder;
 import io.rxmicro.rest.model.UrlSegments;
 import io.rxmicro.tool.common.OverrideGeneratorConfig;
@@ -71,7 +71,7 @@ public abstract class BaseRestClientMethodBodyBuilder implements RestClientMetho
             final TypeElement resultType = responseModel.getResultType().orElseThrow();
             templateArguments.put("RESPONSE_READER", getModelTransformerInstanceName(
                     getSimpleName(resultType),
-                    ModelReader.class)
+                    ClientModelReader.class)
             );
             templateArguments.put("RESPONSE_MODEL_CLASS", new RestClientSimpleObjectModelClass(resultType));
         }

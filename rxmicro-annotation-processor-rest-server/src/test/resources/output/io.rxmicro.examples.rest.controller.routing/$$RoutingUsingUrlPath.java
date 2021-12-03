@@ -22,12 +22,12 @@ public final class $$RoutingUsingUrlPath extends AbstractRestController {
 
     private RoutingUsingUrlPath restController;
 
-    private $$VirtualRoutingUsingUrlPathRequestModelReader virtualRoutingUsingUrlPathRequestModelReader;
+    private $$VirtualRoutingUsingUrlPathRequestServerModelReader virtualRoutingUsingUrlPathRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new RoutingUsingUrlPath();
-        virtualRoutingUsingUrlPathRequestModelReader = new $$VirtualRoutingUsingUrlPathRequestModelReader();
+        virtualRoutingUsingUrlPathRequestServerModelReader = new $$VirtualRoutingUsingUrlPathRequestServerModelReader();
     }
 
     @Override
@@ -100,7 +100,7 @@ public final class $$RoutingUsingUrlPath extends AbstractRestController {
 
     private CompletionStage<HttpResponse> get3(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final $$VirtualRoutingUsingUrlPathRequest req = virtualRoutingUsingUrlPathRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualRoutingUsingUrlPathRequest req = virtualRoutingUsingUrlPathRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.get3(req.type);
         return CompletableFuture.completedStage(buildResponse(200, headers));

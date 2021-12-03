@@ -26,6 +26,7 @@ import io.rxmicro.annotation.processor.rest.client.component.RestClientMethodSig
 import io.rxmicro.annotation.processor.rest.client.model.RestClientClassSignature;
 import io.rxmicro.annotation.processor.rest.component.ParentUrlBuilder;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
+import io.rxmicro.rest.client.FindAllRestClients;
 import io.rxmicro.rest.client.PartialImplementation;
 import io.rxmicro.rest.client.RestClient;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
@@ -40,6 +41,8 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
+
+import static io.rxmicro.annotation.processor.common.util.Elements.getTypeElementsAtAllNotStandardModules;
 
 /**
  * @author nedis
@@ -61,23 +64,35 @@ public final class RestClientClassSignatureBuilderImpl extends AbstractPartialIm
                                                final RoundEnvironment roundEnv) {
         final Set<RestClientClassSignature> result = new HashSet<>();
         for (final TypeElement annotation : annotations) {
-            for (final Element element : roundEnv.getElementsAnnotatedWith(annotation)) {
-                validateInterfaceType(element, RestClient.class, "Rest client");
-                final TypeElement restClientInterface = (TypeElement) element;
-                if (environmentContext.isRxMicroClassShouldBeProcessed(restClientInterface)) {
-                    try {
-                        result.add(build(environmentContext, restClientInterface));
-                    } catch (final InterruptProcessingException ex) {
-                        error(ex);
-                    }
+            if (RestClient.class.getName().equals(annotation.getQualifiedName().toString())) {
+                for (final Element element : roundEnv.getElementsAnnotatedWith(annotation)) {
+                    addRestClient(environmentContext, result, element);
+                }
+            } else if (FindAllRestClients.class.getName().equals(annotation.getQualifiedName().toString())) {
+                for (final TypeElement element : getAllRestClientsAtAllNotStandardModules(environmentContext)) {
+                    addRestClient(environmentContext, result, element);
                 }
             }
         }
         return result;
     }
 
-    private RestClientClassSignature build(final EnvironmentContext environmentContext,
-                                           final TypeElement restClientInterface) {
+    private void addRestClient(final EnvironmentContext environmentContext,
+                               final Set<RestClientClassSignature> result,
+                               final Element element) {
+        validateInterfaceType(element, RestClient.class, "Rest client");
+        final TypeElement restClientInterface = (TypeElement) element;
+        if (environmentContext.isRxMicroClassShouldBeProcessed(restClientInterface)) {
+            try {
+                result.add(buildRestClientClassSignature(environmentContext, restClientInterface));
+            } catch (final InterruptProcessingException ex) {
+                error(ex);
+            }
+        }
+    }
+
+    private RestClientClassSignature buildRestClientClassSignature(final EnvironmentContext environmentContext,
+                                                                   final TypeElement restClientInterface) {
         final ModuleElement restControllerModule = environmentContext.getCurrentModule();
         final ParentUrl parentUrl = parentUrlBuilder.build(restClientInterface);
         final Map.Entry<TypeElement, List<ExecutableElement>> methodCandidates = getOverriddenMethodCandidates(restClientInterface);
@@ -86,6 +101,11 @@ public final class RestClientClassSignatureBuilderImpl extends AbstractPartialIm
                 restClientInterface,
                 methodCandidates.getKey(),
                 restClientMethodSignatureBuilder.build(restControllerModule, restClientInterface, parentUrl, methodCandidates)
+        );
+    }
+
+    private Set<TypeElement> getAllRestClientsAtAllNotStandardModules(final EnvironmentContext environmentContext) {
+        return getTypeElementsAtAllNotStandardModules(environmentContext, te -> te.getAnnotation(RestClient.class) != null
         );
     }
 

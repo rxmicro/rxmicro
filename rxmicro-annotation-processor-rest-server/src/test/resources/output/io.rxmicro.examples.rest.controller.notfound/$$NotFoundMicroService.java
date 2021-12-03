@@ -19,13 +19,13 @@ public final class $$NotFoundMicroService extends AbstractRestController {
 
     private NotFoundMicroService restController;
 
-    private $$VirtualNotFoundRequestModelReader virtualNotFoundRequestModelReader;
+    private $$VirtualNotFoundRequestServerModelReader virtualNotFoundRequestServerModelReader;
 
-    private $$VirtualNotFoundRequest3ModelReader virtualNotFoundRequest3ModelReader;
+    private $$VirtualNotFoundRequest3ServerModelReader virtualNotFoundRequest3ServerModelReader;
 
-    private $$VirtualNotFoundRequest2ModelReader virtualNotFoundRequest2ModelReader;
+    private $$VirtualNotFoundRequest2ServerModelReader virtualNotFoundRequest2ServerModelReader;
 
-    private $$ResponseModelWriter responseModelWriter;
+    private $$ResponseServerModelWriter responseServerModelWriter;
 
     private HttpResponse getOptional1NotFoundResponse;
 
@@ -36,10 +36,10 @@ public final class $$NotFoundMicroService extends AbstractRestController {
     @Override
     protected void postConstruct() {
         restController = new NotFoundMicroService();
-        virtualNotFoundRequestModelReader = new $$VirtualNotFoundRequestModelReader();
-        virtualNotFoundRequest3ModelReader = new $$VirtualNotFoundRequest3ModelReader();
-        virtualNotFoundRequest2ModelReader = new $$VirtualNotFoundRequest2ModelReader();
-        responseModelWriter = new $$ResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        virtualNotFoundRequestServerModelReader = new $$VirtualNotFoundRequestServerModelReader();
+        virtualNotFoundRequest3ServerModelReader = new $$VirtualNotFoundRequest3ServerModelReader();
+        virtualNotFoundRequest2ServerModelReader = new $$VirtualNotFoundRequest2ServerModelReader();
+        responseServerModelWriter = new $$ResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
         getOptional1NotFoundResponse = notFound("Not Found");
         getOptional2NotFoundResponse = notFound("Not Found");
         getOptional3NotFoundResponse = notFound("Not Found");
@@ -101,7 +101,7 @@ public final class $$NotFoundMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> getOptional1(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final $$VirtualNotFoundRequest req = virtualNotFoundRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualNotFoundRequest req = virtualNotFoundRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.getOptional1(req.found)
                 .thenApply(optionalResponse -> optionalResponse
@@ -111,7 +111,7 @@ public final class $$NotFoundMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> getOptional2(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final $$VirtualNotFoundRequest2 req = virtualNotFoundRequest2ModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualNotFoundRequest2 req = virtualNotFoundRequest2ServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.getOptional2(req.found)
                 .map(response -> buildResponse(response, 200, headers))
@@ -121,7 +121,7 @@ public final class $$NotFoundMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> getOptional3(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final $$VirtualNotFoundRequest3 req = virtualNotFoundRequest3ModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualNotFoundRequest3 req = virtualNotFoundRequest3ServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.getOptional3(req.found)
                 .map(response -> buildResponse(response, 200, headers))
@@ -135,7 +135,7 @@ public final class $$NotFoundMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        responseModelWriter.write(model, response);
+        responseServerModelWriter.write(model, response);
         return response;
     }
 }

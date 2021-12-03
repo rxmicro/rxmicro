@@ -106,52 +106,82 @@ public final class RestModelField extends ModelField {
         return httpModelType == HttpModelType.INTERNAL;
     }
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isRemoteAddress() {
         return isInternalType() && internalType == InternalType.REMOTE_ADDRESS;
     }
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isRemoteAddressStringType() {
         return String.class.getName().equals(getFieldClass().toString());
     }
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isRequestBody() {
         return isInternalType() && internalType == InternalType.REQUEST_BODY;
     }
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isHttpRequest() {
         return isInternalType() && internalType == InternalType.HTTP_REQUEST;
     }
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isHttpHeaders() {
         return isInternalType() && internalType == InternalType.HTTP_HEADERS;
     }
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isHttpVersion() {
         return isInternalType() && internalType == InternalType.HTTP_VERSION;
     }
 
-    @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isResponseStatus() {
         return isInternalType() && internalType == InternalType.RESPONSE_STATUS;
     }
 
-    @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isResponseBody() {
         return isInternalType() && internalType == InternalType.RESPONSE_BODY;
     }
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isRequestUrl() {
         return isInternalType() && internalType == InternalType.REQUEST_URL;
     }
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
+    @UsedByFreemarker({
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    })
     public boolean isRequestMethod() {
         return isInternalType() && internalType == InternalType.REQUEST_METHOD;
     }

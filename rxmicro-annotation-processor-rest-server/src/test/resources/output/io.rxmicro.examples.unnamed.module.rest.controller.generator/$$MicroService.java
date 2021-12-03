@@ -1,8 +1,8 @@
 package io.rxmicro.examples.unnamed.module.rest.controller.generator;
 
-import io.rxmicro.examples.unnamed.module.rest.controller.generator.model.$$RequestModelReader;
+import io.rxmicro.examples.unnamed.module.rest.controller.generator.model.$$RequestServerModelReader;
 import io.rxmicro.examples.unnamed.module.rest.controller.generator.model.$$ResponseConstraintValidator;
-import io.rxmicro.examples.unnamed.module.rest.controller.generator.model.$$ResponseModelWriter;
+import io.rxmicro.examples.unnamed.module.rest.controller.generator.model.$$ResponseServerModelWriter;
 import io.rxmicro.examples.unnamed.module.rest.controller.generator.model.Request;
 import io.rxmicro.examples.unnamed.module.rest.controller.generator.model.Response;
 import io.rxmicro.http.HttpHeaders;
@@ -26,17 +26,17 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$RequestModelReader requestModelReader;
+    private $$RequestServerModelReader requestServerModelReader;
 
-    private $$ResponseModelWriter responseModelWriter;
+    private $$ResponseServerModelWriter responseServerModelWriter;
 
     private $$ResponseConstraintValidator responseConstraintValidator;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        requestModelReader = new $$RequestModelReader();
-        responseModelWriter = new $$ResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        requestServerModelReader = new $$RequestServerModelReader();
+        responseServerModelWriter = new $$ResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
         responseConstraintValidator = new $$ResponseConstraintValidator();
     }
 
@@ -68,7 +68,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consume(final PathVariableMapping pathVariableMapping,
                                                   final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Request req = requestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.consume(req)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -81,7 +81,7 @@ public final class $$MicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        responseModelWriter.write(model, response);
+        responseServerModelWriter.write(model, response);
         return response;
     }
 }

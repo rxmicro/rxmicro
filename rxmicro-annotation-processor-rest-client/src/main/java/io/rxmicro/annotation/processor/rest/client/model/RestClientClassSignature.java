@@ -16,23 +16,18 @@
 
 package io.rxmicro.annotation.processor.rest.client.model;
 
-import io.rxmicro.annotation.processor.common.model.TypeSignature;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
-import io.rxmicro.annotation.processor.rest.model.RestClassSignature;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public final class RestClientClassSignature extends TypeSignature implements RestClassSignature {
+public final class RestClientClassSignature extends AbstractRestClientClassSignature {
 
     private final ParentUrl parentUrl;
 
@@ -40,17 +35,15 @@ public final class RestClientClassSignature extends TypeSignature implements Res
 
     private final TypeElement restClientAbstractClass;
 
-    private final List<RestClientMethodSignature> methodSignatures;
-
     public RestClientClassSignature(final ParentUrl parentUrl,
                                     final TypeElement restClientInterface,
                                     final TypeElement restClientAbstractClass,
                                     final List<RestClientMethodSignature> methodSignatures) {
+        super(methodSignatures);
+        methodSignatures.forEach(methodSignature -> methodSignature.setRestClientClassSignature(this));
         this.parentUrl = require(parentUrl);
         this.restClientInterface = require(restClientInterface);
         this.restClientAbstractClass = require(restClientAbstractClass);
-        this.methodSignatures = unmodifiableList(methodSignatures);
-        this.methodSignatures.forEach(methodSignature -> methodSignature.setRestClientClassSignature(this));
     }
 
     public TypeElement getRestClientInterface() {
@@ -68,24 +61,5 @@ public final class RestClientClassSignature extends TypeSignature implements Res
     @Override
     protected String getTypeFullName() {
         return restClientInterface.getQualifiedName().toString();
-    }
-
-    @Override
-    public Set<TypeElement> getFromHttpDataModelTypes() {
-        return methodSignatures.stream()
-                .flatMap(m -> m.getResponseModel().getResultType().stream())
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    public Set<TypeElement> getToHttpDataModelTypes() {
-        return methodSignatures.stream()
-                .flatMap(m -> m.getRequestModel().getRequestType().stream())
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    public List<RestClientMethodSignature> getMethodSignatures() {
-        return methodSignatures;
     }
 }

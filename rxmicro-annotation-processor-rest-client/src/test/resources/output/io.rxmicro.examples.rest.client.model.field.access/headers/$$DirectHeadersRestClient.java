@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.client.model.field.access.headers;
 
 import io.rxmicro.examples.rest.client.model.field.access.headers.direct.$$RequestRequestModelExtractor;
-import io.rxmicro.examples.rest.client.model.field.access.headers.direct.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.model.field.access.headers.direct.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.model.field.access.headers.direct.Request;
 import io.rxmicro.examples.rest.client.model.field.access.headers.direct.Response;
 import io.rxmicro.rest.client.RestClientConfig;
@@ -23,8 +23,8 @@ public final class $$DirectHeadersRestClient extends AbstractRestClient implemen
     private final $$RequestRequestModelExtractor requestRequestModelExtractor =
             new $$RequestRequestModelExtractor();
 
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
 
     private final HttpClient client;
 
@@ -45,6 +45,6 @@ public final class $$DirectHeadersRestClient extends AbstractRestClient implemen
                 .sendAsync("PUT", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

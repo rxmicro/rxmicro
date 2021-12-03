@@ -28,7 +28,7 @@ import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.ElementType.PACKAGE;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Denotes the AsciiDoc fragment to be imported into the generated REST-based microservice documentation.
@@ -53,7 +53,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({FIELD, TYPE, MODULE, PACKAGE, PARAMETER, CONSTRUCTOR, ANNOTATION_TYPE, METHOD})
 public @interface IncludeDescription {
 

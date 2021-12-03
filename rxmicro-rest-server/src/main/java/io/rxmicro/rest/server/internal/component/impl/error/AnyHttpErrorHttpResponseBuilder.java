@@ -24,7 +24,7 @@ import io.rxmicro.logger.LoggerEventBuilder;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.rest.server.RestServerConfig;
-import io.rxmicro.rest.server.detail.component.CustomExceptionWriter;
+import io.rxmicro.rest.server.detail.component.CustomExceptionServerModelWriter;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.feature.ErrorHandler;
@@ -38,7 +38,7 @@ import java.util.Optional;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.rest.server.detail.component.CustomExceptionWriters.getCustomExceptionWriter;
+import static io.rxmicro.rest.server.detail.component.CustomExceptionServerModelWriters.getCustomExceptionWriter;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Map.entry;
 
@@ -66,10 +66,10 @@ public final class AnyHttpErrorHttpResponseBuilder extends ErrorHandler {
     public <T extends HttpErrorException> HttpResponse build(final RequestIdSupplier requestIdSupplier,
                                                              final T ex) {
         final boolean logHttpErrorExceptions = restServerConfig.isLogHttpErrorExceptions();
-        final Optional<CustomExceptionWriter<HttpErrorException>> optional =
+        final Optional<CustomExceptionServerModelWriter<HttpErrorException>> optional =
                 getCustomExceptionWriter((Class<HttpErrorException>) ex.getClass());
         if (optional.isPresent()) {
-            final CustomExceptionWriter<HttpErrorException> writer = optional.get();
+            final CustomExceptionServerModelWriter<HttpErrorException> writer = optional.get();
             if (restServerConfig.isEnableAdditionalValidations()) {
                 try {
                     writer.validate(ex);

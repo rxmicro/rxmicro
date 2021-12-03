@@ -20,12 +20,12 @@ public final class $$ListHeaderMicroService extends AbstractRestController {
 
     private ListHeaderMicroService restController;
 
-    private $$VirtualListHeaderRequestModelReader virtualListHeaderRequestModelReader;
+    private $$VirtualListHeaderRequestServerModelReader virtualListHeaderRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new ListHeaderMicroService();
-        virtualListHeaderRequestModelReader = new $$VirtualListHeaderRequestModelReader();
+        virtualListHeaderRequestServerModelReader = new $$VirtualListHeaderRequestServerModelReader();
     }
 
     @Override
@@ -56,7 +56,7 @@ public final class $$ListHeaderMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consume(final PathVariableMapping pathVariableMapping,
                                                   final HttpRequest request) {
-        final $$VirtualListHeaderRequest req = virtualListHeaderRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualListHeaderRequest req = virtualListHeaderRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req.supportedStatuses);
         return CompletableFuture.completedStage(buildResponse(200, headers));

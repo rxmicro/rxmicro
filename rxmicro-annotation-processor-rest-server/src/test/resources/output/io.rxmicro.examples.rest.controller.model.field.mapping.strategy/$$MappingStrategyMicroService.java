@@ -20,18 +20,18 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
 
     private MappingStrategyMicroService restController;
 
-    private $$VirtualMappingStrategyRequest3ModelReader virtualMappingStrategyRequest3ModelReader;
+    private $$VirtualMappingStrategyRequest3ServerModelReader virtualMappingStrategyRequest3ServerModelReader;
 
-    private $$VirtualMappingStrategyRequest2ModelReader virtualMappingStrategyRequest2ModelReader;
+    private $$VirtualMappingStrategyRequest2ServerModelReader virtualMappingStrategyRequest2ServerModelReader;
 
-    private $$VirtualMappingStrategyRequestModelReader virtualMappingStrategyRequestModelReader;
+    private $$VirtualMappingStrategyRequestServerModelReader virtualMappingStrategyRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new MappingStrategyMicroService();
-        virtualMappingStrategyRequest3ModelReader = new $$VirtualMappingStrategyRequest3ModelReader();
-        virtualMappingStrategyRequest2ModelReader = new $$VirtualMappingStrategyRequest2ModelReader();
-        virtualMappingStrategyRequestModelReader = new $$VirtualMappingStrategyRequestModelReader();
+        virtualMappingStrategyRequest3ServerModelReader = new $$VirtualMappingStrategyRequest3ServerModelReader();
+        virtualMappingStrategyRequest2ServerModelReader = new $$VirtualMappingStrategyRequest2ServerModelReader();
+        virtualMappingStrategyRequestServerModelReader = new $$VirtualMappingStrategyRequestServerModelReader();
     }
 
     @Override
@@ -90,7 +90,7 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
 
     private CompletionStage<HttpResponse> consume1(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final $$VirtualMappingStrategyRequest req = virtualMappingStrategyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualMappingStrategyRequest req = virtualMappingStrategyRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume1(req.supportedApiVersionCode, req.maxSupportedDateTime);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -98,7 +98,7 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
 
     private CompletionStage<HttpResponse> consume2(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final $$VirtualMappingStrategyRequest2 req = virtualMappingStrategyRequest2ModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualMappingStrategyRequest2 req = virtualMappingStrategyRequest2ServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume2(req.supportedApiVersionCode, req.maxSupportedDateTime);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -106,7 +106,7 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
 
     private CompletionStage<HttpResponse> consume3(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final $$VirtualMappingStrategyRequest3 req = virtualMappingStrategyRequest3ModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualMappingStrategyRequest3 req = virtualMappingStrategyRequest3ServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume3(req.supportedApiVersionCode, req.maxSupportedDateTime);
         return CompletableFuture.completedStage(buildResponse(200, headers));

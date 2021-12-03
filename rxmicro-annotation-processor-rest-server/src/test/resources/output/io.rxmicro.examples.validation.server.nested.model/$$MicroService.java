@@ -1,9 +1,9 @@
 package io.rxmicro.examples.validation.server.nested.model;
 
 import io.rxmicro.examples.validation.server.nested.model.model.$$ArrayRequestConstraintValidator;
-import io.rxmicro.examples.validation.server.nested.model.model.$$ArrayRequestModelReader;
+import io.rxmicro.examples.validation.server.nested.model.model.$$ArrayRequestServerModelReader;
 import io.rxmicro.examples.validation.server.nested.model.model.$$ObjectRequestConstraintValidator;
-import io.rxmicro.examples.validation.server.nested.model.model.$$ObjectRequestModelReader;
+import io.rxmicro.examples.validation.server.nested.model.model.$$ObjectRequestServerModelReader;
 import io.rxmicro.examples.validation.server.nested.model.model.ArrayRequest;
 import io.rxmicro.examples.validation.server.nested.model.model.ObjectRequest;
 import io.rxmicro.http.HttpHeaders;
@@ -26,9 +26,9 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$ArrayRequestModelReader arrayRequestModelReader;
+    private $$ArrayRequestServerModelReader arrayRequestServerModelReader;
 
-    private $$ObjectRequestModelReader objectRequestModelReader;
+    private $$ObjectRequestServerModelReader objectRequestServerModelReader;
 
     private $$ArrayRequestConstraintValidator arrayRequestConstraintValidator;
 
@@ -37,8 +37,8 @@ public final class $$MicroService extends AbstractRestController {
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        arrayRequestModelReader = new $$ArrayRequestModelReader();
-        objectRequestModelReader = new $$ObjectRequestModelReader();
+        arrayRequestServerModelReader = new $$ArrayRequestServerModelReader();
+        objectRequestServerModelReader = new $$ObjectRequestServerModelReader();
         arrayRequestConstraintValidator = new $$ArrayRequestConstraintValidator();
         objectRequestConstraintValidator = new $$ObjectRequestConstraintValidator();
     }
@@ -85,7 +85,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consume1(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final ObjectRequest req = objectRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final ObjectRequest req = objectRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         objectRequestConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume1(req);
@@ -94,7 +94,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consume2(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final ArrayRequest req = arrayRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final ArrayRequest req = arrayRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         arrayRequestConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume2(req);

@@ -1,8 +1,8 @@
 package io.rxmicro.examples.rest.controller.extendable.model.request.all_query.all_models_contain_simple_fields;
 
-import io.rxmicro.examples.rest.controller.extendable.model.request.all_query.all_models_contain_simple_fields.child.$$ChildModelReader;
+import io.rxmicro.examples.rest.controller.extendable.model.request.all_query.all_models_contain_simple_fields.child.$$ChildServerModelReader;
 import io.rxmicro.examples.rest.controller.extendable.model.request.all_query.all_models_contain_simple_fields.child.Child;
-import io.rxmicro.examples.rest.controller.extendable.model.request.all_query.all_models_contain_simple_fields.parent.$$ParentModelReader;
+import io.rxmicro.examples.rest.controller.extendable.model.request.all_query.all_models_contain_simple_fields.parent.$$ParentServerModelReader;
 import io.rxmicro.examples.rest.controller.extendable.model.request.all_query.all_models_contain_simple_fields.parent.Parent;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -25,15 +25,15 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$ChildModelReader childModelReader;
+    private $$ChildServerModelReader childServerModelReader;
 
-    private $$ParentModelReader parentModelReader;
+    private $$ParentServerModelReader parentServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        childModelReader = new $$ChildModelReader();
-        parentModelReader = new $$ParentModelReader();
+        childServerModelReader = new $$ChildServerModelReader();
+        parentServerModelReader = new $$ParentServerModelReader();
     }
 
     @Override
@@ -86,7 +86,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeChild(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final Child req = childModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Child req = childServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -94,7 +94,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeParent(final PathVariableMapping pathVariableMapping,
                                                         final HttpRequest request) {
-        final Parent req = parentModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Parent req = parentServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));

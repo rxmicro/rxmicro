@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.component.ParentUrlBuilder;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
+import io.rxmicro.annotation.processor.rest.model.RestClassSignature;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerClassSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassSignature;
@@ -60,10 +61,10 @@ public final class RestControllerClassSignatureBuilderImpl implements RestContro
     private RestControllerMethodSignatureBuilder restControllerMethodSignatureBuilder;
 
     @Override
-    public Set<RestControllerClassSignature> build(final EnvironmentContext environmentContext,
-                                                   final Collection<? extends TypeElement> annotations,
-                                                   final RoundEnvironment roundEnv) {
-        final Set<RestControllerClassSignature> result = new HashSet<>();
+    public Set<RestClassSignature> build(final EnvironmentContext environmentContext,
+                                         final Collection<? extends TypeElement> annotations,
+                                         final RoundEnvironment roundEnv) {
+        final Set<RestClassSignature> result = new HashSet<>();
         final Set<String> processedTypes = new HashSet<>();
         for (final TypeElement annotation : annotations) {
             for (final Element element : roundEnv.getElementsAnnotatedWith(annotation)) {

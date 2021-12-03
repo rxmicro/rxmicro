@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.rest.server.component;
 
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
-import io.rxmicro.annotation.processor.rest.server.model.ModelWriterClassStructure;
+import io.rxmicro.annotation.processor.rest.server.model.ServerModelWriterClassStructure;
 import io.rxmicro.rest.model.ExchangeFormat;
 
 import java.util.List;
@@ -29,6 +29,6 @@ import java.util.Set;
  */
 public interface ModelWriterBuilder {
 
-    Set<ModelWriterClassStructure> build(List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
-                                         ExchangeFormat exchangeFormat);
+    Set<ServerModelWriterClassStructure> build(List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+                                               ExchangeFormat exchangeFormat);
 }

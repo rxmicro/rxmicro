@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.controller.complex.model;
 
-import io.rxmicro.examples.rest.controller.complex.model.model.$$ComplexModelModelReader;
-import io.rxmicro.examples.rest.controller.complex.model.model.$$ComplexModelModelWriter;
+import io.rxmicro.examples.rest.controller.complex.model.model.$$ComplexModelServerModelReader;
+import io.rxmicro.examples.rest.controller.complex.model.model.$$ComplexModelServerModelWriter;
 import io.rxmicro.examples.rest.controller.complex.model.model.ComplexModel;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -22,15 +22,15 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$ComplexModelModelReader complexModelModelReader;
+    private $$ComplexModelServerModelReader complexModelServerModelReader;
 
-    private $$ComplexModelModelWriter complexModelModelWriter;
+    private $$ComplexModelServerModelWriter complexModelServerModelWriter;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        complexModelModelReader = new $$ComplexModelModelReader();
-        complexModelModelWriter = new $$ComplexModelModelWriter(restServerConfig.isHumanReadableOutput());
+        complexModelServerModelReader = new $$ComplexModelServerModelReader();
+        complexModelServerModelWriter = new $$ComplexModelServerModelWriter(restServerConfig.isHumanReadableOutput());
     }
 
     @Override
@@ -61,7 +61,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> post(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final ComplexModel req = complexModelModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final ComplexModel req = complexModelServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.post(req)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -73,7 +73,7 @@ public final class $$MicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        complexModelModelWriter.write(model, response);
+        complexModelServerModelWriter.write(model, response);
         return response;
     }
 }

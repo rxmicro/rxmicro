@@ -26,10 +26,10 @@ import io.rxmicro.documentation.Title;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 // tag::content[]
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({})
 @Title("Metadata Annotations")
 @Description("*Project* _Description_")

@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.controller.extendable.model.response.body_only.child_model_without_fields;
 
-import io.rxmicro.examples.rest.controller.extendable.model.response.body_only.child_model_without_fields.child.$$ChildModelWriter;
+import io.rxmicro.examples.rest.controller.extendable.model.response.body_only.child_model_without_fields.child.$$ChildServerModelWriter;
 import io.rxmicro.examples.rest.controller.extendable.model.response.body_only.child_model_without_fields.child.Child;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -21,12 +21,12 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$ChildModelWriter childModelWriter;
+    private $$ChildServerModelWriter childServerModelWriter;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        childModelWriter = new $$ChildModelWriter(restServerConfig.isHumanReadableOutput());
+        childServerModelWriter = new $$ChildServerModelWriter(restServerConfig.isHumanReadableOutput());
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class $$MicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        childModelWriter.write(model, response);
+        childServerModelWriter.write(model, response);
         return response;
     }
 }

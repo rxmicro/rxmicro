@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Allows specifying AsciiDoc attributes for the generated REST-based microservice documentation.
@@ -49,7 +49,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({MODULE, ANNOTATION_TYPE})
 public @interface DocumentAttributes {
 

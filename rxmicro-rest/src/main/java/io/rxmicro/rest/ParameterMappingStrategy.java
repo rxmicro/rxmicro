@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Declares a strategy of parameter name formation based on Java model field name analysis.
@@ -63,7 +63,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({TYPE, METHOD})
 public @interface ParameterMappingStrategy {
 

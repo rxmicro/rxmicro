@@ -20,12 +20,12 @@ public final class $$ListQueryParamMicroService extends AbstractRestController {
 
     private ListQueryParamMicroService restController;
 
-    private $$VirtualListQueryParamRequestModelReader virtualListQueryParamRequestModelReader;
+    private $$VirtualListQueryParamRequestServerModelReader virtualListQueryParamRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new ListQueryParamMicroService();
-        virtualListQueryParamRequestModelReader = new $$VirtualListQueryParamRequestModelReader();
+        virtualListQueryParamRequestServerModelReader = new $$VirtualListQueryParamRequestServerModelReader();
     }
 
     @Override
@@ -56,7 +56,7 @@ public final class $$ListQueryParamMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consume(final PathVariableMapping pathVariableMapping,
                                                   final HttpRequest request) {
-        final $$VirtualListQueryParamRequest req = virtualListQueryParamRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualListQueryParamRequest req = virtualListQueryParamRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req.supportedStatuses);
         return CompletableFuture.completedStage(buildResponse(200, headers));

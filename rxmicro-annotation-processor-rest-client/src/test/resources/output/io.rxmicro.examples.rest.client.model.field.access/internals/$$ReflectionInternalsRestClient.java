@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.client.model.field.access.internals;
 
-import io.rxmicro.examples.rest.client.model.field.access.internals.reflection.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.model.field.access.internals.reflection.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.model.field.access.internals.reflection.Response;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
@@ -17,8 +17,8 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$ReflectionInternalsRestClient extends AbstractRestClient implements ReflectionInternalsRestClient {
 
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
 
     private final HttpClient client;
 
@@ -36,6 +36,6 @@ public final class $$ReflectionInternalsRestClient extends AbstractRestClient im
                 .sendAsync("PUT", "/internals/reflection", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

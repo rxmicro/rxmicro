@@ -45,23 +45,23 @@ public final class RestControllerClassStructureStorage {
 
     private final Map<String, ModelValidatorClassStructure> responseValidatorMap;
 
-    private final Map<String, ModelReaderClassStructure> modelReaderMap;
+    private final Map<String, ServerModelReaderClassStructure> modelReaderMap;
 
-    private final Map<String, ModelWriterClassStructure> modelWriterMap;
+    private final Map<String, ServerModelWriterClassStructure> modelWriterMap;
 
     private final Map<String, ModelFromJsonConverterClassStructure> modelFromJsonConverterMap;
 
     private final Map<String, ModelToJsonConverterClassStructure> modelToJsonConverterMap;
 
-    private final Set<CustomExceptionWriterClassStructure> customExceptionModelWriters;
+    private final Set<CustomExceptionServerWriterClassStructure> customExceptionModelWriters;
 
     private RestControllerClassStructureStorage(final Map<String, ModelValidatorClassStructure> requestValidatorMap,
                                                 final Map<String, ModelValidatorClassStructure> responseValidatorMap,
-                                                final Map<String, ModelReaderClassStructure> modelReaderMap,
-                                                final Map<String, ModelWriterClassStructure> modelWriterMap,
+                                                final Map<String, ServerModelReaderClassStructure> modelReaderMap,
+                                                final Map<String, ServerModelWriterClassStructure> modelWriterMap,
                                                 final Map<String, ModelFromJsonConverterClassStructure> modelFromJsonConverterMap,
                                                 final Map<String, ModelToJsonConverterClassStructure> modelToJsonConverterMap,
-                                                final Set<CustomExceptionWriterClassStructure> customExceptionModelWriters) {
+                                                final Set<CustomExceptionServerWriterClassStructure> customExceptionModelWriters) {
         this.requestValidatorMap = require(requestValidatorMap);
         this.responseValidatorMap = require(responseValidatorMap);
         this.modelReaderMap = require(modelReaderMap);
@@ -87,15 +87,15 @@ public final class RestControllerClassStructureStorage {
         return !responseValidatorMap.isEmpty();
     }
 
-    public Optional<ModelReaderClassStructure> getModelReaderClassStructure(final String fullClassName) {
+    public Optional<ServerModelReaderClassStructure> getModelReaderClassStructure(final String fullClassName) {
         return Optional.ofNullable(modelReaderMap.get(fullClassName));
     }
 
-    public Optional<ModelWriterClassStructure> getModelWriterClassStructure(final String fullClassName) {
+    public Optional<ServerModelWriterClassStructure> getModelWriterClassStructure(final String fullClassName) {
         return Optional.ofNullable(modelWriterMap.get(fullClassName));
     }
 
-    public Set<CustomExceptionWriterClassStructure> getCustomExceptionModelWriters() {
+    public Set<CustomExceptionServerWriterClassStructure> getCustomExceptionModelWriters() {
         return customExceptionModelWriters;
     }
 
@@ -124,11 +124,11 @@ public final class RestControllerClassStructureStorage {
 
         private final Set<ModelValidatorClassStructure> customExceptionModelValidators = new TreeSet<>();
 
-        private final Set<ModelReaderClassStructure> modelReaders = new TreeSet<>();
+        private final Set<ServerModelReaderClassStructure> modelReaders = new TreeSet<>();
 
-        private final Set<ModelWriterClassStructure> modelWriters = new TreeSet<>();
+        private final Set<ServerModelWriterClassStructure> modelWriters = new TreeSet<>();
 
-        private final Set<CustomExceptionWriterClassStructure> customExceptionModelWriters = new TreeSet<>();
+        private final Set<CustomExceptionServerWriterClassStructure> customExceptionModelWriters = new TreeSet<>();
 
         private final Set<ModelFromJsonConverterClassStructure> modelFromJsonConverters = new TreeSet<>();
 
@@ -143,25 +143,25 @@ public final class RestControllerClassStructureStorage {
         }
 
         @BuilderMethod
-        public Builder addModelReaders(final Set<ModelReaderClassStructure> modelReaders) {
+        public Builder addModelReaders(final Set<ServerModelReaderClassStructure> modelReaders) {
             this.modelReaders.addAll(modelReaders);
             return this;
         }
 
         @BuilderMethod
-        public Builder addModelWriters(final Set<ModelWriterClassStructure> modelWriters) {
+        public Builder addModelWriters(final Set<ServerModelWriterClassStructure> modelWriters) {
             this.modelWriters.addAll(modelWriters);
             return this;
         }
 
         @BuilderMethod
-        public Builder addCustomExceptionModelWriters(final Set<ModelWriterClassStructure> modelWriters) {
+        public Builder addCustomExceptionModelWriters(final Set<ServerModelWriterClassStructure> modelWriters) {
             this.modelWriters.addAll(modelWriters);
-            for (final ModelWriterClassStructure modelWriter : modelWriters) {
+            for (final ServerModelWriterClassStructure modelWriter : modelWriters) {
                 final boolean isValidatorGenerated = this.customExceptionModelValidators.stream().anyMatch(cs ->
                         cs.getModelClass().getJavaFullClassName().equals(modelWriter.getModelClass().getJavaFullClassName()));
                 this.customExceptionModelWriters.add(
-                        new CustomExceptionWriterClassStructure(modelWriter.getModelClass(), isValidatorGenerated)
+                        new CustomExceptionServerWriterClassStructure(modelWriter.getModelClass(), isValidatorGenerated)
                 );
             }
             return this;
@@ -196,11 +196,11 @@ public final class RestControllerClassStructureStorage {
             return responseValidators;
         }
 
-        public Set<ModelReaderClassStructure> getModelReaders() {
+        public Set<ServerModelReaderClassStructure> getModelReaders() {
             return modelReaders;
         }
 
-        public Set<ModelWriterClassStructure> getModelWriters() {
+        public Set<ServerModelWriterClassStructure> getModelWriters() {
             return modelWriters;
         }
 

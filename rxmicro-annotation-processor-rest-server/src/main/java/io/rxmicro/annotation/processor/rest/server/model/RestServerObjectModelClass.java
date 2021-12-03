@@ -21,9 +21,11 @@ import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
-import io.rxmicro.rest.server.detail.component.CustomExceptionWriter;
-import io.rxmicro.rest.server.detail.component.ModelReader;
-import io.rxmicro.rest.server.detail.component.ModelWriter;
+import io.rxmicro.rest.server.ServerRequest;
+import io.rxmicro.rest.server.ServerResponse;
+import io.rxmicro.rest.server.detail.component.CustomExceptionServerModelWriter;
+import io.rxmicro.rest.server.detail.component.ServerModelReader;
+import io.rxmicro.rest.server.detail.component.ServerModelWriter;
 
 import java.util.Map;
 import javax.lang.model.element.TypeElement;
@@ -46,21 +48,37 @@ public final class RestServerObjectModelClass extends RestObjectModelClass {
     }
 
     @UsedByFreemarker(
-            "$$RestJsonModelReaderTemplate.javaftl"
+            "$$RestJsonServerModelReaderTemplate.javaftl"
     )
-    public String getModelReaderImplSimpleClassName() {
-        return getModelTransformerSimpleClassName(getModelTypeElement(), ModelReader.class);
+    public boolean isNotParentServerRequest() {
+        final ServerRequest serverRequest = getModelTypeElement().getAnnotation(ServerRequest.class);
+        return serverRequest == null || !serverRequest.parent();
     }
 
     @UsedByFreemarker(
-            "$$RestJsonModelWriterTemplate.javaftl"
+            "$$RestJsonServerModelWriterTemplate.javaftl"
     )
-    public String getModelWriterImplSimpleClassName() {
-        return getModelTransformerSimpleClassName(getModelTypeElement(), ModelWriter.class);
+    public boolean isNotParentServerResponse() {
+        final ServerResponse serverResponse = getModelTypeElement().getAnnotation(ServerResponse.class);
+        return serverResponse == null || !serverResponse.parent();
     }
 
-    @UsedByFreemarker("$$RestCustomExceptionModelWriterTemplate.javaftl")
+    @UsedByFreemarker(
+            "$$RestJsonServerModelReaderTemplate.javaftl"
+    )
+    public String getModelReaderImplSimpleClassName() {
+        return getModelTransformerSimpleClassName(getModelTypeElement(), ServerModelReader.class);
+    }
+
+    @UsedByFreemarker(
+            "$$RestJsonServerModelWriterTemplate.javaftl"
+    )
+    public String getModelWriterImplSimpleClassName() {
+        return getModelTransformerSimpleClassName(getModelTypeElement(), ServerModelWriter.class);
+    }
+
+    @UsedByFreemarker("$$RestCustomExceptionServerModelWriterTemplate.javaftl")
     public String getCustomExceptionWriterImplSimpleClassName() {
-        return getModelTransformerSimpleClassName(getJavaSimpleClassName(), CustomExceptionWriter.class);
+        return getModelTransformerSimpleClassName(getJavaSimpleClassName(), CustomExceptionServerModelWriter.class);
     }
 }

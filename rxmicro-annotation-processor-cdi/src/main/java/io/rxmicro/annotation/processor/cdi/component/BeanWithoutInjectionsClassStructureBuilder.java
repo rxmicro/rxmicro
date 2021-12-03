@@ -17,10 +17,8 @@
 package io.rxmicro.annotation.processor.cdi.component;
 
 import io.rxmicro.annotation.processor.cdi.model.BeanSupplierClassStructure;
-import io.rxmicro.annotation.processor.cdi.model.InjectionPoint;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,6 +28,5 @@ import java.util.Set;
 public interface BeanWithoutInjectionsClassStructureBuilder {
 
     Set<BeanSupplierClassStructure> build(EnvironmentContext environmentContext,
-                                          List<InjectionPoint> injectionPoints,
-                                          Set<String> alreadyProcessedClasses);
+                                          Set<BeanSupplierClassStructure> beanWithInjectionsClassStructures);
 }

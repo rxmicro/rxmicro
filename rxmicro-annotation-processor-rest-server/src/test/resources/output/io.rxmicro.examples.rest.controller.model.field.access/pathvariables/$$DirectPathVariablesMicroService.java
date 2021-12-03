@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.controller.model.field.access.pathvariables;
 
-import io.rxmicro.examples.rest.controller.model.field.access.pathvariables.direct.$$RequestModelReader;
+import io.rxmicro.examples.rest.controller.model.field.access.pathvariables.direct.$$RequestServerModelReader;
 import io.rxmicro.examples.rest.controller.model.field.access.pathvariables.direct.Request;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -23,12 +23,12 @@ public final class $$DirectPathVariablesMicroService extends AbstractRestControl
 
     private DirectPathVariablesMicroService restController;
 
-    private $$RequestModelReader requestModelReader;
+    private $$RequestServerModelReader requestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new DirectPathVariablesMicroService();
-        requestModelReader = new $$RequestModelReader();
+        requestServerModelReader = new $$RequestServerModelReader();
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class $$DirectPathVariablesMicroService extends AbstractRestControl
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Request req = requestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));

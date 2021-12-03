@@ -16,12 +16,14 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
+import io.rxmicro.annotation.processor.common.util.Names;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 
 /**
  * @author nedis
@@ -55,6 +57,21 @@ public abstract class ClassStructure implements Comparable<ClassStructure>, Logg
 
     public boolean isRequiredReflectionInvoke() {
         return false;
+    }
+
+    public final boolean shouldSourceCodeBeGenerated(final EnvironmentContext environmentContext,
+                                                     final boolean isLibraryModule) {
+        if (ENTRY_POINT_PACKAGE.equals(Names.getPackageName(getTargetFullClassName()))) {
+            return !isLibraryModule;
+        } else if (environmentContext.isPackageForTypeExistsInCurrentModule(getTargetFullClassName())) {
+            return shouldSourceCodeBeGenerated();
+        } else {
+            return false;
+        }
+    }
+
+    protected boolean shouldSourceCodeBeGenerated() {
+        return true;
     }
 
     public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigProxyValues() {

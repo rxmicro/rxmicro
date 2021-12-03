@@ -5,7 +5,6 @@ import io.rxmicro.cdi.detail.InternalBeanFactory;
 import io.rxmicro.examples.unnamed.module.cdi.find.beans.$$OwnerComponentBeanSupplier;
 import io.rxmicro.examples.unnamed.module.cdi.find.beans.OwnerComponent;
 import io.rxmicro.examples.unnamed.module.cdi.find.beans.api.NestedComponent;
-import io.rxmicro.examples.unnamed.module.cdi.find.beans.impl.$$NestedComponentImplBeanSupplier;
 import io.rxmicro.examples.unnamed.module.cdi.find.beans.impl.NestedComponentImpl;
 import io.rxmicro.runtime.detail.ByTypeInstanceQualifier;
 
@@ -24,7 +23,7 @@ public final class $$BeanFactoryImpl extends InternalBeanFactory {
                 new ByTypeInstanceQualifier<>(OwnerComponent.class)
         );
         register(
-                NestedComponentImpl.class, new $$NestedComponentImplBeanSupplier(),
+                NestedComponentImpl.class, () -> new NestedComponentImpl(),
                 new ByTypeInstanceQualifier<>(NestedComponentImpl.class),
                 new ByTypeAndNameInstanceQualifier<>(NestedComponent.class, "nestedComponentImpl"),
                 new ByTypeInstanceQualifier<>(NestedComponent.class)

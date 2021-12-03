@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.controller.request.id;
 
-import io.rxmicro.examples.rest.controller.request.id.model.$$RequestModelReader;
+import io.rxmicro.examples.rest.controller.request.id.model.$$RequestServerModelReader;
 import io.rxmicro.examples.rest.controller.request.id.model.Request;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -22,12 +22,12 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$RequestModelReader requestModelReader;
+    private $$RequestServerModelReader requestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        requestModelReader = new $$RequestModelReader();
+        requestServerModelReader = new $$RequestServerModelReader();
     }
 
     @Override
@@ -58,7 +58,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> handle(final PathVariableMapping pathVariableMapping,
                                                  final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Request req = requestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.handle(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));

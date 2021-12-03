@@ -1,0 +1,273 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends ${PARENT_CLASS}<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+    <#if HAS_PARENT>
+
+    private final ${PARENT} parentReader =
+            new ${PARENT}();
+    </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if CONFIGURATOR.bodyParamsPresents && JAVA_MODEL_CLASS.modelClassReturnedByRestMethod>
+
+    private final ExchangeDataFormatConverter<Object> exchangeDataFormatConverter =
+            new JsonExchangeDataFormatConverter(false);
+
+    private final ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName} ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName} =
+            new ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName}();
+    </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.modelClassReturnedByRestMethod && JAVA_MODEL_CLASS.notParentServerRequest>
+
+    @Override
+    public ${JAVA_MODEL_CLASS.javaSimpleClassName       } read(final PathVariableMapping pathVariableMapping,
+           ${space(JAVA_MODEL_CLASS.javaSimpleClassName)}      final HttpRequest request,
+           ${space(JAVA_MODEL_CLASS.javaSimpleClassName)}      final boolean readParametersFromBody) {
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#if CONFIGURATOR.queryParamsPresents && CONFIGURATOR.bodyParamsPresents>
+        if (readParametersFromBody) {
+            <@handleHttpBody shift="    "/>
+        } else {
+            final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
+            final QueryParams params = extractParams(request.getQueryString());
+            readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
+            return model;
+        }
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#elseif CONFIGURATOR.queryParamsPresents>
+        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
+        final QueryParams params = extractParams(request.getQueryString());
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
+        return model;
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#elseif CONFIGURATOR.bodyParamsPresents>
+        <@handleHttpBody shift=""/>
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#elseif CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
+        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
+        return model;
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#else>
+        return new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
+        </#if>
+    }
+    </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if CONFIGURATOR.queryParamsPresents || CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
+
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                                      final boolean readParametersFromBody) {
+        <#if HAS_PARENT>
+        parentReader.readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
+        </#if>
+        <@setSimpleProperties shift=""/>
+        <#if CONFIGURATOR.queryParamsPresents>
+        <@setQueryParams shift=""/>
+        </#if>
+    }
+    </#if>
+}
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro handleHttpBody shift>
+        ${shift}final Object body = exchangeDataFormatConverter.fromBytes(request.getContent());
+        ${shift}final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonObject(body);
+        <#if CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
+        ${shift}readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
+        </#if>
+        ${shift}return model;
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setSimpleProperties shift>
+    <#if CONFIGURATOR.internalsPresents>
+    <#list JAVA_MODEL_CLASS.internals as INTERNAL>
+        <@setInternal INTERNAL=INTERNAL shift=shift/>
+    </#list>
+    </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if CONFIGURATOR.pathVariablesPresents>
+        <#list JAVA_MODEL_CLASS.pathVariableEntries as ENTRY>
+            <@setPathVariableFieldValue entry=ENTRY shift=shift/>
+        </#list>
+    </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if CONFIGURATOR.headersPresents && JAVA_MODEL_CLASS.headerEntries?has_content>
+        ${shift}final HttpHeaders httpHeaders = request.getHeaders();
+        <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
+            <@setHeaderFieldValue entry=ENTRY shift=shift/>
+        </#list>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setPathVariableFieldValue entry shift>
+<#assign pathVariable = entry.key >
+<#if entry.value.primitive>
+    <#assign M = entry.value.primitiveType.convertMethod >
+    <#if pathVariable.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${pathVariable.fieldName}", ${M}(pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}"));
+    <#elseif pathVariable.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${pathVariable.fieldName} = ${M}(pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}");
+    <#elseif pathVariable.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${pathVariable.setter}(${M}(pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}"));
+    </#if>
+<#elseif entry.value.enum>
+    <#if pathVariable.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${pathVariable.fieldName}", toEnum(${entry.value.javaSimpleClassName}.class, pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}"));
+    <#elseif pathVariable.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${pathVariable.fieldName} = toEnum(${entry.value.javaSimpleClassName}.class, pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}");
+    <#elseif pathVariable.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${pathVariable.setter}(toEnum(${entry.value.javaSimpleClassName}.class, pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}"));
+    </#if>
+</#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setHeaderFieldValue entry shift>
+<#assign header = entry.key >
+<#if entry.value.iterable>
+    <#assign element = entry.value.elementModelClass>
+    <#assign containerType = entry.value.containerType>
+    <#if entry.value.primitiveIterable>
+        <#assign M = element.primitiveType.convertMethod >
+        <#if header.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${header.fieldName}", ${M}${containerType}(httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+        <#elseif header.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${header.fieldName} = ${M}${containerType}(httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
+        <#elseif header.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${header.setter}(${M}${containerType}(httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+        </#if>
+    <#elseif entry.value.enumIterable>
+        <#if header.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${header.fieldName}", toEnum${containerType}(${element.javaSimpleClassName}.class, httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+        <#elseif header.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${header.fieldName} = toEnum${containerType}(${element.javaSimpleClassName}.class, httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
+        <#elseif header.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${header.setter}(toEnum${containerType}(${element.javaSimpleClassName}.class, httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+        </#if>
+    </#if>
+<#elseif entry.value.primitive>
+    <#assign M = entry.value.primitiveType.convertMethod >
+    <#if header.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${header.fieldName}", ${M}(httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+    <#elseif header.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${header.fieldName} = ${M}(httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
+    <#elseif header.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${header.setter}(${M}(httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+    </#if>
+<#elseif entry.value.enum>
+    <#if header.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${header.fieldName}", toEnum(${entry.value.javaSimpleClassName}.class, httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+    <#elseif header.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${header.fieldName} = toEnum(${entry.value.javaSimpleClassName}.class, httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
+    <#elseif header.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${header.setter}(toEnum(${entry.value.javaSimpleClassName}.class, httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+    </#if>
+</#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setInternal INTERNAL shift>
+    <#if INTERNAL.remoteAddress>
+        <#if INTERNAL.remoteAddressStringType>
+            <@setInternalValue item=INTERNAL value="String.valueOf(request.getRemoteAddress())" shift=shift/>
+        <#else>
+            <@setInternalValue item=INTERNAL value="request.getRemoteAddress()" shift=shift/>
+        </#if>
+    <#elseif INTERNAL.requestUrl>
+        <@setInternalValue item=INTERNAL value="request.getUri()" shift=shift/>
+    <#elseif INTERNAL.requestMethod>
+        <@setInternalValue item=INTERNAL value="request.getMethod()" shift=shift/>
+    <#elseif INTERNAL.httpHeaders>
+        <@setInternalValue item=INTERNAL value="request.getHeaders()" shift=shift/>
+    <#elseif INTERNAL.httpVersion>
+        <@setInternalValue item=INTERNAL value="request.getVersion()" shift=shift/>
+    <#elseif INTERNAL.httpRequest>
+        <@setInternalValue item=INTERNAL value="request" shift=shift/>
+    <#elseif INTERNAL.requestBody>
+        <@setInternalValue item=INTERNAL value="request.getContent()" shift=shift/>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setInternalValue item value shift>
+    <#if item.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${item.fieldName}", ${value});
+    <#elseif item.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${item.fieldName} = ${value};
+    <#elseif item.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${item.setter}(${value});
+    </#if>
+</#macro>
+<#-- ---------------------------------------------------------------------------------------------------------------- -->
+<#macro setQueryParams shift>
+    <#if CONFIGURATOR.queryParamsPresents && CONFIGURATOR.bodyParamsPresents && JAVA_MODEL_CLASS.paramEntries?has_content>
+        if (readParametersFromBody) {
+            return;
+        }
+    </#if>
+    <#-- -------------------------------------------------------------------------------------------------------- -->
+    <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
+        <#if fieldEntry.value.object>
+        throwNotImplYet("Nested model lists does not supported yet. " +
+                "Use HTTP method with body instead HTTP method, which provide query string " +
+                "(For example POST instead of GET) or remove list parameter from request model.");
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#elseif fieldEntry.value.iterable>
+        <#if fieldEntry.value.primitiveIterable>
+        <@setParamFieldValue entry=fieldEntry shift=shift/>
+        <#elseif fieldEntry.value.enumIterable>
+        <@setParamFieldValue entry=fieldEntry shift=shift/>
+        <#else>
+        throwNotImplYet("Nested model lists does not supported yet. " +
+                "Use HTTP method with body instead HTTP method, which provide query string " +
+                "(For example POST instead of GET) or remove list parameter from request model.");
+        </#if>
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#else>
+        <@setParamFieldValue entry=fieldEntry shift=shift/>
+        </#if>
+    </#list>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setParamFieldValue entry shift>
+<#assign param = entry.key >
+<#if entry.value.iterable>
+    <#assign element = entry.value.elementModelClass>
+    <#assign containerType = entry.value.containerType>
+    <#if entry.value.primitiveIterable>
+        <#assign M = element.primitiveType.convertMethod >
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${param.fieldName}", ${M}${containerType}(params.getValues("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}"));
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${param.fieldName} = ${M}${containerType}(params.getValues("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}");
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${param.setter}(${M}${containerType}(params.getValues("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}"));
+        </#if>
+    <#elseif entry.value.enumIterable>
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${param.fieldName}", toEnum${containerType}(${element.javaSimpleClassName}.class, params.getValues("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}"));
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${param.fieldName} = toEnum${containerType}(${element.javaSimpleClassName}.class, params.getValues("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}");
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${param.setter}(toEnum${containerType}(${element.javaSimpleClassName}.class, params.getValues("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}"));
+        </#if>
+    </#if>
+<#elseif entry.value.primitive>
+    <#assign M = entry.value.primitiveType.convertMethod >
+    <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${param.fieldName}", ${M}(params.getValue("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}"));
+    <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${param.fieldName} = ${M}(params.getValue("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}");
+    <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${param.setter}(${M}(params.getValue("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}"));
+    </#if>
+<#elseif entry.value.enum>
+    <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        ${shift}setFieldValue(model, "${param.fieldName}", toEnum(${entry.value.javaSimpleClassName}.class, params.getValue("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}"));
+    <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        ${shift}model.${param.fieldName} = toEnum(${entry.value.javaSimpleClassName}.class, params.getValue("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}");
+    <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        ${shift}model.${param.setter}(toEnum(${entry.value.javaSimpleClassName}.class, params.getValue("${param.modelName}"), HttpModelType.${param.httpModelType.name()}, "${param.modelName}"));
+    </#if>
+</#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->

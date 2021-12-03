@@ -9,7 +9,7 @@ public final class ${IMPL_CLASS_NAME} extends InternalBeanFactory {
     public ${IMPL_CLASS_NAME}() {
         <#list BEAN_DEFINITIONS as DEF>
         register(
-                ${DEF.beanSimpleClassName}.class, new ${DEF.beanSupplierImplSimpleClassName}(),
+                ${DEF.beanSimpleClassName}.class, <#if DEF.beanDefinition.notBean>() -> new ${DEF.beanSimpleClassName}()<#else>new ${DEF.beanSupplierImplSimpleClassName}()</#if>,
                 <#list DEF.beanRegistrationQualifierRules as q>
                 ${q.javaCodeFragment}<#if q?has_next>,</#if>
                 </#list>

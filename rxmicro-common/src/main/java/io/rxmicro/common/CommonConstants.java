@@ -71,7 +71,7 @@ public final class CommonConstants {
     public static final String RX_MICRO_RUNTIME_STRICT_MODE = "RX_MICRO_RUNTIME_STRICT_MODE";
 
     /**
-     * The Java system property that indicates that the current runtime is an annotation processor runtime!
+     * The Java system property that indicates that the current runtime is an annotation processor runtime.
      */
     public static final String RX_MICRO_ANNOTATION_PROCESSOR_RUNTIME = "RX_MICRO_ANNOTATION_PROCESSOR_RUNTIME";
 

@@ -1,12 +1,12 @@
 package io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields;
 
 import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.child.$$ChildConstraintValidator;
-import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.child.$$ChildModelReader;
-import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.child.$$ChildModelWriter;
+import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.child.$$ChildServerModelReader;
+import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.child.$$ChildServerModelWriter;
 import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.child.Child;
 import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.parent.$$ParentConstraintValidator;
-import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.parent.$$ParentModelReader;
-import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.parent.$$ParentModelWriter;
+import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.parent.$$ParentServerModelReader;
+import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.parent.$$ParentServerModelWriter;
 import io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.parent.Parent;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -29,13 +29,13 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$ChildModelReader childModelReader;
+    private $$ChildServerModelReader childServerModelReader;
 
-    private $$ParentModelReader parentModelReader;
+    private $$ParentServerModelReader parentServerModelReader;
 
-    private $$ChildModelWriter childModelWriter;
+    private $$ChildServerModelWriter childServerModelWriter;
 
-    private $$ParentModelWriter parentModelWriter;
+    private $$ParentServerModelWriter parentServerModelWriter;
 
     private $$ChildConstraintValidator childConstraintValidator;
 
@@ -44,10 +44,10 @@ public final class $$MicroService extends AbstractRestController {
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        childModelReader = new $$ChildModelReader();
-        parentModelReader = new $$ParentModelReader();
-        childModelWriter = new $$ChildModelWriter(restServerConfig.isHumanReadableOutput());
-        parentModelWriter = new $$ParentModelWriter(restServerConfig.isHumanReadableOutput());
+        childServerModelReader = new $$ChildServerModelReader();
+        parentServerModelReader = new $$ParentServerModelReader();
+        childServerModelWriter = new $$ChildServerModelWriter(restServerConfig.isHumanReadableOutput());
+        parentServerModelWriter = new $$ParentServerModelWriter(restServerConfig.isHumanReadableOutput());
         childConstraintValidator = new $$ChildConstraintValidator();
         parentConstraintValidator = new $$ParentConstraintValidator();
     }
@@ -94,7 +94,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeChild(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final Child req = childModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Child req = childServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         childConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         return restController.consume(req)
@@ -103,7 +103,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeParent(final PathVariableMapping pathVariableMapping,
                                                         final HttpRequest request) {
-        final Parent req = parentModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Parent req = parentServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         parentConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         return restController.consume(req)
@@ -117,7 +117,7 @@ public final class $$MicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        childModelWriter.write(model, response);
+        childServerModelWriter.write(model, response);
         return response;
     }
 
@@ -128,7 +128,7 @@ public final class $$MicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        parentModelWriter.write(model, response);
+        parentServerModelWriter.write(model, response);
         return response;
     }
 }

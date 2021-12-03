@@ -52,7 +52,7 @@ public final class RestClientClassStructureStorage {
 
     private final Map<String, RequestModelExtractorClassStructure> requestModelExtractorMap;
 
-    private final Map<String, ModelReaderClassStructure> modelReaderMap;
+    private final Map<String, ClientModelReaderClassStructure> modelReaderMap;
 
     private final Map<String, ModelFromJsonConverterClassStructure> modelFromJsonConverterMap;
 
@@ -64,7 +64,7 @@ public final class RestClientClassStructureStorage {
             final Map<String, ModelValidatorClassStructure> responseValidatorMap,
             final Map<String, PathBuilderClassStructure> pathBuilderMap,
             final Map<String, RequestModelExtractorClassStructure> requestModelExtractorMap,
-            final Map<String, ModelReaderClassStructure> modelReaderMap,
+            final Map<String, ClientModelReaderClassStructure> modelReaderMap,
             final Map<String, ModelFromJsonConverterClassStructure> modelFromJsonConverterMap,
             final Map<String, ModelToJsonConverterClassStructure> modelToJsonConverterMap) {
         this.modelClassMap = require(modelClassMap);
@@ -140,7 +140,7 @@ public final class RestClientClassStructureStorage {
 
         private final Set<PathBuilderClassStructure> pathBuilders = new TreeSet<>();
 
-        private final Set<ModelReaderClassStructure> modelReaders = new TreeSet<>();
+        private final Set<ClientModelReaderClassStructure> modelReaders = new TreeSet<>();
 
         private final Set<RequestModelExtractorClassStructure> requestModelExtractors = new TreeSet<>();
 
@@ -172,7 +172,7 @@ public final class RestClientClassStructureStorage {
 
         @BuilderMethod
         public Builder addModelReaders(
-                final Set<ModelReaderClassStructure> modelReaders) {
+                final Set<ClientModelReaderClassStructure> modelReaders) {
             this.modelReaders.addAll(modelReaders);
             return this;
         }
@@ -214,7 +214,7 @@ public final class RestClientClassStructureStorage {
             return pathBuilders;
         }
 
-        public Set<ModelReaderClassStructure> getModelReaders() {
+        public Set<ClientModelReaderClassStructure> getModelReaders() {
             return modelReaders;
         }
 
@@ -253,7 +253,7 @@ public final class RestClientClassStructureStorage {
                             identity()
                     )),
                     modelReaders.stream().collect(toMap(
-                            ModelReaderClassStructure::getModelFullClassName,
+                            ClientModelReaderClassStructure::getModelFullClassName,
                             identity()
                     )),
                     modelFromJsonConverters.stream().collect(toMap(

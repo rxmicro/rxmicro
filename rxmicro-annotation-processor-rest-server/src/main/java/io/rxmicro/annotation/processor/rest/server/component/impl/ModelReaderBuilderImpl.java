@@ -21,7 +21,7 @@ import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import io.rxmicro.annotation.processor.rest.server.component.ModelReaderBuilder;
-import io.rxmicro.annotation.processor.rest.server.model.ModelReaderClassStructure;
+import io.rxmicro.annotation.processor.rest.server.model.ServerModelReaderClassStructure;
 import io.rxmicro.rest.model.ExchangeFormat;
 
 /**
@@ -30,14 +30,14 @@ import io.rxmicro.rest.model.ExchangeFormat;
  */
 @Singleton
 public final class ModelReaderBuilderImpl
-        extends AbstractRestControllerModelBuilder<ModelReaderClassStructure>
+        extends AbstractRestControllerModelBuilder<ServerModelReaderClassStructure>
         implements ModelReaderBuilder {
 
     @Override
-    protected ModelReaderClassStructure newInstance(final ReaderType readerType,
-                                                    final RestObjectModelClass modelClass,
-                                                    final ExchangeFormat exchangeFormat) {
-        return new ModelReaderClassStructure(readerType, modelClass, exchangeFormat);
+    protected ServerModelReaderClassStructure newInstance(final ReaderType readerType,
+                                                          final RestObjectModelClass modelClass,
+                                                          final ExchangeFormat exchangeFormat) {
+        return new ServerModelReaderClassStructure(readerType, modelClass, exchangeFormat);
     }
 
     @Override

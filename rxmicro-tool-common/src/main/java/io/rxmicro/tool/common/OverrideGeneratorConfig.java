@@ -23,7 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * For internal use only.
@@ -35,7 +35,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target(TYPE)
 @Repeatable(OverrideGeneratorConfig.List.class)
 public @interface OverrideGeneratorConfig {
@@ -68,7 +68,7 @@ public @interface OverrideGeneratorConfig {
      * @since 0.1
      */
     @Documented
-    @Retention(SOURCE)
+    @Retention(CLASS)
     @Target(TYPE)
     @interface List {
 

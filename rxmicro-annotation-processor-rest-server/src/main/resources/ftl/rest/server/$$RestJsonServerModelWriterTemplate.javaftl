@@ -1,0 +1,134 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends ${PARENT_CLASS}<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+    <#if HAS_PARENT>
+
+    private final ${PARENT} parentWriter;
+    </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.paramEntriesPresentAtThisOrAnyParent>
+
+    private final ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName} ${JAVA_MODEL_CLASS.toJsonConverterInstanceName};
+
+    private final ExchangeDataFormatConverter<Object> exchangeDataFormatConverter;
+
+    private final String outputMimeType;
+
+    public ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName}(final boolean humanReadableOutput) {
+        exchangeDataFormatConverter = new JsonExchangeDataFormatConverter(humanReadableOutput);
+        <#if HAS_PARENT>
+        parentWriter = new ${PARENT}(humanReadableOutput);
+        </#if>
+        ${JAVA_MODEL_CLASS.toJsonConverterInstanceName} = new ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName}();
+        outputMimeType = exchangeDataFormatConverter.getMimeType();
+    }
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.modelClassReturnedByRestMethod && JAVA_MODEL_CLASS.notParentServerResponse>
+
+    @Override
+    public void write(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                      final HttpResponse response) {
+        <#if JAVA_MODEL_CLASS.headersOrPathVariablesOrInternalsPresentAtThisOrAnyParent>
+        writePrimitivesToResponse(model, response);
+        </#if>
+        response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
+        final Map<String, Object> json = ${JAVA_MODEL_CLASS.toJsonConverterInstanceName}.toJsonObject(model);
+        response.setContent(exchangeDataFormatConverter.toBytes(json));
+    }
+    </#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+
+    public ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName}(final boolean humanReadableOutput) {
+        <#if HAS_PARENT>
+        parentWriter = new ${PARENT}(humanReadableOutput);
+        <#else>
+        //do nothing
+        </#if>
+    }
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.modelClassReturnedByRestMethod>
+
+    @Override
+    public void write(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                      final HttpResponse response) {
+        <#if JAVA_MODEL_CLASS.headersOrPathVariablesOrInternalsPresentAtThisOrAnyParent>
+        writePrimitivesToResponse(model, response);
+        </#if>
+    }
+    </#if>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if JAVA_MODEL_CLASS.headersOrPathVariablesOrInternalsPresentAtThisOrAnyParent>
+
+    public void writePrimitivesToResponse(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                                          final HttpResponse response) {
+        <#if HAS_PARENT>
+        parentWriter.writePrimitivesToResponse(model, response);
+        </#if>
+        <#list JAVA_MODEL_CLASS.internals as INTERNAL>
+        <@setInternal INTERNAL=INTERNAL/>
+        </#list>
+        <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
+        <@setHeader header=ENTRY.key type=ENTRY.value/>
+        </#list>
+    }
+</#if>
+}
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setInternal INTERNAL>
+    <#if INTERNAL.httpHeaders>
+        <@setInternalValue item=INTERNAL method="setOrAddHeaders"/>
+    <#elseif INTERNAL.httpVersion>
+        <@setInternalValue item=INTERNAL method="setVersion"/>
+    <#elseif INTERNAL.responseStatus>
+        <@setInternalValue item=INTERNAL method="setStatus"/>
+    <#elseif INTERNAL.responseBody>
+        <@setInternalValue item=INTERNAL method="setContent"/>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setHeader header type>
+    <#if header.repeat>
+      <#assign list>${getHeaderList(header, type)}</#assign>
+        for (final ${type.elementModelClass.javaSimpleClassName} item : ${list}) {
+            response.addHeader("${header.modelName}", item);
+        }
+    <#else>
+      <#if header.modelReadAccessorType.name() == "REFLECTION">
+        response.setHeader("${header.modelName}", (${type.javaSimpleClassName}) getFieldValue(model, "${header.fieldName}"));
+      <#elseif header.modelReadAccessorType.name() == "DIRECT">
+        response.setHeader("${header.modelName}", model.${header.fieldName});
+      <#elseif header.modelReadAccessorType.name() == "JAVA_BEAN">
+        response.setHeader("${header.modelName}", model.${header.getter}());
+      </#if>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setInternalValue item method>
+    <#if item.modelReadAccessorType.name() == "REFLECTION">
+        response.${method}((${item.fieldSimpleType}) getFieldValue(model, "${item.fieldName}"));
+    <#elseif item.modelReadAccessorType.name() == "DIRECT">
+        response.${method}(model.${item.fieldName});
+    <#elseif item.modelReadAccessorType.name() == "JAVA_BEAN">
+        response.${method}(model.${item.getter}());
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------- https://freemarker.apache.org/docs/ref_directive_function.html -------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#function getHeaderList header type>
+<#assign RESULT>
+<#if header.modelReadAccessorType.name() == "REFLECTION">
+(${type.javaSimpleClassName}) getFieldValue(model, "${header.fieldName}")
+<#elseif header.modelReadAccessorType.name() == "DIRECT">
+model.${header.fieldName}
+<#elseif header.modelReadAccessorType.name() == "JAVA_BEAN">
+model.${header.getter}()
+</#if>
+</#assign>
+<#return RESULT?trim>
+</#function>
+<#-- -------------------------------------------------------------------------------------------------------- -->

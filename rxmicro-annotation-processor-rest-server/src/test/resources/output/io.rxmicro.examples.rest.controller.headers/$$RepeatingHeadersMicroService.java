@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.controller.headers;
 
-import io.rxmicro.examples.rest.controller.headers.model.$$RepeatingHeadersResponseModelWriter;
+import io.rxmicro.examples.rest.controller.headers.model.$$RepeatingHeadersResponseServerModelWriter;
 import io.rxmicro.examples.rest.controller.headers.model.RepeatingHeadersResponse;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -21,12 +21,12 @@ public final class $$RepeatingHeadersMicroService extends AbstractRestController
 
     private RepeatingHeadersMicroService restController;
 
-    private $$RepeatingHeadersResponseModelWriter repeatingHeadersResponseModelWriter;
+    private $$RepeatingHeadersResponseServerModelWriter repeatingHeadersResponseServerModelWriter;
 
     @Override
     protected void postConstruct() {
         restController = new RepeatingHeadersMicroService();
-        repeatingHeadersResponseModelWriter = new $$RepeatingHeadersResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        repeatingHeadersResponseServerModelWriter = new $$RepeatingHeadersResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class $$RepeatingHeadersMicroService extends AbstractRestController
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        repeatingHeadersResponseModelWriter.write(model, response);
+        repeatingHeadersResponseServerModelWriter.write(model, response);
         return response;
     }
 }

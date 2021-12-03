@@ -16,8 +16,8 @@
 
 package io.rxmicro.annotation.processor.rest.client.component;
 
-import io.rxmicro.annotation.processor.rest.client.model.ModelReaderClassStructure;
-import io.rxmicro.annotation.processor.rest.client.model.RestClientClassSignature;
+import io.rxmicro.annotation.processor.rest.client.model.AbstractRestClientClassSignature;
+import io.rxmicro.annotation.processor.rest.client.model.ClientModelReaderClassStructure;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.rest.model.ExchangeFormat;
 
@@ -30,7 +30,7 @@ import java.util.Set;
  */
 public interface RestClientModelReaderBuilder {
 
-    Set<ModelReaderClassStructure> build(List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
-                                         Set<RestClientClassSignature> classSignatures,
-                                         ExchangeFormat exchangeFormat);
+    Set<ClientModelReaderClassStructure> build(List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+                                               Set<AbstractRestClientClassSignature> classSignatures,
+                                               ExchangeFormat exchangeFormat);
 }

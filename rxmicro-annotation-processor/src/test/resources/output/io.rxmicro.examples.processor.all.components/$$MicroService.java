@@ -1,6 +1,6 @@
 package io.rxmicro.examples.processor.all.components;
 
-import io.rxmicro.examples.processor.all.components.model.$$AccountModelWriter;
+import io.rxmicro.examples.processor.all.components.model.$$AccountServerModelWriter;
 import io.rxmicro.examples.processor.all.components.model.Account;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -23,12 +23,12 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$AccountModelWriter accountModelWriter;
+    private $$AccountServerModelWriter accountServerModelWriter;
 
     @Override
     protected void postConstruct() {
         restController = getBean(MicroService.class);
-        accountModelWriter = new $$AccountModelWriter(restServerConfig.isHumanReadableOutput());
+        accountServerModelWriter = new $$AccountServerModelWriter(restServerConfig.isHumanReadableOutput());
     }
 
     @Override
@@ -106,7 +106,7 @@ public final class $$MicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        accountModelWriter.write(model, response);
+        accountServerModelWriter.write(model, response);
         return response;
     }
 }

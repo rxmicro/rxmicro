@@ -21,7 +21,7 @@ import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
-import io.rxmicro.rest.client.detail.ModelReader;
+import io.rxmicro.rest.client.detail.ClientModelReader;
 import io.rxmicro.rest.client.detail.PathBuilder;
 import io.rxmicro.rest.client.detail.RequestModelExtractor;
 
@@ -65,16 +65,16 @@ public final class RestClientObjectModelClass extends RestObjectModelClass {
     }
 
     @UsedByFreemarker(
-            "$$RestJsonModelWriterTemplate.javaftl"
+            "$$RestJsonServerModelWriterTemplate.javaftl"
     )
     public String getRequestModelExtractorImplSimpleClassName() {
         return getModelTransformerSimpleClassName(getModelTypeElement(), RequestModelExtractor.class);
     }
 
     @UsedByFreemarker(
-            "$$RestJsonModelReaderTemplate.javaftl"
+            "$$RestJsonClientModelReaderTemplate.javaftl"
     )
     public String getModelReaderImplSimpleClassName() {
-        return getModelTransformerSimpleClassName(getModelTypeElement(), ModelReader.class);
+        return getModelTransformerSimpleClassName(getModelTypeElement(), ClientModelReader.class);
     }
 }

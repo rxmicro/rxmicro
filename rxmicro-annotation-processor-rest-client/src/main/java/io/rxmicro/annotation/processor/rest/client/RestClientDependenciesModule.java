@@ -24,6 +24,8 @@ import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.component.ModuleGeneratorConfigBuilder;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.rest.client.component.ClientCommonOptionBuilder;
+import io.rxmicro.annotation.processor.rest.client.component.ParentModelVirtualClassSignatureBuilder;
+import io.rxmicro.annotation.processor.rest.client.component.ParentModelVirtualMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.PathBuilderClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.RequestModelExtractorClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.RestClientClassSignatureBuilder;
@@ -33,6 +35,8 @@ import io.rxmicro.annotation.processor.rest.client.component.RestClientMethodBui
 import io.rxmicro.annotation.processor.rest.client.component.RestClientMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.RestClientModelReaderBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.impl.ClientCommonOptionBuilderImpl;
+import io.rxmicro.annotation.processor.rest.client.component.impl.ParentModelVirtualClassSignatureBuilderImpl;
+import io.rxmicro.annotation.processor.rest.client.component.impl.ParentModelVirtualMethodSignatureBuilderImpl;
 import io.rxmicro.annotation.processor.rest.client.component.impl.PathBuilderClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.rest.client.component.impl.RequestModelExtractorClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.rest.client.component.impl.RestClientClassSignatureBuilderImpl;
@@ -88,7 +92,10 @@ public final class RestClientDependenciesModule extends AbstractModule {
         bind(new TypeLiteral<ModelClassHierarchyBuilder<RestModelField, RestObjectModelClass>>() {
         })
                 .to(RestClientModelClassHierarchyBuilder.class);
-
+        bind(ParentModelVirtualClassSignatureBuilder.class)
+                .to(ParentModelVirtualClassSignatureBuilderImpl.class);
+        bind(ParentModelVirtualMethodSignatureBuilder.class)
+                .to(ParentModelVirtualMethodSignatureBuilderImpl.class);
         bindMethodBodyBuilders();
     }
 

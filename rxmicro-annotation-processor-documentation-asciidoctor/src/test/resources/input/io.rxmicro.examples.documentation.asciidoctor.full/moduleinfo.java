@@ -81,9 +81,9 @@ import io.rxmicro.documentation.asciidoctor.DocumentAttributes;
         withGeneratedDate = false
 )
 module examples.documentation.asciidoctor.full {
-    requires rxmicro.rest.server.netty;
+    requires rxmicro.rest.server;
     requires rxmicro.rest.server.exchange.json;
-    requires rxmicro.rest.client.jdk;
+    requires rxmicro.rest.client;
     requires rxmicro.rest.client.exchange.json;
     requires rxmicro.validation;
     requires static rxmicro.documentation.asciidoctor;

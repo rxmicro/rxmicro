@@ -24,7 +24,6 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 
@@ -32,7 +31,6 @@ import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement
 import static io.rxmicro.annotation.processor.common.util.Elements.expectedGenericArgumentCount;
 import static io.rxmicro.annotation.processor.common.util.Elements.isGenericType;
 import static io.rxmicro.annotation.processor.common.util.Elements.superClassIsObject;
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static javax.lang.model.element.ElementKind.ENUM;
 import static javax.lang.model.element.Modifier.ABSTRACT;
@@ -167,14 +165,14 @@ public final class TypeValidators {
         }
         TypeElement currentTypeElement = typeElement;
         while (true) {
-            if (currentTypeElement.getEnclosedElements().stream().anyMatch(e -> e instanceof VariableElement)) {
+            /*if (currentTypeElement.getEnclosedElements().stream().anyMatch(e -> e instanceof VariableElement)) {
                 final ModuleElement resultModule = getElements().getModuleOf(currentTypeElement);
                 if (resultModule == null || !ownerModule.getQualifiedName().equals(resultModule.getQualifiedName())) {
                     throw new InterruptProcessingException(owner,
                             "?Model class '?' must be declared at '?' module",
                             validPrefix, currentTypeElement.getQualifiedName(), ownerModule.getQualifiedName());
                 }
-            }
+            }*/
             final TypeMirror superClass = currentTypeElement.getSuperclass();
             if (superClassIsObject(superClass) || !validateAllParents) {
                 break;

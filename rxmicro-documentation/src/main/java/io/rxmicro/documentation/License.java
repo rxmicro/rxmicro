@@ -25,7 +25,7 @@ import static io.rxmicro.documentation.DocumentationConstants.DEFAULT_LICENSE_NA
 import static io.rxmicro.documentation.DocumentationConstants.DEFAULT_LICENSE_URL;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Denotes the license of REST-based microservice in the generated REST-based microservice documentation.
@@ -49,7 +49,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({MODULE, ANNOTATION_TYPE})
 @Repeatable(License.List.class)
 public @interface License {
@@ -98,7 +98,7 @@ public @interface License {
      * @since 0.1
      */
     @Documented
-    @Retention(SOURCE)
+    @Retention(CLASS)
     @Target({MODULE, ANNOTATION_TYPE})
     @interface List {
 

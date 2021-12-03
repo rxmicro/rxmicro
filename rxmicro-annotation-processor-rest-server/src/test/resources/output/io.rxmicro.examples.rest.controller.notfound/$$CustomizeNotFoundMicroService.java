@@ -19,17 +19,17 @@ public final class $$CustomizeNotFoundMicroService extends AbstractRestControlle
 
     private CustomizeNotFoundMicroService restController;
 
-    private $$VirtualCustomizeNotFoundRequestModelReader virtualCustomizeNotFoundRequestModelReader;
+    private $$VirtualCustomizeNotFoundRequestServerModelReader virtualCustomizeNotFoundRequestServerModelReader;
 
-    private $$ResponseModelWriter responseModelWriter;
+    private $$ResponseServerModelWriter responseServerModelWriter;
 
     private HttpResponse getOptional1NotFoundResponse;
 
     @Override
     protected void postConstruct() {
         restController = new CustomizeNotFoundMicroService();
-        virtualCustomizeNotFoundRequestModelReader = new $$VirtualCustomizeNotFoundRequestModelReader();
-        responseModelWriter = new $$ResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        virtualCustomizeNotFoundRequestServerModelReader = new $$VirtualCustomizeNotFoundRequestServerModelReader();
+        responseServerModelWriter = new $$ResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
         getOptional1NotFoundResponse = notFound("Custom not found message");
     }
 
@@ -61,7 +61,7 @@ public final class $$CustomizeNotFoundMicroService extends AbstractRestControlle
 
     private CompletionStage<HttpResponse> getOptional1(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final $$VirtualCustomizeNotFoundRequest req = virtualCustomizeNotFoundRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualCustomizeNotFoundRequest req = virtualCustomizeNotFoundRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.getOptional1(req.found)
                 .thenApply(optionalResponse -> optionalResponse
@@ -75,7 +75,7 @@ public final class $$CustomizeNotFoundMicroService extends AbstractRestControlle
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        responseModelWriter.write(model, response);
+        responseServerModelWriter.write(model, response);
         return response;
     }
 }

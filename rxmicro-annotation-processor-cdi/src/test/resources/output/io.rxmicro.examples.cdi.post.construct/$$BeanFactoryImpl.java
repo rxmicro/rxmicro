@@ -4,7 +4,6 @@ import io.rxmicro.cdi.detail.ByTypeAndNameInstanceQualifier;
 import io.rxmicro.cdi.detail.InternalBeanFactory;
 import io.rxmicro.examples.cdi.post.construct.$$BusinessService1FacadeBeanSupplier;
 import io.rxmicro.examples.cdi.post.construct.$$BusinessService2FacadeBeanSupplier;
-import io.rxmicro.examples.cdi.post.construct.$$BusinessServiceImplBeanSupplier;
 import io.rxmicro.examples.cdi.post.construct.BusinessService;
 import io.rxmicro.examples.cdi.post.construct.BusinessService1Facade;
 import io.rxmicro.examples.cdi.post.construct.BusinessService2Facade;
@@ -30,7 +29,7 @@ public final class $$BeanFactoryImpl extends InternalBeanFactory {
                 new ByTypeInstanceQualifier<>(BusinessService2Facade.class)
         );
         register(
-                BusinessServiceImpl.class, new $$BusinessServiceImplBeanSupplier(),
+                BusinessServiceImpl.class, () -> new BusinessServiceImpl(),
                 new ByTypeInstanceQualifier<>(BusinessServiceImpl.class),
                 new ByTypeAndNameInstanceQualifier<>(BusinessService.class, "businessServiceImpl"),
                 new ByTypeInstanceQualifier<>(BusinessService.class)

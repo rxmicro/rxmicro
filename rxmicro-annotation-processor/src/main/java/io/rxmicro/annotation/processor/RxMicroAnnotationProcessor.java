@@ -71,6 +71,7 @@ import static io.rxmicro.common.util.Exceptions.reThrow;
  * @see SupportedOptions#RX_MICRO_DOC_ANALYZE_PARENT_POM
  * @see SupportedOptions#RX_MICRO_BUILD_UNNAMED_MODULE
  * @see SupportedOptions#RX_MICRO_STRICT_MODE
+ * @see SupportedOptions#RX_MICRO_LIBRARY_MODULE
  * @see SupportedOptions#ALL_SUPPORTED_OPTIONS
  * @see <a href="https://docs.rxmicro.io/latest/user-guide/core.html#core-how-it-works-section">
  *     Documentation -&gt; Core -&gt; How It Works

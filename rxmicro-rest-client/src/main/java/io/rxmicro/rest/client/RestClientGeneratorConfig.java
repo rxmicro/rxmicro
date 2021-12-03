@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Allows configuring the process of code generation by the {@code RxMicro Annotation Processor} for REST clients.
@@ -38,7 +38,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({MODULE, ANNOTATION_TYPE})
 public @interface RestClientGeneratorConfig {
 

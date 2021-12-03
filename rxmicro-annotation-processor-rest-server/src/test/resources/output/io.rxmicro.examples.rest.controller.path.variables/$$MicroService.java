@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.controller.path.variables;
 
-import io.rxmicro.examples.rest.controller.path.variables.model.$$RequestModelReader;
+import io.rxmicro.examples.rest.controller.path.variables.model.$$RequestServerModelReader;
 import io.rxmicro.examples.rest.controller.path.variables.model.Request;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -23,15 +23,15 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$RequestModelReader requestModelReader;
+    private $$RequestServerModelReader requestServerModelReader;
 
-    private $$VirtualRequestModelReader virtualRequestModelReader;
+    private $$VirtualRequestServerModelReader virtualRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        requestModelReader = new $$RequestModelReader();
-        virtualRequestModelReader = new $$VirtualRequestModelReader();
+        requestServerModelReader = new $$RequestServerModelReader();
+        virtualRequestServerModelReader = new $$VirtualRequestServerModelReader();
     }
 
     @Override
@@ -138,7 +138,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeRequest(final PathVariableMapping pathVariableMapping,
                                                          final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Request req = requestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -146,7 +146,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeStringStringString(final PathVariableMapping pathVariableMapping,
                                                                     final HttpRequest request) {
-        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualRequest req = virtualRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req.category, req.type, req.subType);
         return CompletableFuture.completedStage(buildResponse(200, headers));

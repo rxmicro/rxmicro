@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.controller.redirect;
 
-import io.rxmicro.examples.rest.controller.redirect.model.$$RedirectResponseModelWriter;
+import io.rxmicro.examples.rest.controller.redirect.model.$$RedirectResponseServerModelWriter;
 import io.rxmicro.examples.rest.controller.redirect.model.RedirectResponse;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -22,15 +22,15 @@ public final class $$MicroService2 extends AbstractRestController {
 
     private MicroService2 restController;
 
-    private $$Virtual2RequestModelReader virtual2RequestModelReader;
+    private $$Virtual2RequestServerModelReader virtual2RequestServerModelReader;
 
-    private $$RedirectResponseModelWriter redirectResponseModelWriter;
+    private $$RedirectResponseServerModelWriter redirectResponseServerModelWriter;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService2();
-        virtual2RequestModelReader = new $$Virtual2RequestModelReader();
-        redirectResponseModelWriter = new $$RedirectResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        virtual2RequestServerModelReader = new $$Virtual2RequestServerModelReader();
+        redirectResponseServerModelWriter = new $$RedirectResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
     }
 
     @Override
@@ -99,7 +99,7 @@ public final class $$MicroService2 extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$Virtual2Request req = virtual2RequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$Virtual2Request req = virtual2RequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.parameter);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -111,7 +111,7 @@ public final class $$MicroService2 extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        redirectResponseModelWriter.write(model, response);
+        redirectResponseServerModelWriter.write(model, response);
         return response;
     }
 

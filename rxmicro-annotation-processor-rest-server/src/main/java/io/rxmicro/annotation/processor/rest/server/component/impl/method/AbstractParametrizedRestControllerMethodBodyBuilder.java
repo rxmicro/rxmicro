@@ -29,7 +29,7 @@ import io.rxmicro.annotation.processor.rest.server.component.RestControllerMetho
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructureStorage;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethodBody;
 import io.rxmicro.annotation.processor.rest.server.model.RestServerModuleGeneratorConfig;
-import io.rxmicro.rest.server.detail.component.ModelReader;
+import io.rxmicro.rest.server.detail.component.ServerModelReader;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.util.List;
@@ -80,7 +80,7 @@ public abstract class AbstractParametrizedRestControllerMethodBodyBuilder implem
                                 "REQUEST_CLASS", requestSimpleClassName,
                                 "IS_REQUEST_CLASS_VIRTUAL", isRequestClassVirtual,
                                 "VIRTUAL_FIELDS", virtualFields,
-                                "REQUEST_READER", getModelTransformerInstanceName(type, ModelReader.class),
+                                "REQUEST_READER", getModelTransformerInstanceName(type, ServerModelReader.class),
                                 "REQUEST_VALIDATOR", getModelTransformerInstanceName(type, ConstraintValidator.class),
                                 "GENERATE_REQUEST_VALIDATORS", restServerModuleGeneratorConfig.isGenerateRequestValidators() &&
                                         restControllerClassStructureStorage.isRequestValidatorPresent(type.toString()),

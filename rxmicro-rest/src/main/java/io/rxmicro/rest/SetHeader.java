@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Denotes a static HTTP header that must be set to the response, created by the request handler from REST controller
@@ -38,7 +38,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({TYPE, METHOD})
 @Repeatable(SetHeader.List.class)
 public @interface SetHeader {
@@ -64,7 +64,7 @@ public @interface SetHeader {
      * @since 0.1
      */
     @Documented
-    @Retention(SOURCE)
+    @Retention(CLASS)
     @Target({TYPE, METHOD})
     @interface List {
 

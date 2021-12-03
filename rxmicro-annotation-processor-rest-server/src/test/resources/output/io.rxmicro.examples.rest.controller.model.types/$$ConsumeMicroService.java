@@ -1,13 +1,13 @@
 package io.rxmicro.examples.rest.controller.model.types;
 
-import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithInternalsAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithInternalsRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithPathVarAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithPathVarAndInternalsAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithPathVarAndInternalsRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithPathVarRequestModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithInternalsAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithInternalsRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithPathVarAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithPathVarAndInternalsRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.$$HttpBodyWithPathVarRequestServerModelReader;
 import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.HttpBodyRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.HttpBodyWithHeadersRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.HttpBodyWithInternalsAndHeadersRequest;
@@ -16,14 +16,14 @@ import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.H
 import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.HttpBodyWithPathVarAndInternalsAndHeadersRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.HttpBodyWithPathVarAndInternalsRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.http_body.HttpBodyWithPathVarRequest;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithInternalsAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithInternalsRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithPathVarAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithPathVarAndInternalsRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithPathVarRequestModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithInternalsAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithInternalsRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithPathVarAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithPathVarAndInternalsRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.$$QueryOrHttpBodyWithPathVarRequestServerModelReader;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.QueryOrHttpBodyRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.QueryOrHttpBodyWithHeadersRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.QueryOrHttpBodyWithInternalsAndHeadersRequest;
@@ -32,14 +32,14 @@ import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_ht
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.QueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.QueryOrHttpBodyWithPathVarAndInternalsRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_or_http_body.QueryOrHttpBodyWithPathVarRequest;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithInternalsAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithInternalsRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithPathVarAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithPathVarAndInternalsAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithPathVarAndInternalsRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithPathVarRequestModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithInternalsAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithInternalsRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithPathVarAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithPathVarAndInternalsAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithPathVarAndInternalsRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.$$QueryStringWithPathVarRequestServerModelReader;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.QueryStringRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.QueryStringWithHeadersRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.QueryStringWithInternalsAndHeadersRequest;
@@ -48,14 +48,14 @@ import io.rxmicro.examples.rest.controller.model.types.model.request.query_strin
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.QueryStringWithPathVarAndInternalsAndHeadersRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.QueryStringWithPathVarAndInternalsRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.query_string.QueryStringWithPathVarRequest;
-import io.rxmicro.examples.rest.controller.model.types.model.request.without_any_fields.$$WithoutAnyFieldsRequestModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.without_any_fields.$$WithoutAnyFieldsRequestServerModelReader;
 import io.rxmicro.examples.rest.controller.model.types.model.request.without_any_fields.WithoutAnyFieldsRequest;
-import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$HeadersOnlyRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$InternalsAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$InternalsOnlyRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$PathVarAndHeadersRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$PathVarAndInternalsRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$PathVarOnlyRequestModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$HeadersOnlyRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$InternalsAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$InternalsOnlyRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$PathVarAndHeadersRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$PathVarAndInternalsRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.$$PathVarOnlyRequestServerModelReader;
 import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.HeadersOnlyRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.InternalsAndHeadersRequest;
 import io.rxmicro.examples.rest.controller.model.types.model.request.without_body.InternalsOnlyRequest;
@@ -84,102 +84,102 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private ConsumeMicroService restController;
 
-    private $$HttpBodyWithPathVarAndHeadersRequestModelReader httpBodyWithPathVarAndHeadersRequestModelReader;
+    private $$HttpBodyWithPathVarAndHeadersRequestServerModelReader httpBodyWithPathVarAndHeadersRequestServerModelReader;
 
-    private $$QueryOrHttpBodyWithInternalsRequestModelReader queryOrHttpBodyWithInternalsRequestModelReader;
+    private $$QueryOrHttpBodyWithInternalsRequestServerModelReader queryOrHttpBodyWithInternalsRequestServerModelReader;
 
-    private $$QueryOrHttpBodyWithInternalsAndHeadersRequestModelReader queryOrHttpBodyWithInternalsAndHeadersRequestModelReader;
+    private $$QueryOrHttpBodyWithInternalsAndHeadersRequestServerModelReader queryOrHttpBodyWithInternalsAndHeadersRequestServerModelReader;
 
-    private $$QueryOrHttpBodyWithPathVarAndHeadersRequestModelReader queryOrHttpBodyWithPathVarAndHeadersRequestModelReader;
+    private $$QueryOrHttpBodyWithPathVarAndHeadersRequestServerModelReader queryOrHttpBodyWithPathVarAndHeadersRequestServerModelReader;
 
-    private $$QueryStringWithPathVarRequestModelReader queryStringWithPathVarRequestModelReader;
+    private $$QueryStringWithPathVarRequestServerModelReader queryStringWithPathVarRequestServerModelReader;
 
-    private $$QueryStringWithHeadersRequestModelReader queryStringWithHeadersRequestModelReader;
+    private $$QueryStringWithHeadersRequestServerModelReader queryStringWithHeadersRequestServerModelReader;
 
-    private $$HttpBodyWithPathVarAndInternalsAndHeadersRequestModelReader httpBodyWithPathVarAndInternalsAndHeadersRequestModelReader;
+    private $$HttpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader httpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader;
 
-    private $$HttpBodyRequestModelReader httpBodyRequestModelReader;
+    private $$HttpBodyRequestServerModelReader httpBodyRequestServerModelReader;
 
-    private $$HttpBodyWithInternalsAndHeadersRequestModelReader httpBodyWithInternalsAndHeadersRequestModelReader;
+    private $$HttpBodyWithInternalsAndHeadersRequestServerModelReader httpBodyWithInternalsAndHeadersRequestServerModelReader;
 
-    private $$HttpBodyWithPathVarAndInternalsRequestModelReader httpBodyWithPathVarAndInternalsRequestModelReader;
+    private $$HttpBodyWithPathVarAndInternalsRequestServerModelReader httpBodyWithPathVarAndInternalsRequestServerModelReader;
 
-    private $$PathVarAndInternalsRequestModelReader pathVarAndInternalsRequestModelReader;
+    private $$PathVarAndInternalsRequestServerModelReader pathVarAndInternalsRequestServerModelReader;
 
-    private $$QueryStringWithPathVarAndHeadersRequestModelReader queryStringWithPathVarAndHeadersRequestModelReader;
+    private $$QueryStringWithPathVarAndHeadersRequestServerModelReader queryStringWithPathVarAndHeadersRequestServerModelReader;
 
-    private $$WithoutAnyFieldsRequestModelReader withoutAnyFieldsRequestModelReader;
+    private $$WithoutAnyFieldsRequestServerModelReader withoutAnyFieldsRequestServerModelReader;
 
-    private $$QueryOrHttpBodyWithPathVarAndInternalsRequestModelReader queryOrHttpBodyWithPathVarAndInternalsRequestModelReader;
+    private $$QueryOrHttpBodyWithPathVarAndInternalsRequestServerModelReader queryOrHttpBodyWithPathVarAndInternalsRequestServerModelReader;
 
-    private $$HttpBodyWithHeadersRequestModelReader httpBodyWithHeadersRequestModelReader;
+    private $$HttpBodyWithHeadersRequestServerModelReader httpBodyWithHeadersRequestServerModelReader;
 
-    private $$QueryOrHttpBodyRequestModelReader queryOrHttpBodyRequestModelReader;
+    private $$QueryOrHttpBodyRequestServerModelReader queryOrHttpBodyRequestServerModelReader;
 
-    private $$InternalsOnlyRequestModelReader internalsOnlyRequestModelReader;
+    private $$InternalsOnlyRequestServerModelReader internalsOnlyRequestServerModelReader;
 
-    private $$QueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestModelReader queryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestModelReader;
+    private $$QueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader queryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader;
 
-    private $$PathVarOnlyRequestModelReader pathVarOnlyRequestModelReader;
+    private $$PathVarOnlyRequestServerModelReader pathVarOnlyRequestServerModelReader;
 
-    private $$QueryStringWithInternalsRequestModelReader queryStringWithInternalsRequestModelReader;
+    private $$QueryStringWithInternalsRequestServerModelReader queryStringWithInternalsRequestServerModelReader;
 
-    private $$InternalsAndHeadersRequestModelReader internalsAndHeadersRequestModelReader;
+    private $$InternalsAndHeadersRequestServerModelReader internalsAndHeadersRequestServerModelReader;
 
-    private $$HttpBodyWithPathVarRequestModelReader httpBodyWithPathVarRequestModelReader;
+    private $$HttpBodyWithPathVarRequestServerModelReader httpBodyWithPathVarRequestServerModelReader;
 
-    private $$QueryStringWithPathVarAndInternalsAndHeadersRequestModelReader queryStringWithPathVarAndInternalsAndHeadersRequestModelReader;
+    private $$QueryStringWithPathVarAndInternalsAndHeadersRequestServerModelReader queryStringWithPathVarAndInternalsAndHeadersRequestServerModelReader;
 
-    private $$PathVarAndHeadersRequestModelReader pathVarAndHeadersRequestModelReader;
+    private $$PathVarAndHeadersRequestServerModelReader pathVarAndHeadersRequestServerModelReader;
 
-    private $$QueryStringRequestModelReader queryStringRequestModelReader;
+    private $$QueryStringRequestServerModelReader queryStringRequestServerModelReader;
 
-    private $$QueryOrHttpBodyWithPathVarRequestModelReader queryOrHttpBodyWithPathVarRequestModelReader;
+    private $$QueryOrHttpBodyWithPathVarRequestServerModelReader queryOrHttpBodyWithPathVarRequestServerModelReader;
 
-    private $$QueryOrHttpBodyWithHeadersRequestModelReader queryOrHttpBodyWithHeadersRequestModelReader;
+    private $$QueryOrHttpBodyWithHeadersRequestServerModelReader queryOrHttpBodyWithHeadersRequestServerModelReader;
 
-    private $$QueryStringWithPathVarAndInternalsRequestModelReader queryStringWithPathVarAndInternalsRequestModelReader;
+    private $$QueryStringWithPathVarAndInternalsRequestServerModelReader queryStringWithPathVarAndInternalsRequestServerModelReader;
 
-    private $$HttpBodyWithInternalsRequestModelReader httpBodyWithInternalsRequestModelReader;
+    private $$HttpBodyWithInternalsRequestServerModelReader httpBodyWithInternalsRequestServerModelReader;
 
-    private $$HeadersOnlyRequestModelReader headersOnlyRequestModelReader;
+    private $$HeadersOnlyRequestServerModelReader headersOnlyRequestServerModelReader;
 
-    private $$QueryStringWithInternalsAndHeadersRequestModelReader queryStringWithInternalsAndHeadersRequestModelReader;
+    private $$QueryStringWithInternalsAndHeadersRequestServerModelReader queryStringWithInternalsAndHeadersRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new ConsumeMicroService();
-        httpBodyWithPathVarAndHeadersRequestModelReader = new $$HttpBodyWithPathVarAndHeadersRequestModelReader();
-        queryOrHttpBodyWithInternalsRequestModelReader = new $$QueryOrHttpBodyWithInternalsRequestModelReader();
-        queryOrHttpBodyWithInternalsAndHeadersRequestModelReader = new $$QueryOrHttpBodyWithInternalsAndHeadersRequestModelReader();
-        queryOrHttpBodyWithPathVarAndHeadersRequestModelReader = new $$QueryOrHttpBodyWithPathVarAndHeadersRequestModelReader();
-        queryStringWithPathVarRequestModelReader = new $$QueryStringWithPathVarRequestModelReader();
-        queryStringWithHeadersRequestModelReader = new $$QueryStringWithHeadersRequestModelReader();
-        httpBodyWithPathVarAndInternalsAndHeadersRequestModelReader = new $$HttpBodyWithPathVarAndInternalsAndHeadersRequestModelReader();
-        httpBodyRequestModelReader = new $$HttpBodyRequestModelReader();
-        httpBodyWithInternalsAndHeadersRequestModelReader = new $$HttpBodyWithInternalsAndHeadersRequestModelReader();
-        httpBodyWithPathVarAndInternalsRequestModelReader = new $$HttpBodyWithPathVarAndInternalsRequestModelReader();
-        pathVarAndInternalsRequestModelReader = new $$PathVarAndInternalsRequestModelReader();
-        queryStringWithPathVarAndHeadersRequestModelReader = new $$QueryStringWithPathVarAndHeadersRequestModelReader();
-        withoutAnyFieldsRequestModelReader = new $$WithoutAnyFieldsRequestModelReader();
-        queryOrHttpBodyWithPathVarAndInternalsRequestModelReader = new $$QueryOrHttpBodyWithPathVarAndInternalsRequestModelReader();
-        httpBodyWithHeadersRequestModelReader = new $$HttpBodyWithHeadersRequestModelReader();
-        queryOrHttpBodyRequestModelReader = new $$QueryOrHttpBodyRequestModelReader();
-        internalsOnlyRequestModelReader = new $$InternalsOnlyRequestModelReader();
-        queryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestModelReader = new $$QueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestModelReader();
-        pathVarOnlyRequestModelReader = new $$PathVarOnlyRequestModelReader();
-        queryStringWithInternalsRequestModelReader = new $$QueryStringWithInternalsRequestModelReader();
-        internalsAndHeadersRequestModelReader = new $$InternalsAndHeadersRequestModelReader();
-        httpBodyWithPathVarRequestModelReader = new $$HttpBodyWithPathVarRequestModelReader();
-        queryStringWithPathVarAndInternalsAndHeadersRequestModelReader = new $$QueryStringWithPathVarAndInternalsAndHeadersRequestModelReader();
-        pathVarAndHeadersRequestModelReader = new $$PathVarAndHeadersRequestModelReader();
-        queryStringRequestModelReader = new $$QueryStringRequestModelReader();
-        queryOrHttpBodyWithPathVarRequestModelReader = new $$QueryOrHttpBodyWithPathVarRequestModelReader();
-        queryOrHttpBodyWithHeadersRequestModelReader = new $$QueryOrHttpBodyWithHeadersRequestModelReader();
-        queryStringWithPathVarAndInternalsRequestModelReader = new $$QueryStringWithPathVarAndInternalsRequestModelReader();
-        httpBodyWithInternalsRequestModelReader = new $$HttpBodyWithInternalsRequestModelReader();
-        headersOnlyRequestModelReader = new $$HeadersOnlyRequestModelReader();
-        queryStringWithInternalsAndHeadersRequestModelReader = new $$QueryStringWithInternalsAndHeadersRequestModelReader();
+        httpBodyWithPathVarAndHeadersRequestServerModelReader = new $$HttpBodyWithPathVarAndHeadersRequestServerModelReader();
+        queryOrHttpBodyWithInternalsRequestServerModelReader = new $$QueryOrHttpBodyWithInternalsRequestServerModelReader();
+        queryOrHttpBodyWithInternalsAndHeadersRequestServerModelReader = new $$QueryOrHttpBodyWithInternalsAndHeadersRequestServerModelReader();
+        queryOrHttpBodyWithPathVarAndHeadersRequestServerModelReader = new $$QueryOrHttpBodyWithPathVarAndHeadersRequestServerModelReader();
+        queryStringWithPathVarRequestServerModelReader = new $$QueryStringWithPathVarRequestServerModelReader();
+        queryStringWithHeadersRequestServerModelReader = new $$QueryStringWithHeadersRequestServerModelReader();
+        httpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader = new $$HttpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader();
+        httpBodyRequestServerModelReader = new $$HttpBodyRequestServerModelReader();
+        httpBodyWithInternalsAndHeadersRequestServerModelReader = new $$HttpBodyWithInternalsAndHeadersRequestServerModelReader();
+        httpBodyWithPathVarAndInternalsRequestServerModelReader = new $$HttpBodyWithPathVarAndInternalsRequestServerModelReader();
+        pathVarAndInternalsRequestServerModelReader = new $$PathVarAndInternalsRequestServerModelReader();
+        queryStringWithPathVarAndHeadersRequestServerModelReader = new $$QueryStringWithPathVarAndHeadersRequestServerModelReader();
+        withoutAnyFieldsRequestServerModelReader = new $$WithoutAnyFieldsRequestServerModelReader();
+        queryOrHttpBodyWithPathVarAndInternalsRequestServerModelReader = new $$QueryOrHttpBodyWithPathVarAndInternalsRequestServerModelReader();
+        httpBodyWithHeadersRequestServerModelReader = new $$HttpBodyWithHeadersRequestServerModelReader();
+        queryOrHttpBodyRequestServerModelReader = new $$QueryOrHttpBodyRequestServerModelReader();
+        internalsOnlyRequestServerModelReader = new $$InternalsOnlyRequestServerModelReader();
+        queryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader = new $$QueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader();
+        pathVarOnlyRequestServerModelReader = new $$PathVarOnlyRequestServerModelReader();
+        queryStringWithInternalsRequestServerModelReader = new $$QueryStringWithInternalsRequestServerModelReader();
+        internalsAndHeadersRequestServerModelReader = new $$InternalsAndHeadersRequestServerModelReader();
+        httpBodyWithPathVarRequestServerModelReader = new $$HttpBodyWithPathVarRequestServerModelReader();
+        queryStringWithPathVarAndInternalsAndHeadersRequestServerModelReader = new $$QueryStringWithPathVarAndInternalsAndHeadersRequestServerModelReader();
+        pathVarAndHeadersRequestServerModelReader = new $$PathVarAndHeadersRequestServerModelReader();
+        queryStringRequestServerModelReader = new $$QueryStringRequestServerModelReader();
+        queryOrHttpBodyWithPathVarRequestServerModelReader = new $$QueryOrHttpBodyWithPathVarRequestServerModelReader();
+        queryOrHttpBodyWithHeadersRequestServerModelReader = new $$QueryOrHttpBodyWithHeadersRequestServerModelReader();
+        queryStringWithPathVarAndInternalsRequestServerModelReader = new $$QueryStringWithPathVarAndInternalsRequestServerModelReader();
+        httpBodyWithInternalsRequestServerModelReader = new $$HttpBodyWithInternalsRequestServerModelReader();
+        headersOnlyRequestServerModelReader = new $$HeadersOnlyRequestServerModelReader();
+        queryStringWithInternalsAndHeadersRequestServerModelReader = new $$QueryStringWithInternalsAndHeadersRequestServerModelReader();
     }
 
     @Override
@@ -793,7 +793,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeHttpBodyRequest(final PathVariableMapping pathVariableMapping,
                                                                  final HttpRequest request) {
-        final HttpBodyRequest req = httpBodyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final HttpBodyRequest req = httpBodyRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -801,7 +801,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeHttpBodyWithHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                             final HttpRequest request) {
-        final HttpBodyWithHeadersRequest req = httpBodyWithHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final HttpBodyWithHeadersRequest req = httpBodyWithHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -809,7 +809,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeHttpBodyWithPathVarRequest(final PathVariableMapping pathVariableMapping,
                                                                             final HttpRequest request) {
-        final HttpBodyWithPathVarRequest req = httpBodyWithPathVarRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final HttpBodyWithPathVarRequest req = httpBodyWithPathVarRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -817,7 +817,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeHttpBodyWithInternalsRequest(final PathVariableMapping pathVariableMapping,
                                                                               final HttpRequest request) {
-        final HttpBodyWithInternalsRequest req = httpBodyWithInternalsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final HttpBodyWithInternalsRequest req = httpBodyWithInternalsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -825,7 +825,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeHttpBodyWithInternalsAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                         final HttpRequest request) {
-        final HttpBodyWithInternalsAndHeadersRequest req = httpBodyWithInternalsAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final HttpBodyWithInternalsAndHeadersRequest req = httpBodyWithInternalsAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -833,7 +833,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeHttpBodyWithPathVarAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                       final HttpRequest request) {
-        final HttpBodyWithPathVarAndHeadersRequest req = httpBodyWithPathVarAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final HttpBodyWithPathVarAndHeadersRequest req = httpBodyWithPathVarAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -841,7 +841,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeHttpBodyWithPathVarAndInternalsRequest(final PathVariableMapping pathVariableMapping,
                                                                                         final HttpRequest request) {
-        final HttpBodyWithPathVarAndInternalsRequest req = httpBodyWithPathVarAndInternalsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final HttpBodyWithPathVarAndInternalsRequest req = httpBodyWithPathVarAndInternalsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -849,7 +849,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeHttpBodyWithPathVarAndInternalsAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                                   final HttpRequest request) {
-        final HttpBodyWithPathVarAndInternalsAndHeadersRequest req = httpBodyWithPathVarAndInternalsAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final HttpBodyWithPathVarAndInternalsAndHeadersRequest req = httpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -857,7 +857,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeInternalsOnlyRequest(final PathVariableMapping pathVariableMapping,
                                                                       final HttpRequest request) {
-        final InternalsOnlyRequest req = internalsOnlyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final InternalsOnlyRequest req = internalsOnlyRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -865,7 +865,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumePathVarOnlyRequest(final PathVariableMapping pathVariableMapping,
                                                                     final HttpRequest request) {
-        final PathVarOnlyRequest req = pathVarOnlyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final PathVarOnlyRequest req = pathVarOnlyRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -873,7 +873,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeHeadersOnlyRequest(final PathVariableMapping pathVariableMapping,
                                                                     final HttpRequest request) {
-        final HeadersOnlyRequest req = headersOnlyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final HeadersOnlyRequest req = headersOnlyRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -881,7 +881,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeInternalsAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                             final HttpRequest request) {
-        final InternalsAndHeadersRequest req = internalsAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final InternalsAndHeadersRequest req = internalsAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -889,7 +889,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumePathVarAndInternalsRequest(final PathVariableMapping pathVariableMapping,
                                                                             final HttpRequest request) {
-        final PathVarAndInternalsRequest req = pathVarAndInternalsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final PathVarAndInternalsRequest req = pathVarAndInternalsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -897,7 +897,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumePathVarAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                           final HttpRequest request) {
-        final PathVarAndHeadersRequest req = pathVarAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final PathVarAndHeadersRequest req = pathVarAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -905,7 +905,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryOrHttpBodyRequest(final PathVariableMapping pathVariableMapping,
                                                                         final HttpRequest request) {
-        final QueryOrHttpBodyRequest req = queryOrHttpBodyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryOrHttpBodyRequest req = queryOrHttpBodyRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -913,7 +913,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryOrHttpBodyWithHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                    final HttpRequest request) {
-        final QueryOrHttpBodyWithHeadersRequest req = queryOrHttpBodyWithHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryOrHttpBodyWithHeadersRequest req = queryOrHttpBodyWithHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -921,7 +921,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryOrHttpBodyWithPathVarRequest(final PathVariableMapping pathVariableMapping,
                                                                                    final HttpRequest request) {
-        final QueryOrHttpBodyWithPathVarRequest req = queryOrHttpBodyWithPathVarRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryOrHttpBodyWithPathVarRequest req = queryOrHttpBodyWithPathVarRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -929,7 +929,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryOrHttpBodyWithInternalsRequest(final PathVariableMapping pathVariableMapping,
                                                                                      final HttpRequest request) {
-        final QueryOrHttpBodyWithInternalsRequest req = queryOrHttpBodyWithInternalsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryOrHttpBodyWithInternalsRequest req = queryOrHttpBodyWithInternalsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -937,7 +937,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryOrHttpBodyWithInternalsAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                                final HttpRequest request) {
-        final QueryOrHttpBodyWithInternalsAndHeadersRequest req = queryOrHttpBodyWithInternalsAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryOrHttpBodyWithInternalsAndHeadersRequest req = queryOrHttpBodyWithInternalsAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -945,7 +945,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryOrHttpBodyWithPathVarAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                              final HttpRequest request) {
-        final QueryOrHttpBodyWithPathVarAndHeadersRequest req = queryOrHttpBodyWithPathVarAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryOrHttpBodyWithPathVarAndHeadersRequest req = queryOrHttpBodyWithPathVarAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -953,7 +953,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryOrHttpBodyWithPathVarAndInternalsRequest(final PathVariableMapping pathVariableMapping,
                                                                                                final HttpRequest request) {
-        final QueryOrHttpBodyWithPathVarAndInternalsRequest req = queryOrHttpBodyWithPathVarAndInternalsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryOrHttpBodyWithPathVarAndInternalsRequest req = queryOrHttpBodyWithPathVarAndInternalsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -961,7 +961,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                                          final HttpRequest request) {
-        final QueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequest req = queryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequest req = queryOrHttpBodyWithPathVarAndInternalsAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -969,7 +969,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryStringRequest(final PathVariableMapping pathVariableMapping,
                                                                     final HttpRequest request) {
-        final QueryStringRequest req = queryStringRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryStringRequest req = queryStringRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -977,7 +977,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryStringWithHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                final HttpRequest request) {
-        final QueryStringWithHeadersRequest req = queryStringWithHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryStringWithHeadersRequest req = queryStringWithHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -985,7 +985,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryStringWithPathVarRequest(final PathVariableMapping pathVariableMapping,
                                                                                final HttpRequest request) {
-        final QueryStringWithPathVarRequest req = queryStringWithPathVarRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryStringWithPathVarRequest req = queryStringWithPathVarRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -993,7 +993,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryStringWithInternalsRequest(final PathVariableMapping pathVariableMapping,
                                                                                  final HttpRequest request) {
-        final QueryStringWithInternalsRequest req = queryStringWithInternalsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryStringWithInternalsRequest req = queryStringWithInternalsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -1001,7 +1001,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryStringWithInternalsAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                            final HttpRequest request) {
-        final QueryStringWithInternalsAndHeadersRequest req = queryStringWithInternalsAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryStringWithInternalsAndHeadersRequest req = queryStringWithInternalsAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -1009,7 +1009,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryStringWithPathVarAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                          final HttpRequest request) {
-        final QueryStringWithPathVarAndHeadersRequest req = queryStringWithPathVarAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryStringWithPathVarAndHeadersRequest req = queryStringWithPathVarAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -1017,7 +1017,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryStringWithPathVarAndInternalsRequest(final PathVariableMapping pathVariableMapping,
                                                                                            final HttpRequest request) {
-        final QueryStringWithPathVarAndInternalsRequest req = queryStringWithPathVarAndInternalsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryStringWithPathVarAndInternalsRequest req = queryStringWithPathVarAndInternalsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -1025,7 +1025,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeQueryStringWithPathVarAndInternalsAndHeadersRequest(final PathVariableMapping pathVariableMapping,
                                                                                                      final HttpRequest request) {
-        final QueryStringWithPathVarAndInternalsAndHeadersRequest req = queryStringWithPathVarAndInternalsAndHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryStringWithPathVarAndInternalsAndHeadersRequest req = queryStringWithPathVarAndInternalsAndHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -1033,7 +1033,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeWithoutAnyFieldsRequest(final PathVariableMapping pathVariableMapping,
                                                                          final HttpRequest request) {
-        final WithoutAnyFieldsRequest req = withoutAnyFieldsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final WithoutAnyFieldsRequest req = withoutAnyFieldsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));

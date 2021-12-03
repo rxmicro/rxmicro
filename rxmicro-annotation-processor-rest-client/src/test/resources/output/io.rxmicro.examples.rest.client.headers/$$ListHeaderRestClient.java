@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.client.headers;
 
-import io.rxmicro.examples.rest.client.headers.model.$$ListHeaderResponseModelReader;
+import io.rxmicro.examples.rest.client.headers.model.$$ListHeaderResponseClientModelReader;
 import io.rxmicro.examples.rest.client.headers.model.ListHeaderResponse;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
@@ -16,8 +16,8 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$ListHeaderRestClient extends AbstractRestClient implements ListHeaderRestClient {
 
-    private final $$ListHeaderResponseModelReader listHeaderResponseModelReader =
-            new $$ListHeaderResponseModelReader();
+    private final $$ListHeaderResponseClientModelReader listHeaderResponseClientModelReader =
+            new $$ListHeaderResponseClientModelReader();
 
     private final HttpClient client;
 
@@ -35,6 +35,6 @@ public final class $$ListHeaderRestClient extends AbstractRestClient implements 
                 .sendAsync("GET", "/", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> listHeaderResponseModelReader.readSingle(resp));
+                .thenApply(resp -> listHeaderResponseClientModelReader.readSingle(resp));
     }
 }

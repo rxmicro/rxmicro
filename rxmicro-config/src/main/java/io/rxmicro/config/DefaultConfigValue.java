@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Allows overriding a default value for config property.
@@ -62,7 +62,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({TYPE, MODULE, ANNOTATION_TYPE})
 @Repeatable(DefaultConfigValue.List.class)
 public @interface DefaultConfigValue {
@@ -108,7 +108,7 @@ public @interface DefaultConfigValue {
      * @since 0.1
      */
     @Documented
-    @Retention(SOURCE)
+    @Retention(CLASS)
     @Target({TYPE, MODULE, ANNOTATION_TYPE})
     @interface List {
 

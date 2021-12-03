@@ -22,16 +22,16 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
- * Marks model field as not persist.
+ * Marks a model field as an ignored field.
  *
  * @author nedis
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({FIELD, METHOD})
 public @interface Transient {
 

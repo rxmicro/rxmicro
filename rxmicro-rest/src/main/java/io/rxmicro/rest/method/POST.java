@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Annotation that can be applied to method to signify the method receives a GET request.
@@ -44,7 +44,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target(METHOD)
 @Repeatable(POST.List.class)
 public @interface POST {
@@ -71,7 +71,7 @@ public @interface POST {
      * @since 0.1
      */
     @Documented
-    @Retention(SOURCE)
+    @Retention(CLASS)
     @Target(METHOD)
     @interface List {
 

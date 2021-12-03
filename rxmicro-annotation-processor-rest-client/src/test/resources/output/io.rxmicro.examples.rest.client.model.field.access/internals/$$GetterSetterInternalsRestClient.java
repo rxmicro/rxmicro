@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.client.model.field.access.internals;
 
-import io.rxmicro.examples.rest.client.model.field.access.internals.gettersetter.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.model.field.access.internals.gettersetter.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.model.field.access.internals.gettersetter.Response;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
@@ -17,8 +17,8 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$GetterSetterInternalsRestClient extends AbstractRestClient implements GetterSetterInternalsRestClient {
 
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
 
     private final HttpClient client;
 
@@ -36,6 +36,6 @@ public final class $$GetterSetterInternalsRestClient extends AbstractRestClient 
                 .sendAsync("PUT", "/internals/gettersetter", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

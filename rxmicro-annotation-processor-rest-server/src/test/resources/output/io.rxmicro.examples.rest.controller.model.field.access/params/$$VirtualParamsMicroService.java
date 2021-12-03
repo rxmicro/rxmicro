@@ -20,15 +20,15 @@ public final class $$VirtualParamsMicroService extends AbstractRestController {
 
     private VirtualParamsMicroService restController;
 
-    private $$VirtualVirtualParamsRequest2ModelReader virtualVirtualParamsRequest2ModelReader;
+    private $$VirtualVirtualParamsRequest2ServerModelReader virtualVirtualParamsRequest2ServerModelReader;
 
-    private $$VirtualVirtualParamsRequestModelReader virtualVirtualParamsRequestModelReader;
+    private $$VirtualVirtualParamsRequestServerModelReader virtualVirtualParamsRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new VirtualParamsMicroService();
-        virtualVirtualParamsRequest2ModelReader = new $$VirtualVirtualParamsRequest2ModelReader();
-        virtualVirtualParamsRequestModelReader = new $$VirtualVirtualParamsRequestModelReader();
+        virtualVirtualParamsRequest2ServerModelReader = new $$VirtualVirtualParamsRequest2ServerModelReader();
+        virtualVirtualParamsRequestServerModelReader = new $$VirtualVirtualParamsRequestServerModelReader();
     }
 
     @Override
@@ -73,7 +73,7 @@ public final class $$VirtualParamsMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> get(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$VirtualVirtualParamsRequest req = virtualVirtualParamsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualVirtualParamsRequest req = virtualVirtualParamsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.get(req.booleanParameter, req.byteParameter, req.shortParameter, req.intParameter, req.longParameter, req.bigIntParameter, req.floatParameter, req.doubleParameter, req.decimalParameter, req.charParameter, req.stringParameter, req.instantParameter, req.enumParameter, req.booleanParameterList, req.byteParameterList, req.shortParameterList, req.intParameterList, req.longParameterList, req.bigIntParameterList, req.floatParameterList, req.doubleParameterList, req.decimalParameterList, req.charParameterList, req.stringParameterList, req.instantParameterList, req.enumParameterList, req.booleanParameterSet, req.byteParameterSet, req.shortParameterSet, req.intParameterSet, req.longParameterSet, req.bigIntParameterSet, req.floatParameterSet, req.doubleParameterSet, req.decimalParameterSet, req.charParameterSet, req.stringParameterSet, req.instantParameterSet, req.enumParameterSet);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -81,7 +81,7 @@ public final class $$VirtualParamsMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$VirtualVirtualParamsRequest2 req = virtualVirtualParamsRequest2ModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualVirtualParamsRequest2 req = virtualVirtualParamsRequest2ServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.booleanParameter, req.byteParameter, req.shortParameter, req.intParameter, req.longParameter, req.bigIntParameter, req.floatParameter, req.doubleParameter, req.decimalParameter, req.charParameter, req.stringParameter, req.instantParameter, req.enumParameter, req.booleanParameterList, req.byteParameterList, req.shortParameterList, req.intParameterList, req.longParameterList, req.bigIntParameterList, req.floatParameterList, req.doubleParameterList, req.decimalParameterList, req.charParameterList, req.stringParameterList, req.instantParameterList, req.enumParameterList, req.booleanParameterSet, req.byteParameterSet, req.shortParameterSet, req.intParameterSet, req.longParameterSet, req.bigIntParameterSet, req.floatParameterSet, req.doubleParameterSet, req.decimalParameterSet, req.charParameterSet, req.stringParameterSet, req.instantParameterSet, req.enumParameterSet, req.booleanParameterMap, req.byteParameterMap, req.shortParameterMap, req.integerParameterMap, req.longParameterMap, req.bigIntegerParameterMap, req.floatParameterMap, req.doubleParameterMap, req.bigDecimalParameterMap, req.characterParameterMap, req.stringParameterMap, req.instantParameterMap, req.enumParameterMap, req.nested, req.nestedList, req.nestedSet, req.nestedParameterMap);
         return CompletableFuture.completedStage(buildResponse(200, headers));

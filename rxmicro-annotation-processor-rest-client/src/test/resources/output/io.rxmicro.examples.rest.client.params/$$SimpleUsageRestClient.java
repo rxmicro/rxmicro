@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.client.params;
 
 import io.rxmicro.examples.rest.client.params.model.$$RequestRequestModelExtractor;
-import io.rxmicro.examples.rest.client.params.model.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.params.model.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.params.model.Request;
 import io.rxmicro.examples.rest.client.params.model.Response;
 import io.rxmicro.rest.client.RestClientConfig;
@@ -19,11 +19,11 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$SimpleUsageRestClient extends AbstractRestClient implements SimpleUsageRestClient {
 
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
-
     private final $$RequestRequestModelExtractor requestRequestModelExtractor =
             new $$RequestRequestModelExtractor();
+
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
 
     private final $$VirtualSimpleUsageRequestRequestModelExtractor virtualSimpleUsageRequestRequestModelExtractor =
             new $$VirtualSimpleUsageRequestRequestModelExtractor();
@@ -47,7 +47,7 @@ public final class $$SimpleUsageRestClient extends AbstractRestClient implements
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -60,6 +60,6 @@ public final class $$SimpleUsageRestClient extends AbstractRestClient implements
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

@@ -1,8 +1,8 @@
 package io.rxmicro.examples.validation.server.all.standard;
 
 import io.rxmicro.examples.validation.server.all.standard.model.$$ModelConstraintValidator;
-import io.rxmicro.examples.validation.server.all.standard.model.$$ModelModelReader;
-import io.rxmicro.examples.validation.server.all.standard.model.$$ModelModelWriter;
+import io.rxmicro.examples.validation.server.all.standard.model.$$ModelServerModelReader;
+import io.rxmicro.examples.validation.server.all.standard.model.$$ModelServerModelWriter;
 import io.rxmicro.examples.validation.server.all.standard.model.Model;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -25,11 +25,11 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$ModelModelReader modelModelReader;
+    private $$ModelServerModelReader modelServerModelReader;
 
-    private $$VirtualRequestModelReader virtualRequestModelReader;
+    private $$VirtualRequestServerModelReader virtualRequestServerModelReader;
 
-    private $$ModelModelWriter modelModelWriter;
+    private $$ModelServerModelWriter modelServerModelWriter;
 
     private $$ModelConstraintValidator modelConstraintValidator;
 
@@ -38,9 +38,9 @@ public final class $$MicroService extends AbstractRestController {
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        modelModelReader = new $$ModelModelReader();
-        virtualRequestModelReader = new $$VirtualRequestModelReader();
-        modelModelWriter = new $$ModelModelWriter(restServerConfig.isHumanReadableOutput());
+        modelServerModelReader = new $$ModelServerModelReader();
+        virtualRequestServerModelReader = new $$VirtualRequestServerModelReader();
+        modelServerModelWriter = new $$ModelServerModelWriter(restServerConfig.isHumanReadableOutput());
         modelConstraintValidator = new $$ModelConstraintValidator();
         virtualRequestConstraintValidator = new $$VirtualRequestConstraintValidator();
     }
@@ -87,7 +87,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put1(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final Model req = modelModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Model req = modelServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         modelConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         return restController.put1(req)
@@ -96,7 +96,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put2(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualRequest req = virtualRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         virtualRequestConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         return restController.put2(req.optionalParameter, req.booleanParameter, req.byteParameter, req.shortParameter, req.intParameter, req.longParameter, req.bigIntParameter, req.floatParameter, req.doubleParameter, req.decimalParameter, req.charParameter, req.stringParameter, req.instantParameter, req.colorParameter, req.optionalList, req.booleanValues, req.byteValues, req.shortValues, req.intValues, req.longValues, req.charValues, req.floatValues, req.doubleValues, req.decimals, req.bigIntegers, req.strings, req.instants, req.colors, req.optionalSet, req.booleanSet, req.byteSet, req.shortSet, req.intSet, req.longSet, req.charSet, req.floatSet, req.doubleSet, req.decimalSet, req.bigIntegerSet, req.stringSet, req.instantSet, req.colorSet, req.optionalMap, req.booleanMap, req.byteMap, req.shortMap, req.intMap, req.longMap, req.charMap, req.floatMap, req.doubleMap, req.decimalMap, req.bigIntegerMap, req.stringMap, req.instantMap, req.colorMap, req.countryCodeAlpha2, req.countryCodeAlpha3, req.countryCodeNumeric, req.base64URLEncodedBase, req.base64URLEncodedUrl, req.ip, req.ip4, req.ip6, req.lat111km, req.lng111km, req.lat11km, req.lng11km, req.lat1km, req.lng1km, req.lat111m, req.lng111m, req.lat11m, req.lng11m, req.lat1m, req.lng1m, req.lat11cm, req.lng11cm, req.lat1cm, req.lng1cm)
@@ -110,7 +110,7 @@ public final class $$MicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        modelModelWriter.write(model, response);
+        modelServerModelWriter.write(model, response);
         return response;
     }
 }

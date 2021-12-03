@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.rest.server.model;
 
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.AbstractSimpleObjectModelClass;
-import io.rxmicro.rest.server.detail.component.ModelReader;
-import io.rxmicro.rest.server.detail.component.ModelWriter;
+import io.rxmicro.rest.server.detail.component.ServerModelReader;
+import io.rxmicro.rest.server.detail.component.ServerModelWriter;
 
 import javax.lang.model.element.TypeElement;
 
@@ -40,27 +40,27 @@ public final class RestServerSimpleObjectModelClass extends AbstractSimpleObject
             "$$RestControllerTemplate.javaftl"
     )
     public String getModelReaderImplSimpleClassName() {
-        return getModelTransformerSimpleClassName(typeElement, ModelReader.class);
+        return getModelTransformerSimpleClassName(typeElement, ServerModelReader.class);
     }
 
     @UsedByFreemarker(
             "$$RestControllerTemplate.javaftl"
     )
     public String getModelReaderInstanceName() {
-        return getModelTransformerInstanceName(typeElement, ModelReader.class);
+        return getModelTransformerInstanceName(typeElement, ServerModelReader.class);
     }
 
     @UsedByFreemarker(
             "$$RestControllerTemplate.javaftl"
     )
     public String getModelWriterImplSimpleClassName() {
-        return getModelTransformerSimpleClassName(typeElement, ModelWriter.class);
+        return getModelTransformerSimpleClassName(typeElement, ServerModelWriter.class);
     }
 
     @UsedByFreemarker(
             "$$RestControllerTemplate.javaftl"
     )
     public String getModelWriterInstanceName() {
-        return getModelTransformerInstanceName(typeElement, ModelWriter.class);
+        return getModelTransformerInstanceName(typeElement, ServerModelWriter.class);
     }
 }

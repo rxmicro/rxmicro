@@ -137,7 +137,7 @@ public final class AnnotationValidators {
                     annotationElement.asType()
             );
         }
-        if (retention.value() != RetentionPolicy.SOURCE) {
+        if (retention.value() != RetentionPolicy.CLASS) {
             throw new InterruptProcessingException(
                     annotationElement,
                     "Invalid retention policy for '?' annotation type. " +

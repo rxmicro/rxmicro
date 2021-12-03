@@ -36,7 +36,6 @@ import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.cdi.local.Annotations.INJECT_ANNOTATIONS;
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 /**
@@ -84,16 +83,9 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
         final Set<BeanSupplierClassStructure> beanWithInjectionsClassStructures =
                 beanWithInjectionsClassStructureBuilder.build(environmentContext, annotations, roundEnv);
         final Set<BeanSupplierClassStructure> beanWithoutInjectionsClassStructures =
-                beanWithoutInjectionsClassStructureBuilder.build(
-                        environmentContext,
-                        beanWithInjectionsClassStructures.stream()
-                                .flatMap(s -> s.getBeanDefinition().getInjectionPoints().stream())
-                                .collect(toList()),
-                        beanWithInjectionsClassStructures.stream()
-                                .map(s -> s.getBeanDefinition().getBeanTypeElement().asType().toString())
-                                .collect(toSet())
-                );
+                beanWithoutInjectionsClassStructureBuilder.build(environmentContext, beanWithInjectionsClassStructures);
         logAllFoundBeanSuppliers(beanWithInjectionsClassStructures, beanWithoutInjectionsClassStructures);
+
         final Set<BeanSupplierClassStructure> beanSupplierClassStructures = new HashSet<>();
         beanSupplierClassStructures.addAll(beanWithInjectionsClassStructures);
         beanSupplierClassStructures.addAll(beanWithoutInjectionsClassStructures);

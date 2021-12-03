@@ -126,7 +126,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
     }
 
     @UsedByFreemarker(
-            "$$RestJsonModelWriterTemplate.javaftl"
+            "$$RestJsonServerModelWriterTemplate.javaftl"
     )
     public boolean isHeaderReadReflectionRequired() {
         return headers.keySet().stream().anyMatch(m -> m.getModelReadAccessorType() == REFLECTION);
@@ -169,7 +169,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
         return isHeadersPresent() || isPathVariablesPresent() || isInternalsPresent();
     }
 
-    @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
+    @UsedByFreemarker("$$RestJsonServerModelWriterTemplate.javaftl")
     public boolean isHeadersOrPathVariablesOrInternalsPresentAtThisOrAnyParent() {
         return isHeadersOrPathVariablesOrInternalsPresent() ||
                 getParent().map(RestObjectModelClass::isHeadersOrPathVariablesOrInternalsPresent).orElse(false);
@@ -190,7 +190,8 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
     }
 
     @UsedByFreemarker({
-            "$$RestJsonModelReaderTemplate.javaftl",
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl",
             "$$RestModelFromJsonConverterTemplate.javaftl"
     })
     public String getFromJsonConverterInstanceName() {
@@ -198,7 +199,8 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
     }
 
     @UsedByFreemarker({
-            "$$RestJsonModelReaderTemplate.javaftl",
+            "$$RestJsonClientModelReaderTemplate.javaftl",
+            "$$RestJsonServerModelReaderTemplate.javaftl",
             "$$RestModelFromJsonConverterTemplate.javaftl"
     })
     public String getModelFromJsonConverterImplSimpleClassName() {
@@ -210,7 +212,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
     }
 
     @UsedByFreemarker({
-            "$$RestJsonModelWriterTemplate.javaftl",
+            "$$RestJsonServerModelWriterTemplate.javaftl",
             "$$RestModelToJsonConverterTemplate.javaftl"
     })
     public String getToJsonConverterInstanceName() {
@@ -218,7 +220,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
     }
 
     @UsedByFreemarker({
-            "$$RestJsonModelWriterTemplate.javaftl",
+            "$$RestJsonServerModelWriterTemplate.javaftl",
             "$$RestModelToJsonConverterTemplate.javaftl"
     })
     public String getModelToJsonConverterImplSimpleClassName() {

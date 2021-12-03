@@ -25,9 +25,9 @@ import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.model.UrlSegments;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
-import io.rxmicro.rest.server.detail.component.ModelReader;
-import io.rxmicro.rest.server.detail.component.ModelWriter;
 import io.rxmicro.rest.server.detail.component.RestControllerRegistrar;
+import io.rxmicro.rest.server.detail.component.ServerModelReader;
+import io.rxmicro.rest.server.detail.component.ServerModelWriter;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
@@ -153,7 +153,7 @@ public final class RestControllerClassStructure extends CDIUsageCandidateClassSt
                 .flatMap(m -> m.getFromHttpDataType().stream())
                 .flatMap(t -> allImports(
                         t,
-                        ModelReader.class,
+                        ServerModelReader.class,
                         classStructureStorage.isRequestValidatorPresent(t.getQualifiedName().toString()))
                 )
                 .toArray(String[]::new));
@@ -161,7 +161,7 @@ public final class RestControllerClassStructure extends CDIUsageCandidateClassSt
                 .flatMap(m -> m.getToHttpDataType().stream())
                 .flatMap(t -> allImports(
                         t,
-                        ModelWriter.class,
+                        ServerModelWriter.class,
                         classStructureStorage.isResponseValidatorPresent(t.getQualifiedName().toString()))
                 )
                 .toArray(String[]::new));

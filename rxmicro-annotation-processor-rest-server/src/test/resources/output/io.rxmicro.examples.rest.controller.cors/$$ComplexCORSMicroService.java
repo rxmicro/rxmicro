@@ -22,12 +22,12 @@ public final class $$ComplexCORSMicroService extends AbstractRestController {
 
     private ComplexCORSMicroService restController;
 
-    private $$VirtualComplexCORSRequestModelReader virtualComplexCORSRequestModelReader;
+    private $$VirtualComplexCORSRequestServerModelReader virtualComplexCORSRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new ComplexCORSMicroService();
-        virtualComplexCORSRequestModelReader = new $$VirtualComplexCORSRequestModelReader();
+        virtualComplexCORSRequestServerModelReader = new $$VirtualComplexCORSRequestServerModelReader();
     }
 
     @Override
@@ -138,7 +138,7 @@ public final class $$ComplexCORSMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> handler3(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final $$VirtualComplexCORSRequest req = virtualComplexCORSRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualComplexCORSRequest req = virtualComplexCORSRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.handler3(req.path);
         return CompletableFuture.completedStage(buildResponse(200, headers));

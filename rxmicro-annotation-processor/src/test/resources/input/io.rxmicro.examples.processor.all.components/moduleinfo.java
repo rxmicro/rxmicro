@@ -15,9 +15,9 @@
  */
 
 module examples.processor.all.components {
-    requires rxmicro.rest.server.netty;
+    requires rxmicro.rest.server;
     requires rxmicro.rest.server.exchange.json;
-    requires rxmicro.rest.client.jdk;
+    requires rxmicro.rest.client;
     requires rxmicro.rest.client.exchange.json;
     requires rxmicro.data.mongo;
     requires rxmicro.data.sql.r2dbc.postgresql;

@@ -16,6 +16,6 @@
 
 module examples.cdi.rxmicro.component {
     requires rxmicro.cdi;
-    requires rxmicro.rest.client.jdk;
+    requires rxmicro.rest.client;
     requires rxmicro.rest.client.exchange.json;
 }

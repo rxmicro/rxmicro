@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.client.params;
 
 import io.rxmicro.examples.rest.client.params.model.$$ComplexRequestModelToJsonConverter;
-import io.rxmicro.examples.rest.client.params.model.$$ComplexResponseModelReader;
+import io.rxmicro.examples.rest.client.params.model.$$ComplexResponseClientModelReader;
 import io.rxmicro.examples.rest.client.params.model.ComplexRequest;
 import io.rxmicro.examples.rest.client.params.model.ComplexResponse;
 import io.rxmicro.rest.client.RestClientConfig;
@@ -18,11 +18,11 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$ComplexModelRestClient extends AbstractRestClient implements ComplexModelRestClient {
 
+    private final $$ComplexResponseClientModelReader complexResponseClientModelReader =
+            new $$ComplexResponseClientModelReader();
+
     private final $$ComplexRequestModelToJsonConverter complexRequestModelToJsonConverter =
             new $$ComplexRequestModelToJsonConverter();
-
-    private final $$ComplexResponseModelReader complexResponseModelReader =
-            new $$ComplexResponseModelReader();
 
     private final HttpClient client;
 
@@ -42,6 +42,6 @@ public final class $$ComplexModelRestClient extends AbstractRestClient implement
                 .sendAsync("POST", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> complexResponseModelReader.readSingle(resp));
+                .thenApply(resp -> complexResponseClientModelReader.readSingle(resp));
     }
 }

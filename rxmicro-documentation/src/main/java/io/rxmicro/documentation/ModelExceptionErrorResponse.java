@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Denotes the exception class to be analyzed by the {@code RxMicro Annotation Processor} for generating the unsuccessful
@@ -41,7 +41,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({METHOD, TYPE})
 @Repeatable(ModelExceptionErrorResponse.List.class)
 public @interface ModelExceptionErrorResponse {
@@ -105,7 +105,7 @@ public @interface ModelExceptionErrorResponse {
      * @since 0.1
      */
     @Documented
-    @Retention(SOURCE)
+    @Retention(CLASS)
     @Target({METHOD, TYPE})
     @interface List {
 

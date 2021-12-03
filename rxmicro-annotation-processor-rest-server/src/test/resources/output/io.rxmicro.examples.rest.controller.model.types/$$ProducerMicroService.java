@@ -1,16 +1,16 @@
 package io.rxmicro.examples.rest.controller.model.types;
 
-import io.rxmicro.examples.rest.controller.model.types.model.response.body.$$BodyOnlyResponseModelWriter;
-import io.rxmicro.examples.rest.controller.model.types.model.response.body.$$BodyWithHeadersResponseModelWriter;
-import io.rxmicro.examples.rest.controller.model.types.model.response.body.$$BodyWithInternalsAndHeadersResponseModelWriter;
-import io.rxmicro.examples.rest.controller.model.types.model.response.body.$$BodyWithInternalsResponseModelWriter;
+import io.rxmicro.examples.rest.controller.model.types.model.response.body.$$BodyOnlyResponseServerModelWriter;
+import io.rxmicro.examples.rest.controller.model.types.model.response.body.$$BodyWithHeadersResponseServerModelWriter;
+import io.rxmicro.examples.rest.controller.model.types.model.response.body.$$BodyWithInternalsAndHeadersResponseServerModelWriter;
+import io.rxmicro.examples.rest.controller.model.types.model.response.body.$$BodyWithInternalsResponseServerModelWriter;
 import io.rxmicro.examples.rest.controller.model.types.model.response.body.BodyOnlyResponse;
 import io.rxmicro.examples.rest.controller.model.types.model.response.body.BodyWithHeadersResponse;
 import io.rxmicro.examples.rest.controller.model.types.model.response.body.BodyWithInternalsAndHeadersResponse;
 import io.rxmicro.examples.rest.controller.model.types.model.response.body.BodyWithInternalsResponse;
-import io.rxmicro.examples.rest.controller.model.types.model.response.without_body.$$HeadersOnlyResponseModelWriter;
-import io.rxmicro.examples.rest.controller.model.types.model.response.without_body.$$InternalsAndHeadersResponseModelWriter;
-import io.rxmicro.examples.rest.controller.model.types.model.response.without_body.$$InternalsOnlyResponseModelWriter;
+import io.rxmicro.examples.rest.controller.model.types.model.response.without_body.$$HeadersOnlyResponseServerModelWriter;
+import io.rxmicro.examples.rest.controller.model.types.model.response.without_body.$$InternalsAndHeadersResponseServerModelWriter;
+import io.rxmicro.examples.rest.controller.model.types.model.response.without_body.$$InternalsOnlyResponseServerModelWriter;
 import io.rxmicro.examples.rest.controller.model.types.model.response.without_body.HeadersOnlyResponse;
 import io.rxmicro.examples.rest.controller.model.types.model.response.without_body.InternalsAndHeadersResponse;
 import io.rxmicro.examples.rest.controller.model.types.model.response.without_body.InternalsOnlyResponse;
@@ -33,30 +33,30 @@ public final class $$ProducerMicroService extends AbstractRestController {
 
     private ProducerMicroService restController;
 
-    private $$BodyWithInternalsAndHeadersResponseModelWriter bodyWithInternalsAndHeadersResponseModelWriter;
+    private $$BodyWithInternalsAndHeadersResponseServerModelWriter bodyWithInternalsAndHeadersResponseServerModelWriter;
 
-    private $$BodyOnlyResponseModelWriter bodyOnlyResponseModelWriter;
+    private $$BodyOnlyResponseServerModelWriter bodyOnlyResponseServerModelWriter;
 
-    private $$BodyWithHeadersResponseModelWriter bodyWithHeadersResponseModelWriter;
+    private $$BodyWithHeadersResponseServerModelWriter bodyWithHeadersResponseServerModelWriter;
 
-    private $$HeadersOnlyResponseModelWriter headersOnlyResponseModelWriter;
+    private $$HeadersOnlyResponseServerModelWriter headersOnlyResponseServerModelWriter;
 
-    private $$BodyWithInternalsResponseModelWriter bodyWithInternalsResponseModelWriter;
+    private $$BodyWithInternalsResponseServerModelWriter bodyWithInternalsResponseServerModelWriter;
 
-    private $$InternalsOnlyResponseModelWriter internalsOnlyResponseModelWriter;
+    private $$InternalsOnlyResponseServerModelWriter internalsOnlyResponseServerModelWriter;
 
-    private $$InternalsAndHeadersResponseModelWriter internalsAndHeadersResponseModelWriter;
+    private $$InternalsAndHeadersResponseServerModelWriter internalsAndHeadersResponseServerModelWriter;
 
     @Override
     protected void postConstruct() {
         restController = new ProducerMicroService();
-        bodyWithInternalsAndHeadersResponseModelWriter = new $$BodyWithInternalsAndHeadersResponseModelWriter(restServerConfig.isHumanReadableOutput());
-        bodyOnlyResponseModelWriter = new $$BodyOnlyResponseModelWriter(restServerConfig.isHumanReadableOutput());
-        bodyWithHeadersResponseModelWriter = new $$BodyWithHeadersResponseModelWriter(restServerConfig.isHumanReadableOutput());
-        headersOnlyResponseModelWriter = new $$HeadersOnlyResponseModelWriter(restServerConfig.isHumanReadableOutput());
-        bodyWithInternalsResponseModelWriter = new $$BodyWithInternalsResponseModelWriter(restServerConfig.isHumanReadableOutput());
-        internalsOnlyResponseModelWriter = new $$InternalsOnlyResponseModelWriter(restServerConfig.isHumanReadableOutput());
-        internalsAndHeadersResponseModelWriter = new $$InternalsAndHeadersResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        bodyWithInternalsAndHeadersResponseServerModelWriter = new $$BodyWithInternalsAndHeadersResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
+        bodyOnlyResponseServerModelWriter = new $$BodyOnlyResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
+        bodyWithHeadersResponseServerModelWriter = new $$BodyWithHeadersResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
+        headersOnlyResponseServerModelWriter = new $$HeadersOnlyResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
+        bodyWithInternalsResponseServerModelWriter = new $$BodyWithInternalsResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
+        internalsOnlyResponseServerModelWriter = new $$InternalsOnlyResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
+        internalsAndHeadersResponseServerModelWriter = new $$InternalsAndHeadersResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
     }
 
     @Override
@@ -210,7 +210,7 @@ public final class $$ProducerMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        bodyWithInternalsAndHeadersResponseModelWriter.write(model, response);
+        bodyWithInternalsAndHeadersResponseServerModelWriter.write(model, response);
         return response;
     }
 
@@ -220,7 +220,7 @@ public final class $$ProducerMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        bodyOnlyResponseModelWriter.write(model, response);
+        bodyOnlyResponseServerModelWriter.write(model, response);
         return response;
     }
 
@@ -230,7 +230,7 @@ public final class $$ProducerMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        bodyWithHeadersResponseModelWriter.write(model, response);
+        bodyWithHeadersResponseServerModelWriter.write(model, response);
         return response;
     }
 
@@ -240,7 +240,7 @@ public final class $$ProducerMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        headersOnlyResponseModelWriter.write(model, response);
+        headersOnlyResponseServerModelWriter.write(model, response);
         return response;
     }
 
@@ -250,7 +250,7 @@ public final class $$ProducerMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        bodyWithInternalsResponseModelWriter.write(model, response);
+        bodyWithInternalsResponseServerModelWriter.write(model, response);
         return response;
     }
 
@@ -260,7 +260,7 @@ public final class $$ProducerMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        internalsOnlyResponseModelWriter.write(model, response);
+        internalsOnlyResponseServerModelWriter.write(model, response);
         return response;
     }
 
@@ -270,7 +270,7 @@ public final class $$ProducerMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        internalsAndHeadersResponseModelWriter.write(model, response);
+        internalsAndHeadersResponseServerModelWriter.write(model, response);
         return response;
     }
 }

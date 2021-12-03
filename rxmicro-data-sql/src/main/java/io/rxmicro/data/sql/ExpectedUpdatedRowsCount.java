@@ -21,7 +21,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Enables validation for updated rows count during DML operation, like {@link io.rxmicro.data.sql.operation.Insert},
@@ -35,7 +35,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.7
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target(METHOD)
 public @interface ExpectedUpdatedRowsCount {
 

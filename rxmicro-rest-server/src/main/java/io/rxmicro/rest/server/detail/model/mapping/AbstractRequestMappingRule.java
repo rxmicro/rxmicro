@@ -30,6 +30,8 @@ import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
  */
 abstract class AbstractRequestMappingRule implements RequestMappingRule {
 
+    private static final int TO_STRING_BUILDER_CAPACITY = 50;
+
     private final String method;
 
     private final boolean httpBody;
@@ -68,13 +70,17 @@ abstract class AbstractRequestMappingRule implements RequestMappingRule {
 
     @Override
     public final String toString() {
-        final StringBuilder stringBuilder = new StringBuilder("\"");
-        stringBuilder.append(method).append(" '").append(getUri()).append("' ");
+        final StringBuilder stringBuilder = new StringBuilder(TO_STRING_BUILDER_CAPACITY)
+                .append('"')
+                .append(method)
+                .append(" '")
+                .append(getUri())
+                .append('\'');
         if (versionHeaderValue != null) {
-            stringBuilder.append(API_VERSION).append(": ").append(versionHeaderValue).append(' ');
+            stringBuilder.append(API_VERSION).append(" : ").append(versionHeaderValue);
         }
         if (httpBody) {
-            stringBuilder.append("<with-body>");
+            stringBuilder.append(" <with-body>");
         }
         return stringBuilder.append('"').toString();
     }

@@ -34,6 +34,7 @@ import io.rxmicro.annotation.processor.rest.component.RestModelToJsonConverterBu
 import io.rxmicro.annotation.processor.rest.component.RestModelValidatorBuilder;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
+import io.rxmicro.annotation.processor.rest.model.RestClassSignature;
 import io.rxmicro.annotation.processor.rest.model.RestGenerationContext;
 import io.rxmicro.annotation.processor.rest.model.VirtualTypeClassStructure;
 import io.rxmicro.annotation.processor.rest.server.component.CrossOriginResourceSharingResourceBuilder;
@@ -42,6 +43,7 @@ import io.rxmicro.annotation.processor.rest.server.component.DeclaredStaticResou
 import io.rxmicro.annotation.processor.rest.server.component.HttpHealthCheckBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.ModelReaderBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.ModelWriterBuilder;
+import io.rxmicro.annotation.processor.rest.server.component.ParentModelVirtualClassSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerClassSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestDocumentationGenerator;
@@ -53,13 +55,14 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStru
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethodSignature;
 import io.rxmicro.annotation.processor.rest.server.model.RestServerModuleGeneratorConfig;
 import io.rxmicro.rest.model.ExchangeFormat;
+import io.rxmicro.rest.server.ServerRequest;
+import io.rxmicro.rest.server.ServerResponse;
 import io.rxmicro.rest.server.StaticResources;
 import io.rxmicro.validation.DisableValidation;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -69,10 +72,11 @@ import javax.lang.model.element.TypeElement;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLoggableMethodName;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE_VALUE;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.rest.method.HttpMethods.HTTP_METHOD_ANNOTATIONS;
 import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
@@ -81,6 +85,11 @@ import static java.util.stream.Collectors.toList;
  * @since 0.1
  */
 public final class RestServerModuleClassStructuresBuilder extends AbstractModuleClassStructuresBuilder {
+
+    private static final Set<String> PARENT_MODEL_ANNOTATION_NAMES = Set.of(
+            ServerRequest.class.getName(),
+            ServerResponse.class.getName()
+    );
 
     @Inject
     private ModuleGeneratorConfigBuilder<RestServerModuleGeneratorConfig> restServerModuleGeneratorConfigBuilder;
@@ -127,6 +136,9 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
     @Inject
     private DeclaredStaticResourcesResolver declaredStaticResourcesResolver;
 
+    @Inject
+    private ParentModelVirtualClassSignatureBuilder parentModelVirtualClassSignatureBuilder;
+
     public static RestServerModuleClassStructuresBuilder create() {
         final RestServerModuleClassStructuresBuilder builder = new RestServerModuleClassStructuresBuilder();
         injectDependencies(
@@ -164,7 +176,8 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                         Stream.of(
                                 StaticResources.class.getName(),
                                 StaticResources.List.class.getName().replace("$", ".")
-                        )
+                        ),
+                        PARENT_MODEL_ANNOTATION_NAMES.stream()
                 )
                 .flatMap(identity())
                 .collect(Collectors.toSet());
@@ -175,35 +188,31 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                                                               final Set<? extends TypeElement> annotations,
                                                               final RoundEnvironment roundEnv) {
         try {
-            final Map<Boolean, List<TypeElement>> groups = annotations.stream()
-                    .collect(groupingBy(typeElement ->
-                            typeElement.getQualifiedName().toString().startsWith(StaticResources.class.getName())
-                    ));
-            final List<? extends TypeElement> httpMethodAnnotations = Optional.ofNullable(groups.get(false)).orElse(List.of());
-            final List<? extends TypeElement> staticResourceAnnotations = Optional.ofNullable(groups.get(true)).orElse(List.of());
+            final List<TypeElement> httpMethodAnnotations = new ArrayList<>();
+            final List<TypeElement> staticResourceAnnotations = new ArrayList<>();
+            final List<TypeElement> parentModelsAnnotations = new ArrayList<>();
+            for (final TypeElement annotation : annotations) {
+                final String annotationFullClassName = annotation.getQualifiedName().toString();
+                if (PARENT_MODEL_ANNOTATION_NAMES.contains(annotationFullClassName)) {
+                    parentModelsAnnotations.add(annotation);
+                } else if (annotationFullClassName.startsWith(StaticResources.class.getName())) {
+                    staticResourceAnnotations.add(annotation);
+                } else {
+                    httpMethodAnnotations.add(annotation);
+                }
+            }
 
-            final Set<RestControllerClassSignature> classSignatures =
-                    restControllerClassSignatureBuilder.build(environmentContext, httpMethodAnnotations, roundEnv);
+            final Set<RestClassSignature> classSignatures = new HashSet<>();
+            classSignatures.addAll(
+                    restControllerClassSignatureBuilder.build(environmentContext, httpMethodAnnotations, roundEnv)
+            );
+            classSignatures.addAll(
+                    parentModelVirtualClassSignatureBuilder.buildVirtualSignatures(environmentContext, parentModelsAnnotations, roundEnv)
+            );
             final DeclaredStaticResources declaredStaticResources =
                     declaredStaticResourcesResolver.resolve(environmentContext, staticResourceAnnotations, roundEnv);
 
-            if (!classSignatures.isEmpty()) {
-                return buildClassStructures(environmentContext, classSignatures, declaredStaticResources);
-            } else if (declaredStaticResources.exist()) {
-                logFoundStaticResources(declaredStaticResources);
-                return Set.of(
-                        new RestControllerAggregatorClassStructure(
-                                environmentContext,
-                                Set.of(),
-                                Set.of(),
-                                httpHealthCheckBuilder.build(environmentContext, Set.of()),
-                                declaredStaticResources,
-                                Set.of()
-                        )
-                );
-            } else {
-                return Set.of();
-            }
+            return buildClassStructures(environmentContext, classSignatures, declaredStaticResources);
         } catch (final InterruptProcessingException ex) {
             error(ex);
             return Set.of();
@@ -214,65 +223,97 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
     }
 
     private Set<ClassStructure> buildClassStructures(final EnvironmentContext environmentContext,
-                                                     final Set<RestControllerClassSignature> classSignatures,
+                                                     final Set<RestClassSignature> classSignatures,
                                                      final DeclaredStaticResources declaredStaticResources) {
-        environmentContext.put(restServerModuleGeneratorConfigBuilder.build(environmentContext));
+
         logFoundRestControllers(classSignatures);
-        if (declaredStaticResources.exist()) {
-            logFoundStaticResources(declaredStaticResources);
+        logFoundStaticResources(declaredStaticResources);
+        final Set<ClassStructure> classStructures = new HashSet<>();
+        if (!classSignatures.isEmpty()) {
+            environmentContext.put(restServerModuleGeneratorConfigBuilder.build(environmentContext));
+
+            final RestGenerationContext restGenerationContext =
+                    restGenerationContextBuilder.build(environmentContext, RestServerModuleGeneratorConfig.class, classSignatures);
+            final RestControllerClassStructureStorage restControllerClassStructureStorage =
+                    buildRestClassStructureStorage(environmentContext, restGenerationContext);
+            classStructures.addAll(restControllerClassStructureStorage.getAll());
+            // Exclude virtual signatures: VirtualRestControllerClassSignature
+            final Set<RestControllerClassSignature> restControllerClassSignatures = classSignatures.stream()
+                    .filter(s -> s instanceof RestControllerClassSignature)
+                    .map(s -> (RestControllerClassSignature) s)
+                    .collect(Collectors.toSet());
+
+            final Set<RestControllerClassStructure> restControllerClassStructures = restControllerClassStructureBuilder.build(
+                    environmentContext, restControllerClassStructureStorage, restControllerClassSignatures
+            );
+            classStructures.addAll(restControllerClassStructures);
+            if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty() &&
+                    !getBooleanOption(RX_MICRO_LIBRARY_MODULE, RX_MICRO_LIBRARY_MODULE_VALUE)) {
+                restDocumentationGenerator.generate(environmentContext, restControllerClassStructureStorage, restControllerClassStructures);
+            }
+            addAllVirtualRequestClassStructures(classStructures, restControllerClassSignatures, restControllerClassStructureStorage);
+
+            classStructures.add(
+                    new RestControllerAggregatorClassStructure.Builder()
+                            .setEnvironmentContext(environmentContext)
+                            .setClassStructures(restControllerClassStructures)
+                            .setCrossOriginResourceSharingResources(
+                                    crossOriginResourceSharingResourceBuilder.build(restControllerClassStructures, restGenerationContext)
+                            )
+                            .setHttpHealthChecks(httpHealthCheckBuilder.build(environmentContext, restControllerClassStructures))
+                            .setDeclaredStaticResources(declaredStaticResources)
+                            .setCustomExceptionModelWriters(restControllerClassStructureStorage.getCustomExceptionModelWriters())
+                            .build()
+            );
+        } else if (declaredStaticResources.exist()) {
+            classStructures.add(
+                    new RestControllerAggregatorClassStructure.Builder()
+                            .setEnvironmentContext(environmentContext)
+                            .setDeclaredStaticResources(declaredStaticResources)
+                            .setHttpHealthChecks(httpHealthCheckBuilder.build(environmentContext, Set.of()))
+                            .build()
+            );
         }
-        final RestGenerationContext restGenerationContext =
-                restGenerationContextBuilder.build(environmentContext, RestServerModuleGeneratorConfig.class, classSignatures);
-        final RestControllerClassStructureStorage restControllerClassStructureStorage =
-                buildRestClassStructureStorage(environmentContext, restGenerationContext);
-        final Set<ClassStructure> classStructures = new HashSet<>(restControllerClassStructureStorage.getAll());
-        final Set<RestControllerClassStructure> restControllerClassStructures =
-                restControllerClassStructureBuilder.build(environmentContext, restControllerClassStructureStorage, classSignatures);
-        classStructures.addAll(restControllerClassStructures);
-        classStructures.add(new RestControllerAggregatorClassStructure(
-                environmentContext,
-                restControllerClassStructures,
-                crossOriginResourceSharingResourceBuilder.build(restControllerClassStructures, restGenerationContext),
-                httpHealthCheckBuilder.build(environmentContext, restControllerClassStructures),
-                declaredStaticResources,
-                restControllerClassStructureStorage.getCustomExceptionModelWriters()
-        ));
-        if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty()) {
-            restDocumentationGenerator.generate(environmentContext, restControllerClassStructureStorage, restControllerClassStructures);
-        }
-        addAllVirtualRequestClassStructures(classStructures, classSignatures, restControllerClassStructureStorage);
         return classStructures;
     }
 
     private void logFoundStaticResources(final DeclaredStaticResources declaredStaticResources) {
-        info(
-                "Found the following static resources:\n?",
-                declaredStaticResources.getStaticUrls().stream()
-                        .map(url -> format("?'GET ?'", DEFAULT_OFFSET, url))
-                        .collect(joining("\n"))
-        );
+        if (isInfoEnabled() && declaredStaticResources.exist()) {
+            info(
+                    "Found the following static resources:\n?",
+                    declaredStaticResources.getStaticUrls().stream()
+                            .map(url -> format("?'GET ?'", DEFAULT_OFFSET, url))
+                            .collect(joining("\n"))
+            );
+        }
     }
 
-    private void logFoundRestControllers(final Set<RestControllerClassSignature> set) {
-        if (isInfoEnabled()) {
-            final StringBuilder stringBuilder = new StringBuilder("Found the following REST controllers:\n");
-            for (final RestControllerClassSignature signature : set) {
-                stringBuilder.append(format("??:\n", DEFAULT_OFFSET, signature.getTypeElement().getQualifiedName()));
-                for (final RestControllerMethodSignature methodSignature : signature.getMethodSignatures()) {
-                    for (final HttpMethodMapping httpMethodMapping : methodSignature.getHttpMethodMappings()) {
-                        stringBuilder.append(format(
-                                "??'? ?' -> ?;\n",
-                                DEFAULT_OFFSET,
-                                DEFAULT_OFFSET,
-                                httpMethodMapping.getMethod(),
-                                httpMethodMapping.getExactOrTemplateUri(),
-                                getLoggableMethodName(methodSignature.getExecutableElement())
-                        ));
+    private void logFoundRestControllers(final Set<RestClassSignature> set) {
+        if (isInfoEnabled() && !set.isEmpty()) {
+            final Set<RestControllerClassSignature> restControllerClassSignatures = set.stream()
+                    .filter(s -> s instanceof RestControllerClassSignature)
+                    .map(s -> (RestControllerClassSignature) s)
+                    .collect(Collectors.toSet());
+            if (!restControllerClassSignatures.isEmpty()) {
+                final StringBuilder stringBuilder = new StringBuilder("Found the following REST controllers:\n");
+                for (final RestControllerClassSignature signature : restControllerClassSignatures) {
+                    stringBuilder.append(format("??:\n", DEFAULT_OFFSET, signature.getTypeElement().getQualifiedName()));
+                    for (final RestControllerMethodSignature methodSignature : signature.getMethodSignatures()) {
+                        for (final HttpMethodMapping httpMethodMapping : methodSignature.getHttpMethodMappings()) {
+                            stringBuilder.append(format(
+                                    "??'? ?' -> ?;\n",
+                                    DEFAULT_OFFSET,
+                                    DEFAULT_OFFSET,
+                                    httpMethodMapping.getMethod(),
+                                    httpMethodMapping.getExactOrTemplateUri(),
+                                    getLoggableMethodName(methodSignature.getExecutableElement())
+                            ));
+                        }
                     }
                 }
+                stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+                info(stringBuilder.toString());
             }
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            info(stringBuilder.toString());
         }
     }
 

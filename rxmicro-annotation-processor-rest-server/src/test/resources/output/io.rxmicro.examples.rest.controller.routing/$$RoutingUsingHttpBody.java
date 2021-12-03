@@ -20,15 +20,15 @@ public final class $$RoutingUsingHttpBody extends AbstractRestController {
 
     private RoutingUsingHttpBody restController;
 
-    private $$VirtualRoutingUsingHttpBodyRequestModelReader virtualRoutingUsingHttpBodyRequestModelReader;
+    private $$VirtualRoutingUsingHttpBodyRequestServerModelReader virtualRoutingUsingHttpBodyRequestServerModelReader;
 
-    private $$VirtualRoutingUsingHttpBodyRequest2ModelReader virtualRoutingUsingHttpBodyRequest2ModelReader;
+    private $$VirtualRoutingUsingHttpBodyRequest2ServerModelReader virtualRoutingUsingHttpBodyRequest2ServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new RoutingUsingHttpBody();
-        virtualRoutingUsingHttpBodyRequestModelReader = new $$VirtualRoutingUsingHttpBodyRequestModelReader();
-        virtualRoutingUsingHttpBodyRequest2ModelReader = new $$VirtualRoutingUsingHttpBodyRequest2ModelReader();
+        virtualRoutingUsingHttpBodyRequestServerModelReader = new $$VirtualRoutingUsingHttpBodyRequestServerModelReader();
+        virtualRoutingUsingHttpBodyRequest2ServerModelReader = new $$VirtualRoutingUsingHttpBodyRequest2ServerModelReader();
     }
 
     @Override
@@ -113,7 +113,7 @@ public final class $$RoutingUsingHttpBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> handleRequestsWithoutBody(final PathVariableMapping pathVariableMapping,
                                                                     final HttpRequest request) {
-        final $$VirtualRoutingUsingHttpBodyRequest req = virtualRoutingUsingHttpBodyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualRoutingUsingHttpBodyRequest req = virtualRoutingUsingHttpBodyRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.handleRequestsWithoutBody(req.parameter);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -121,7 +121,7 @@ public final class $$RoutingUsingHttpBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> handleRequestsWithBody(final PathVariableMapping pathVariableMapping,
                                                                  final HttpRequest request) {
-        final $$VirtualRoutingUsingHttpBodyRequest2 req = virtualRoutingUsingHttpBodyRequest2ModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualRoutingUsingHttpBodyRequest2 req = virtualRoutingUsingHttpBodyRequest2ServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.handleRequestsWithBody(req.parameter);
         return CompletableFuture.completedStage(buildResponse(200, headers));

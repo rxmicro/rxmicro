@@ -40,7 +40,8 @@ public class NumericConstraintValidator implements ConstraintValidator<BigDecima
 
     /**
      * Creates the default instance of {@link NumericConstraintValidator} with the specified precision and scale.
-     *  @param expectedPrecision the specified precision
+     *
+     * @param expectedPrecision the specified precision
      * @param expectedScale the specified scale
      * @param validationType the specified validation type
      */

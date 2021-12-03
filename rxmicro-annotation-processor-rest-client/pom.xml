@@ -88,7 +88,7 @@
     <dependencies>
         <dependency>
             <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-rest-client-jdk</artifactId>
+            <artifactId>rxmicro-rest-client</artifactId>
             <version>0.10-SNAPSHOT</version>
         </dependency>
         <dependency>

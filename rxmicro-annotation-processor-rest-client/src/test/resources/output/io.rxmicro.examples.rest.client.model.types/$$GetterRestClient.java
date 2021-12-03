@@ -1,16 +1,16 @@
 package io.rxmicro.examples.rest.client.model.types;
 
-import io.rxmicro.examples.rest.client.model.types.model.response.body.$$BodyOnlyResponseModelReader;
-import io.rxmicro.examples.rest.client.model.types.model.response.body.$$BodyWithHeadersResponseModelReader;
-import io.rxmicro.examples.rest.client.model.types.model.response.body.$$BodyWithInternalsAndHeadersResponseModelReader;
-import io.rxmicro.examples.rest.client.model.types.model.response.body.$$BodyWithInternalsResponseModelReader;
+import io.rxmicro.examples.rest.client.model.types.model.response.body.$$BodyOnlyResponseClientModelReader;
+import io.rxmicro.examples.rest.client.model.types.model.response.body.$$BodyWithHeadersResponseClientModelReader;
+import io.rxmicro.examples.rest.client.model.types.model.response.body.$$BodyWithInternalsAndHeadersResponseClientModelReader;
+import io.rxmicro.examples.rest.client.model.types.model.response.body.$$BodyWithInternalsResponseClientModelReader;
 import io.rxmicro.examples.rest.client.model.types.model.response.body.BodyOnlyResponse;
 import io.rxmicro.examples.rest.client.model.types.model.response.body.BodyWithHeadersResponse;
 import io.rxmicro.examples.rest.client.model.types.model.response.body.BodyWithInternalsAndHeadersResponse;
 import io.rxmicro.examples.rest.client.model.types.model.response.body.BodyWithInternalsResponse;
-import io.rxmicro.examples.rest.client.model.types.model.response.without_body.$$HeadersOnlyResponseModelReader;
-import io.rxmicro.examples.rest.client.model.types.model.response.without_body.$$InternalsAndHeadersResponseModelReader;
-import io.rxmicro.examples.rest.client.model.types.model.response.without_body.$$InternalsOnlyResponseModelReader;
+import io.rxmicro.examples.rest.client.model.types.model.response.without_body.$$HeadersOnlyResponseClientModelReader;
+import io.rxmicro.examples.rest.client.model.types.model.response.without_body.$$InternalsAndHeadersResponseClientModelReader;
+import io.rxmicro.examples.rest.client.model.types.model.response.without_body.$$InternalsOnlyResponseClientModelReader;
 import io.rxmicro.examples.rest.client.model.types.model.response.without_body.HeadersOnlyResponse;
 import io.rxmicro.examples.rest.client.model.types.model.response.without_body.InternalsAndHeadersResponse;
 import io.rxmicro.examples.rest.client.model.types.model.response.without_body.InternalsOnlyResponse;
@@ -29,26 +29,26 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$GetterRestClient extends AbstractRestClient implements GetterRestClient {
 
-    private final $$HeadersOnlyResponseModelReader headersOnlyResponseModelReader =
-            new $$HeadersOnlyResponseModelReader();
+    private final $$BodyOnlyResponseClientModelReader bodyOnlyResponseClientModelReader =
+            new $$BodyOnlyResponseClientModelReader();
 
-    private final $$BodyWithInternalsResponseModelReader bodyWithInternalsResponseModelReader =
-            new $$BodyWithInternalsResponseModelReader();
+    private final $$BodyWithInternalsResponseClientModelReader bodyWithInternalsResponseClientModelReader =
+            new $$BodyWithInternalsResponseClientModelReader();
 
-    private final $$BodyWithInternalsAndHeadersResponseModelReader bodyWithInternalsAndHeadersResponseModelReader =
-            new $$BodyWithInternalsAndHeadersResponseModelReader();
+    private final $$BodyWithHeadersResponseClientModelReader bodyWithHeadersResponseClientModelReader =
+            new $$BodyWithHeadersResponseClientModelReader();
 
-    private final $$BodyOnlyResponseModelReader bodyOnlyResponseModelReader =
-            new $$BodyOnlyResponseModelReader();
+    private final $$InternalsAndHeadersResponseClientModelReader internalsAndHeadersResponseClientModelReader =
+            new $$InternalsAndHeadersResponseClientModelReader();
 
-    private final $$InternalsOnlyResponseModelReader internalsOnlyResponseModelReader =
-            new $$InternalsOnlyResponseModelReader();
+    private final $$BodyWithInternalsAndHeadersResponseClientModelReader bodyWithInternalsAndHeadersResponseClientModelReader =
+            new $$BodyWithInternalsAndHeadersResponseClientModelReader();
 
-    private final $$BodyWithHeadersResponseModelReader bodyWithHeadersResponseModelReader =
-            new $$BodyWithHeadersResponseModelReader();
+    private final $$InternalsOnlyResponseClientModelReader internalsOnlyResponseClientModelReader =
+            new $$InternalsOnlyResponseClientModelReader();
 
-    private final $$InternalsAndHeadersResponseModelReader internalsAndHeadersResponseModelReader =
-            new $$InternalsAndHeadersResponseModelReader();
+    private final $$HeadersOnlyResponseClientModelReader headersOnlyResponseClientModelReader =
+            new $$HeadersOnlyResponseClientModelReader();
 
     private final HttpClient client;
 
@@ -66,7 +66,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
                 .sendAsync("GET", "/produce01", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> bodyOnlyResponseModelReader.readSingle(resp));
+                .thenApply(resp -> bodyOnlyResponseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -75,7 +75,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
                 .sendAsync("GET", "/produce02", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> bodyWithHeadersResponseModelReader.readSingle(resp));
+                .thenApply(resp -> bodyWithHeadersResponseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -84,7 +84,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
                 .sendAsync("GET", "/produce03", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> bodyWithInternalsResponseModelReader.readSingle(resp));
+                .thenApply(resp -> bodyWithInternalsResponseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -93,7 +93,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
                 .sendAsync("GET", "/produce04", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> bodyWithInternalsAndHeadersResponseModelReader.readSingle(resp));
+                .thenApply(resp -> bodyWithInternalsAndHeadersResponseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -102,7 +102,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
                 .sendAsync("GET", "/produce11", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> headersOnlyResponseModelReader.readSingle(resp));
+                .thenApply(resp -> headersOnlyResponseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -111,7 +111,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
                 .sendAsync("GET", "/produce12", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> internalsOnlyResponseModelReader.readSingle(resp));
+                .thenApply(resp -> internalsOnlyResponseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -120,6 +120,6 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
                 .sendAsync("GET", "/produce13", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> internalsAndHeadersResponseModelReader.readSingle(resp));
+                .thenApply(resp -> internalsAndHeadersResponseClientModelReader.readSingle(resp));
     }
 }

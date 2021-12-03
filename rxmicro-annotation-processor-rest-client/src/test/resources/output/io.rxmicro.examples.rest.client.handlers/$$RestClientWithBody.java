@@ -2,7 +2,7 @@ package io.rxmicro.examples.rest.client.handlers;
 
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.examples.rest.client.handlers.model.$$RequestRequestModelExtractor;
-import io.rxmicro.examples.rest.client.handlers.model.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.handlers.model.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.handlers.model.Request;
 import io.rxmicro.examples.rest.client.handlers.model.Response;
 import io.rxmicro.rest.client.RestClientConfig;
@@ -25,9 +25,6 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
     private final $$VirtualWithBodyRequest2RequestModelExtractor virtualWithBodyRequest2RequestModelExtractor =
             new $$VirtualWithBodyRequest2RequestModelExtractor();
 
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
-
     private final $$RequestRequestModelExtractor requestRequestModelExtractor =
             new $$RequestRequestModelExtractor();
 
@@ -36,6 +33,9 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
 
     private final $$VirtualWithBodyRequest3RequestModelExtractor virtualWithBodyRequest3RequestModelExtractor =
             new $$VirtualWithBodyRequest3RequestModelExtractor();
+
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
 
     private final $$VirtualWithBodyRequest4RequestModelExtractor virtualWithBodyRequest4RequestModelExtractor =
             new $$VirtualWithBodyRequest4RequestModelExtractor();
@@ -56,7 +56,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", "/jse/completedFuture1", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -68,7 +68,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -81,7 +81,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -90,7 +90,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", "/jse/completionStage1", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -102,7 +102,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -115,7 +115,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -124,7 +124,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", "/spring-reactor/mono1", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
-                .map(resp -> responseModelReader.readSingle(resp));
+                .map(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -136,7 +136,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
-                .map(resp -> responseModelReader.readSingle(resp));
+                .map(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -149,7 +149,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
-                .map(resp -> responseModelReader.readSingle(resp));
+                .map(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -158,7 +158,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", "/rxjava3/single1", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
-                .map(resp -> responseModelReader.readSingle(resp));
+                .map(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -170,7 +170,7 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
-                .map(resp -> responseModelReader.readSingle(resp));
+                .map(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -183,6 +183,6 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
-                .map(resp -> responseModelReader.readSingle(resp));
+                .map(resp -> responseClientModelReader.readSingle(resp));
     }
 }

@@ -1,15 +1,15 @@
 package io.rxmicro.examples.validation.server.required;
 
 import io.rxmicro.examples.validation.server.required.model.$$NotStringModelConstraintValidator;
-import io.rxmicro.examples.validation.server.required.model.$$NotStringModelModelReader;
+import io.rxmicro.examples.validation.server.required.model.$$NotStringModelServerModelReader;
 import io.rxmicro.examples.validation.server.required.model.$$PrimitiveStringListModelConstraintValidator;
-import io.rxmicro.examples.validation.server.required.model.$$PrimitiveStringListModelModelReader;
+import io.rxmicro.examples.validation.server.required.model.$$PrimitiveStringListModelServerModelReader;
 import io.rxmicro.examples.validation.server.required.model.$$PrimitiveStringModelConstraintValidator;
-import io.rxmicro.examples.validation.server.required.model.$$PrimitiveStringModelModelReader;
+import io.rxmicro.examples.validation.server.required.model.$$PrimitiveStringModelServerModelReader;
 import io.rxmicro.examples.validation.server.required.model.$$StringModelWithRequiredAndNotEmptyValidatorsOnlyConstraintValidator;
-import io.rxmicro.examples.validation.server.required.model.$$StringModelWithRequiredAndNotEmptyValidatorsOnlyModelReader;
+import io.rxmicro.examples.validation.server.required.model.$$StringModelWithRequiredAndNotEmptyValidatorsOnlyServerModelReader;
 import io.rxmicro.examples.validation.server.required.model.$$StringModelWithRequiredNonNullValidatorsOnlyConstraintValidator;
-import io.rxmicro.examples.validation.server.required.model.$$StringModelWithRequiredNonNullValidatorsOnlyModelReader;
+import io.rxmicro.examples.validation.server.required.model.$$StringModelWithRequiredNonNullValidatorsOnlyServerModelReader;
 import io.rxmicro.examples.validation.server.required.model.NotStringModel;
 import io.rxmicro.examples.validation.server.required.model.PrimitiveStringListModel;
 import io.rxmicro.examples.validation.server.required.model.PrimitiveStringModel;
@@ -35,15 +35,15 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$NotStringModelModelReader notStringModelModelReader;
+    private $$NotStringModelServerModelReader notStringModelServerModelReader;
 
-    private $$PrimitiveStringModelModelReader primitiveStringModelModelReader;
+    private $$PrimitiveStringModelServerModelReader primitiveStringModelServerModelReader;
 
-    private $$PrimitiveStringListModelModelReader primitiveStringListModelModelReader;
+    private $$PrimitiveStringListModelServerModelReader primitiveStringListModelServerModelReader;
 
-    private $$StringModelWithRequiredNonNullValidatorsOnlyModelReader stringModelWithRequiredNonNullValidatorsOnlyModelReader;
+    private $$StringModelWithRequiredNonNullValidatorsOnlyServerModelReader stringModelWithRequiredNonNullValidatorsOnlyServerModelReader;
 
-    private $$StringModelWithRequiredAndNotEmptyValidatorsOnlyModelReader stringModelWithRequiredAndNotEmptyValidatorsOnlyModelReader;
+    private $$StringModelWithRequiredAndNotEmptyValidatorsOnlyServerModelReader stringModelWithRequiredAndNotEmptyValidatorsOnlyServerModelReader;
 
     private $$NotStringModelConstraintValidator notStringModelConstraintValidator;
 
@@ -58,11 +58,11 @@ public final class $$MicroService extends AbstractRestController {
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        notStringModelModelReader = new $$NotStringModelModelReader();
-        primitiveStringModelModelReader = new $$PrimitiveStringModelModelReader();
-        primitiveStringListModelModelReader = new $$PrimitiveStringListModelModelReader();
-        stringModelWithRequiredNonNullValidatorsOnlyModelReader = new $$StringModelWithRequiredNonNullValidatorsOnlyModelReader();
-        stringModelWithRequiredAndNotEmptyValidatorsOnlyModelReader = new $$StringModelWithRequiredAndNotEmptyValidatorsOnlyModelReader();
+        notStringModelServerModelReader = new $$NotStringModelServerModelReader();
+        primitiveStringModelServerModelReader = new $$PrimitiveStringModelServerModelReader();
+        primitiveStringListModelServerModelReader = new $$PrimitiveStringListModelServerModelReader();
+        stringModelWithRequiredNonNullValidatorsOnlyServerModelReader = new $$StringModelWithRequiredNonNullValidatorsOnlyServerModelReader();
+        stringModelWithRequiredAndNotEmptyValidatorsOnlyServerModelReader = new $$StringModelWithRequiredAndNotEmptyValidatorsOnlyServerModelReader();
         notStringModelConstraintValidator = new $$NotStringModelConstraintValidator();
         primitiveStringModelConstraintValidator = new $$PrimitiveStringModelConstraintValidator();
         primitiveStringListModelConstraintValidator = new $$PrimitiveStringListModelConstraintValidator();
@@ -154,7 +154,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> test1(final PathVariableMapping pathVariableMapping,
                                                 final HttpRequest request) {
-        final NotStringModel req = notStringModelModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final NotStringModel req = notStringModelServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         notStringModelConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         restController.test1(req);
@@ -163,7 +163,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> test2(final PathVariableMapping pathVariableMapping,
                                                 final HttpRequest request) {
-        final PrimitiveStringModel req = primitiveStringModelModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final PrimitiveStringModel req = primitiveStringModelServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         primitiveStringModelConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         restController.test2(req);
@@ -172,7 +172,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> test3(final PathVariableMapping pathVariableMapping,
                                                 final HttpRequest request) {
-        final PrimitiveStringListModel req = primitiveStringListModelModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final PrimitiveStringListModel req = primitiveStringListModelServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         primitiveStringListModelConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         restController.test3(req);
@@ -181,7 +181,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> test4(final PathVariableMapping pathVariableMapping,
                                                 final HttpRequest request) {
-        final StringModelWithRequiredNonNullValidatorsOnly req = stringModelWithRequiredNonNullValidatorsOnlyModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final StringModelWithRequiredNonNullValidatorsOnly req = stringModelWithRequiredNonNullValidatorsOnlyServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         stringModelWithRequiredNonNullValidatorsOnlyConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         restController.test4(req);
@@ -190,7 +190,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> test5(final PathVariableMapping pathVariableMapping,
                                                 final HttpRequest request) {
-        final StringModelWithRequiredAndNotEmptyValidatorsOnly req = stringModelWithRequiredAndNotEmptyValidatorsOnlyModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final StringModelWithRequiredAndNotEmptyValidatorsOnly req = stringModelWithRequiredAndNotEmptyValidatorsOnlyServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         stringModelWithRequiredAndNotEmptyValidatorsOnlyConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         restController.test5(req);

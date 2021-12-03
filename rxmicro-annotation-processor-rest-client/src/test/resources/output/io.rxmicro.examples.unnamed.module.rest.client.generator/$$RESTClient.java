@@ -2,7 +2,7 @@ package io.rxmicro.examples.unnamed.module.rest.client.generator;
 
 import io.rxmicro.examples.unnamed.module.rest.client.generator.model.$$RequestConstraintValidator;
 import io.rxmicro.examples.unnamed.module.rest.client.generator.model.$$RequestRequestModelExtractor;
-import io.rxmicro.examples.unnamed.module.rest.client.generator.model.$$ResponseModelReader;
+import io.rxmicro.examples.unnamed.module.rest.client.generator.model.$$ResponseClientModelReader;
 import io.rxmicro.examples.unnamed.module.rest.client.generator.model.Request;
 import io.rxmicro.examples.unnamed.module.rest.client.generator.model.Response;
 import io.rxmicro.http.error.ValidationException;
@@ -22,8 +22,8 @@ import static io.rxmicro.validation.detail.RequestValidators.validateRequest;
  */
 public final class $$RESTClient extends AbstractRestClient implements RESTClient {
 
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
 
     private final $$RequestRequestModelExtractor requestRequestModelExtractor =
             new $$RequestRequestModelExtractor();
@@ -55,6 +55,6 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

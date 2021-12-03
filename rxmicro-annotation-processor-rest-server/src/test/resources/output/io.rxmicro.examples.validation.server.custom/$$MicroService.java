@@ -20,14 +20,14 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$VirtualRequestModelReader virtualRequestModelReader;
+    private $$VirtualRequestServerModelReader virtualRequestServerModelReader;
 
     private $$VirtualRequestConstraintValidator virtualRequestConstraintValidator;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        virtualRequestModelReader = new $$VirtualRequestModelReader();
+        virtualRequestServerModelReader = new $$VirtualRequestServerModelReader();
         virtualRequestConstraintValidator = new $$VirtualRequestConstraintValidator();
     }
 
@@ -59,7 +59,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consume(final PathVariableMapping pathVariableMapping,
                                                   final HttpRequest request) {
-        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualRequest req = virtualRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         virtualRequestConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req.value);

@@ -21,12 +21,12 @@ public final class $$VirtualPathVariablesMicroService extends AbstractRestContro
 
     private VirtualPathVariablesMicroService restController;
 
-    private $$VirtualVirtualPathVariablesRequestModelReader virtualVirtualPathVariablesRequestModelReader;
+    private $$VirtualVirtualPathVariablesRequestServerModelReader virtualVirtualPathVariablesRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new VirtualPathVariablesMicroService();
-        virtualVirtualPathVariablesRequestModelReader = new $$VirtualVirtualPathVariablesRequestModelReader();
+        virtualVirtualPathVariablesRequestServerModelReader = new $$VirtualVirtualPathVariablesRequestServerModelReader();
     }
 
     @Override
@@ -61,7 +61,7 @@ public final class $$VirtualPathVariablesMicroService extends AbstractRestContro
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$VirtualVirtualPathVariablesRequest req = virtualVirtualPathVariablesRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualVirtualPathVariablesRequest req = virtualVirtualPathVariablesRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.booleanPathVariable, req.bytePathVariable, req.shortPathVariable, req.intPathVariable, req.longPathVariable, req.bigIntegerPathVariable, req.floatPathVariable, req.doublePathVariable, req.decimalPathVariable, req.charPathVariable, req.stringPathVariable, req.instantPathVariable, req.enumPathVariable);
         return CompletableFuture.completedStage(buildResponse(200, headers));

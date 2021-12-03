@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.client.headers;
 
 import io.rxmicro.examples.rest.client.headers.model.$$RequestRequestModelExtractor;
-import io.rxmicro.examples.rest.client.headers.model.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.headers.model.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.headers.model.Request;
 import io.rxmicro.examples.rest.client.headers.model.Response;
 import io.rxmicro.rest.client.RestClientConfig;
@@ -22,8 +22,8 @@ public final class $$SimpleUsageRestClient extends AbstractRestClient implements
     private final $$VirtualSimpleUsageRequestRequestModelExtractor virtualSimpleUsageRequestRequestModelExtractor =
             new $$VirtualSimpleUsageRequestRequestModelExtractor();
 
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
 
     private final $$RequestRequestModelExtractor requestRequestModelExtractor =
             new $$RequestRequestModelExtractor();
@@ -47,7 +47,7 @@ public final class $$SimpleUsageRestClient extends AbstractRestClient implements
                 .sendAsync("GET", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -60,6 +60,6 @@ public final class $$SimpleUsageRestClient extends AbstractRestClient implements
                 .sendAsync("GET", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

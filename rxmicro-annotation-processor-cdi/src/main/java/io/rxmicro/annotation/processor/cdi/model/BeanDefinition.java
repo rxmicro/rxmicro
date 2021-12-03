@@ -76,6 +76,15 @@ public final class BeanDefinition {
     }
 
     @UsedByFreemarker("$$BeanSupplierTemplate.javaftl")
+    public boolean isNotBean() {
+        return !constructorInjection &&
+                postConstructMethod == null &&
+                factoryMethod == null &&
+                !isFactoryClass() &&
+                injectionPoints.isEmpty();
+    }
+
+    @UsedByFreemarker("$$BeanSupplierTemplate.javaftl")
     public String getFactoryTypeSimpleClassName() {
         // check isFactory() before invoke this method
         return factoryTypeProviderType.getSimpleName().toString();
@@ -143,6 +152,11 @@ public final class BeanDefinition {
                     .addImports(factoryTypeProviderType)
                     .addStaticImport(InternalBeanFactory.class, "getBean");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "BeanDefinition{" + "beanTypeElement=" + beanTypeElement + '}';
     }
 
     /**

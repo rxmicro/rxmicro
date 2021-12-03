@@ -1,6 +1,6 @@
 package io.rxmicro.examples.processor.all.components.component;
 
-import io.rxmicro.examples.processor.all.components.model.$$AccountModelReader;
+import io.rxmicro.examples.processor.all.components.model.$$AccountClientModelReader;
 import io.rxmicro.examples.processor.all.components.model.Account;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
@@ -16,8 +16,8 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$RestClient extends AbstractRestClient implements RestClient {
 
-    private final $$AccountModelReader accountModelReader =
-            new $$AccountModelReader();
+    private final $$AccountClientModelReader accountClientModelReader =
+            new $$AccountClientModelReader();
 
     private final HttpClient client;
 
@@ -35,6 +35,6 @@ public final class $$RestClient extends AbstractRestClient implements RestClient
                 .sendAsync("GET", "/", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> accountModelReader.readSingle(resp));
+                .thenApply(resp -> accountClientModelReader.readSingle(resp));
     }
 }

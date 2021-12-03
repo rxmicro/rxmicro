@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.client.internals;
 
-import io.rxmicro.examples.rest.client.internals.model.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.internals.model.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.internals.model.Response;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
@@ -16,8 +16,8 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$RESTClient extends AbstractRestClient implements RESTClient {
 
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
 
     private final HttpClient client;
 
@@ -35,6 +35,6 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
                 .sendAsync("GET", "/", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

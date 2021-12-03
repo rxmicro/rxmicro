@@ -24,9 +24,9 @@ import io.rxmicro.annotation.processor.documentation.component.JsonStructureExam
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
-import io.rxmicro.annotation.processor.rest.server.model.ModelReaderClassStructure;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructureStorage;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethod;
+import io.rxmicro.annotation.processor.rest.server.model.ServerModelReaderClassStructure;
 
 import java.util.Optional;
 import javax.lang.model.element.TypeElement;
@@ -109,15 +109,15 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
                                       final RestControllerClassStructureStorage restControllerClassStructureStorage) {
         final Optional<TypeElement> requestModel = method.getFromHttpDataType();
         if (!httpMethodMapping.isHttpBody() && requestModel.isPresent()) {
-            final ModelReaderClassStructure modelReaderClassStructure =
+            final ServerModelReaderClassStructure serverModelReaderClassStructure =
                     restControllerClassStructureStorage.getModelReaderClassStructure(
-                            requestModel.get().asType().toString())
+                                    requestModel.get().asType().toString())
                             .orElseThrow(createInternalErrorSupplier(
                                     "ModelReaderClassStructure not found for type: ?",
                                     requestModel.get().asType())
                             );
             final StringBuilder queryBuilder = new StringBuilder();
-            modelReaderClassStructure.getModelClass().getAllDeclaredParametersStream().forEach(entry -> {
+            serverModelReaderClassStructure.getModelClass().getAllDeclaredParametersStream().forEach(entry -> {
                 if (queryBuilder.length() > 0) {
                     queryBuilder.append('&');
                 }

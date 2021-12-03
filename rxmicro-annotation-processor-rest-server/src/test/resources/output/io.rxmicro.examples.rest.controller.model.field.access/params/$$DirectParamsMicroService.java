@@ -1,8 +1,8 @@
 package io.rxmicro.examples.rest.controller.model.field.access.params;
 
-import io.rxmicro.examples.rest.controller.model.field.access.params.direct.$$BodyRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.field.access.params.direct.$$QueryRequestModelReader;
-import io.rxmicro.examples.rest.controller.model.field.access.params.direct.$$ResponseModelWriter;
+import io.rxmicro.examples.rest.controller.model.field.access.params.direct.$$BodyRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.field.access.params.direct.$$QueryRequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.field.access.params.direct.$$ResponseServerModelWriter;
 import io.rxmicro.examples.rest.controller.model.field.access.params.direct.BodyRequest;
 import io.rxmicro.examples.rest.controller.model.field.access.params.direct.QueryRequest;
 import io.rxmicro.examples.rest.controller.model.field.access.params.direct.Response;
@@ -25,11 +25,11 @@ public final class $$DirectParamsMicroService extends AbstractRestController {
 
     private DirectParamsMicroService restController;
 
-    private $$BodyRequestModelReader bodyRequestModelReader;
+    private $$BodyRequestServerModelReader bodyRequestServerModelReader;
 
-    private $$QueryRequestModelReader queryRequestModelReader;
+    private $$QueryRequestServerModelReader queryRequestServerModelReader;
 
-    private $$ResponseModelWriter responseModelWriter;
+    private $$ResponseServerModelWriter responseServerModelWriter;
 
     private HttpResponse getNotFoundResponse;
 
@@ -38,9 +38,9 @@ public final class $$DirectParamsMicroService extends AbstractRestController {
     @Override
     protected void postConstruct() {
         restController = new DirectParamsMicroService();
-        bodyRequestModelReader = new $$BodyRequestModelReader();
-        queryRequestModelReader = new $$QueryRequestModelReader();
-        responseModelWriter = new $$ResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        bodyRequestServerModelReader = new $$BodyRequestServerModelReader();
+        queryRequestServerModelReader = new $$QueryRequestServerModelReader();
+        responseServerModelWriter = new $$ResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
         getNotFoundResponse = notFound("Not Found");
         putNotFoundResponse = notFound("Not Found");
     }
@@ -87,7 +87,7 @@ public final class $$DirectParamsMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> get(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final QueryRequest req = queryRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final QueryRequest req = queryRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.get(req)
                 .thenApply(optionalResponse -> optionalResponse
@@ -97,7 +97,7 @@ public final class $$DirectParamsMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final BodyRequest req = bodyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final BodyRequest req = bodyRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.put(req)
                 .thenApply(optionalResponse -> optionalResponse
@@ -111,7 +111,7 @@ public final class $$DirectParamsMicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        responseModelWriter.write(model, response);
+        responseServerModelWriter.write(model, response);
         return response;
     }
 }

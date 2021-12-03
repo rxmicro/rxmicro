@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 
 import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Denotes a version of the REST controller or REST client.
@@ -31,7 +31,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target(TYPE)
 public @interface Version {
 

@@ -20,12 +20,12 @@ public final class $$VirtualInternalsMicroService extends AbstractRestController
 
     private VirtualInternalsMicroService restController;
 
-    private $$VirtualVirtualInternalsRequestModelReader virtualVirtualInternalsRequestModelReader;
+    private $$VirtualVirtualInternalsRequestServerModelReader virtualVirtualInternalsRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new VirtualInternalsMicroService();
-        virtualVirtualInternalsRequestModelReader = new $$VirtualVirtualInternalsRequestModelReader();
+        virtualVirtualInternalsRequestServerModelReader = new $$VirtualVirtualInternalsRequestServerModelReader();
     }
 
     @Override
@@ -56,7 +56,7 @@ public final class $$VirtualInternalsMicroService extends AbstractRestController
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$VirtualVirtualInternalsRequest req = virtualVirtualInternalsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualVirtualInternalsRequest req = virtualVirtualInternalsRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.internalRemoteAddress1, req.internalRemoteAddress2, req.internalUrlPath, req.internalRequestMethod, req.internalHttpVersion, req.internalRequestHeaders, req.internalRequestBody, req.internalRequest, req.internalRequestId);
         return CompletableFuture.completedStage(buildResponse(200, headers));

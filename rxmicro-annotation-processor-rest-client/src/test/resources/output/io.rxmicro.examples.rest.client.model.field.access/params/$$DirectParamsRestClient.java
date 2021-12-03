@@ -2,7 +2,7 @@ package io.rxmicro.examples.rest.client.model.field.access.params;
 
 import io.rxmicro.examples.rest.client.model.field.access.params.direct.$$BodyRequestModelToJsonConverter;
 import io.rxmicro.examples.rest.client.model.field.access.params.direct.$$QueryRequestRequestModelExtractor;
-import io.rxmicro.examples.rest.client.model.field.access.params.direct.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.model.field.access.params.direct.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.model.field.access.params.direct.BodyRequest;
 import io.rxmicro.examples.rest.client.model.field.access.params.direct.QueryRequest;
 import io.rxmicro.examples.rest.client.model.field.access.params.direct.Response;
@@ -22,11 +22,11 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$DirectParamsRestClient extends AbstractRestClient implements DirectParamsRestClient {
 
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
+
     private final $$BodyRequestModelToJsonConverter bodyRequestModelToJsonConverter =
             new $$BodyRequestModelToJsonConverter();
-
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
 
     private final $$QueryRequestRequestModelExtractor queryRequestRequestModelExtractor =
             new $$QueryRequestRequestModelExtractor();
@@ -50,7 +50,7 @@ public final class $$DirectParamsRestClient extends AbstractRestClient implement
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 
     @Override
@@ -61,6 +61,6 @@ public final class $$DirectParamsRestClient extends AbstractRestClient implement
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

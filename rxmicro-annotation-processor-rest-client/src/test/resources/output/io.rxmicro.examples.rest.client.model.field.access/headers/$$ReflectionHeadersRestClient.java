@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.client.model.field.access.headers;
 
 import io.rxmicro.examples.rest.client.model.field.access.headers.reflection.$$RequestRequestModelExtractor;
-import io.rxmicro.examples.rest.client.model.field.access.headers.reflection.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.model.field.access.headers.reflection.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.model.field.access.headers.reflection.Request;
 import io.rxmicro.examples.rest.client.model.field.access.headers.reflection.Response;
 import io.rxmicro.rest.client.RestClientConfig;
@@ -20,11 +20,11 @@ import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExce
  */
 public final class $$ReflectionHeadersRestClient extends AbstractRestClient implements ReflectionHeadersRestClient {
 
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
+
     private final $$RequestRequestModelExtractor requestRequestModelExtractor =
             new $$RequestRequestModelExtractor();
-
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
 
     private final HttpClient client;
 
@@ -45,6 +45,6 @@ public final class $$ReflectionHeadersRestClient extends AbstractRestClient impl
                 .sendAsync("PUT", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

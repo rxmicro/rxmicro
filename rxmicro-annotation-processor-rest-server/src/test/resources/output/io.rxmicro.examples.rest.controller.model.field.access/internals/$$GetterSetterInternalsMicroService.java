@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.controller.model.field.access.internals;
 
-import io.rxmicro.examples.rest.controller.model.field.access.internals.gettersetter.$$RequestModelReader;
-import io.rxmicro.examples.rest.controller.model.field.access.internals.gettersetter.$$ResponseModelWriter;
+import io.rxmicro.examples.rest.controller.model.field.access.internals.gettersetter.$$RequestServerModelReader;
+import io.rxmicro.examples.rest.controller.model.field.access.internals.gettersetter.$$ResponseServerModelWriter;
 import io.rxmicro.examples.rest.controller.model.field.access.internals.gettersetter.Request;
 import io.rxmicro.examples.rest.controller.model.field.access.internals.gettersetter.Response;
 import io.rxmicro.http.HttpHeaders;
@@ -23,17 +23,17 @@ public final class $$GetterSetterInternalsMicroService extends AbstractRestContr
 
     private GetterSetterInternalsMicroService restController;
 
-    private $$RequestModelReader requestModelReader;
+    private $$RequestServerModelReader requestServerModelReader;
 
-    private $$ResponseModelWriter responseModelWriter;
+    private $$ResponseServerModelWriter responseServerModelWriter;
 
     private HttpResponse putNotFoundResponse;
 
     @Override
     protected void postConstruct() {
         restController = new GetterSetterInternalsMicroService();
-        requestModelReader = new $$RequestModelReader();
-        responseModelWriter = new $$ResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        requestServerModelReader = new $$RequestServerModelReader();
+        responseServerModelWriter = new $$ResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
         putNotFoundResponse = notFound("Not Found");
     }
 
@@ -65,7 +65,7 @@ public final class $$GetterSetterInternalsMicroService extends AbstractRestContr
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final Request req = requestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.put(req)
                 .thenApply(optionalResponse -> optionalResponse
@@ -79,7 +79,7 @@ public final class $$GetterSetterInternalsMicroService extends AbstractRestContr
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        responseModelWriter.write(model, response);
+        responseServerModelWriter.write(model, response);
         return response;
     }
 }

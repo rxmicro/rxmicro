@@ -20,12 +20,12 @@ public final class $$VirtualHeadersMicroService extends AbstractRestController {
 
     private VirtualHeadersMicroService restController;
 
-    private $$VirtualVirtualHeadersRequestModelReader virtualVirtualHeadersRequestModelReader;
+    private $$VirtualVirtualHeadersRequestServerModelReader virtualVirtualHeadersRequestServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new VirtualHeadersMicroService();
-        virtualVirtualHeadersRequestModelReader = new $$VirtualVirtualHeadersRequestModelReader();
+        virtualVirtualHeadersRequestServerModelReader = new $$VirtualVirtualHeadersRequestServerModelReader();
     }
 
     @Override
@@ -56,7 +56,7 @@ public final class $$VirtualHeadersMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$VirtualVirtualHeadersRequest req = virtualVirtualHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualVirtualHeadersRequest req = virtualVirtualHeadersRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.booleanHeader, req.byteHeader, req.shortHeader, req.intHeader, req.longHeader, req.bigIntHeader, req.floatHeader, req.doubleHeader, req.decimalHeader, req.charHeader, req.stringHeader, req.instantHeader, req.enumHeader, req.booleanHeaderList, req.byteHeaderList, req.shortHeaderList, req.intHeaderList, req.longHeaderList, req.bigIntHeaderList, req.floatHeaderList, req.doubleHeaderList, req.decimalHeaderList, req.charHeaderList, req.stringHeaderList, req.instantHeaderList, req.enumHeaderList, req.booleanHeaderSet, req.byteHeaderSet, req.shortHeaderSet, req.intHeaderSet, req.longHeaderSet, req.bigIntHeaderSet, req.floatHeaderSet, req.doubleHeaderSet, req.decimalHeaderSet, req.charHeaderSet, req.stringHeaderSet, req.instantHeaderSet, req.enumHeaderSet, req.requestIdHeader);
         return CompletableFuture.completedStage(buildResponse(200, headers));

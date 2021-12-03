@@ -21,9 +21,9 @@ import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.rest.client.component.RestClientModelReaderBuilder;
-import io.rxmicro.annotation.processor.rest.client.model.ModelReaderClassStructure;
-import io.rxmicro.annotation.processor.rest.client.model.ModelReaderType;
-import io.rxmicro.annotation.processor.rest.client.model.RestClientClassSignature;
+import io.rxmicro.annotation.processor.rest.client.model.AbstractRestClientClassSignature;
+import io.rxmicro.annotation.processor.rest.client.model.ClientModelReaderClassStructure;
+import io.rxmicro.annotation.processor.rest.client.model.ClientModelReaderType;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientMethodSignature;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
@@ -46,11 +46,11 @@ import static java.util.stream.Collectors.joining;
 public final class RestClientModelReaderBuilderImpl implements RestClientModelReaderBuilder {
 
     @Override
-    public Set<ModelReaderClassStructure> build(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
-                                                final Set<RestClientClassSignature> classSignatures,
-                                                final ExchangeFormat exchangeFormat) {
+    public Set<ClientModelReaderClassStructure> build(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+                                                      final Set<AbstractRestClientClassSignature> classSignatures,
+                                                      final ExchangeFormat exchangeFormat) {
         return mappedRestObjectModelClasses.stream()
-                .map(restModelClass -> new ModelReaderClassStructure(
+                .map(restModelClass -> new ClientModelReaderClassStructure(
                         restModelClass.getModelClass(),
                         exchangeFormat,
                         getModelReaderType(restModelClass, classSignatures))
@@ -58,21 +58,21 @@ public final class RestClientModelReaderBuilderImpl implements RestClientModelRe
                 .collect(Collectors.toSet());
     }
 
-    private ModelReaderType getModelReaderType(final MappedRestObjectModelClass restModelClass,
-                                               final Set<RestClientClassSignature> classSignatures) {
+    private ClientModelReaderType getModelReaderType(final MappedRestObjectModelClass restModelClass,
+                                                     final Set<AbstractRestClientClassSignature> classSignatures) {
         final String type = restModelClass.getModelClass().getJavaFullClassName();
-        final Set<ModelReaderType> modelReaders = new HashSet<>();
-        for (final RestClientClassSignature classSignature : classSignatures) {
+        final Set<ClientModelReaderType> modelReaders = new HashSet<>();
+        for (final AbstractRestClientClassSignature classSignature : classSignatures) {
             for (final RestClientMethodSignature methodSignature : classSignature.getMethodSignatures()) {
                 methodSignature.getResponseModel().getMethodResult().ifPresent(methodResult -> {
                     if (methodResult.getResultType().toString().equals(type)) {
                         validate(methodSignature.getMethod(), methodResult, restModelClass.getModelClass());
-                        modelReaders.add(methodResult.isOneItem() ? ModelReaderType.SINGLE : ModelReaderType.LIST);
+                        modelReaders.add(methodResult.isOneItem() ? ClientModelReaderType.SINGLE : ClientModelReaderType.LIST);
                     }
                 });
             }
         }
-        return modelReaders.size() == 2 ? ModelReaderType.BOTH : modelReaders.iterator().next();
+        return modelReaders.size() == 2 ? ClientModelReaderType.BOTH : modelReaders.iterator().next();
     }
 
     private void validate(final ExecutableElement restClientMethod,

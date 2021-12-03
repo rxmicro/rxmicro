@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.client.model.field.access.headers;
 
 import io.rxmicro.examples.rest.client.model.field.access.headers.gettersetter.$$RequestRequestModelExtractor;
-import io.rxmicro.examples.rest.client.model.field.access.headers.gettersetter.$$ResponseModelReader;
+import io.rxmicro.examples.rest.client.model.field.access.headers.gettersetter.$$ResponseClientModelReader;
 import io.rxmicro.examples.rest.client.model.field.access.headers.gettersetter.Request;
 import io.rxmicro.examples.rest.client.model.field.access.headers.gettersetter.Response;
 import io.rxmicro.rest.client.RestClientConfig;
@@ -23,8 +23,8 @@ public final class $$GetterSetterHeadersRestClient extends AbstractRestClient im
     private final $$RequestRequestModelExtractor requestRequestModelExtractor =
             new $$RequestRequestModelExtractor();
 
-    private final $$ResponseModelReader responseModelReader =
-            new $$ResponseModelReader();
+    private final $$ResponseClientModelReader responseClientModelReader =
+            new $$ResponseClientModelReader();
 
     private final HttpClient client;
 
@@ -45,6 +45,6 @@ public final class $$GetterSetterHeadersRestClient extends AbstractRestClient im
                 .sendAsync("PUT", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
-                .thenApply(resp -> responseModelReader.readSingle(resp));
+                .thenApply(resp -> responseClientModelReader.readSingle(resp));
     }
 }

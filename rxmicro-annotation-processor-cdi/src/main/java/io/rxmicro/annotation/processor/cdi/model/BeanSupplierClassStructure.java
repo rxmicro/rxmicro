@@ -60,6 +60,11 @@ public final class BeanSupplierClassStructure extends ClassStructure {
     }
 
     @Override
+    protected boolean shouldSourceCodeBeGenerated() {
+        return !beanDefinition.isNotBean();
+    }
+
+    @Override
     public String getTemplateName() {
         return "cdi/$$BeanSupplierTemplate.javaftl";
     }

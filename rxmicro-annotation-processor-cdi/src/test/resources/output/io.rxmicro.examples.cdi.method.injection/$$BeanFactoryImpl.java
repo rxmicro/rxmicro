@@ -3,7 +3,6 @@ package rxmicro;
 import io.rxmicro.cdi.detail.ByTypeAndNameInstanceQualifier;
 import io.rxmicro.cdi.detail.InternalBeanFactory;
 import io.rxmicro.examples.cdi.method.injection.$$BusinessServiceFacadeBeanSupplier;
-import io.rxmicro.examples.cdi.method.injection.$$BusinessServiceImplBeanSupplier;
 import io.rxmicro.examples.cdi.method.injection.BusinessService;
 import io.rxmicro.examples.cdi.method.injection.BusinessServiceFacade;
 import io.rxmicro.examples.cdi.method.injection.BusinessServiceImpl;
@@ -24,7 +23,7 @@ public final class $$BeanFactoryImpl extends InternalBeanFactory {
                 new ByTypeInstanceQualifier<>(BusinessServiceFacade.class)
         );
         register(
-                BusinessServiceImpl.class, new $$BusinessServiceImplBeanSupplier(),
+                BusinessServiceImpl.class, () -> new BusinessServiceImpl(),
                 new ByTypeInstanceQualifier<>(BusinessServiceImpl.class),
                 new ByTypeAndNameInstanceQualifier<>(BusinessService.class, "businessServiceImpl"),
                 new ByTypeInstanceQualifier<>(BusinessService.class)

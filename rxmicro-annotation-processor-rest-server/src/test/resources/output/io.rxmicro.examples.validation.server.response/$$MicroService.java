@@ -1,7 +1,7 @@
 package io.rxmicro.examples.validation.server.response;
 
 import io.rxmicro.examples.validation.server.response.model.$$ResponseConstraintValidator;
-import io.rxmicro.examples.validation.server.response.model.$$ResponseModelWriter;
+import io.rxmicro.examples.validation.server.response.model.$$ResponseServerModelWriter;
 import io.rxmicro.examples.validation.server.response.model.Response;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -24,14 +24,14 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$ResponseModelWriter responseModelWriter;
+    private $$ResponseServerModelWriter responseServerModelWriter;
 
     private $$ResponseConstraintValidator responseConstraintValidator;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        responseModelWriter = new $$ResponseModelWriter(restServerConfig.isHumanReadableOutput());
+        responseServerModelWriter = new $$ResponseServerModelWriter(restServerConfig.isHumanReadableOutput());
         responseConstraintValidator = new $$ResponseConstraintValidator();
     }
 
@@ -73,7 +73,7 @@ public final class $$MicroService extends AbstractRestController {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        responseModelWriter.write(model, response);
+        responseServerModelWriter.write(model, response);
         return response;
     }
 }

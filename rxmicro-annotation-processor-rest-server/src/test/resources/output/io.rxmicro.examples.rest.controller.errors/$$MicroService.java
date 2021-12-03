@@ -19,15 +19,15 @@ public final class $$MicroService extends AbstractRestController {
 
     private MicroService restController;
 
-    private $$VirtualRequestModelReader virtualRequestModelReader;
+    private $$VirtualRequestServerModelReader virtualRequestServerModelReader;
 
-    private $$VirtualRequest2ModelReader virtualRequest2ModelReader;
+    private $$VirtualRequest2ServerModelReader virtualRequest2ServerModelReader;
 
     @Override
     protected void postConstruct() {
         restController = new MicroService();
-        virtualRequestModelReader = new $$VirtualRequestModelReader();
-        virtualRequest2ModelReader = new $$VirtualRequest2ModelReader();
+        virtualRequestServerModelReader = new $$VirtualRequestServerModelReader();
+        virtualRequest2ServerModelReader = new $$VirtualRequest2ServerModelReader();
     }
 
     @Override
@@ -72,7 +72,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> updateObject1(final PathVariableMapping pathVariableMapping,
                                                         final HttpRequest request) {
-        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualRequest req = virtualRequestServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.updateObject1(req.id)
                 .thenApply(nothing -> buildResponse(200, headers));
@@ -80,7 +80,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> updateObject2(final PathVariableMapping pathVariableMapping,
                                                         final HttpRequest request) {
-        final $$VirtualRequest2 req = virtualRequest2ModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final $$VirtualRequest2 req = virtualRequest2ServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.updateObject2(req.id)
                 .thenApply(nothing -> buildResponse(200, headers));

@@ -16,9 +16,11 @@
 
 package io.rxmicro.annotation.processor.common.util;
 
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeMirror;
+import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.model.NotStandardSerializableEnum;
 import io.rxmicro.model.Transient;
 
@@ -33,18 +35,22 @@ import java.util.TreeSet;
 import java.util.function.Predicate;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.NoType;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
+import static io.rxmicro.common.util.ExCollectors.toTreeSet;
 import static io.rxmicro.common.util.ExCollectors.toUnmodifiableOrderedSet;
 import static io.rxmicro.common.util.Strings.capitalize;
 import static io.rxmicro.common.util.Strings.unCapitalize;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 import static javax.lang.model.element.ElementKind.CONSTRUCTOR;
 import static javax.lang.model.element.ElementKind.ENUM;
 import static javax.lang.model.element.ElementKind.ENUM_CONSTANT;
@@ -411,6 +417,21 @@ public final class Elements {
             }
         }
         return result;
+    }
+
+    public static Set<TypeElement> getTypeElementsAtAllNotStandardModules(final EnvironmentContext environmentContext,
+                                                                          final Predicate<TypeElement> predicate) {
+        final Set<PackageElement> packageElements = getElements().getAllModuleElements().stream()
+                // Ignore rxmicro modules
+                .filter(me -> !RxMicroModule.isRxMicroModule(me.getQualifiedName().toString()))
+                .flatMap(me -> me.getEnclosedElements().stream().map(e -> (PackageElement) e))
+                .filter(pe -> !isDeniedPackage(pe.getQualifiedName().toString()))
+                .collect(toSet());
+        return packageElements.stream()
+                .flatMap(pe -> pe.getEnclosedElements().stream().filter(e -> e instanceof TypeElement).map(e -> (TypeElement) e))
+                .filter(environmentContext::isRxMicroClassShouldBeProcessed)
+                .filter(predicate)
+                .collect(toTreeSet(Comparator.comparing(o -> o.getQualifiedName().toString())));
     }
 
     private Elements() {

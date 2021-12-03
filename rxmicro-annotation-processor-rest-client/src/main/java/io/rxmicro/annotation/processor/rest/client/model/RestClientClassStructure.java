@@ -26,9 +26,9 @@ import io.rxmicro.annotation.processor.common.util.Elements;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.AbstractSimpleObjectModelClass;
 import io.rxmicro.exchange.json.detail.ModelToJsonConverter;
+import io.rxmicro.rest.client.detail.ClientModelReader;
 import io.rxmicro.rest.client.detail.HttpClient;
 import io.rxmicro.rest.client.detail.HttpResponse;
-import io.rxmicro.rest.client.detail.ModelReader;
 import io.rxmicro.rest.client.detail.PathBuilder;
 import io.rxmicro.rest.client.detail.RequestModelExtractor;
 import io.rxmicro.validation.detail.RequestValidators;
@@ -109,7 +109,7 @@ public final class RestClientClassStructure extends ClassStructure {
                 methods.stream()
                         .filter(m -> m.shouldGenerateModelReader(classStructureStorage))
                         .flatMap(m -> m.getFromHttpDataType().stream())
-                        .map(cl -> new ModelTransformer(cl.asType(), ModelReader.class))
+                        .map(cl -> new ModelTransformer(cl.asType(), ClientModelReader.class))
         ).flatMap(identity()).collect(toSet());
 
         this.allValidators = join(getRequestValidators(), getResponseValidators());

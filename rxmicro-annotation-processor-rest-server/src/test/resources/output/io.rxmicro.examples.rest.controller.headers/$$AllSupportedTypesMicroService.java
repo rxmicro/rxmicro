@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.controller.headers;
 
-import io.rxmicro.examples.rest.controller.headers.model.$$AllSupportedTypesModelReader;
-import io.rxmicro.examples.rest.controller.headers.model.$$AllSupportedTypesModelWriter;
+import io.rxmicro.examples.rest.controller.headers.model.$$AllSupportedTypesServerModelReader;
+import io.rxmicro.examples.rest.controller.headers.model.$$AllSupportedTypesServerModelWriter;
 import io.rxmicro.examples.rest.controller.headers.model.AllSupportedTypes;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -22,15 +22,15 @@ public final class $$AllSupportedTypesMicroService extends AbstractRestControlle
 
     private AllSupportedTypesMicroService restController;
 
-    private $$AllSupportedTypesModelReader allSupportedTypesModelReader;
+    private $$AllSupportedTypesServerModelReader allSupportedTypesServerModelReader;
 
-    private $$AllSupportedTypesModelWriter allSupportedTypesModelWriter;
+    private $$AllSupportedTypesServerModelWriter allSupportedTypesServerModelWriter;
 
     @Override
     protected void postConstruct() {
         restController = new AllSupportedTypesMicroService();
-        allSupportedTypesModelReader = new $$AllSupportedTypesModelReader();
-        allSupportedTypesModelWriter = new $$AllSupportedTypesModelWriter(restServerConfig.isHumanReadableOutput());
+        allSupportedTypesServerModelReader = new $$AllSupportedTypesServerModelReader();
+        allSupportedTypesServerModelWriter = new $$AllSupportedTypesServerModelWriter(restServerConfig.isHumanReadableOutput());
     }
 
     @Override
@@ -61,7 +61,7 @@ public final class $$AllSupportedTypesMicroService extends AbstractRestControlle
 
     private CompletionStage<HttpResponse> get(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final AllSupportedTypes req = allSupportedTypesModelReader.read(pathVariableMapping, request, request.isContentPresent());
+        final AllSupportedTypes req = allSupportedTypesServerModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.get(req)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -73,7 +73,7 @@ public final class $$AllSupportedTypesMicroService extends AbstractRestControlle
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);
-        allSupportedTypesModelWriter.write(model, response);
+        allSupportedTypesServerModelWriter.write(model, response);
         return response;
     }
 }

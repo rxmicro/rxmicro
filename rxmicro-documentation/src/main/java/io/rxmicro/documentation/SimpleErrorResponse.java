@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * Contains metadata about the unsuccessful HTTP response of REST-based microservice.
@@ -34,7 +34,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.1
  */
 @Documented
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({METHOD, TYPE})
 @Repeatable(SimpleErrorResponse.List.class)
 public @interface SimpleErrorResponse {
@@ -266,7 +266,7 @@ public @interface SimpleErrorResponse {
      * @since 0.1
      */
     @Documented
-    @Retention(SOURCE)
+    @Retention(CLASS)
     @Target({METHOD, TYPE})
     @interface List {
 

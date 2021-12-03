@@ -165,6 +165,13 @@ public final class InjectionPoint {
         classHeaderBuilder.addImports(injectionResource.getConverterFullClass());
     }
 
+    @Override
+    public String toString() {
+        return "InjectionPoint{" + "type=" + type +
+                ", modelField=" + modelField +
+                '}';
+    }
+
     /**
      * @author nedis
      * @since 0.1
