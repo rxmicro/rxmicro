@@ -16,10 +16,6 @@
 
 package io.rxmicro.logger.internal.jul;
 
-import io.rxmicro.common.ImpossibleException;
-
-import static io.rxmicro.common.util.SystemPrintlnHelper.printStackTraceToStdErr;
-
 /**
  * @author nedis
  * @since 0.10
@@ -30,14 +26,8 @@ public final class JDK6448699BugHelper {
         // Workaround for https://bugs.openjdk.java.net/browse/JDK-6448699
         try {
             Class.forName("io.rxmicro.logger.jul.SystemConsoleHandler", true, ClassLoader.getSystemClassLoader());
-        } catch (final LinkageError | ClassNotFoundException | SecurityException throwable) {
-            printStackTraceToStdErr(
-                    new ImpossibleException(
-                            throwable,
-                            "Can't register io.rxmicro.logger.jul.SystemConsoleHandler: ?",
-                            throwable.getMessage()
-                    )
-            );
+        } catch (final LinkageError | ClassNotFoundException | SecurityException ignored) {
+            // do nothing
         }
     }
 
