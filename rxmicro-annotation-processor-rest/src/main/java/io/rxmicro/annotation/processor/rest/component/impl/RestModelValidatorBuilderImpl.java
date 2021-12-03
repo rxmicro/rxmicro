@@ -75,16 +75,19 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
         final Set<ModelValidatorClassStructure> result = new HashSet<>();
         for (final RestObjectModelClass objectModelClass : objectModelClasses) {
             final boolean isValidatorGenerated = extractValidators(result, objectModelClass, new HashSet<>(), false);
-            final int sizeBefore = result.size();
+            boolean childrenAdded = false;
             for (final ObjectModelClass<RestModelField> p : objectModelClass.getAllParents()) {
                 final RestObjectModelClass parent = (RestObjectModelClass) p;
                 if (parent.isModelClassReturnedByRestMethod() ||
                         parent.isHeadersOrPathVariablesOrInternalsPresent() ||
                         parent.isParamEntriesPresent()) {
-                    extractValidators(result, parent, new HashSet<>(), false);
+                    final boolean extracted = extractValidators(result, parent, new HashSet<>(), false);
+                    if (extracted) {
+                        childrenAdded = true;
+                    }
                 }
             }
-            if (!isValidatorGenerated && sizeBefore < result.size()) {
+            if (!isValidatorGenerated && childrenAdded) {
                 // Generate empty validator for child class that has parent validators!
                 result.add(new ModelValidatorClassStructure.Builder(objectModelClass).build(false));
             }
@@ -113,10 +116,10 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
     private void extractPrimitiveValidators(final RestObjectModelClass objectModelClass,
                                             final ModelValidatorClassStructure.Builder builder) {
         Stream.of(
-                objectModelClass.getPathVariableEntries().stream(),
-                objectModelClass.getHeaderEntries().stream(),
-                objectModelClass.getParamEntries().stream()
-        )
+                        objectModelClass.getPathVariableEntries().stream(),
+                        objectModelClass.getHeaderEntries().stream(),
+                        objectModelClass.getParamEntries().stream()
+                )
                 .flatMap(identity())
                 .forEach(e -> extractFieldValidators(builder, e.getKey(), e.getValue()));
     }
