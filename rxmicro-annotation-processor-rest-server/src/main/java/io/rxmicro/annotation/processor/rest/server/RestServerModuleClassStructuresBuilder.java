@@ -72,8 +72,6 @@ import javax.lang.model.element.TypeElement;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLoggableMethodName;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE_VALUE;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.rest.method.HttpMethods.HTTP_METHOD_ANNOTATIONS;
 import static java.util.function.Function.identity;
@@ -247,8 +245,7 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                     environmentContext, restControllerClassStructureStorage, restControllerClassSignatures
             );
             classStructures.addAll(restControllerClassStructures);
-            if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty() &&
-                    !getBooleanOption(RX_MICRO_LIBRARY_MODULE, RX_MICRO_LIBRARY_MODULE_VALUE)) {
+            if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty() && !isLibraryModule()) {
                 restDocumentationGenerator.generate(environmentContext, restControllerClassStructureStorage, restControllerClassStructures);
             }
             addAllVirtualRequestClassStructures(classStructures, restControllerClassSignatures, restControllerClassStructureStorage);

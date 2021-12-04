@@ -28,8 +28,6 @@ import io.rxmicro.rest.SetHeader;
 import java.util.Arrays;
 import javax.lang.model.element.Element;
 
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
@@ -59,7 +57,7 @@ public final class ServerCommonOptionBuilderImpl extends BaseProcessorComponent 
         if (value.contains("${")) {
             throw new InterruptProcessingException(element, "Expressions not supported here. Remove redundant expressions!");
         } else if (LOCATION.equalsIgnoreCase(name)) {
-            if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+            if (isStrictModeEnabled()) {
                 final String normalizeUrlPath = normalizeUrlPath(value);
                 if (!value.equals(normalizeUrlPath)) {
                     throw new InterruptProcessingException(

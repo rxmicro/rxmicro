@@ -41,8 +41,6 @@ import javax.tools.FileObject;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
 import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -100,7 +98,7 @@ public final class ProjectMetaDataProviderResolverImpl extends BaseProcessorComp
             final MavenXpp3Reader reader = new MavenXpp3Reader();
             final List<Model> models = new ArrayList<>();
             File pomXml = pomXmlPath;
-            final boolean analyzeParent = getBooleanOption(RX_MICRO_DOC_ANALYZE_PARENT_POM, RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE);
+            final boolean analyzeParent = isAnalyzeOfParentPOMDuringDocCreationEnabled();
             while (true) {
                 final Model model;
                 try (Reader fileReader = Files.newBufferedReader(pomXml.toPath(), UTF_8)) {

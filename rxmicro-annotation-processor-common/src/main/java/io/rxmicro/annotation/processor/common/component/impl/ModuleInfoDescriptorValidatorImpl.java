@@ -35,8 +35,6 @@ import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.CommonConstants.VirtualModuleInfoConstants.RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE;
@@ -53,7 +51,7 @@ public final class ModuleInfoDescriptorValidatorImpl extends BaseProcessorCompon
 
     @Override
     public void validate(final ModuleElement moduleElement) {
-        if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+        if (isStrictModeEnabled()) {
             validateThatDocumentationModuleIsStatic(moduleElement);
         }
         if (moduleElement.isUnnamed()) {

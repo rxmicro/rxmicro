@@ -58,10 +58,6 @@ import static io.rxmicro.annotation.processor.common.util.Elements.findSetters;
 import static io.rxmicro.annotation.processor.common.util.ModelTypeElements.asValidatedModelTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Types.JAVA_PRIMITIVE_REPLACEMENT;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.util.ExCollectors.toOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.Collections.unmodifiableMap;
@@ -163,7 +159,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );
-                if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+                if (isStrictModeEnabled()) {
                     error(link, modelField.getFieldElement(), message);
                 } else {
                     warn(link, modelField.getFieldElement(), message);
@@ -178,7 +174,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );
-                if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+                if (isStrictModeEnabled()) {
                     error(link, modelField.getFieldElement(), message);
                 } else {
                     warn(link, modelField.getFieldElement(), message);
@@ -284,10 +280,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
 
     private int getMaxNestedLevel() {
         if (maxNestedLevel == -1) {
-            maxNestedLevel = getIntOption(
-                    RX_MICRO_MAX_JSON_NESTED_DEPTH,
-                    RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE
-            );
+            maxNestedLevel = getMaxJsonNestedDepth();
         }
         return maxNestedLevel;
     }

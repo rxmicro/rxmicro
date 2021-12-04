@@ -42,10 +42,6 @@ import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE_VALUE;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
@@ -79,7 +75,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
             classStructures.add(getEnvironmentCustomizerClassStructure(environmentContext, classStructures));
         }
         validateClassStructureDuplicates(environmentContext, classStructures);
-        final boolean isLibraryModule = getBooleanOption(RX_MICRO_LIBRARY_MODULE, RX_MICRO_LIBRARY_MODULE_VALUE);
+        final boolean isLibraryModule = isLibraryModule();
         return classStructures.stream()
                 .filter(cl -> cl.shouldSourceCodeBeGenerated(environmentContext, isLibraryModule))
                 .map(cl -> sourceCodeGenerator.generate(cl)).collect(toList());
@@ -108,7 +104,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
     }
 
     public boolean isUnnamedModuleDisabled() {
-        return !getBooleanOption(RX_MICRO_BUILD_UNNAMED_MODULE, RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE);
+        return !isUnnamedModule();
     }
 
     public void afterAllClassStructuresBuilt(final Set<? extends ClassStructure> classStructures) {

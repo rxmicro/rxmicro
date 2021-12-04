@@ -26,8 +26,6 @@ import io.rxmicro.rest.Version;
 
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 
 /**
@@ -62,7 +60,7 @@ public final class ParentUrlBuilderImpl extends BaseUrlBuilder implements Parent
     private String getNormalizeUrlPath(final TypeElement ownerClass,
                                        final String urlPath) {
         final String normalizeUrlPath = normalizeUrlPath(urlPath);
-        if (!normalizeUrlPath.equals(urlPath) && getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+        if (!normalizeUrlPath.equals(urlPath) && isStrictModeEnabled()) {
             throw new InterruptProcessingException(
                     ownerClass,
                     "Invalid base url path: Expected '?', but actual is '?'!",

@@ -40,8 +40,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 import javax.lang.model.element.ExecutableElement;
 
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 import static io.rxmicro.rest.method.HttpMethods.HTTP_METHOD_ANNOTATIONS;
 import static java.util.stream.Collectors.toList;
@@ -102,7 +100,7 @@ public final class HttpMethodMappingBuilderImpl extends BaseUrlBuilder implement
         validateNotNull(executableElement, path, "Invalid URL path mapping");
         validateThatPathIsTrimmedValue(executableElement, path, "Invalid URL path mapping");
         final String normalizeUrlPath = normalizeUrlPath(path);
-        if (!path.equals(normalizeUrlPath) && getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+        if (!path.equals(normalizeUrlPath) && isStrictModeEnabled()) {
             throw new InterruptProcessingException(
                     executableElement,
                     "Invalid request mapping url path: Expected '?', but actual is '?'!",

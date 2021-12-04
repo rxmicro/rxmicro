@@ -102,7 +102,7 @@ public final class SupportedOptions {
 
     public static final String RX_MICRO_LIBRARY_MODULE = "RX_MICRO_LIBRARY_MODULE";
 
-    public static final boolean RX_MICRO_LIBRARY_MODULE_VALUE = false;
+    public static final boolean RX_MICRO_LIBRARY_MODULE_DEFAULT_VALUE = false;
 
     /**
      * Contains all supported options.

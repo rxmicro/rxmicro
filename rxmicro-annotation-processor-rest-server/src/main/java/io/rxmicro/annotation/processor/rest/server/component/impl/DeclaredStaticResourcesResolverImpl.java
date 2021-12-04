@@ -41,8 +41,6 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.startsWith;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
@@ -154,7 +152,7 @@ public final class DeclaredStaticResourcesResolverImpl extends BaseUrlBuilder im
                     } else {
                         normalizeUrlPath = normalizeUrlPath(value);
                     }
-                    if (!normalizeUrlPath.equals(value) && getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+                    if (!normalizeUrlPath.equals(value) && isStrictModeEnabled()) {
                         throw new InterruptProcessingException(
                                 owner,
                                 "Invalid static resource ?: Expected '?', but actual is '?'!",

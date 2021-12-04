@@ -34,8 +34,18 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
 import static io.rxmicro.annotation.processor.config.LogLevel.DEBUG;
 import static io.rxmicro.annotation.processor.config.LogLevel.INFO;
 import static io.rxmicro.annotation.processor.config.LogLevel.TRACE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LIBRARY_MODULE_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LOG_LEVEL;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LOG_LEVEL_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -208,8 +218,29 @@ public class BaseProcessorComponent {
         aNewCompilationErrorDetected();
     }
 
-    protected final int getIntOption(final String propertyName,
-                                     final int defaultValue) {
+    protected final int getMaxJsonNestedDepth() {
+        return getIntOption(RX_MICRO_MAX_JSON_NESTED_DEPTH, RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE);
+    }
+
+    protected final boolean isLibraryModule() {
+        return getBooleanOption(RX_MICRO_LIBRARY_MODULE, RX_MICRO_LIBRARY_MODULE_DEFAULT_VALUE);
+    }
+
+    protected final boolean isUnnamedModule() {
+        return getBooleanOption(RX_MICRO_BUILD_UNNAMED_MODULE, RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE);
+    }
+
+    protected final boolean isStrictModeEnabled() {
+        return getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE);
+    }
+
+    protected final boolean isAnalyzeOfParentPOMDuringDocCreationEnabled() {
+        return getBooleanOption(RX_MICRO_DOC_ANALYZE_PARENT_POM, RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE);
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private int getIntOption(final String propertyName,
+                             final int defaultValue) {
         final String value = getStringOption(propertyName, null);
         if (value != null) {
             try {
@@ -221,8 +252,8 @@ public class BaseProcessorComponent {
         return defaultValue;
     }
 
-    protected final boolean getBooleanOption(final String propertyName,
-                                             final boolean defaultValue) {
+    private boolean getBooleanOption(final String propertyName,
+                                     final boolean defaultValue) {
         final String value = getStringOption(propertyName, null);
         return Optional.ofNullable(value).map(Boolean::parseBoolean).orElse(defaultValue);
     }
