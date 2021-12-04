@@ -469,6 +469,7 @@
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
                                     <failOnViolation>${checkstyle-maven-plugin.failOnViolation}</failOnViolation>
                                     <excludes>io/rxmicro/annotation/processor/**, **/detail/**, **/local/**, **/internal/**</excludes>
+                                    <includes>io/rxmicro/annotation/processor/config</includes>
                                 </configuration>
                             </execution>
                         </executions>
