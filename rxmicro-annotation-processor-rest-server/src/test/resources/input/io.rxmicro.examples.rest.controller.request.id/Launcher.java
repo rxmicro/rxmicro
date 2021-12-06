@@ -20,7 +20,7 @@ import io.rxmicro.config.Configs;
 import io.rxmicro.rest.server.PredefinedRequestIdGeneratorProvider;
 import io.rxmicro.rest.server.RestServerConfig;
 
-import static io.rxmicro.rest.server.RxMicro.startRestServer;
+import static io.rxmicro.rest.server.RxMicroRestServer.startRestServer;
 
 public final class Launcher {
 

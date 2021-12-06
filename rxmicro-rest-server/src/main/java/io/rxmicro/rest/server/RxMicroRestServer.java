@@ -44,9 +44,9 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @author nedis
  * @since 0.1
  */
-public final class RxMicro {
+public final class RxMicroRestServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RxMicro.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RxMicroRestServer.class);
 
     static {
         StartTimeStampHelper.init();
@@ -56,7 +56,7 @@ public final class RxMicro {
      * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRESTServer(String)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServer(String)} method.</i>
      *
      * @param rootPackage root package
      * @return the {@link ServerInstance} to manage the started HTTP server
@@ -69,7 +69,7 @@ public final class RxMicro {
      * Starts only one REST controller on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRESTServer(Class)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServer(Class)} method.</i>
      *
      * @param restControllerClass REST controller class to start
      * @return the {@link ServerInstance} to manage the started HTTP server
@@ -82,7 +82,7 @@ public final class RxMicro {
      * Starts a set of REST controllers on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRESTServer(Set)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServer(Set)} method.</i>
      *
      * @param restControllerClasses a REST controllers set to start
      * @return the {@link ServerInstance} to manage the started HTTP server
@@ -95,7 +95,7 @@ public final class RxMicro {
      * Starts an array of REST controllers on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRESTServer(Class, Class[])} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServer(Class, Class[])} method.</i>
      *
      * @param restControllerClass a first instance of REST controller to start
      * @param restControllerClasses a REST controllers arrays to start
@@ -110,7 +110,7 @@ public final class RxMicro {
      * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRestServer(String)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServer(String)} method.</i>
      *
      * @param rootPackage root package
      * @return the {@link ServerInstance} to manage the started HTTP server
@@ -123,7 +123,7 @@ public final class RxMicro {
      * Starts only one REST controller on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRestServer(Class)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServer(Class)} method.</i>
      *
      * @param restControllerClass REST controller class to start
      * @return the {@link ServerInstance} to manage the started HTTP server
@@ -136,7 +136,7 @@ public final class RxMicro {
      * Starts a set of REST controllers on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRestServer(Set)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServer(Set)} method.</i>
      *
      * @param restControllerClasses a REST controllers set to start
      * @return the {@link ServerInstance} to manage the started HTTP server
@@ -149,7 +149,7 @@ public final class RxMicro {
      * Starts an array of REST controllers on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRestServer(Class, Class[])} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServer(Class, Class[])} method.</i>
      *
      * @param restControllerClass a first instance of REST controller to start
      * @param restControllerClasses a REST controllers arrays to start
@@ -164,7 +164,7 @@ public final class RxMicro {
      * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRESTServerInteractive(String)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServerInteractive(String)} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
@@ -180,7 +180,7 @@ public final class RxMicro {
      * Starts only one REST controller on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRESTServerInteractive(Class)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServerInteractive(Class)} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
@@ -196,7 +196,7 @@ public final class RxMicro {
      * Starts a set of REST controllers on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRESTServerInteractive(Set)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServerInteractive(Set)} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
@@ -212,7 +212,7 @@ public final class RxMicro {
      * Starts an array of REST controllers on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRESTServerInteractive(Class, Class[])} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServerInteractive(Class, Class[])} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
@@ -230,7 +230,7 @@ public final class RxMicro {
      * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRestServerInteractive(String)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServerInteractive(String)} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
@@ -246,7 +246,7 @@ public final class RxMicro {
      * Starts only one REST controller on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRestServerInteractive(Class)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServerInteractive(Class)} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
@@ -262,7 +262,7 @@ public final class RxMicro {
      * Starts a set of REST controllers on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRestServerInteractive(Set)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServerInteractive(Set)} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
@@ -278,7 +278,7 @@ public final class RxMicro {
      * Starts an array of REST controllers on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicro#startRestServerInteractive(Class, Class[])} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServerInteractive(Class, Class[])} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
@@ -314,7 +314,7 @@ public final class RxMicro {
         }
     }
 
-    private RxMicro() {
+    private RxMicroRestServer() {
     }
 
     /**

@@ -20,7 +20,7 @@ import io.rxmicro.rest.method.GET;
 
 import java.util.concurrent.CompletableFuture;
 
-import static io.rxmicro.rest.server.RxMicro.startRestServer;
+import static io.rxmicro.rest.server.RxMicroRestServer.startRestServer;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 
 // tag::content[]

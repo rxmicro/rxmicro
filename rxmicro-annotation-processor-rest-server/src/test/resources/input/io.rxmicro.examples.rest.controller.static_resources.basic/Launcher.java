@@ -16,7 +16,7 @@
 
 package io.rxmicro.examples.rest.controller.static_resources.basic;
 
-import io.rxmicro.rest.server.RxMicro;
+import io.rxmicro.rest.server.RxMicroRestServer;
 import io.rxmicro.rest.server.StaticResources;
 
 @StaticResources("/launcher/resource1.txt")
@@ -28,7 +28,7 @@ public final class Launcher {
     }
 
     public static void main(final String[] args) {
-        RxMicro.startRestServer(Launcher.class.getPackageName());
+        RxMicroRestServer.startRestServer(Launcher.class.getPackageName());
     }
 }
 

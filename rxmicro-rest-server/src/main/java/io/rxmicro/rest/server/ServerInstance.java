@@ -20,7 +20,7 @@ package io.rxmicro.rest.server;
  * Represents a HTTP server with common manage functions.
  *
  * @author nedis
- * @see RxMicro
+ * @see RxMicroRestServer
  * @since 0.1
  */
 public interface ServerInstance {
