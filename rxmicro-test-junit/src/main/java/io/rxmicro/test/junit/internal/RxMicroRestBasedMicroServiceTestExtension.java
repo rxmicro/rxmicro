@@ -55,6 +55,7 @@ import java.util.Map;
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.clearEventLoopGroupFactory;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithoutRestControllers;
+import static io.rxmicro.runtime.detail.ChildrenInitializer.resetChildrenInitializer;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.HttpServers.getRandomFreePort;
@@ -143,8 +144,9 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends BaseJUnitTe
         final Class<?>[] restControllerClasses = annotation.value();
 
         validateNotEmptyArray(restControllerClasses);
+        final Module module = restControllerClasses[0].getModule();
         final TestModelBuilder testModelBuilder = new TestModelBuilder(
-                isRequiredModule(restControllerClasses[0].getModule(), BeanFactory.class.getModule())
+                isRequiredModule(module, BeanFactory.class.getModule())
         );
         final TestModel testModel = testModelBuilder.build(testClass);
         restBasedMicroServiceTestValidator.validate(testModel, restControllerClasses);
@@ -159,9 +161,9 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends BaseJUnitTe
                 new RestServerConfig()
                         .setDevelopmentMode(true)
         );
-        serverContainer = launchWithoutRestControllers(configs);
+        serverContainer = launchWithoutRestControllers(module, configs);
         restControllerInstanceResolver = new RestControllerInstanceResolver(restControllerClasses, serverContainer);
-        createInjectors(testClass, testModel, configs);
+        createInjectors(module, testClass, testModel, configs);
     }
 
     private void validateNotEmptyArray(final Class<?>... restControllerClasses) {
@@ -173,10 +175,11 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends BaseJUnitTe
         }
     }
 
-    private void createInjectors(final Class<?> testClass,
+    private void createInjectors(final Module module,
+                                 final Class<?> testClass,
                                  final TestModel testModel,
                                  final Map<String, Config> configs) {
-        final InjectorFactory injectorFactory = new InjectorFactory(testModel);
+        final InjectorFactory injectorFactory = new InjectorFactory(module, testModel);
         blockingHttpClientInjector = injectorFactory.createBlockingHttpClientInjector();
         systemStreamInjector = injectorFactory.createSystemOutInjector();
         if (blockingHttpClientInjector.hasField()) {
@@ -229,6 +232,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends BaseJUnitTe
     public void afterEach(final ExtensionContext context) {
         clearContainer();
         clearFactories();
+        resetChildrenInitializer();
         resetDefaultConfigValueStorage();
         resetConfigurationIfPossible();
         serverContainer.unregisterAllRestControllers();

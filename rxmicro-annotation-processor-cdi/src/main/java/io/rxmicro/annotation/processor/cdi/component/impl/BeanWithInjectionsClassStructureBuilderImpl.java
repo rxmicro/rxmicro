@@ -51,7 +51,7 @@ public final class BeanWithInjectionsClassStructureBuilderImpl
                 if (!ownerClass.getModifiers().contains(ABSTRACT) &&
                         environmentContext.isRxMicroClassShouldBeProcessed(ownerClass) &&
                         processedTypes.add(ownerClass.asType().toString())) {
-                    result.add(buildCDIBeanDefinitionClassStructure(ownerClass));
+                    result.add(buildCDIBeanDefinitionClassStructure(environmentContext.getCurrentModule(), ownerClass));
                 }
             }
         }

@@ -20,6 +20,7 @@ import io.rxmicro.runtime.internal.RuntimeVersion;
 
 import static io.rxmicro.common.CommonConstants.RX_MICRO_ANNOTATION_PROCESSOR_RUNTIME;
 import static io.rxmicro.common.local.RxMicroEnvironment.isRuntimeStrictModeEnabled;
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.logger.LoggerFactory.getLogger;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
 
@@ -32,7 +33,11 @@ import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
  */
 public final class RxMicroRuntime {
 
-    public static final String ENTRY_POINT_PACKAGE = "rxmicro";
+    public static final String UNNAMED_MODULE_NAME = "unnamed";
+
+    private static final String ENTRY_POINT_PACKAGE_PREFIX = "rxmicro";
+
+    private static final String ENTRY_POINT_TEST_PACKAGE_PREFIX = ENTRY_POINT_PACKAGE_PREFIX + ".test";
 
     static {
         setRxMicroVersion();
@@ -43,6 +48,31 @@ public final class RxMicroRuntime {
 
     public static String getRxMicroVersion() {
         return RuntimeVersion.getRxMicroVersion();
+    }
+
+    public static String getEntryPointPackage(final String moduleName) {
+        return ENTRY_POINT_PACKAGE_PREFIX + "." + moduleName;
+    }
+
+    public static String getUnnamedModuleEntryPointPackage() {
+        return getEntryPointPackage(UNNAMED_MODULE_NAME);
+    }
+
+    public static String getEntryPointFullClassName(final Module module,
+                                                    final String simpleClassName) {
+        return format("?.?.?", ENTRY_POINT_PACKAGE_PREFIX, getModuleName(module), simpleClassName);
+    }
+
+    public static String getEntryPointTestFullClassName(final String simpleClassName) {
+        return format("?.?", ENTRY_POINT_TEST_PACKAGE_PREFIX, simpleClassName);
+    }
+
+    public static String getEntryPointTestPackage() {
+        return ENTRY_POINT_TEST_PACKAGE_PREFIX;
+    }
+
+    private static String getModuleName(final Module module) {
+        return module.isNamed() ? module.getName() : UNNAMED_MODULE_NAME;
     }
 
     private RxMicroRuntime() {

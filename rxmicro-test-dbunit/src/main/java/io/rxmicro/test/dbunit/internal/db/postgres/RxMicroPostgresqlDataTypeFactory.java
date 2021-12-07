@@ -23,19 +23,22 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.local.InternalModules.isInternalModule;
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCustomizer.POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getEntryPointFullClassName;
 import static io.rxmicro.test.dbunit.internal.data.type.RxMicroDataTypes.CUSTOM_DATA_TYPES;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * @author nedis
  * @since 0.7
  */
-public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory {
+public final class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory {
 
     private static final int TYPES_OTHER = java.sql.Types.OTHER;
 
@@ -45,10 +48,17 @@ public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory 
         enumNames = findEnumNames();
     }
 
-    @SuppressWarnings("unchecked")
     private static Set<String> findEnumNames() {
-        final String configAutoCustomizerClassName =
-                format("?.?", ENTRY_POINT_PACKAGE, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
+        final Set<String> enums = new HashSet<>();
+        for (final Module module : getAllNotInternalModules()) {
+            enums.addAll(tryToGetEnumsForModule(module));
+        }
+        return unmodifiableOrderedSet(enums);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Set<String> tryToGetEnumsForModule(final Module module) {
+        final String configAutoCustomizerClassName = getEntryPointFullClassName(module, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
         try {
             final Class<PostgreSQLConfigAutoCustomizer> repositoryClass =
                     (Class<PostgreSQLConfigAutoCustomizer>) Class.forName(configAutoCustomizerClassName);
@@ -62,6 +72,10 @@ public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory 
                 InvocationTargetException ignored) {
             return Set.of();
         }
+    }
+
+    private static Set<Module> getAllNotInternalModules() {
+        return ModuleLayer.boot().modules().stream().filter(m -> !m.isNamed() || !isInternalModule(m.getName())).collect(toSet());
     }
 
     @Override

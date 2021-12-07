@@ -57,7 +57,7 @@ public final class GenerationOutputOrganizerImpl implements GenerationOutputOrga
         validateGenerationOutput(currentModule, documentationDefinition.output());
         final Set<DocumentStructure> result = new HashSet<>();
         final Set<DocumentationDefinition.GenerationOutput> outputs = Set.of(documentationDefinition.output());
-        if (outputs.contains(SINGLE_DOCUMENT)) {
+        if (outputs.contains(SINGLE_DOCUMENT) && !resourceGroups.isEmpty()) {
             result.add(buildAsciiDoctorDocumentStructure(
                     currentModule, projectMetaData, documentationDefinition, resourceGroups, customSections
             ));

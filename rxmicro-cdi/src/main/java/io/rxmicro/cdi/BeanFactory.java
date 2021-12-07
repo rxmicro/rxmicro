@@ -44,7 +44,8 @@ public abstract class BeanFactory extends AbstractFactory {
      * @return the instance of the requested bean
      */
     public static <T> T getBean(final Class<T> beanClass) {
-        return get(BEAN_FACTORY_IMPL_CLASS_NAME).getImpl(new ByTypeInstanceQualifier<>(beanClass))
+        return getRequiredFactory(beanClass.getModule(), BEAN_FACTORY_IMPL_CLASS_NAME)
+                .getImpl(new ByTypeInstanceQualifier<>(beanClass))
                 .orElseThrow(implNotFoundError(beanClass));
     }
 }

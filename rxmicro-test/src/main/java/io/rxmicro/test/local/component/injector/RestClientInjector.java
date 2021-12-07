@@ -31,16 +31,20 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class RestClientInjector extends AbstractFactory {
 
+    private final Module module;
+
     private final List<AlternativeEntryPoint> restClientComponents;
 
-    RestClientInjector(final List<AlternativeEntryPoint> restClientComponents) {
+    RestClientInjector(final Module module,
+                       final List<AlternativeEntryPoint> restClientComponents) {
+        this.module = module;
         this.restClientComponents = require(restClientComponents);
     }
 
     @SuppressWarnings("unchecked")
     public void injectIfFound(final List<Object> testInstances) {
         if (!restClientComponents.isEmpty()) {
-            registerFactory(RestClientFactory.REST_CLIENT_FACTORY_IMPL_CLASS_NAME, this);
+            registerFactory(module, RestClientFactory.REST_CLIENT_FACTORY_IMPL_CLASS_NAME, this);
             for (final AlternativeEntryPoint alternativeEntryPoint : restClientComponents) {
                 alternativeEntryPoint.readValue(testInstances);
                 register(

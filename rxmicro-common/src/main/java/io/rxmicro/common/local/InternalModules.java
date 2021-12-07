@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.rest.client.component;
+package io.rxmicro.common.local;
 
-import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.rest.client.model.PathBuilderClassStructure;
-import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
-
-import java.util.List;
-import java.util.Set;
+import static io.rxmicro.common.internal.InternalModuleConstants.EXACT_MODULE_NAMES;
+import static io.rxmicro.common.internal.InternalModuleConstants.START_WITH_MODULE_NAMES;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.10
  */
-public interface PathBuilderClassStructureBuilder {
+public final class InternalModules {
 
-    Set<PathBuilderClassStructure> build(EnvironmentContext environmentContext,
-                                         List<MappedRestObjectModelClass> mappedRestObjectModelClasses);
+    public static boolean isInternalModule(final String moduleName) {
+        return EXACT_MODULE_NAMES.contains(moduleName) ||
+                START_WITH_MODULE_NAMES.stream().anyMatch(moduleName::startsWith);
+    }
+
+    private InternalModules() {
+    }
 }

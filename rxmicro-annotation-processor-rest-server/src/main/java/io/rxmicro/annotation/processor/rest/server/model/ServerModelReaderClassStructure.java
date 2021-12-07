@@ -32,8 +32,9 @@ import io.rxmicro.rest.server.detail.component.ServerModelReader;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -43,14 +44,18 @@ import static io.rxmicro.common.util.Requires.require;
 public final class ServerModelReaderClassStructure extends AbstractRestControllerModelClassStructure
         implements WithParentClassStructure<ServerModelReaderClassStructure, RestModelField, RestObjectModelClass> {
 
+    private final ModuleElement moduleElement;
+
     private final ReaderType readerType;
 
     private ServerModelReaderClassStructure parent;
 
-    public ServerModelReaderClassStructure(final ReaderType readerType,
+    public ServerModelReaderClassStructure(final ModuleElement moduleElement,
+                                           final ReaderType readerType,
                                            final RestObjectModelClass modelClass,
                                            final ExchangeFormat exchangeFormat) {
         super(modelClass, exchangeFormat);
+        this.moduleElement = require(moduleElement);
         this.readerType = require(readerType);
     }
 
@@ -98,7 +103,7 @@ public final class ServerModelReaderClassStructure extends AbstractRestControlle
             classHeaderBuilder.addImports(parent.getTargetFullClassName());
         }
         if (isRequiredReflectionSetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "setFieldValue");
         }
     }
 

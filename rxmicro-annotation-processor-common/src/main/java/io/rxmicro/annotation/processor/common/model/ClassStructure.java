@@ -16,14 +16,13 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
-import io.rxmicro.annotation.processor.common.util.Names;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointPackage;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 
 /**
  * @author nedis
@@ -61,16 +60,16 @@ public abstract class ClassStructure implements Comparable<ClassStructure>, Logg
 
     public final boolean shouldSourceCodeBeGenerated(final EnvironmentContext environmentContext,
                                                      final boolean isLibraryModule) {
-        if (ENTRY_POINT_PACKAGE.equals(Names.getPackageName(getTargetFullClassName()))) {
-            return !isLibraryModule;
+        if (getTargetFullClassName().startsWith(getEntryPointPackage(environmentContext.getCurrentModule()))) {
+            return shouldSourceCodeBeGenerated(isLibraryModule);
         } else if (environmentContext.isPackageForTypeExistsInCurrentModule(getTargetFullClassName())) {
-            return shouldSourceCodeBeGenerated();
+            return shouldSourceCodeBeGenerated(isLibraryModule);
         } else {
             return false;
         }
     }
 
-    protected boolean shouldSourceCodeBeGenerated() {
+    protected boolean shouldSourceCodeBeGenerated(final boolean isLibraryModule) {
         return true;
     }
 

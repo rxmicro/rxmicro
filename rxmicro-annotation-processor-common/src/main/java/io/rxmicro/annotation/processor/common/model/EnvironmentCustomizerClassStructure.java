@@ -18,15 +18,16 @@ package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.reflection.ReflectionConstants;
+import io.rxmicro.runtime.detail.ChildrenInitializer;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointPackage;
 
 /**
  * @author nedis
@@ -34,23 +35,26 @@ import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
  */
 public final class EnvironmentCustomizerClassStructure extends ClassStructure {
 
+    private final String packageName;
+
     private final ModuleElement currentModule;
 
     private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigProxyValues;
 
-    private final List<String> packagesThatMustBeOpenedToRxMicroCommonModule;
+    private final Set<String> packagesThatMustBeOpenedToRxMicroReflectionModule;
 
     public EnvironmentCustomizerClassStructure(final ModuleElement currentModule,
                                                final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigProxyValues,
-                                               final List<String> packagesThatMustBeOpenedToRxMicroCommonModule) {
+                                               final Set<String> packagesThatMustBeOpenedToRxMicroReflectionModule) {
+        this.packageName = getEntryPointPackage(currentModule);
         this.currentModule = currentModule;
         this.defaultConfigProxyValues = defaultConfigProxyValues;
-        this.packagesThatMustBeOpenedToRxMicroCommonModule = packagesThatMustBeOpenedToRxMicroCommonModule;
+        this.packagesThatMustBeOpenedToRxMicroReflectionModule = packagesThatMustBeOpenedToRxMicroReflectionModule;
     }
 
     @Override
     public String getTargetFullClassName() {
-        return getEntryPointFullClassName(ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
+        return packageName + "." + ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
     }
 
     @Override
@@ -61,19 +65,21 @@ public final class EnvironmentCustomizerClassStructure extends ClassStructure {
     @Override
     public Map<String, Object> getTemplateVariables() {
         return Map.of(
-                "PACKAGE_NAME", ENTRY_POINT_PACKAGE,
+                "PACKAGE_NAME", packageName,
                 "CURRENT_MODULE_IS_NAMED", !currentModule.isUnnamed(),
                 "CLASS_NAME", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME,
                 "DEFAULT_CONFIG_VALUES", defaultConfigProxyValues,
-                "PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_REFLECTION_MODULE", packagesThatMustBeOpenedToRxMicroCommonModule
+                "PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_REFLECTION_MODULE", packagesThatMustBeOpenedToRxMicroReflectionModule,
+                "ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME
         );
     }
 
     @Override
     public ClassHeader getClassHeader() {
-        return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+        return newClassHeaderBuilder(packageName)
                 .addStaticImport(ReflectionConstants.class, "RX_MICRO_REFLECTION_MODULE")
                 .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
+                .addStaticImport(ChildrenInitializer.class, "invokeAllStaticSections")
                 .build();
     }
 }

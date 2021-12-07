@@ -28,10 +28,11 @@ import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 
 /**
  * @author nedis
@@ -40,8 +41,12 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ge
 public final class EntityToDBConverterClassStructure<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         extends AbstractEntityConverterClassStructure<DMF, DMC> {
 
-    public EntityToDBConverterClassStructure(final DMC modelClass) {
+    private final ModuleElement moduleElement;
+
+    public EntityToDBConverterClassStructure(final ModuleElement moduleElement,
+                                             final DMC modelClass) {
         super(modelClass);
+        this.moduleElement = moduleElement;
     }
 
     @Override
@@ -89,7 +94,7 @@ public final class EntityToDBConverterClassStructure<DMF extends SQLDataModelFie
                         RowMetadata.class
                 );
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "getFieldValue");
         }
         setEntityFieldsConverterMethods.stream()
                 .flatMap(converterMethod -> converterMethod.getValue().stream())

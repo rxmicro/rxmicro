@@ -47,6 +47,7 @@ import io.rxmicro.annotation.processor.rest.server.component.ParentModelVirtualC
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerClassSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestDocumentationGenerator;
+import io.rxmicro.annotation.processor.rest.server.model.CustomExceptionServerModelWritersCustomizerClassStructure;
 import io.rxmicro.annotation.processor.rest.server.model.DeclaredStaticResources;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerAggregatorClassStructure;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassSignature;
@@ -55,6 +56,7 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStru
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethodSignature;
 import io.rxmicro.annotation.processor.rest.server.model.RestServerModuleGeneratorConfig;
 import io.rxmicro.rest.model.ExchangeFormat;
+import io.rxmicro.rest.server.ServerHttpError;
 import io.rxmicro.rest.server.ServerRequest;
 import io.rxmicro.rest.server.ServerResponse;
 import io.rxmicro.rest.server.StaticResources;
@@ -175,7 +177,8 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                                 StaticResources.class.getName(),
                                 StaticResources.List.class.getName().replace("$", ".")
                         ),
-                        PARENT_MODEL_ANNOTATION_NAMES.stream()
+                        PARENT_MODEL_ANNOTATION_NAMES.stream(),
+                        Stream.of(ServerHttpError.class.getName())
                 )
                 .flatMap(identity())
                 .collect(Collectors.toSet());
@@ -189,9 +192,12 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
             final List<TypeElement> httpMethodAnnotations = new ArrayList<>();
             final List<TypeElement> staticResourceAnnotations = new ArrayList<>();
             final List<TypeElement> parentModelsAnnotations = new ArrayList<>();
+            boolean hasServerHttpErrors = false;
             for (final TypeElement annotation : annotations) {
                 final String annotationFullClassName = annotation.getQualifiedName().toString();
-                if (PARENT_MODEL_ANNOTATION_NAMES.contains(annotationFullClassName)) {
+                if (ServerHttpError.class.getName().equals(annotationFullClassName)) {
+                    hasServerHttpErrors = true;
+                } else if (PARENT_MODEL_ANNOTATION_NAMES.contains(annotationFullClassName)) {
                     parentModelsAnnotations.add(annotation);
                 } else if (annotationFullClassName.startsWith(StaticResources.class.getName())) {
                     staticResourceAnnotations.add(annotation);
@@ -210,7 +216,7 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
             final DeclaredStaticResources declaredStaticResources =
                     declaredStaticResourcesResolver.resolve(environmentContext, staticResourceAnnotations, roundEnv);
 
-            return buildClassStructures(environmentContext, classSignatures, declaredStaticResources);
+            return buildClassStructures(environmentContext, classSignatures, declaredStaticResources, hasServerHttpErrors);
         } catch (final InterruptProcessingException ex) {
             error(ex);
             return Set.of();
@@ -222,46 +228,14 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
 
     private Set<ClassStructure> buildClassStructures(final EnvironmentContext environmentContext,
                                                      final Set<RestClassSignature> classSignatures,
-                                                     final DeclaredStaticResources declaredStaticResources) {
+                                                     final DeclaredStaticResources declaredStaticResources,
+                                                     final boolean hasServerHttpErrors) {
 
         logFoundRestControllers(classSignatures);
         logFoundStaticResources(declaredStaticResources);
         final Set<ClassStructure> classStructures = new HashSet<>();
         if (!classSignatures.isEmpty()) {
-            environmentContext.put(restServerModuleGeneratorConfigBuilder.build(environmentContext));
-
-            final RestGenerationContext restGenerationContext =
-                    restGenerationContextBuilder.build(environmentContext, RestServerModuleGeneratorConfig.class, classSignatures);
-            final RestControllerClassStructureStorage restControllerClassStructureStorage =
-                    buildRestClassStructureStorage(environmentContext, restGenerationContext);
-            classStructures.addAll(restControllerClassStructureStorage.getAll());
-            // Exclude virtual signatures: VirtualRestControllerClassSignature
-            final Set<RestControllerClassSignature> restControllerClassSignatures = classSignatures.stream()
-                    .filter(s -> s instanceof RestControllerClassSignature)
-                    .map(s -> (RestControllerClassSignature) s)
-                    .collect(Collectors.toSet());
-
-            final Set<RestControllerClassStructure> restControllerClassStructures = restControllerClassStructureBuilder.build(
-                    environmentContext, restControllerClassStructureStorage, restControllerClassSignatures
-            );
-            classStructures.addAll(restControllerClassStructures);
-            if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty() && !isLibraryModule()) {
-                restDocumentationGenerator.generate(environmentContext, restControllerClassStructureStorage, restControllerClassStructures);
-            }
-            addAllVirtualRequestClassStructures(classStructures, restControllerClassSignatures, restControllerClassStructureStorage);
-
-            classStructures.add(
-                    new RestControllerAggregatorClassStructure.Builder()
-                            .setEnvironmentContext(environmentContext)
-                            .setClassStructures(restControllerClassStructures)
-                            .setCrossOriginResourceSharingResources(
-                                    crossOriginResourceSharingResourceBuilder.build(restControllerClassStructures, restGenerationContext)
-                            )
-                            .setHttpHealthChecks(httpHealthCheckBuilder.build(environmentContext, restControllerClassStructures))
-                            .setDeclaredStaticResources(declaredStaticResources)
-                            .setCustomExceptionModelWriters(restControllerClassStructureStorage.getCustomExceptionModelWriters())
-                            .build()
-            );
+            addAllClassStructures(classStructures, environmentContext, classSignatures, declaredStaticResources);
         } else if (declaredStaticResources.exist()) {
             classStructures.add(
                     new RestControllerAggregatorClassStructure.Builder()
@@ -270,8 +244,73 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                             .setHttpHealthChecks(httpHealthCheckBuilder.build(environmentContext, Set.of()))
                             .build()
             );
+        } else if (hasServerHttpErrors) {
+            addCustomErrorsOnly(classStructures, environmentContext, classSignatures);
         }
         return classStructures;
+    }
+
+    private void addAllClassStructures(final Set<ClassStructure> classStructures,
+                                       final EnvironmentContext environmentContext,
+                                       final Set<RestClassSignature> classSignatures,
+                                       final DeclaredStaticResources declaredStaticResources) {
+        environmentContext.put(restServerModuleGeneratorConfigBuilder.build(environmentContext));
+
+        final RestGenerationContext restGenerationContext =
+                restGenerationContextBuilder.build(environmentContext, RestServerModuleGeneratorConfig.class, classSignatures);
+        final RestControllerClassStructureStorage restControllerClassStructureStorage =
+                buildRestClassStructureStorage(environmentContext, restGenerationContext);
+        classStructures.addAll(restControllerClassStructureStorage.getAll());
+        // Exclude virtual signatures: VirtualRestControllerClassSignature
+        final Set<RestControllerClassSignature> restControllerClassSignatures = classSignatures.stream()
+                .filter(s -> s instanceof RestControllerClassSignature)
+                .map(s -> (RestControllerClassSignature) s)
+                .collect(Collectors.toSet());
+
+        final Set<RestControllerClassStructure> restControllerClassStructures = restControllerClassStructureBuilder.build(
+                environmentContext, restControllerClassStructureStorage, restControllerClassSignatures
+        );
+        classStructures.addAll(restControllerClassStructures);
+        if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty()) {
+            restDocumentationGenerator.generate(environmentContext, restControllerClassStructureStorage, restControllerClassStructures);
+        }
+        addAllVirtualRequestClassStructures(classStructures, restControllerClassSignatures, restControllerClassStructureStorage);
+
+        classStructures.add(
+                new CustomExceptionServerModelWritersCustomizerClassStructure(
+                        environmentContext.getCurrentModule(),
+                        restControllerClassStructureStorage.getCustomExceptionModelWriters()
+                )
+        );
+        classStructures.add(
+                new RestControllerAggregatorClassStructure.Builder()
+                        .setEnvironmentContext(environmentContext)
+                        .setClassStructures(restControllerClassStructures)
+                        .setCrossOriginResourceSharingResources(
+                                crossOriginResourceSharingResourceBuilder.build(restControllerClassStructures, restGenerationContext)
+                        )
+                        .setHttpHealthChecks(httpHealthCheckBuilder.build(environmentContext, restControllerClassStructures))
+                        .setDeclaredStaticResources(declaredStaticResources)
+                        .build()
+        );
+    }
+
+    private void addCustomErrorsOnly(final Set<ClassStructure> classStructures,
+                                     final EnvironmentContext environmentContext,
+                                     final Set<RestClassSignature> classSignatures) {
+        environmentContext.put(restServerModuleGeneratorConfigBuilder.build(environmentContext));
+
+        final RestGenerationContext restGenerationContext =
+                restGenerationContextBuilder.build(environmentContext, RestServerModuleGeneratorConfig.class, classSignatures);
+        final RestControllerClassStructureStorage restControllerClassStructureStorage =
+                buildRestClassStructureStorage(environmentContext, restGenerationContext);
+        classStructures.addAll(restControllerClassStructureStorage.getAll());
+        classStructures.add(
+                new CustomExceptionServerModelWritersCustomizerClassStructure(
+                        environmentContext.getCurrentModule(),
+                        restControllerClassStructureStorage.getCustomExceptionModelWriters()
+                )
+        );
     }
 
     private void logFoundStaticResources(final DeclaredStaticResources declaredStaticResources) {
@@ -322,47 +361,54 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                 customExceptionMappedRestObjectModelClassBuilder.build(environmentContext);
         final RestControllerClassStructureStorage.Builder builder = new RestControllerClassStructureStorage.Builder();
         addValidators(environmentContext, generationContext, customExceptionModels, builder);
-        addModelReadersAndWriters(exchangeFormat, customExceptionModels, generationContext, builder);
-        addModelJsonConverters(exchangeFormat, customExceptionModels, generationContext, builder);
+        addModelReadersAndWriters(environmentContext, exchangeFormat, customExceptionModels, generationContext, builder);
+        addModelJsonConverters(environmentContext, exchangeFormat, customExceptionModels, generationContext, builder);
 
         setParentsForExistingChildren(builder);
         logRestControllerClassStructureStorage(builder);
         return builder.build();
     }
 
-    private void addModelReadersAndWriters(final ExchangeFormat exchangeFormat,
+    private void addModelReadersAndWriters(final EnvironmentContext environmentContext,
+                                           final ExchangeFormat exchangeFormat,
                                            final List<MappedRestObjectModelClass> customExceptionModels,
                                            final RestGenerationContext generationContext,
                                            final RestControllerClassStructureStorage.Builder builder) {
         builder
                 .addModelReaders(
-                        modelReaderBuilder.build(generationContext.getFromHttpDataModelClasses(), exchangeFormat)
+                        modelReaderBuilder.build(environmentContext, generationContext.getFromHttpDataModelClasses(), exchangeFormat)
                 )
                 .addModelWriters(
-                        modelWriterBuilder.build(generationContext.getToHttpDataModelClasses(), exchangeFormat)
+                        modelWriterBuilder.build(environmentContext, generationContext.getToHttpDataModelClasses(), exchangeFormat)
                 )
                 .addCustomExceptionModelWriters(
-                        modelWriterBuilder.build(customExceptionModels, exchangeFormat)
+                        modelWriterBuilder.build(environmentContext, customExceptionModels, exchangeFormat)
                 );
     }
 
-    private void addModelJsonConverters(final ExchangeFormat exchangeFormat,
+    private void addModelJsonConverters(final EnvironmentContext environmentContext,
+                                        final ExchangeFormat exchangeFormat,
                                         final List<MappedRestObjectModelClass> customExceptionModels,
                                         final RestGenerationContext generationContext,
                                         final RestControllerClassStructureStorage.Builder builder) {
         builder
                 .addModelFromJsonConverters(
                         restModelFromJsonConverterBuilder.buildFromJson(
+                                environmentContext.getCurrentModule(),
                                 generationContext.getFromHttpDataModelClasses(), exchangeFormat, false
                         )
                 )
                 .addModelToJsonConverters(
                         restModelToJsonConverterBuilder.buildToJson(
+                                environmentContext.getCurrentModule(),
                                 generationContext.getToHttpDataModelClasses(), exchangeFormat, false
                         )
                 )
                 .addModelToJsonConverters(
-                        restModelToJsonConverterBuilder.buildToJson(customExceptionModels, exchangeFormat, false)
+                        restModelToJsonConverterBuilder.buildToJson(
+                                environmentContext.getCurrentModule(),
+                                customExceptionModels, exchangeFormat, false
+                        )
                 );
     }
 
@@ -372,7 +418,7 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                                final RestControllerClassStructureStorage.Builder builder) {
         if (environmentContext.get(RestServerModuleGeneratorConfig.class).isGenerateRequestValidators()) {
             builder.addRequestValidators(
-                    restModelValidatorBuilder.build(generationContext.getFromHttpDataModelClasses().stream()
+                    restModelValidatorBuilder.build(environmentContext, generationContext.getFromHttpDataModelClasses().stream()
                             .map(MappedRestObjectModelClass::getModelClass)
                             .filter(m -> isAnnotationPerPackageHierarchyAbsent(m.getModelTypeElement(), DisableValidation.class))
                             .collect(toList())
@@ -381,14 +427,14 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
         }
         if (environmentContext.get(RestServerModuleGeneratorConfig.class).isGenerateResponseValidators()) {
             builder.addResponseValidators(
-                    restModelValidatorBuilder.build(generationContext.getToHttpDataModelClasses().stream()
+                    restModelValidatorBuilder.build(environmentContext, generationContext.getToHttpDataModelClasses().stream()
                             .map(MappedRestObjectModelClass::getModelClass)
                             .filter(m -> isAnnotationPerPackageHierarchyAbsent(m.getModelTypeElement(), DisableValidation.class))
                             .collect(toList())
                     )
             );
             builder.addCustomExceptionModelValidators(
-                    restModelValidatorBuilder.build(customExceptionModels.stream()
+                    restModelValidatorBuilder.build(environmentContext, customExceptionModels.stream()
                             .map(MappedRestObjectModelClass::getModelClass)
                             .filter(m -> isAnnotationPerPackageHierarchyAbsent(m.getModelTypeElement(), DisableValidation.class))
                             .collect(toList())

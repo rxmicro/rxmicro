@@ -1,0 +1,18 @@
+<#include "../../common-lib.javaftl">
+<#-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+public final class ${CLASS_NAME} {
+
+    static {
+        ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
+        <#if CUSTOM_EXCEPTION_MODEL_WRITERS?has_content>
+        final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
+        <#list CUSTOM_EXCEPTION_MODEL_WRITERS as WRITER>
+        registerCustomExceptionServerModelWriter(${WRITER.modelSimpleClassName}.class, new ${WRITER.targetSimpleClassName}(restServerConfig.isHumanReadableOutput()));
+        </#list>
+        </#if>
+    }
+
+    public static void customize() {
+        //do nothing. All customization is done at the static section
+    }
+}

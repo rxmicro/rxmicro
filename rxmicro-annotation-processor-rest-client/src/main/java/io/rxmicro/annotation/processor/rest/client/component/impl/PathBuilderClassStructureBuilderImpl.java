@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.client.component.impl;
 
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.client.component.PathBuilderClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.client.model.PathBuilderClassStructure;
@@ -34,7 +35,8 @@ import java.util.stream.Collectors;
 public final class PathBuilderClassStructureBuilderImpl implements PathBuilderClassStructureBuilder {
 
     @Override
-    public Set<PathBuilderClassStructure> build(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses) {
+    public Set<PathBuilderClassStructure> build(final EnvironmentContext environmentContext,
+                                                final List<MappedRestObjectModelClass> mappedRestObjectModelClasses) {
         return mappedRestObjectModelClasses.stream()
                 .peek(restModelClass -> {
                     if (!restModelClass.getModelClass().getAllChildrenObjectModelClasses().isEmpty()) {
@@ -45,6 +47,7 @@ public final class PathBuilderClassStructureBuilderImpl implements PathBuilderCl
                     }
                 })
                 .map(restModelClass -> new PathBuilderClassStructure(
+                        environmentContext.getCurrentModule(),
                         restModelClass.getModelClass(),
                         restModelClass.getHttpMethodMappings()
                 ))

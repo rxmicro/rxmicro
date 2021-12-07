@@ -20,7 +20,6 @@ import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeMirror;
-import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.model.NotStandardSerializableEnum;
 import io.rxmicro.model.Transient;
 
@@ -45,6 +44,7 @@ import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
+import static io.rxmicro.common.local.InternalModules.isInternalModule;
 import static io.rxmicro.common.util.ExCollectors.toTreeSet;
 import static io.rxmicro.common.util.ExCollectors.toUnmodifiableOrderedSet;
 import static io.rxmicro.common.util.Strings.capitalize;
@@ -422,8 +422,8 @@ public final class Elements {
     public static Set<TypeElement> getTypeElementsAtAllNotStandardModules(final EnvironmentContext environmentContext,
                                                                           final Predicate<TypeElement> predicate) {
         final Set<PackageElement> packageElements = getElements().getAllModuleElements().stream()
-                // Ignore rxmicro modules
-                .filter(me -> !RxMicroModule.isRxMicroModule(me.getQualifiedName().toString()))
+                // Ignore internal modules
+                .filter(me -> !isInternalModule(me.getQualifiedName().toString()))
                 .flatMap(me -> me.getEnclosedElements().stream().map(e -> (PackageElement) e))
                 .filter(pe -> !isDeniedPackage(pe.getQualifiedName().toString()))
                 .collect(toSet());

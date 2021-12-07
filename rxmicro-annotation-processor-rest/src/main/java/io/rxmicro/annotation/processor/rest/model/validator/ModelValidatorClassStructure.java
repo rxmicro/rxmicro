@@ -37,11 +37,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static io.rxmicro.annotation.processor.common.util.Names.getDefaultVarName;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
@@ -59,6 +60,8 @@ import static java.util.stream.Collectors.toList;
 public final class ModelValidatorClassStructure extends ClassStructure
         implements WithParentClassStructure<ModelValidatorClassStructure, RestModelField, RestObjectModelClass> {
 
+    private final ModuleElement moduleElement;
+
     private final boolean optional;
 
     private final ClassHeader.Builder classHeaderBuilder;
@@ -75,13 +78,15 @@ public final class ModelValidatorClassStructure extends ClassStructure
 
     private ModelValidatorClassStructure parent;
 
-    private ModelValidatorClassStructure(final boolean optional,
+    private ModelValidatorClassStructure(final ModuleElement moduleElement,
+                                         final boolean optional,
                                          final ClassHeader.Builder classHeaderBuilder,
                                          final RestObjectModelClass modelClass,
                                          final List<ModelValidatorCreator> modelValidatorCreators,
                                          final List<ModelFieldValidatorsInvoker> modelFieldValidatorsInvokers,
                                          final Set<String> stdValidatorClassImports,
                                          final Set<ModelValidatorClassStructure> childrenValidators) {
+        this.moduleElement = moduleElement;
         this.optional = optional;
         this.classHeaderBuilder = classHeaderBuilder;
         this.modelClass = require(modelClass);
@@ -154,7 +159,7 @@ public final class ModelValidatorClassStructure extends ClassStructure
             classHeaderBuilder.addImports(parent.getTargetFullClassName());
         }
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "getFieldValue");
         }
         return classHeaderBuilder.build();
     }
@@ -175,6 +180,8 @@ public final class ModelValidatorClassStructure extends ClassStructure
 
         private final ClassHeader.Builder classHeaderBuilder;
 
+        private final ModuleElement moduleElement;
+
         private final RestObjectModelClass modelClass;
 
         private final List<ModelValidatorCreator> modelValidatorCreators = new ArrayList<>();
@@ -187,7 +194,9 @@ public final class ModelValidatorClassStructure extends ClassStructure
 
         private final Set<ModelValidatorClassStructure> childrenValidators = new LinkedHashSet<>();
 
-        public Builder(final RestObjectModelClass modelClass) {
+        public Builder(final ModuleElement moduleElement,
+                       final RestObjectModelClass modelClass) {
+            this.moduleElement = require(moduleElement);
             this.modelClass = require(modelClass);
             classHeaderBuilder = newClassHeaderBuilder(getPackageName(modelClass.getModelTypeElement()));
         }
@@ -270,6 +279,7 @@ public final class ModelValidatorClassStructure extends ClassStructure
 
         public ModelValidatorClassStructure build(final boolean optional) {
             return new ModelValidatorClassStructure(
+                    moduleElement,
                     optional,
                     classHeaderBuilder, modelClass,
                     Stream.concat(

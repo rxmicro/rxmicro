@@ -20,6 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
@@ -38,6 +39,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
+import javax.lang.model.element.ModuleElement;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -55,8 +57,9 @@ public final class MongoDocumentEntityConverterBuilder extends BaseProcessorComp
 
     @Override
     public Set<? extends ClassStructure> build(
+            final EnvironmentContext environmentContext,
             final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-
+        final ModuleElement moduleElement = environmentContext.getCurrentModule();
         final Set<ClassStructure> result = new HashSet<>();
         dataGenerationContext.getEntityParamMap().values().stream()
                 .flatMap(m -> Stream.concat(
@@ -65,7 +68,7 @@ public final class MongoDocumentEntityConverterBuilder extends BaseProcessorComp
                 )
                 .map(m -> m.asObject(MongoDataObjectModelClass.class))
                 .collect(toSet())
-                .forEach(m -> result.add(createEntityToDBConverterClassStructure(m)));
+                .forEach(m -> result.add(createEntityToDBConverterClassStructure(moduleElement, m)));
 
         dataGenerationContext.getEntityReturnMap().values().stream()
                 .flatMap(m -> Stream.concat(
@@ -74,17 +77,18 @@ public final class MongoDocumentEntityConverterBuilder extends BaseProcessorComp
                 )
                 .map(m -> m.asObject(MongoDataObjectModelClass.class))
                 .collect(toSet())
-                .forEach(m -> result.add(new EntityFromDBConverterClassStructure(m)));
+                .forEach(m -> result.add(new EntityFromDBConverterClassStructure(moduleElement, m)));
         return result;
     }
 
-    private EntityToDBConverterClassStructure createEntityToDBConverterClassStructure(final MongoDataObjectModelClass modelClass) {
+    private EntityToDBConverterClassStructure createEntityToDBConverterClassStructure(final ModuleElement moduleElement,
+                                                                                      final MongoDataObjectModelClass modelClass) {
         return getIdField(modelClass)
                 .map(id -> {
                     validateIdFieldType(id.getKey());
-                    return new EntityToDBConverterClassStructure(id, modelClass);
+                    return new EntityToDBConverterClassStructure(moduleElement, id, modelClass);
                 })
-                .orElse(new EntityToDBConverterClassStructure(modelClass));
+                .orElse(new EntityToDBConverterClassStructure(moduleElement, modelClass));
     }
 
     private void validateIdFieldType(final DataModelField id) {

@@ -26,7 +26,6 @@ import io.rxmicro.annotation.processor.rest.client.component.RestClientMethodSig
 import io.rxmicro.annotation.processor.rest.client.model.RestClientClassSignature;
 import io.rxmicro.annotation.processor.rest.component.ParentUrlBuilder;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
-import io.rxmicro.rest.client.FindAllRestClients;
 import io.rxmicro.rest.client.PartialImplementation;
 import io.rxmicro.rest.client.RestClient;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
@@ -41,8 +40,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
-
-import static io.rxmicro.annotation.processor.common.util.Elements.getTypeElementsAtAllNotStandardModules;
 
 /**
  * @author nedis
@@ -66,10 +63,6 @@ public final class RestClientClassSignatureBuilderImpl extends AbstractPartialIm
         for (final TypeElement annotation : annotations) {
             if (RestClient.class.getName().equals(annotation.getQualifiedName().toString())) {
                 for (final Element element : roundEnv.getElementsAnnotatedWith(annotation)) {
-                    addRestClient(environmentContext, result, element);
-                }
-            } else if (FindAllRestClients.class.getName().equals(annotation.getQualifiedName().toString())) {
-                for (final TypeElement element : getAllRestClientsAtAllNotStandardModules(environmentContext)) {
                     addRestClient(environmentContext, result, element);
                 }
             }
@@ -101,11 +94,6 @@ public final class RestClientClassSignatureBuilderImpl extends AbstractPartialIm
                 restClientInterface,
                 methodCandidates.getKey(),
                 restClientMethodSignatureBuilder.build(restControllerModule, restClientInterface, parentUrl, methodCandidates)
-        );
-    }
-
-    private Set<TypeElement> getAllRestClientsAtAllNotStandardModules(final EnvironmentContext environmentContext) {
-        return getTypeElementsAtAllNotStandardModules(environmentContext, te -> te.getAnnotation(RestClient.class) != null
         );
     }
 

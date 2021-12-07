@@ -218,12 +218,12 @@ public class BaseProcessorComponent {
         aNewCompilationErrorDetected();
     }
 
-    protected final int getMaxJsonNestedDepth() {
-        return getIntOption(RX_MICRO_MAX_JSON_NESTED_DEPTH, RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE);
-    }
-
     protected final boolean isLibraryModule() {
         return getBooleanOption(RX_MICRO_LIBRARY_MODULE, RX_MICRO_LIBRARY_MODULE_DEFAULT_VALUE);
+    }
+
+    protected final int getMaxJsonNestedDepth() {
+        return getIntOption(RX_MICRO_MAX_JSON_NESTED_DEPTH, RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE);
     }
 
     protected final boolean isUnnamedModule() {

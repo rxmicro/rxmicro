@@ -73,6 +73,7 @@ module rxmicro.runtime {
             rxmicro.data.mongo,
             rxmicro.data.sql.r2dbc.postgresql,
             rxmicro.rest.client,
+            rxmicro.cdi,
             rxmicro.test;
     exports io.rxmicro.runtime.local.error to
             rxmicro.cdi;

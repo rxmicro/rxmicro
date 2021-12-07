@@ -22,6 +22,7 @@ import io.rxmicro.rest.model.ExchangeFormat;
 
 import java.util.List;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
 
 /**
  * @author nedis
@@ -29,7 +30,8 @@ import java.util.Set;
  */
 public interface RestModelFromJsonConverterBuilder {
 
-    Set<ModelFromJsonConverterClassStructure> buildFromJson(List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+    Set<ModelFromJsonConverterClassStructure> buildFromJson(ModuleElement moduleElement,
+                                                            List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                                                             ExchangeFormat exchangeFormat,
                                                             boolean isRestClientModel);
 }

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import static io.rxmicro.common.util.Requires.require;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
 
@@ -37,6 +38,8 @@ public final class InjectorFactory {
 
     private static final Function<Field, AlternativeEntryPoint> MAPPER = f ->
             new AlternativeEntryPoint(f.getAnnotation(Alternative.class), f);
+
+    private final Module module;
 
     private final List<AlternativeEntryPoint> runtimeContextRegistrationComponents;
 
@@ -58,27 +61,38 @@ public final class InjectorFactory {
 
     private final Field systemErrField;
 
-    public InjectorFactory(final TestModel testModel) {
-        blockingHttpClientField = testModel.getBlockingHttpClients().stream().findFirst()
-                .orElse(null);
-        systemOutField = testModel.getSystemOuts().stream().findFirst()
-                .orElse(null);
-        systemErrField = testModel.getSystemErrs().stream().findFirst()
-                .orElse(null);
-        testedComponent = testModel.getTestedComponents().stream().findFirst().orElse(null);
-        testedComponentClass = testModel.getTestedComponentClass().orElse(null);
+    public InjectorFactory(final Module module,
+                           final TestModel testModel) {
+        this(require(testModel), require(module));
+    }
 
-        runtimeContextRegistrationComponents = Stream.of(
-                testModel.getMongoDataBases().stream(),
-                testModel.getSqlConnectionPools().stream(),
-                testModel.getHttpClientFactories().stream()
-        ).flatMap(identity())
+    public InjectorFactory(final TestModel testModel) {
+        this(require(testModel), null);
+    }
+
+    private InjectorFactory(final TestModel testModel,
+                            final Module module) {
+        this.module = module;
+        this.blockingHttpClientField = testModel.getBlockingHttpClients().stream().findFirst()
+                .orElse(null);
+        this.systemOutField = testModel.getSystemOuts().stream().findFirst()
+                .orElse(null);
+        this.systemErrField = testModel.getSystemErrs().stream().findFirst()
+                .orElse(null);
+        this.testedComponent = testModel.getTestedComponents().stream().findFirst().orElse(null);
+        this.testedComponentClass = testModel.getTestedComponentClass().orElse(null);
+
+        this.runtimeContextRegistrationComponents = Stream.of(
+                        testModel.getMongoDataBases().stream(),
+                        testModel.getSqlConnectionPools().stream(),
+                        testModel.getHttpClientFactories().stream()
+                ).flatMap(identity())
                 .map(MAPPER)
                 .collect(toList());
-        repositoryComponents = testModel.getRepositories().stream().map(MAPPER).collect(toList());
-        restClientComponents = testModel.getRestClients().stream().map(MAPPER).collect(toList());
-        userCreatedComponents = testModel.getUserCreatedComponents().stream().map(MAPPER).collect(toList());
-        beanComponents = testModel.getBeanComponents().stream().map(MAPPER).collect(toList());
+        this.repositoryComponents = testModel.getRepositories().stream().map(MAPPER).collect(toList());
+        this.restClientComponents = testModel.getRestClients().stream().map(MAPPER).collect(toList());
+        this.userCreatedComponents = testModel.getUserCreatedComponents().stream().map(MAPPER).collect(toList());
+        this.beanComponents = testModel.getBeanComponents().stream().map(MAPPER).collect(toList());
     }
 
     public BlockingHttpClientInjector createBlockingHttpClientInjector() {
@@ -98,11 +112,11 @@ public final class InjectorFactory {
     }
 
     public RepositoryInjector createRepositoryInjector() {
-        return new RepositoryInjector(repositoryComponents);
+        return new RepositoryInjector(module, repositoryComponents);
     }
 
     public RestClientInjector createRestClientInjector() {
-        return new RestClientInjector(restClientComponents);
+        return new RestClientInjector(module, restClientComponents);
     }
 
     public UserCreatedComponentInjector createUserCreatedComponentInjector() {
@@ -110,6 +124,6 @@ public final class InjectorFactory {
     }
 
     public BeanFactoryInjector createBeanFactoryInjector() {
-        return new BeanFactoryInjector(beanComponents);
+        return new BeanFactoryInjector(module, beanComponents);
     }
 }

@@ -28,8 +28,9 @@ import io.rxmicro.rest.server.detail.component.ServerModelWriter;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 
 /**
  * @author nedis
@@ -38,11 +39,15 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.RE
 public final class ServerModelWriterClassStructure extends AbstractRestControllerModelClassStructure
         implements WithParentClassStructure<ServerModelWriterClassStructure, RestModelField, RestObjectModelClass> {
 
+    private final ModuleElement moduleElement;
+
     private ServerModelWriterClassStructure parent;
 
-    public ServerModelWriterClassStructure(final RestObjectModelClass modelClass,
+    public ServerModelWriterClassStructure(final ModuleElement moduleElement,
+                                           final RestObjectModelClass modelClass,
                                            final ExchangeFormat exchangeFormat) {
         super(modelClass, exchangeFormat);
+        this.moduleElement = moduleElement;
     }
 
     @Override
@@ -79,7 +84,7 @@ public final class ServerModelWriterClassStructure extends AbstractRestControlle
             classHeaderBuilder.addImports(parent.getTargetFullClassName());
         }
         if (modelClass.isReadReflectionRequired()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "getFieldValue");
         }
     }
 

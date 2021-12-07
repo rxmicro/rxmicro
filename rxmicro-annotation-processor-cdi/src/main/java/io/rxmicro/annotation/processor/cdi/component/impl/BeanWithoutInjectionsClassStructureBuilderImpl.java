@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.cdi.model.BeanSupplierClassStructure;
 import io.rxmicro.annotation.processor.cdi.model.InjectionPoint;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,13 +30,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.BEAN;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MULTI_BINDER;
 import static io.rxmicro.annotation.processor.common.util.Elements.allSuperTypesAndInterfaces;
-import static io.rxmicro.annotation.processor.common.util.Elements.getTypeElementsAtAllNotStandardModules;
+import static io.rxmicro.common.util.ExCollectors.toTreeSet;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
@@ -65,7 +67,8 @@ public final class BeanWithoutInjectionsClassStructureBuilderImpl
                     .flatMap(type -> Optional.ofNullable(implMap.get(type)))
                     .ifPresent(typeElements -> typeElements.forEach(typeElement -> {
                         if (alreadyProcessedClasses.add(typeElement.asType().toString())) {
-                            final BeanSupplierClassStructure beanSupplierClassStructure = buildCDIBeanDefinitionClassStructure(typeElement);
+                            final BeanSupplierClassStructure beanSupplierClassStructure =
+                                    buildCDIBeanDefinitionClassStructure(environmentContext.getCurrentModule(), typeElement);
                             result.add(beanSupplierClassStructure);
                             injectionPoints.addAll(beanSupplierClassStructure.getBeanDefinition().getInjectionPoints());
                         }
@@ -85,9 +88,9 @@ public final class BeanWithoutInjectionsClassStructureBuilderImpl
     }
 
     private Map<String, Set<TypeElement>> buildImplMap(final EnvironmentContext environmentContext) {
-        final Set<TypeElement> allClassesAtAllNotStandardModules = getAllClassesAtAllNotStandardModules(environmentContext);
+        final Set<TypeElement> beanCandidates = getBeanCandidates(environmentContext);
         final Map<String, Set<TypeElement>> map = new HashMap<>();
-        for (final TypeElement typeElement : allClassesAtAllNotStandardModules) {
+        for (final TypeElement typeElement : beanCandidates) {
             allSuperTypesAndInterfaces(typeElement, true, true).forEach(superType ->
                     addSubType(map, typeElement, superType)
             );
@@ -111,7 +114,16 @@ public final class BeanWithoutInjectionsClassStructureBuilderImpl
         }
     }
 
-    private Set<TypeElement> getAllClassesAtAllNotStandardModules(final EnvironmentContext environmentContext) {
-        return getTypeElementsAtAllNotStandardModules(environmentContext, te -> te.getKind() == ElementKind.CLASS);
+    /*
+     * Returns all classes that are located at the current module
+     */
+    private Set<TypeElement> getBeanCandidates(final EnvironmentContext environmentContext) {
+        return environmentContext.getCurrentModule().getEnclosedElements()
+                .stream()
+                .map(e -> (PackageElement) e)
+                .flatMap(pe -> pe.getEnclosedElements().stream().filter(e -> e instanceof TypeElement).map(e -> (TypeElement) e))
+                .filter(environmentContext::isRxMicroClassShouldBeProcessed)
+                .filter(te -> te.getKind() == ElementKind.CLASS)
+                .collect(toTreeSet(Comparator.comparing(o -> o.getQualifiedName().toString())));
     }
 }

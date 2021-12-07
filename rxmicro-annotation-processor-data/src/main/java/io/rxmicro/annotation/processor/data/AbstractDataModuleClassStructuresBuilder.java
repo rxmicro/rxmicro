@@ -83,10 +83,10 @@ public abstract class AbstractDataModuleClassStructuresBuilder<DMF extends DataM
                     .collect(toSet());
             logFoundDataRepositories(dataRepositoryClassStructures);
             final Set<ClassStructure> result = new HashSet<>(dataRepositoryClassStructures);
-            final Set<? extends ClassStructure> entityConverters = entityConverterBuilder.build(dataGenerationContext);
+            final Set<? extends ClassStructure> entityConverters = entityConverterBuilder.build(environmentContext, dataGenerationContext);
             logClassStructureStorageItem("entity converter(s)", entityConverters);
             result.addAll(entityConverters);
-            dataRepositoryConfigAutoCustomizerBuilder.build(dataRepositoryClassStructures).ifPresent(e -> {
+            dataRepositoryConfigAutoCustomizerBuilder.build(environmentContext, dataRepositoryClassStructures).ifPresent(e -> {
                 result.add(e);
                 logClassStructureStorageItem("data repository config auto customizer", Set.of(e));
             });

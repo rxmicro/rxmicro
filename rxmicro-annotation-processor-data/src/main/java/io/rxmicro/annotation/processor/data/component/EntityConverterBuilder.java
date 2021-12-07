@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.data.component;
 
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataModelField;
 import io.rxmicro.annotation.processor.data.model.DataObjectModelClass;
@@ -29,5 +30,6 @@ import java.util.Set;
  */
 public interface EntityConverterBuilder<DMF extends DataModelField, DMC extends DataObjectModelClass<DMF>> {
 
-    Set<? extends ClassStructure> build(DataGenerationContext<DMF, DMC> dataGenerationContext);
+    Set<? extends ClassStructure> build(EnvironmentContext environmentContext,
+                                        DataGenerationContext<DMF, DMC> dataGenerationContext);
 }

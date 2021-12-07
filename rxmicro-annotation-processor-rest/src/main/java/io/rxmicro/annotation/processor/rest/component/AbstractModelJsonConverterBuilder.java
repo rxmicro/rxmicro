@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
@@ -40,23 +41,27 @@ import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
 public abstract class AbstractModelJsonConverterBuilder<T extends AbstractModelJsonConverterClassStructure>
         extends BaseProcessorComponent {
 
-    protected abstract T newInstance(RestObjectModelClass modelClass,
+    protected abstract T newInstance(ModuleElement moduleElement,
+                                     RestObjectModelClass modelClass,
                                      ExchangeFormat exchangeFormat,
                                      boolean isRestClientModel);
 
-    public final Set<T> buildFromJson(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+    public final Set<T> buildFromJson(final ModuleElement moduleElement,
+                                      final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                                       final ExchangeFormat exchangeFormat,
                                       final boolean isRestClientModel) {
-        return build(mappedRestObjectModelClasses, exchangeFormat, !isRestClientModel, isRestClientModel);
+        return build(moduleElement, mappedRestObjectModelClasses, exchangeFormat, !isRestClientModel, isRestClientModel);
     }
 
-    public final Set<T> buildToJson(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+    public final Set<T> buildToJson(final ModuleElement moduleElement,
+                                    final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                                     final ExchangeFormat exchangeFormat,
                                     final boolean isRestClientModel) {
-        return build(mappedRestObjectModelClasses, exchangeFormat, false, isRestClientModel);
+        return build(moduleElement, mappedRestObjectModelClasses, exchangeFormat, false, isRestClientModel);
     }
 
-    protected Set<T> build(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+    protected Set<T> build(final ModuleElement moduleElement,
+                           final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                            final ExchangeFormat exchangeFormat,
                            final boolean withHttpBodyOnly,
                            final boolean isRestClientModel) {
@@ -81,7 +86,7 @@ public abstract class AbstractModelJsonConverterBuilder<T extends AbstractModelJ
                                         mc.isParamEntriesPresent() ||
                                                 mc.isModelClassReturnedByRestMethod() && mc.isParamEntriesPresentAtThisOrAnyParent()
                                 )
-                                .map(m -> newInstance((RestObjectModelClass) m, exchangeFormat, isRestClientModel))
+                                .map(m -> newInstance(moduleElement, (RestObjectModelClass) m, exchangeFormat, isRestClientModel))
                                 .collect(toOrderedSet())
                 );
             }

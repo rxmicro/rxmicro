@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.server.component;
 
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.server.model.ServerModelReaderClassStructure;
 import io.rxmicro.rest.model.ExchangeFormat;
@@ -29,6 +30,7 @@ import java.util.Set;
  */
 public interface ModelReaderBuilder {
 
-    Set<ServerModelReaderClassStructure> build(List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+    Set<ServerModelReaderClassStructure> build(EnvironmentContext environmentContext,
+                                               List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                                                ExchangeFormat exchangeFormat);
 }

@@ -17,10 +17,12 @@
 package io.rxmicro.annotation.processor.common;
 
 import com.google.inject.AbstractModule;
+import io.rxmicro.annotation.processor.common.component.PackagesThatMustBeOpenedToReflectionBuilder;
 import io.rxmicro.annotation.processor.common.component.SourceCodeFormatter;
 import io.rxmicro.annotation.processor.common.component.SourceCodeGenerator;
 import io.rxmicro.annotation.processor.common.component.TokenParser;
 import io.rxmicro.annotation.processor.common.component.impl.JavaTokenParserRuleProvider;
+import io.rxmicro.annotation.processor.common.component.impl.PackagesThatMustBeOpenedToReflectionBuilderImpl;
 import io.rxmicro.annotation.processor.common.component.impl.SourceCodeFormatterImpl;
 import io.rxmicro.annotation.processor.common.component.impl.SourceCodeGeneratorImpl;
 import io.rxmicro.annotation.processor.common.component.impl.TokenParserImpl;
@@ -43,6 +45,8 @@ public final class FormatSourceCodeDependenciesModule extends AbstractModule {
                 .to(SourceCodeFormatterImpl.class);
         bind(SourceCodeGenerator.class)
                 .to(SourceCodeGeneratorImpl.class);
+        bind(PackagesThatMustBeOpenedToReflectionBuilder.class)
+                .to(PackagesThatMustBeOpenedToReflectionBuilderImpl.class);
 
         bind(TokenParserRule.class)
                 .annotatedWith(JavaTokenParserRule.class)

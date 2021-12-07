@@ -26,8 +26,9 @@ import io.rxmicro.json.JsonObjectBuilder;
 import io.rxmicro.rest.model.ExchangeFormat;
 
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -39,9 +40,10 @@ public final class ModelToJsonConverterClassStructure extends AbstractModelJsonC
 
     private ModelToJsonConverterClassStructure parent;
 
-    public ModelToJsonConverterClassStructure(final RestObjectModelClass modelClass,
+    public ModelToJsonConverterClassStructure(final ModuleElement moduleElement,
+                                              final RestObjectModelClass modelClass,
                                               final ExchangeFormat exchangeFormat) {
-        super(modelClass, exchangeFormat);
+        super(moduleElement, modelClass, exchangeFormat);
     }
 
     @Override
@@ -61,7 +63,7 @@ public final class ModelToJsonConverterClassStructure extends AbstractModelJsonC
             classHeaderBuilder.addImports(parent.getTargetFullClassName());
         }
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "getFieldValue");
         }
     }
 

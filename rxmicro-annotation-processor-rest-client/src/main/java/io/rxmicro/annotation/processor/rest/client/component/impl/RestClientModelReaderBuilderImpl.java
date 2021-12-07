@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.client.component.impl;
 
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
@@ -46,11 +47,13 @@ import static java.util.stream.Collectors.joining;
 public final class RestClientModelReaderBuilderImpl implements RestClientModelReaderBuilder {
 
     @Override
-    public Set<ClientModelReaderClassStructure> build(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+    public Set<ClientModelReaderClassStructure> build(final EnvironmentContext environmentContext,
+                                                      final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                                                       final Set<AbstractRestClientClassSignature> classSignatures,
                                                       final ExchangeFormat exchangeFormat) {
         return mappedRestObjectModelClasses.stream()
                 .map(restModelClass -> new ClientModelReaderClassStructure(
+                        environmentContext.getCurrentModule(),
                         restModelClass.getModelClass(),
                         exchangeFormat,
                         getModelReaderType(restModelClass, classSignatures))

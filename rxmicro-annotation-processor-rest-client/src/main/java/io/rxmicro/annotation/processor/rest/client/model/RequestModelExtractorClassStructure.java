@@ -25,10 +25,11 @@ import io.rxmicro.rest.client.detail.RequestModelExtractor;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -37,9 +38,13 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class RequestModelExtractorClassStructure extends ClassStructure {
 
+    private final ModuleElement moduleElement;
+
     private final RestObjectModelClass modelClass;
 
-    public RequestModelExtractorClassStructure(final RestObjectModelClass modelClass) {
+    public RequestModelExtractorClassStructure(final ModuleElement moduleElement,
+                                               final RestObjectModelClass modelClass) {
+        this.moduleElement = moduleElement;
         this.modelClass = require(modelClass);
     }
 
@@ -78,7 +83,7 @@ public final class RequestModelExtractorClassStructure extends ClassStructure {
                 )
                 .addImports(modelClass.getModelFieldTypes());
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "getFieldValue");
         }
         return classHeaderBuilder.build();
     }

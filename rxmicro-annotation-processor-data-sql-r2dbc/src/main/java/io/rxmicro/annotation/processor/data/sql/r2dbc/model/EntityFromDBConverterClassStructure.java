@@ -27,9 +27,10 @@ import io.rxmicro.data.sql.r2dbc.detail.EntityFromR2DBCSQLDBConverter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toList;
 
@@ -40,10 +41,14 @@ import static java.util.stream.Collectors.toList;
 public final class EntityFromDBConverterClassStructure<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         extends AbstractEntityConverterClassStructure<DMF, DMC> {
 
+    private final ModuleElement moduleElement;
+
     private final List<Map.Entry<String, List<Map.Entry<DMF, ModelClass>>>> fromDBConverterMethods;
 
-    public EntityFromDBConverterClassStructure(final DMC modelClass) {
+    public EntityFromDBConverterClassStructure(final ModuleElement moduleElement,
+                                               final DMC modelClass) {
         super(modelClass);
+        this.moduleElement = moduleElement;
         fromDBConverterMethods = getFromDBConverterMethods();
     }
 
@@ -77,7 +82,7 @@ public final class EntityFromDBConverterClassStructure<DMF extends SQLDataModelF
                         RowMetadata.class
                 );
         if (isRequiredReflectionSetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "setFieldValue");
         }
         fromDBConverterMethods.stream()
                 .flatMap(converterMethod -> converterMethod.getValue().stream())

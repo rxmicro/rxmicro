@@ -55,20 +55,16 @@ public final class EnvironmentContext {
 
     private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues;
 
-    private final List<String> packagesThatMustBeOpenedToRxMicroCommonModule;
-
     public EnvironmentContext(final ModuleElement currentModule,
                               final Set<RxMicroModule> rxMicroModules,
                               final Set<String> includePackages,
                               final Set<String> excludePackages,
-                              final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues,
-                              final List<String> packagesThatMustBeOpenedToRxMicroCommonModule) {
+                              final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
         this.currentModule = require(currentModule);
         this.rxMicroModules = new TreeSet<>(rxMicroModules);
         this.includePackages = require(includePackages);
         this.excludePackages = require(excludePackages);
         this.defaultConfigValues = require(defaultConfigValues);
-        this.packagesThatMustBeOpenedToRxMicroCommonModule = packagesThatMustBeOpenedToRxMicroCommonModule;
     }
 
     public ModuleElement getCurrentModule() {
@@ -125,10 +121,6 @@ public final class EnvironmentContext {
         return defaultConfigValues;
     }
 
-    public List<String> getPackagesThatMustBeOpenedToRxMicroCommonModule() {
-        return packagesThatMustBeOpenedToRxMicroCommonModule;
-    }
-
     public boolean isPackageForTypeExistsInCurrentModule(final String fullClassName) {
         final String packageName = Names.getPackageName(fullClassName);
         for (final Element modulePackage : currentModule.getEnclosedElements()) {
@@ -165,7 +157,7 @@ public final class EnvironmentContext {
         if (currentModule instanceof VirtualModuleElement || !currentModule.isUnnamed()) {
             return currentModule.getQualifiedName();
         } else {
-            return "UNNAMED";
+            return RxMicroRuntime.UNNAMED_MODULE_NAME;
         }
     }
 

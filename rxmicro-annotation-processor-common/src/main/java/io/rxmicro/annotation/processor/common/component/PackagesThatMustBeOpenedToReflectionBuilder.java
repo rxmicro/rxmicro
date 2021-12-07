@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.rest.client.component;
+package io.rxmicro.annotation.processor.common.component;
 
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.rest.client.model.PathBuilderClassStructure;
-import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 
-import java.util.List;
 import java.util.Set;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.10
  */
-public interface PathBuilderClassStructureBuilder {
+public interface PackagesThatMustBeOpenedToReflectionBuilder {
 
-    Set<PathBuilderClassStructure> build(EnvironmentContext environmentContext,
-                                         List<MappedRestObjectModelClass> mappedRestObjectModelClasses);
+    Set<String> getPackages(EnvironmentContext environmentContext);
 }

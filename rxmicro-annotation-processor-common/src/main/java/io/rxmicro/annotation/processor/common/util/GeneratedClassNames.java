@@ -16,6 +16,9 @@
 
 package io.rxmicro.annotation.processor.common.util;
 
+import io.rxmicro.runtime.detail.RxMicroRuntime;
+
+import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
@@ -24,7 +27,6 @@ import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 
 /**
  * @author nedis
@@ -36,10 +38,25 @@ public final class GeneratedClassNames {
 
     public static final String REFLECTIONS_SIMPLE_CLASS_NAME = format("?Reflections", GENERATED_CLASS_NAME_PREFIX);
 
-    public static final String REFLECTIONS_FULL_CLASS_NAME = getEntryPointFullClassName(REFLECTIONS_SIMPLE_CLASS_NAME);
+    public static String getEntryPointPackage(final ModuleElement moduleElement) {
+        if (moduleElement.isUnnamed()) {
+            return RxMicroRuntime.getUnnamedModuleEntryPointPackage();
+        } else {
+            return RxMicroRuntime.getEntryPointPackage(moduleElement.getQualifiedName().toString());
+        }
+    }
 
-    public static String getEntryPointFullClassName(final String simpleClassName) {
-        return format("?.?", ENTRY_POINT_PACKAGE, simpleClassName);
+    public static String getEnvironmentCustomizerFullClassName(final ModuleElement moduleElement) {
+        return getEntryPointFullClassName(moduleElement, ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
+    }
+
+    public static String getReflectionsFullClassName(final ModuleElement moduleElement) {
+        return getEntryPointFullClassName(moduleElement, REFLECTIONS_SIMPLE_CLASS_NAME);
+    }
+
+    public static String getEntryPointFullClassName(final ModuleElement moduleElement,
+                                                    final String simpleClassName) {
+        return getEntryPointPackage(moduleElement) + "." + simpleClassName;
     }
 
     public static String getModelTransformerInstanceName(final TypeMirror typeMirror,

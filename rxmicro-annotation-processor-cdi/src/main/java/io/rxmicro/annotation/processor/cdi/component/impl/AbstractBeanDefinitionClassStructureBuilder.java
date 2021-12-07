@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
@@ -66,7 +67,8 @@ abstract class AbstractBeanDefinitionClassStructureBuilder {
     @Inject
     private BeanRegistrationQualifierRuleBuilder beanRegistrationQualifierRuleBuilder;
 
-    final BeanSupplierClassStructure buildCDIBeanDefinitionClassStructure(final TypeElement beanTypeElement) {
+    final BeanSupplierClassStructure buildCDIBeanDefinitionClassStructure(final ModuleElement moduleElement,
+                                                                          final TypeElement beanTypeElement) {
         final BeanDefinition.Builder builder = new BeanDefinition.Builder()
                 .setBeanTypeElement(beanTypeElement);
         if (constructorInjectionPointBuilder.isConstructorInjection(beanTypeElement)) {
@@ -90,6 +92,7 @@ abstract class AbstractBeanDefinitionClassStructureBuilder {
         final BeanDefinition beanDefinition = builder.build();
         validate(beanTypeElement, beanDefinition);
         return new BeanSupplierClassStructure(
+                moduleElement,
                 beanDefinition,
                 beanRegistrationQualifierRuleBuilder.build(beanDefinition.getBeanTypeElement()),
                 beanDefinition.getFactoryTypeProviderMethod()

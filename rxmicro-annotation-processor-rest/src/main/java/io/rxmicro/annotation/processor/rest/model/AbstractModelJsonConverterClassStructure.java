@@ -25,6 +25,7 @@ import io.rxmicro.rest.model.ExchangeFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
@@ -36,14 +37,18 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public abstract class AbstractModelJsonConverterClassStructure extends ClassStructure {
 
+    protected final ModuleElement moduleElement;
+
     protected final RestObjectModelClass modelClass;
 
     private final Set<ObjectModelClass<RestModelField>> allChildrenObjectModelClasses;
 
     private final ExchangeFormat exchangeFormat;
 
-    protected AbstractModelJsonConverterClassStructure(final RestObjectModelClass modelClass,
+    protected AbstractModelJsonConverterClassStructure(final ModuleElement moduleElement,
+                                                       final RestObjectModelClass modelClass,
                                                        final ExchangeFormat exchangeFormat) {
+        this.moduleElement = moduleElement;
         this.modelClass = require(modelClass);
         this.exchangeFormat = require(exchangeFormat);
         this.allChildrenObjectModelClasses = modelClass.getAllChildrenObjectModelClasses();

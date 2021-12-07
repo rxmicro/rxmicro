@@ -53,10 +53,8 @@ import static io.rxmicro.annotation.processor.integration.test.ClasspathResource
 import static io.rxmicro.annotation.processor.integration.test.ClasspathResources.getResourcesAtTheFolderWithAllNestedOnes;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 
 /**
@@ -101,14 +99,15 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
                         .map(module -> "../" + module + "/target/classes")
                         .collect(toSet())
         );
-        this.aggregators = Stream.concat(
+        /*FIXME: this.aggregators = Stream.concat(
                 Arrays.stream(aggregatorSimpleClassName),
                 Stream.of("$$Reflections")
-        ).collect(toMap(identity(), cl -> format("?.?", ENTRY_POINT_PACKAGE, cl)));
+        ).collect(toMap(identity(), cl -> format("?.?", ENTRY_POINT_PACKAGE, cl)));*/
+        this.aggregators = Map.of();
     }
 
     protected final void addAggregator(final String name) {
-        this.aggregators.put(name, format("?.?", ENTRY_POINT_PACKAGE, name));
+        //FIXME: this.aggregators.put(name, format("?.?", ENTRY_POINT_PACKAGE, name));
     }
 
     protected JavaFileObject moduleInfo(final Collection<RxMicroModule> rxMicroModules,
@@ -184,7 +183,7 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
                 .collect(toSet());
         registerAllOverriddenSourceOutputs(resources);
         if (withEnvironmentCustomizer()) {
-            resources.add(sourceCodeResource(format("?/?/$$EnvironmentCustomizer.java", OUTPUT, ENTRY_POINT_PACKAGE)));
+            // FIXME: resources.add(sourceCodeResource(format("?/?/$$EnvironmentCustomizer.java", OUTPUT, ENTRY_POINT_PACKAGE)));
         }
         assertGenerated(
                 compilation,

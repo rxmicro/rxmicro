@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.cdi.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.cdi.detail.InternalBeanFactory;
 
 import java.util.HashMap;
@@ -28,9 +29,9 @@ import java.util.TreeSet;
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointPackage;
 import static io.rxmicro.cdi.BeanFactory.BEAN_FACTORY_IMPL_CLASS_NAME;
 import static io.rxmicro.common.util.ExCollections.EMPTY_STRING_ARRAY;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 
 /**
  * @author nedis
@@ -38,15 +39,19 @@ import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
  */
 public final class BeanFactoryImplClassStructure extends ClassStructure {
 
+    private final EnvironmentContext environmentContext;
+
     private final Set<BeanSupplierClassStructure> beanSupplierClassStructures;
 
-    public BeanFactoryImplClassStructure(final Set<BeanSupplierClassStructure> beanSupplierClassStructures) {
+    public BeanFactoryImplClassStructure(final EnvironmentContext environmentContext,
+                                         final Set<BeanSupplierClassStructure> beanSupplierClassStructures) {
+        this.environmentContext = environmentContext;
         this.beanSupplierClassStructures = new TreeSet<>(beanSupplierClassStructures);
     }
 
     @Override
     public String getTargetFullClassName() {
-        return getEntryPointFullClassName(BEAN_FACTORY_IMPL_CLASS_NAME);
+        return getEntryPointFullClassName(environmentContext.getCurrentModule(), BEAN_FACTORY_IMPL_CLASS_NAME);
     }
 
     @Override
@@ -65,7 +70,7 @@ public final class BeanFactoryImplClassStructure extends ClassStructure {
 
     @Override
     public ClassHeader getClassHeader() {
-        final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+        final ClassHeader.Builder builder = newClassHeaderBuilder(getEntryPointPackage(environmentContext.getCurrentModule()))
                 .addImports(InternalBeanFactory.class);
         for (final BeanSupplierClassStructure beanSupplierClassStructure : beanSupplierClassStructures) {
             builder

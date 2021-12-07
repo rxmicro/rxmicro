@@ -19,11 +19,11 @@ package io.rxmicro.annotation.processor.common.model;
 import io.rxmicro.runtime.detail.RuntimeReflections;
 
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_SIMPLE_CLASS_NAME;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointPackage;
 
 /**
  * @author nedis
@@ -31,15 +31,19 @@ import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
  */
 public final class ReflectionsClassStructure extends ClassStructure {
 
+    private final String packageName;
+
     private final boolean getterRequired;
 
     private final boolean setterRequired;
 
     private final boolean invokeRequired;
 
-    public ReflectionsClassStructure(final boolean getterRequired,
+    public ReflectionsClassStructure(final ModuleElement currentModule,
+                                     final boolean getterRequired,
                                      final boolean setterRequired,
                                      final boolean invokeRequired) {
+        this.packageName = getEntryPointPackage(currentModule);
         this.getterRequired = getterRequired;
         this.setterRequired = setterRequired;
         this.invokeRequired = invokeRequired;
@@ -47,7 +51,7 @@ public final class ReflectionsClassStructure extends ClassStructure {
 
     @Override
     public String getTargetFullClassName() {
-        return REFLECTIONS_FULL_CLASS_NAME;
+        return packageName + "." + REFLECTIONS_SIMPLE_CLASS_NAME;
     }
 
     @Override
@@ -67,7 +71,7 @@ public final class ReflectionsClassStructure extends ClassStructure {
 
     @Override
     public ClassHeader getClassHeader() {
-        return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+        return newClassHeaderBuilder(packageName)
                 .addImports(RuntimeReflections.class)
                 .build();
     }

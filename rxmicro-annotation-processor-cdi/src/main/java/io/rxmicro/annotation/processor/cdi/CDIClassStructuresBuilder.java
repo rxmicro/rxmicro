@@ -96,7 +96,7 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
         return Stream
                 .concat(
                         beanSupplierClassStructures.stream(),
-                        Stream.of(new BeanFactoryImplClassStructure(beanSupplierClassStructures))
+                        Stream.of(new BeanFactoryImplClassStructure(environmentContext, beanSupplierClassStructures))
                 )
                 .collect(toSet());
     }

@@ -56,13 +56,15 @@ public final class RxMicroRestServer {
      * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicroRestServer#startRESTServer(String)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServer(Module, String)} method.</i>
      *
+     * @param module the current module
      * @param rootPackage root package
      * @return the {@link ServerInstance} to manage the started HTTP server
      */
-    public static ServerInstance startRestServer(final String rootPackage) {
-        return start(createFilter(rootPackage));
+    public static ServerInstance startRestServer(final Module module,
+                                                 final String rootPackage) {
+        return start(module, createFilter(rootPackage));
     }
 
     /**
@@ -75,7 +77,7 @@ public final class RxMicroRestServer {
      * @return the {@link ServerInstance} to manage the started HTTP server
      */
     public static ServerInstance startRestServer(final Class<?> restControllerClass) {
-        return start(createFilter(restControllerClass));
+        return start(restControllerClass.getModule(), createFilter(restControllerClass));
     }
 
     /**
@@ -86,9 +88,13 @@ public final class RxMicroRestServer {
      *
      * @param restControllerClasses a REST controllers set to start
      * @return the {@link ServerInstance} to manage the started HTTP server
+     * @throws IllegalArgumentException if the REST controllers set is empty
      */
     public static ServerInstance startRestServer(final Set<Class<?>> restControllerClasses) {
-        return start(createFilter(restControllerClasses));
+        if (restControllerClasses.isEmpty()) {
+            throw new IllegalArgumentException("Rest controller set can't be empty!");
+        }
+        return start(restControllerClasses.iterator().next().getModule(), createFilter(restControllerClasses));
     }
 
     /**
@@ -103,20 +109,22 @@ public final class RxMicroRestServer {
      */
     public static ServerInstance startRestServer(final Class<?> restControllerClass,
                                                  final Class<?>... restControllerClasses) {
-        return start(createFilter(restControllerClass, restControllerClasses));
+        return start(restControllerClass.getModule(), createFilter(restControllerClass, restControllerClasses));
     }
 
     /**
      * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicroRestServer#startRestServer(String)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServer(Module, String)} method.</i>
      *
+     * @param module the current module
      * @param rootPackage root package
      * @return the {@link ServerInstance} to manage the started HTTP server
      */
-    public static ServerInstance startRESTServer(final String rootPackage) {
-        return start(createFilter(rootPackage));
+    public static ServerInstance startRESTServer(final Module module,
+                                                 final String rootPackage) {
+        return start(module, createFilter(rootPackage));
     }
 
     /**
@@ -129,7 +137,7 @@ public final class RxMicroRestServer {
      * @return the {@link ServerInstance} to manage the started HTTP server
      */
     public static ServerInstance startRESTServer(final Class<?> restControllerClass) {
-        return start(createFilter(restControllerClass));
+        return start(restControllerClass.getModule(), createFilter(restControllerClass));
     }
 
     /**
@@ -140,9 +148,13 @@ public final class RxMicroRestServer {
      *
      * @param restControllerClasses a REST controllers set to start
      * @return the {@link ServerInstance} to manage the started HTTP server
+     * @throws IllegalArgumentException if the REST controllers set is empty
      */
     public static ServerInstance startRESTServer(final Set<Class<?>> restControllerClasses) {
-        return start(createFilter(restControllerClasses));
+        if (restControllerClasses.isEmpty()) {
+            throw new IllegalArgumentException("Rest controller set can't be empty!");
+        }
+        return start(restControllerClasses.iterator().next().getModule(), createFilter(restControllerClasses));
     }
 
     /**
@@ -157,23 +169,25 @@ public final class RxMicroRestServer {
      */
     public static ServerInstance startRESTServer(final Class<?> restControllerClass,
                                                  final Class<?>... restControllerClasses) {
-        return start(createFilter(restControllerClass, restControllerClasses));
+        return start(restControllerClass.getModule(), createFilter(restControllerClass, restControllerClasses));
     }
 
     /**
      * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicroRestServer#startRESTServerInteractive(String)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRESTServerInteractive(Module, String)} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
      * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}.
      *
+     * @param module the current module
      * @param rootPackage root package
      */
-    public static void startRestServerInteractive(final String rootPackage) {
-        new ForExitCommandWaiter(start(createFilter(rootPackage))).waitForQuit();
+    public static void startRestServerInteractive(final Module module,
+                                                  final String rootPackage) {
+        new ForExitCommandWaiter(startRestServer(module, rootPackage)).waitForQuit();
     }
 
     /**
@@ -189,7 +203,7 @@ public final class RxMicroRestServer {
      * @param restControllerClass REST controller class to start
      */
     public static void startRestServerInteractive(final Class<?> restControllerClass) {
-        new ForExitCommandWaiter(start(createFilter(restControllerClass))).waitForQuit();
+        new ForExitCommandWaiter(startRestServer(restControllerClass)).waitForQuit();
     }
 
     /**
@@ -203,9 +217,10 @@ public final class RxMicroRestServer {
      * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}.
      *
      * @param restControllerClasses a REST controllers set to start
+     * @throws IllegalArgumentException if the REST controllers set is empty
      */
     public static void startRestServerInteractive(final Set<Class<?>> restControllerClasses) {
-        new ForExitCommandWaiter(start(createFilter(restControllerClasses))).waitForQuit();
+        new ForExitCommandWaiter(startRestServer(restControllerClasses)).waitForQuit();
     }
 
     /**
@@ -223,14 +238,14 @@ public final class RxMicroRestServer {
      */
     public static void startRestServerInteractive(final Class<?> restControllerClass,
                                                   final Class<?>... restControllerClasses) {
-        new ForExitCommandWaiter(start(createFilter(restControllerClass, restControllerClasses))).waitForQuit();
+        new ForExitCommandWaiter(startRestServer(restControllerClass, restControllerClasses)).waitForQuit();
     }
 
     /**
      * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server.
      *
      * <p>
-     * <i>Alias for {@link RxMicroRestServer#startRestServerInteractive(String)} method.</i>
+     * <i>Alias for {@link RxMicroRestServer#startRestServerInteractive(Module, String)} method.</i>
      *
      * <p>
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
@@ -238,8 +253,9 @@ public final class RxMicroRestServer {
      *
      * @param rootPackage root package
      */
-    public static void startRESTServerInteractive(final String rootPackage) {
-        new ForExitCommandWaiter(start(createFilter(rootPackage))).waitForQuit();
+    public static void startRESTServerInteractive(final Module module,
+                                                  final String rootPackage) {
+        new ForExitCommandWaiter(startRestServer(module, rootPackage)).waitForQuit();
     }
 
     /**
@@ -255,7 +271,7 @@ public final class RxMicroRestServer {
      * @param restControllerClass REST controller class to start
      */
     public static void startRESTServerInteractive(final Class<?> restControllerClass) {
-        new ForExitCommandWaiter(start(createFilter(restControllerClass))).waitForQuit();
+        new ForExitCommandWaiter(startRestServer(restControllerClass)).waitForQuit();
     }
 
     /**
@@ -269,9 +285,10 @@ public final class RxMicroRestServer {
      * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}.
      *
      * @param restControllerClasses a REST controllers set to start
+     * @throws IllegalArgumentException if the REST controllers set is empty
      */
     public static void startRESTServerInteractive(final Set<Class<?>> restControllerClasses) {
-        new ForExitCommandWaiter(start(createFilter(restControllerClasses))).waitForQuit();
+        new ForExitCommandWaiter(startRestServer(restControllerClasses)).waitForQuit();
     }
 
     /**
@@ -289,12 +306,13 @@ public final class RxMicroRestServer {
      */
     public static void startRESTServerInteractive(final Class<?> restControllerClass,
                                                   final Class<?>... restControllerClasses) {
-        new ForExitCommandWaiter(start(createFilter(restControllerClass, restControllerClasses))).waitForQuit();
+        new ForExitCommandWaiter(startRestServer(restControllerClass, restControllerClasses)).waitForQuit();
     }
 
-    private static ServerInstance start(final RestControllerRegistrationFilter filter) {
+    private static ServerInstance start(final Module module,
+                                        final RestControllerRegistrationFilter filter) {
         LOGGER.debug("Received start server request");
-        final ServerInstance serverInstance = launchWithFilter(filter).getServerInstance();
+        final ServerInstance serverInstance = launchWithFilter(module, filter).getServerInstance();
         printCurrentEnvironment();
         return serverInstance;
     }

@@ -29,10 +29,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -41,20 +42,26 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class EntityToDBConverterClassStructure extends ClassStructure {
 
+    private final ModuleElement moduleElement;
+
     private final Map.Entry<MongoDataModelField, ModelClass> id;
 
     private final MongoDataObjectModelClass modelClass;
 
     private final Set<ObjectModelClass<MongoDataModelField>> allChildrenObjectModelClasses;
 
-    public EntityToDBConverterClassStructure(final Map.Entry<MongoDataModelField, ModelClass> id,
+    public EntityToDBConverterClassStructure(final ModuleElement moduleElement,
+                                             final Map.Entry<MongoDataModelField, ModelClass> id,
                                              final MongoDataObjectModelClass modelClass) {
+        this.moduleElement = moduleElement;
         this.id = require(id);
         this.modelClass = require(modelClass);
         this.allChildrenObjectModelClasses = modelClass.getAllChildrenObjectModelClasses();
     }
 
-    public EntityToDBConverterClassStructure(final MongoDataObjectModelClass modelClass) {
+    public EntityToDBConverterClassStructure(final ModuleElement moduleElement,
+                                             final MongoDataObjectModelClass modelClass) {
+        this.moduleElement = moduleElement;
         this.id = null;
         this.modelClass = require(modelClass);
         this.allChildrenObjectModelClasses = modelClass.getAllChildrenObjectModelClasses();
@@ -99,10 +106,10 @@ public final class EntityToDBConverterClassStructure extends ClassStructure {
                         .toArray(String[]::new))
                 .addImports(modelClass.getModelFieldTypes());
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "getFieldValue");
         }
         if (isRequiredReflectionSetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "setFieldValue");
         }
         classHeaderBuilder.addStaticImport(Requires.class, "require");
         return classHeaderBuilder.build();

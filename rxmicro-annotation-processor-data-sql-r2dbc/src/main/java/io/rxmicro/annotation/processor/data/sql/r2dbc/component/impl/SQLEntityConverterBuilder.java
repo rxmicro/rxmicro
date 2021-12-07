@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.data.component.EntityConverterBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
@@ -39,12 +40,13 @@ public class SQLEntityConverterBuilder<DMF extends SQLDataModelField, DMC extend
         implements EntityConverterBuilder<DMF, DMC> {
 
     @Override
-    public Set<? extends ClassStructure> build(final DataGenerationContext<DMF, DMC> dataGenerationContext) {
+    public Set<? extends ClassStructure> build(final EnvironmentContext environmentContext,
+                                               final DataGenerationContext<DMF, DMC> dataGenerationContext) {
         final Set<ClassStructure> result = new HashSet<>();
         dataGenerationContext.getEntityParamMap().values()
-                .forEach(m -> result.add(new EntityToDBConverterClassStructure<>(m)));
+                .forEach(m -> result.add(new EntityToDBConverterClassStructure<>(environmentContext.getCurrentModule(), m)));
         dataGenerationContext.getEntityReturnMap().values()
-                .forEach(m -> result.add(new EntityFromDBConverterClassStructure<>(m)));
+                .forEach(m -> result.add(new EntityFromDBConverterClassStructure<>(environmentContext.getCurrentModule(), m)));
         return result;
     }
 }

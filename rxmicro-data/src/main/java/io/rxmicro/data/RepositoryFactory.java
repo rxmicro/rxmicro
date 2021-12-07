@@ -44,7 +44,8 @@ public abstract class RepositoryFactory extends AbstractFactory {
      * @return the instance of the requested dynamic data repository
      */
     public static <T> T getRepository(final Class<T> repositoryInterface) {
-        return get(REPOSITORY_FACTORY_IMPL_CLASS_NAME).getImpl(new ByTypeInstanceQualifier<>(repositoryInterface))
+        return getRequiredFactory(repositoryInterface.getModule(), REPOSITORY_FACTORY_IMPL_CLASS_NAME)
+                .getImpl(new ByTypeInstanceQualifier<>(repositoryInterface))
                 .orElseThrow(implNotFoundError(repositoryInterface));
     }
 }

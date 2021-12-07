@@ -57,10 +57,12 @@ public final class DataRepositoryModuleClassStructuresBuilder
         final Set<? extends ClassStructure> allClassStructures =
                 super.buildClassStructures(environmentContext, annotations, roundEnv);
         if (!allClassStructures.isEmpty()) {
-            return Stream.concat(
-                    allClassStructures.stream(),
-                    Stream.of(new RepositoryFactoryClassStructure(allClassStructures))
-            ).collect(toSet());
+            return Stream
+                    .concat(
+                            allClassStructures.stream(),
+                            Stream.of(new RepositoryFactoryClassStructure(environmentContext, allClassStructures))
+                    )
+                    .collect(toSet());
         } else {
             return Set.of();
         }

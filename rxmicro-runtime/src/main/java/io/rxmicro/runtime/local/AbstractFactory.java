@@ -16,6 +16,7 @@
 
 package io.rxmicro.runtime.local;
 
+import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
@@ -29,9 +30,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.reflection.Reflections.instantiate;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getEntryPointFullClassName;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 import static io.rxmicro.runtime.local.InstanceContainer.overrideSingleton;
@@ -72,14 +72,42 @@ public abstract class AbstractFactory {
         };
     }
 
-    protected static AbstractFactory get(final String implClassName) {
-        return FACTORIES.computeIfAbsent(implClassName, cl -> instantiate(format("?.?", ENTRY_POINT_PACKAGE, cl)));
+    protected static AbstractFactory getRequiredFactory(final Module module,
+                                                        final String implSimpleClassName) {
+        return getAbstractFactory(module, implSimpleClassName, true);
     }
 
-    protected static void registerFactory(final String implClassName,
+    protected static Optional<AbstractFactory> getOptionalFactory(final Module module,
+                                                                  final String implSimpleClassName) {
+        return Optional.ofNullable(getAbstractFactory(module, implSimpleClassName, false));
+    }
+
+    private static AbstractFactory getAbstractFactory(final Module module,
+                                                      final String implSimpleClassName,
+                                                      final boolean throwExceptionIfCreationOfFactoryFailed) {
+        final String fullClassName = getEntryPointFullClassName(module, implSimpleClassName);
+        AbstractFactory abstractFactory = FACTORIES.get(fullClassName);
+        if (abstractFactory == null) {
+            try {
+                abstractFactory = instantiate(fullClassName);
+            } catch (final CheckedWrapperException | IllegalArgumentException exception) {
+                if (throwExceptionIfCreationOfFactoryFailed) {
+                    throw exception;
+                } else {
+                    return null;
+                }
+            }
+            FACTORIES.put(fullClassName, abstractFactory);
+        }
+        return abstractFactory;
+    }
+
+    protected static void registerFactory(final Module module,
+                                          final String implSimpleClassName,
                                           final AbstractFactory factory) {
-        if (FACTORIES.put(implClassName, factory) != null) {
-            throw new InvalidStateException("Factory already registered: implClassName=?", implClassName);
+        final String fullClassName = getEntryPointFullClassName(module, implSimpleClassName);
+        if (FACTORIES.put(fullClassName, factory) != null) {
+            throw new InvalidStateException("Factory already registered: fullClassName=?", fullClassName);
         }
     }
 

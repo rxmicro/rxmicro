@@ -24,6 +24,8 @@ import io.rxmicro.annotation.processor.rest.server.component.ModelReaderBuilder;
 import io.rxmicro.annotation.processor.rest.server.model.ServerModelReaderClassStructure;
 import io.rxmicro.rest.model.ExchangeFormat;
 
+import javax.lang.model.element.ModuleElement;
+
 /**
  * @author nedis
  * @since 0.1
@@ -34,10 +36,11 @@ public final class ModelReaderBuilderImpl
         implements ModelReaderBuilder {
 
     @Override
-    protected ServerModelReaderClassStructure newInstance(final ReaderType readerType,
+    protected ServerModelReaderClassStructure newInstance(final ModuleElement moduleElement,
+                                                          final ReaderType readerType,
                                                           final RestObjectModelClass modelClass,
                                                           final ExchangeFormat exchangeFormat) {
-        return new ServerModelReaderClassStructure(readerType, modelClass, exchangeFormat);
+        return new ServerModelReaderClassStructure(moduleElement, readerType, modelClass, exchangeFormat);
     }
 
     @Override

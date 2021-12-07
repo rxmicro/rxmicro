@@ -39,6 +39,7 @@ import java.util.List;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.clearEventLoopGroupFactory;
+import static io.rxmicro.runtime.detail.ChildrenInitializer.resetChildrenInitializer;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.junit.local.LoggerUtils.logAfterAll;
@@ -142,6 +143,7 @@ public final class RxMicroIntegrationTestExtension extends BaseJUnitTestExtensio
     public void afterAll(final ExtensionContext context) {
         clearContainer();
         clearFactories();
+        resetChildrenInitializer();
         resetDefaultConfigValueStorage();
         clearEventLoopGroupFactory();
         resetConfigurationIfPossible();

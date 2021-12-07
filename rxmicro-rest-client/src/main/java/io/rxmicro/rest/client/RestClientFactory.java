@@ -46,7 +46,8 @@ public abstract class RestClientFactory extends AbstractFactory {
      * @return the instance of the REST client
      */
     public static <T> T getRestClient(final Class<T> restClientInterface) {
-        return get(REST_CLIENT_FACTORY_IMPL_CLASS_NAME).getImpl(new ByTypeInstanceQualifier<>(restClientInterface))
+        return getRequiredFactory(restClientInterface.getModule(), REST_CLIENT_FACTORY_IMPL_CLASS_NAME)
+                .getImpl(new ByTypeInstanceQualifier<>(restClientInterface))
                 .orElseThrow(implNotFoundError(restClientInterface));
     }
 }

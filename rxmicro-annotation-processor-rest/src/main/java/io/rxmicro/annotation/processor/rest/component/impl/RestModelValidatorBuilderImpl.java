@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.component.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
@@ -71,17 +72,19 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
     private RestModelRequiredValidatorBuilder restModelRequiredValidatorBuilder;
 
     @Override
-    public Set<ModelValidatorClassStructure> build(final List<RestObjectModelClass> objectModelClasses) {
+    public Set<ModelValidatorClassStructure> build(final EnvironmentContext environmentContext,
+                                                   final List<RestObjectModelClass> objectModelClasses) {
         final Set<ModelValidatorClassStructure> result = new HashSet<>();
         for (final RestObjectModelClass objectModelClass : objectModelClasses) {
-            final boolean isValidatorGenerated = extractValidators(result, objectModelClass, new HashSet<>(), false);
+            final boolean isValidatorGenerated =
+                    extractValidators(environmentContext, result, objectModelClass, new HashSet<>(), false);
             boolean childrenAdded = false;
             for (final ObjectModelClass<RestModelField> p : objectModelClass.getAllParents()) {
                 final RestObjectModelClass parent = (RestObjectModelClass) p;
                 if (parent.isModelClassReturnedByRestMethod() ||
                         parent.isHeadersOrPathVariablesOrInternalsPresent() ||
                         parent.isParamEntriesPresent()) {
-                    final boolean extracted = extractValidators(result, parent, new HashSet<>(), false);
+                    final boolean extracted = extractValidators(environmentContext, result, parent, new HashSet<>(), false);
                     if (extracted) {
                         childrenAdded = true;
                     }
@@ -89,20 +92,25 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
             }
             if (!isValidatorGenerated && childrenAdded) {
                 // Generate empty validator for child class that has parent validators!
-                result.add(new ModelValidatorClassStructure.Builder(objectModelClass).build(false));
+                result.add(
+                        new ModelValidatorClassStructure.Builder(environmentContext.getCurrentModule(), objectModelClass)
+                                .build(false)
+                );
             }
         }
         return result;
     }
 
-    private boolean extractValidators(final Set<ModelValidatorClassStructure> result,
+    private boolean extractValidators(final EnvironmentContext environmentContext,
+                                      final Set<ModelValidatorClassStructure> result,
                                       final RestObjectModelClass objectModelClass,
                                       final Set<ModelValidatorClassStructure> childrenValidators,
                                       final boolean optional) {
-        final ModelValidatorClassStructure.Builder builder = new ModelValidatorClassStructure.Builder(objectModelClass);
+        final ModelValidatorClassStructure.Builder builder =
+                new ModelValidatorClassStructure.Builder(environmentContext.getCurrentModule(), objectModelClass);
         extractPrimitiveValidators(objectModelClass, builder);
-        extractObjectChildValidators(result, objectModelClass, builder);
-        extractObjectIterableChildValidators(result, objectModelClass, builder);
+        extractObjectChildValidators(environmentContext, result, objectModelClass, builder);
+        extractObjectIterableChildValidators(environmentContext, result, objectModelClass, builder);
         if (builder.isValidatorsNotFound()) {
             return false;
         } else {
@@ -124,24 +132,28 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                 .forEach(e -> extractFieldValidators(builder, e.getKey(), e.getValue()));
     }
 
-    private void extractObjectChildValidators(final Set<ModelValidatorClassStructure> result,
+    private void extractObjectChildValidators(final EnvironmentContext environmentContext,
+                                              final Set<ModelValidatorClassStructure> result,
                                               final RestObjectModelClass objectModelClass,
                                               final ModelValidatorClassStructure.Builder builder) {
         objectModelClass.getParamEntries().stream()
                 .filter(e -> e.getValue().isObject())
                 .forEach(e -> extractValidators(
+                        environmentContext,
                         result,
                         e.getValue().asObject(),
                         builder.getChildrenValidators(),
                         e.getKey().hasAnnotation(Nullable.class)));
     }
 
-    private void extractObjectIterableChildValidators(final Set<ModelValidatorClassStructure> result,
+    private void extractObjectIterableChildValidators(final EnvironmentContext environmentContext,
+                                                      final Set<ModelValidatorClassStructure> result,
                                                       final RestObjectModelClass objectModelClass,
                                                       final ModelValidatorClassStructure.Builder builder) {
         objectModelClass.getParamEntries().stream()
                 .filter(e -> e.getValue().isIterable() && e.getValue().asIterable().isObjectIterable())
                 .forEach(e -> extractValidators(
+                        environmentContext,
                         result,
                         (RestObjectModelClass) e.getValue().asIterable().getElementModelClass(),
                         builder.getChildrenValidators(),

@@ -24,13 +24,14 @@ import io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCustomize
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointPackage;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCustomizer.POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toList;
 
@@ -40,15 +41,19 @@ import static java.util.stream.Collectors.toList;
  */
 public final class PostgreSQLConfigAutoCustomizerClassStructure extends DataRepositoryConfigAutoCustomizerClassStructure {
 
+    private final ModuleElement moduleElement;
+
     private final List<Map.Entry<TypeElement, String>> postgresEnumMapping;
 
-    public PostgreSQLConfigAutoCustomizerClassStructure(final List<Map.Entry<TypeElement, String>> postgresEnumMapping) {
+    public PostgreSQLConfigAutoCustomizerClassStructure(final ModuleElement moduleElement,
+                                                        final List<Map.Entry<TypeElement, String>> postgresEnumMapping) {
+        this.moduleElement = moduleElement;
         this.postgresEnumMapping = require(postgresEnumMapping);
     }
 
     @Override
     public String getTargetFullClassName() {
-        return getEntryPointFullClassName(POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
+        return getEntryPointFullClassName(moduleElement, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
     }
 
     @Override
@@ -67,7 +72,7 @@ public final class PostgreSQLConfigAutoCustomizerClassStructure extends DataRepo
 
     @Override
     public ClassHeader getClassHeader() {
-        return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+        return newClassHeaderBuilder(getEntryPointPackage(moduleElement))
                 .addImports(PostgreSQLConfigAutoCustomizer.class)
                 .addStaticImport(PostgreSQLConfigCustomizer.class, "registerPostgreSQLCodecs")
                 .addImports(postgresEnumMapping.stream().map(Map.Entry::getKey).toArray(TypeElement[]::new))

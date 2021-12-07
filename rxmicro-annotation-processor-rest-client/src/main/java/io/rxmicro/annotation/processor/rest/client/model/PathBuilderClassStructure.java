@@ -33,10 +33,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static java.util.Map.entry;
@@ -47,12 +48,16 @@ import static java.util.Map.entry;
  */
 public final class PathBuilderClassStructure extends ClassStructure {
 
+    private final ModuleElement moduleElement;
+
     private final RestObjectModelClass modelClass;
 
     private final List<HttpMethodMapping> httpMethodMappings;
 
-    public PathBuilderClassStructure(final RestObjectModelClass modelClass,
+    public PathBuilderClassStructure(final ModuleElement moduleElement,
+                                     final RestObjectModelClass modelClass,
                                      final List<HttpMethodMapping> httpMethodMappings) {
+        this.moduleElement = moduleElement;
         this.modelClass = require(modelClass);
         this.httpMethodMappings = require(httpMethodMappings);
     }
@@ -91,7 +96,7 @@ public final class PathBuilderClassStructure extends ClassStructure {
         final ClassHeader.Builder classHeaderBuilder = newClassHeaderBuilder(modelClass)
                 .addImports(PathBuilder.class);
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "getFieldValue");
         }
         return classHeaderBuilder.build();
     }

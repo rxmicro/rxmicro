@@ -25,10 +25,11 @@ import org.bson.Document;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -37,11 +38,15 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class EntityFromDBConverterClassStructure extends ClassStructure {
 
+    private final ModuleElement moduleElement;
+
     private final MongoDataObjectModelClass modelClass;
 
     private final Set<ObjectModelClass<MongoDataModelField>> allChildrenObjectModelClasses;
 
-    public EntityFromDBConverterClassStructure(final MongoDataObjectModelClass modelClass) {
+    public EntityFromDBConverterClassStructure(final ModuleElement moduleElement,
+                                               final MongoDataObjectModelClass modelClass) {
+        this.moduleElement = moduleElement;
         this.modelClass = require(modelClass);
         this.allChildrenObjectModelClasses = modelClass.getAllChildrenObjectModelClasses();
     }
@@ -78,7 +83,7 @@ public final class EntityFromDBConverterClassStructure extends ClassStructure {
                         .toArray(String[]::new))
                 .addImports(modelClass.getModelFieldTypes());
         if (isRequiredReflectionSetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "setFieldValue");
         }
         return classHeaderBuilder.build();
     }

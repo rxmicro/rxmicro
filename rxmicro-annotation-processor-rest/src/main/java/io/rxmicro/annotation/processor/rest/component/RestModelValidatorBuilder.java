@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.component;
 
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassStructure;
 
@@ -28,5 +29,6 @@ import java.util.Set;
  */
 public interface RestModelValidatorBuilder {
 
-    Set<ModelValidatorClassStructure> build(List<RestObjectModelClass> objectModelClasses);
+    Set<ModelValidatorClassStructure> build(EnvironmentContext environmentContext,
+                                            List<RestObjectModelClass> objectModelClasses);
 }

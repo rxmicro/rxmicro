@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.component.DataRepositoryConfigAutoCustomizerBuilder;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
@@ -41,12 +42,16 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 public final class PostgreSQLDataRepositoryConfigAutoCustomizerBuilder implements DataRepositoryConfigAutoCustomizerBuilder {
 
     @Override
-    public Optional<ClassStructure> build(final Set<DataRepositoryClassStructure> dataRepositoryClassStructures) {
+    public Optional<ClassStructure> build(final EnvironmentContext environmentContext,
+                                          final Set<DataRepositoryClassStructure> dataRepositoryClassStructures) {
         final List<Map.Entry<TypeElement, String>> postgresEnumMapping =
                 validateAndReturnPostgresEnumMappingWithoutDuplicates(
                         dataRepositoryClassStructures.stream().flatMap(r -> r.getEnumMapping().stream()).collect(Collectors.toList())
                 );
-        return Optional.of(postgresEnumMapping).filter(l -> !l.isEmpty()).map(PostgreSQLConfigAutoCustomizerClassStructure::new);
+        return Optional.of(postgresEnumMapping)
+                .filter(l -> !l.isEmpty())
+                .map(postgresEnumMapping1 ->
+                        new PostgreSQLConfigAutoCustomizerClassStructure(environmentContext.getCurrentModule(), postgresEnumMapping1));
     }
 
     private List<Map.Entry<TypeElement, String>> validateAndReturnPostgresEnumMappingWithoutDuplicates(

@@ -28,11 +28,10 @@ import io.rxmicro.rest.server.local.model.ServerContainer;
 
 import java.util.Map;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.reflection.Reflections.instantiate;
 import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getEntryPointFullClassName;
 
 /**
  * @author nedis
@@ -40,21 +39,22 @@ import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
  */
 public final class RestServerLauncher {
 
-    private static final String REST_CONTROLLER_AGGREGATOR_IMPL_FULL_CLASS_NAME =
-            format("?.?", ENTRY_POINT_PACKAGE, REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);
-
-    public static ServerContainer launchWithoutRestControllers(final Map<String, Config> configs) {
+    public static ServerContainer launchWithoutRestControllers(final Module module,
+                                                               final Map<String, Config> configs) {
         new Configs.Builder().withConfigs(configs).build();
-        return launch(null);
+        return launch(module, null);
     }
 
-    public static ServerContainer launchWithFilter(final RestControllerRegistrationFilter filter) {
+    public static ServerContainer launchWithFilter(final Module module,
+                                                   final RestControllerRegistrationFilter filter) {
         new Configs.Builder().buildIfNotConfigured();
-        return launch(require(filter));
+        return launch(module, require(filter));
     }
 
-    private static ServerContainer launch(final RestControllerRegistrationFilter filter) {
-        final RestControllerAggregator restControllerAggregator = instantiate(REST_CONTROLLER_AGGREGATOR_IMPL_FULL_CLASS_NAME);
+    private static ServerContainer launch(final Module module,
+                                          final RestControllerRegistrationFilter filter) {
+        final String fullClassName = getEntryPointFullClassName(module, REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);
+        final RestControllerAggregator restControllerAggregator = instantiate(fullClassName);
         final ComponentResolver componentResolver = new ComponentResolverImpl();
         final Router router = new Router(componentResolver);
         if (filter != null) {

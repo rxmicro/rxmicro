@@ -27,13 +27,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointPackage;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.client.RestClientFactory.REST_CLIENT_FACTORY_IMPL_CLASS_NAME;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 
 /**
  * @author nedis
@@ -41,19 +42,23 @@ import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
  */
 public final class RestClientFactoryClassStructure extends ClassStructure {
 
+    private final ModuleElement moduleElement;
+
     private final Set<RestClientClassStructure> classStructures;
 
     private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues;
 
-    public RestClientFactoryClassStructure(final Set<RestClientClassStructure> classStructures,
+    public RestClientFactoryClassStructure(final ModuleElement moduleElement,
+                                           final Set<RestClientClassStructure> classStructures,
                                            final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
+        this.moduleElement = moduleElement;
         this.classStructures = new TreeSet<>(require(classStructures));
         this.defaultConfigValues = require(defaultConfigValues);
     }
 
     @Override
     public String getTargetFullClassName() {
-        return getEntryPointFullClassName(REST_CLIENT_FACTORY_IMPL_CLASS_NAME);
+        return getEntryPointFullClassName(moduleElement, REST_CLIENT_FACTORY_IMPL_CLASS_NAME);
     }
 
     @Override
@@ -72,7 +77,7 @@ public final class RestClientFactoryClassStructure extends ClassStructure {
 
     @Override
     public ClassHeader getClassHeader() {
-        final ClassHeader.Builder classHeaderBuilder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+        final ClassHeader.Builder classHeaderBuilder = newClassHeaderBuilder(getEntryPointPackage(moduleElement))
                 .addImports(RestClientFactory.class)
                 .addStaticImport(RestClientImplFactory.class, "createRestClient");
         for (final RestClientClassStructure classStructure : classStructures) {

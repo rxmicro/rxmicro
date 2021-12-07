@@ -27,6 +27,8 @@ import io.rxmicro.annotation.processor.rest.server.model.ServerModelWriterClassS
 import io.rxmicro.rest.ResponseBody;
 import io.rxmicro.rest.model.ExchangeFormat;
 
+import javax.lang.model.element.ModuleElement;
+
 /**
  * @author nedis
  * @since 0.1
@@ -37,11 +39,12 @@ public final class ModelWriterBuilderImpl
         implements ModelWriterBuilder {
 
     @Override
-    protected ServerModelWriterClassStructure newInstance(final ReaderType readerType,
+    protected ServerModelWriterClassStructure newInstance(final ModuleElement moduleElement,
+                                                          final ReaderType readerType,
                                                           final RestObjectModelClass modelClass,
                                                           final ExchangeFormat exchangeFormat) {
         validate(modelClass);
-        return new ServerModelWriterClassStructure(modelClass, exchangeFormat);
+        return new ServerModelWriterClassStructure(moduleElement, modelClass, exchangeFormat);
     }
 
     @Override

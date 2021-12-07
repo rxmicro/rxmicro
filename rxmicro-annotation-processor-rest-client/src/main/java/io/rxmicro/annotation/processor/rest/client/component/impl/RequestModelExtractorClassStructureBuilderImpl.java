@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.client.component.impl;
 
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.client.component.RequestModelExtractorClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.client.model.RequestModelExtractorClassStructure;
@@ -31,12 +32,11 @@ import java.util.stream.Collectors;
  * @since 0.1
  */
 @Singleton
-public final class RequestModelExtractorClassStructureBuilderImpl
-        implements RequestModelExtractorClassStructureBuilder {
+public final class RequestModelExtractorClassStructureBuilderImpl implements RequestModelExtractorClassStructureBuilder {
 
     @Override
-    public Set<RequestModelExtractorClassStructure> build(
-            final List<MappedRestObjectModelClass> mappedRestObjectModelClasses) {
+    public Set<RequestModelExtractorClassStructure> build(final EnvironmentContext environmentContext,
+                                                          final List<MappedRestObjectModelClass> mappedRestObjectModelClasses) {
         return mappedRestObjectModelClasses.stream()
                 .peek(restModelClass -> {
                     if (!restModelClass.getModelClass().getAllChildrenObjectModelClasses().isEmpty()) {
@@ -49,7 +49,10 @@ public final class RequestModelExtractorClassStructureBuilderImpl
                                         "for example POST, PUT, etc)");
                     }
                 })
-                .map(restModelClass -> new RequestModelExtractorClassStructure(restModelClass.getModelClass()))
+                .map(restModelClass -> new RequestModelExtractorClassStructure(
+                        environmentContext.getCurrentModule(),
+                        restModelClass.getModelClass())
+                )
                 .collect(Collectors.toSet());
     }
 }

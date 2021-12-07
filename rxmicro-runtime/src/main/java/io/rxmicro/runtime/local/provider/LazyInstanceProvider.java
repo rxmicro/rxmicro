@@ -28,7 +28,7 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class LazyInstanceProvider<T> implements InstanceProvider<T> {
 
-    private final Class<? extends T> type;
+    private Class<? extends T> type;
 
     private Supplier<T> supplier;
 
@@ -45,10 +45,12 @@ public final class LazyInstanceProvider<T> implements InstanceProvider<T> {
         return type;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T getInstance() {
         if (instance == null) {
             instance = require(supplier.get());
+            type = (Class<? extends T>) instance.getClass();
             supplier = null;
         }
         return instance;

@@ -23,9 +23,8 @@ import io.rxmicro.logger.LoggerFactory;
 
 import java.util.ServiceLoader;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.reflection.Reflections.instantiate;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getEntryPointTestFullClassName;
 import static io.rxmicro.tool.common.TestFixers.COMPONENT_TEST_FIXER;
 import static io.rxmicro.tool.common.TestFixers.INTEGRATION_TEST_FIXER;
 import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FIXER;
@@ -51,11 +50,12 @@ public final class UnNamedModuleFixers {
     }
 
     private static void testFix(final String testFixSimpleClassName) {
+        final String entryPointTestFullClassName = getEntryPointTestFullClassName(testFixSimpleClassName);
         try {
-            instantiate(format("?.?", ENTRY_POINT_PACKAGE, testFixSimpleClassName));
+            instantiate(entryPointTestFullClassName);
         } catch (final CheckedWrapperException ex) {
             if (!ex.isCause(ClassNotFoundException.class)) {
-                LOGGER.error(ex, "Can't instantiate a `?.?` class: ?", ENTRY_POINT_PACKAGE, testFixSimpleClassName, ex.getMessage());
+                LOGGER.error(ex, "Can't instantiate a `?` class: ?", entryPointTestFullClassName, ex.getMessage());
             }
         }
         commonFix();

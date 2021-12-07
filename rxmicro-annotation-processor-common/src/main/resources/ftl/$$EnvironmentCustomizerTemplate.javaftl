@@ -12,6 +12,7 @@ final class ${CLASS_NAME} {
         <#if PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_REFLECTION_MODULE?has_content>
         openThePackagesWithModelClassesToReflectionModule();
         </#if>
+        invokeAllStaticSections(${CLASS_NAME}.class.getModule(), "${ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME}");
         // All required customization must be here
     }
 

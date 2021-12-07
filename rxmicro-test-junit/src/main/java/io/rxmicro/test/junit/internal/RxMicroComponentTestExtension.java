@@ -46,6 +46,7 @@ import java.util.List;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.clearEventLoopGroupFactory;
+import static io.rxmicro.runtime.detail.ChildrenInitializer.resetChildrenInitializer;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.junit.local.LoggerUtils.logAfterAll;
@@ -116,9 +117,10 @@ public final class RxMicroComponentTestExtension extends BaseJUnitTestExtension 
         logBeforeAll(LOGGER, context);
         final Class<?> testClass = context.getRequiredTestClass();
         final Class<?> componentClass = getRequiredAnnotation(testClass, RxMicroComponentTest.class).value();
+        final Module module = componentClass.getModule();
         final TestModelBuilder testModelBuilder = new TestModelBuilder(
                 componentClass,
-                isRequiredModule(componentClass.getModule(), BeanFactory.class.getModule())
+                isRequiredModule(module, BeanFactory.class.getModule())
         );
         testModel = testModelBuilder.build(testClass);
         new ComponentTestValidator(SUPPORTED_TEST_ANNOTATIONS).validate(testModel);
@@ -131,7 +133,7 @@ public final class RxMicroComponentTestExtension extends BaseJUnitTestExtension 
         } else {
             new Configs.Builder().buildIfNotConfigured();
         }
-        final InjectorFactory injectorFactory = new InjectorFactory(testModel);
+        final InjectorFactory injectorFactory = new InjectorFactory(module, testModel);
         repositoryInjector = injectorFactory.createRepositoryInjector();
         restClientInjector = injectorFactory.createRestClientInjector();
         runtimeContextComponentInjector = injectorFactory.createRuntimeContextComponentInjector();
@@ -181,6 +183,7 @@ public final class RxMicroComponentTestExtension extends BaseJUnitTestExtension 
     public void afterEach(final ExtensionContext context) {
         clearContainer();
         clearFactories();
+        resetChildrenInitializer();
         resetDefaultConfigValueStorage();
         resetConfigurationIfPossible();
         systemStreamInjector.resetIfNecessary();

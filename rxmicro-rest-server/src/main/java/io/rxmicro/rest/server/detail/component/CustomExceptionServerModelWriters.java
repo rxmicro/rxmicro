@@ -23,11 +23,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;
+
 /**
  * @author nedis
  * @since 0.9
  */
 public final class CustomExceptionServerModelWriters {
+
+    public static final String CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME =
+            format("??Customizer", GENERATED_CLASS_NAME_PREFIX, CustomExceptionServerModelWriters.class.getSimpleName());
 
     private static final Map<Class<?>, CustomExceptionServerModelWriter<?>> REGISTERED_CUSTOM_EXCEPTION_WRITERS = new HashMap<>();
 

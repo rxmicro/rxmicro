@@ -23,10 +23,11 @@ import io.rxmicro.cdi.detail.BeanSupplier;
 
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.REFLECTION;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -37,15 +38,19 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class BeanSupplierClassStructure extends ClassStructure {
 
+    private final ModuleElement moduleElement;
+
     private final BeanDefinition beanDefinition;
 
     private final List<QualifierRule> beanRegistrationQualifierRules;
 
     private final List<QualifierRule> factoryRegistrationQualifierRules;
 
-    public BeanSupplierClassStructure(final BeanDefinition beanDefinition,
+    public BeanSupplierClassStructure(final ModuleElement moduleElement,
+                                      final BeanDefinition beanDefinition,
                                       final List<QualifierRule> beanRegistrationQualifierRules,
                                       final List<QualifierRule> factoryRegistrationQualifierRules) {
+        this.moduleElement = moduleElement;
         this.beanDefinition = require(beanDefinition);
         this.beanRegistrationQualifierRules = require(beanRegistrationQualifierRules);
         this.factoryRegistrationQualifierRules = require(factoryRegistrationQualifierRules);
@@ -60,7 +65,7 @@ public final class BeanSupplierClassStructure extends ClassStructure {
     }
 
     @Override
-    protected boolean shouldSourceCodeBeGenerated() {
+    protected boolean shouldSourceCodeBeGenerated(final boolean isLibraryModule) {
         return !beanDefinition.isNotBean();
     }
 
@@ -81,10 +86,10 @@ public final class BeanSupplierClassStructure extends ClassStructure {
                 .addImports(beanDefinition.getBeanTypeElement().asType());
         beanDefinition.populateClassHeaderBuilder(classHeaderBuilder);
         if (isRequiredReflectionSetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "setFieldValue");
         }
         if (isRequiredReflectionInvoke()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "invoke");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "invoke");
         }
         return classHeaderBuilder.build();
     }

@@ -31,16 +31,20 @@ import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NA
  */
 public final class RepositoryInjector extends AbstractFactory {
 
+    private final Module module;
+
     private final List<AlternativeEntryPoint> repositoryComponents;
 
-    RepositoryInjector(final List<AlternativeEntryPoint> repositoryComponents) {
+    RepositoryInjector(final Module module,
+                       final List<AlternativeEntryPoint> repositoryComponents) {
+        this.module = module;
         this.repositoryComponents = require(repositoryComponents);
     }
 
     @SuppressWarnings("unchecked")
     public void injectIfFound(final List<Object> testInstances) {
         if (!repositoryComponents.isEmpty()) {
-            registerFactory(REPOSITORY_FACTORY_IMPL_CLASS_NAME, this);
+            registerFactory(module, REPOSITORY_FACTORY_IMPL_CLASS_NAME, this);
             for (final AlternativeEntryPoint alternativeEntryPoint : repositoryComponents) {
                 alternativeEntryPoint.readValue(testInstances);
                 register(

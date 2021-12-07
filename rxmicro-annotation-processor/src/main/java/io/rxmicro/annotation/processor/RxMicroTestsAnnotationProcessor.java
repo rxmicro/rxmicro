@@ -36,9 +36,9 @@ import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorType.TESTS_COMPILE;
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getEntryPointTestFullClassName;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getEntryPointTestPackage;
 import static io.rxmicro.tool.common.TestFixers.COMPONENT_TEST_FIXER;
 import static io.rxmicro.tool.common.TestFixers.INTEGRATION_TEST_FIXER;
 import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FIXER;
@@ -165,8 +165,8 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         }
 
         @Override
-        protected boolean isEnvironmentCustomizerMustBeGenerated() {
-            return false;
+        protected boolean isTestRuntime() {
+            return true;
         }
     }
 
@@ -180,20 +180,20 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
 
         @Override
         public final String getTargetFullClassName() {
-            return getEntryPointFullClassName(getSimpleClassName());
+            return getEntryPointTestFullClassName(getSimpleClassName());
         }
 
         @Override
         public final Map<String, Object> getTemplateVariables() {
             return Map.of(
-                    "PACKAGE_NAME", ENTRY_POINT_PACKAGE,
+                    "PACKAGE_NAME", getEntryPointTestPackage(),
                     "JAVA_CLASS_NAME", getSimpleClassName()
             );
         }
 
         @Override
         public final ClassHeader getClassHeader() {
-            final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE);
+            final ClassHeader.Builder builder = newClassHeaderBuilder(getEntryPointTestPackage());
             customizeClassHeader(builder);
             return builder
                     .addImports(Set.class)

@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.data.aggregator.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryConfigAutoCustomizerClassStructure;
@@ -27,6 +28,7 @@ import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.data.RepositoryFactory;
 import io.rxmicro.data.mongo.detail.MongoRepositoryFactory;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLRepositoryFactory;
+import io.rxmicro.runtime.detail.ChildrenInitializer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,8 +40,8 @@ import java.util.Set;
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointPackage;
 import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -47,6 +49,8 @@ import static java.util.stream.Collectors.toList;
  * @since 0.1
  */
 public final class RepositoryFactoryClassStructure extends ClassStructure {
+
+    private final EnvironmentContext environmentContext;
 
     private final Set<DataRepositoryClassStructure> dataRepositoryClassStructures;
 
@@ -56,7 +60,9 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
 
     private final List<PostgreSQLRepositoryClassStructure> postgreSQLRepositories;
 
-    public RepositoryFactoryClassStructure(final Set<? extends ClassStructure> classStructures) {
+    public RepositoryFactoryClassStructure(final EnvironmentContext environmentContext,
+                                           final Set<? extends ClassStructure> classStructures) {
+        this.environmentContext = environmentContext;
         dataRepositoryClassStructures = new LinkedHashSet<>();
         dataRepositoryConfigAutoCustomizerClassStructures = new LinkedHashSet<>();
         mongoRepositories = new ArrayList<>();
@@ -79,7 +85,7 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
 
     @Override
     public String getTargetFullClassName() {
-        return getEntryPointFullClassName(REPOSITORY_FACTORY_IMPL_CLASS_NAME);
+        return getEntryPointFullClassName(environmentContext.getCurrentModule(), REPOSITORY_FACTORY_IMPL_CLASS_NAME);
     }
 
     @Override
@@ -103,9 +109,11 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
 
     @Override
     public ClassHeader getClassHeader() {
-        final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+        final ClassHeader.Builder builder = newClassHeaderBuilder(getEntryPointPackage(environmentContext.getCurrentModule()))
                 .addImports(RepositoryFactory.class)
-                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue");
+                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
+                .addStaticImport(ChildrenInitializer.class, "invokeAllStaticSections")
+                .addStaticImport(RepositoryFactory.class, "REPOSITORY_FACTORY_IMPL_CLASS_NAME");
         addRepositoryImports(
                 builder, mongoRepositories, MongoRepositoryFactory.class, "createMongoRepository");
         addRepositoryImports(

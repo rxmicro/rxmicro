@@ -52,7 +52,6 @@ import io.rxmicro.annotation.processor.rest.model.VirtualTypeClassStructure;
 import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import io.rxmicro.rest.client.ClientRequest;
 import io.rxmicro.rest.client.ClientResponse;
-import io.rxmicro.rest.client.FindAllRestClients;
 import io.rxmicro.rest.client.RestClient;
 import io.rxmicro.rest.model.ExchangeFormat;
 import io.rxmicro.validation.DisableValidation;
@@ -142,7 +141,9 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
     public Set<String> getSupportedAnnotationTypes() {
         return Stream
                 .of(
-                        Stream.of(RestClient.class.getName(), FindAllRestClients.class.getName()),
+                        Stream.of(
+                                RestClient.class.getName()
+                        ),
                         PARENT_MODEL_ANNOTATION_NAMES.stream()
                 )
                 .flatMap(identity())
@@ -176,6 +177,7 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                         restClientClassStructureBuilder.build(environmentContext, restClientClassStructureStorage, classSignatures);
                 classStructures.addAll(restClientClassStructures);
                 classStructures.add(new RestClientFactoryClassStructure(
+                        environmentContext.getCurrentModule(),
                         restClientClassStructures,
                         restClientClassStructures.stream()
                                 .flatMap(c -> c.getDefaultConfigValues().stream())
@@ -243,22 +245,24 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
         final RestClientClassStructureStorage.Builder builder = new RestClientClassStructureStorage.Builder()
                 .addModelReaders(
                         restClientModelReaderBuilder.build(
-                                context.getFromHttpDataModelClasses(), signatures, clientExchangeFormat
+                                environmentContext, context.getFromHttpDataModelClasses(), signatures, clientExchangeFormat
                         )
                 )
                 .addModelFromJsonConverters(
                         restModelFromJsonConverterBuilder.buildFromJson(
-                                context.getFromHttpDataModelClasses(), clientExchangeFormat, true
+                                environmentContext.getCurrentModule(), context.getFromHttpDataModelClasses(), clientExchangeFormat, true
                         )
                 )
                 .addRequestModelExtractors(
-                        requestModelExtractorClassStructureBuilder.build(toHttpQueryModelClasses)
+                        requestModelExtractorClassStructureBuilder.build(environmentContext, toHttpQueryModelClasses)
                 )
                 .addPathBuilders(
-                        pathBuilderClassStructureBuilder.build(toHttpPathModelClasses)
+                        pathBuilderClassStructureBuilder.build(environmentContext, toHttpPathModelClasses)
                 )
                 .addModelToJsonConverters(
-                        restModelToJsonConverterBuilder.buildToJson(toHttpBodyModelClasses, clientExchangeFormat, true)
+                        restModelToJsonConverterBuilder.buildToJson(
+                                environmentContext.getCurrentModule(), toHttpBodyModelClasses, clientExchangeFormat, true
+                        )
                 );
         addValidators(environmentContext, context, builder);
         builder.addRestObjectModelClasses(
@@ -308,7 +312,7 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                                final RestClientClassStructureStorage.Builder builder) {
         if (environmentContext.get(RestClientModuleGeneratorConfig.class).isGenerateRequestValidators()) {
             builder.addRequestValidators(
-                    restModelValidatorBuilder.build(context.getToHttpDataModelClasses().stream()
+                    restModelValidatorBuilder.build(environmentContext, context.getToHttpDataModelClasses().stream()
                             .map(MappedRestObjectModelClass::getModelClass)
                             .filter(m -> isAnnotationPerPackageHierarchyAbsent(
                                     m.getModelTypeElement(), DisableValidation.class))
@@ -317,7 +321,7 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
         }
         if (environmentContext.get(RestClientModuleGeneratorConfig.class).isGenerateResponseValidators()) {
             builder.addResponseValidators(
-                    restModelValidatorBuilder.build(context.getFromHttpDataModelClasses().stream()
+                    restModelValidatorBuilder.build(environmentContext, context.getFromHttpDataModelClasses().stream()
                             .map(MappedRestObjectModelClass::getModelClass)
                             .filter(m -> isAnnotationPerPackageHierarchyAbsent(
                                     m.getModelTypeElement(), DisableValidation.class))

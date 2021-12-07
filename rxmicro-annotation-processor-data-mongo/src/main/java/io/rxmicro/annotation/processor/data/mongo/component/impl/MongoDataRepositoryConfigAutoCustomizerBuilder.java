@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.data.mongo.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.data.component.DataRepositoryConfigAutoCustomizerBuilder;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 
@@ -32,7 +33,9 @@ import java.util.Set;
 public final class MongoDataRepositoryConfigAutoCustomizerBuilder implements DataRepositoryConfigAutoCustomizerBuilder {
 
     @Override
-    public Optional<ClassStructure> build(final Set<DataRepositoryClassStructure> dataRepositoryClassStructures) {
+    public Optional<ClassStructure> build(final EnvironmentContext environmentContext,
+                                          final Set<DataRepositoryClassStructure> dataRepositoryClassStructures) {
+        // There are no customizations for Mongo repository!
         return Optional.empty();
     }
 }

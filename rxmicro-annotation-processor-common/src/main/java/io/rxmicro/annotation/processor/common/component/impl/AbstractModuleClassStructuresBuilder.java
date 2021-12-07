@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.common.component.impl;
 
 import com.google.inject.Inject;
+import io.rxmicro.annotation.processor.common.component.PackagesThatMustBeOpenedToReflectionBuilder;
 import io.rxmicro.annotation.processor.common.component.SourceCodeGenerator;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
@@ -37,6 +38,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
@@ -54,6 +56,9 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
     @Inject
     private SourceCodeGenerator sourceCodeGenerator;
 
+    @Inject
+    private PackagesThatMustBeOpenedToReflectionBuilder packagesThatMustBeOpenedToReflectionBuilder;
+
     public abstract String getBuilderName();
 
     public abstract Set<String> getSupportedAnnotationTypes();
@@ -62,23 +67,23 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
                                                                           Set<? extends TypeElement> annotations,
                                                                           RoundEnvironment roundEnv);
 
-    protected boolean isEnvironmentCustomizerMustBeGenerated() {
-        return true;
+    protected boolean isTestRuntime() {
+        return false;
     }
 
     public final List<SourceCode> buildSourceCode(final EnvironmentContext environmentContext,
                                                   final Set<? extends TypeElement> annotations,
                                                   final RoundEnvironment roundEnv) {
         final Set<ClassStructure> classStructures = new HashSet<>(buildClassStructures(environmentContext, annotations, roundEnv));
-        getReflectionStructure(classStructures).ifPresent(classStructures::add);
-        if (isEnvironmentCustomizerMustBeGenerated()) {
+        getReflectionStructure(environmentContext.getCurrentModule(), classStructures).ifPresent(classStructures::add);
+        if (!isTestRuntime()) {
             classStructures.add(getEnvironmentCustomizerClassStructure(environmentContext, classStructures));
         }
         validateClassStructureDuplicates(environmentContext, classStructures);
-        final boolean isLibraryModule = isLibraryModule();
         return classStructures.stream()
-                .filter(cl -> cl.shouldSourceCodeBeGenerated(environmentContext, isLibraryModule))
-                .map(cl -> sourceCodeGenerator.generate(cl)).collect(toList());
+                .filter(cl -> isTestRuntime() || cl.shouldSourceCodeBeGenerated(environmentContext, isLibraryModule()))
+                .map(cl -> sourceCodeGenerator.generate(cl))
+                .collect(toList());
     }
 
     private void validateClassStructureDuplicates(final EnvironmentContext environmentContext,
@@ -111,7 +116,8 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
         // do nothing
     }
 
-    private Optional<ReflectionsClassStructure> getReflectionStructure(final Set<? extends ClassStructure> structures) {
+    private Optional<ReflectionsClassStructure> getReflectionStructure(final ModuleElement moduleElement,
+                                                                       final Set<? extends ClassStructure> structures) {
         boolean getterRequired = false;
         boolean setterRequired = false;
         boolean invokeRequired = false;
@@ -130,7 +136,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
             }
         }
         if (getterRequired || setterRequired || invokeRequired) {
-            return Optional.of(new ReflectionsClassStructure(getterRequired, setterRequired, invokeRequired));
+            return Optional.of(new ReflectionsClassStructure(moduleElement, getterRequired, setterRequired, invokeRequired));
         } else {
             return Optional.empty();
         }
@@ -146,7 +152,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
         return new EnvironmentCustomizerClassStructure(
                 environmentContext.getCurrentModule(),
                 defaultConfigValues,
-                environmentContext.getPackagesThatMustBeOpenedToRxMicroCommonModule()
+                packagesThatMustBeOpenedToReflectionBuilder.getPackages(environmentContext)
         );
     }
 

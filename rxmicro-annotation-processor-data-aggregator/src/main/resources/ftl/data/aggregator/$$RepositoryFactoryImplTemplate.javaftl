@@ -10,6 +10,7 @@ public final class ${IMPL_CLASS_NAME} extends RepositoryFactory {
         <#list DEFAULT_CONFIG_VALUES as V>
         putDefaultConfigValue("${V.key}", ${V.value});
         </#list>
+        invokeAllStaticSections(${IMPL_CLASS_NAME}.class.getModule(), REPOSITORY_FACTORY_IMPL_CLASS_NAME);
     }
 
     public ${IMPL_CLASS_NAME}() {

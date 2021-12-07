@@ -29,10 +29,11 @@ import io.rxmicro.rest.model.HttpModelType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getReflectionsFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -41,15 +42,19 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class ClientModelReaderClassStructure extends ClassStructure {
 
+    private final ModuleElement moduleElement;
+
     private final RestObjectModelClass modelClass;
 
     private final ExchangeFormat exchangeFormat;
 
     private final ClientModelReaderType modelReaderType;
 
-    public ClientModelReaderClassStructure(final RestObjectModelClass modelClass,
+    public ClientModelReaderClassStructure(final ModuleElement moduleElement,
+                                           final RestObjectModelClass modelClass,
                                            final ExchangeFormat exchangeFormat,
                                            final ClientModelReaderType modelReaderType) {
+        this.moduleElement = moduleElement;
         this.modelClass = require(modelClass);
         this.exchangeFormat = require(exchangeFormat);
         this.modelReaderType = modelReaderType;
@@ -98,7 +103,7 @@ public final class ClientModelReaderClassStructure extends ClassStructure {
                 )
                 .addImports(modelClass.getModelFieldTypes());
         if (isRequiredReflectionSetter()) {
-            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
+            classHeaderBuilder.addStaticImport(getReflectionsFullClassName(moduleElement), "setFieldValue");
         }
         return classHeaderBuilder.build();
     }

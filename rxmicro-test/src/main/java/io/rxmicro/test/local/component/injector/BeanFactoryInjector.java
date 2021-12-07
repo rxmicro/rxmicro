@@ -23,9 +23,9 @@ import io.rxmicro.test.internal.AlternativeEntryPoint;
 import java.util.List;
 
 import static io.rxmicro.cdi.BeanFactory.BEAN_FACTORY_IMPL_CLASS_NAME;
-import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.reflection.Reflections.instantiate;
-import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getEntryPointFullClassName;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -34,9 +34,13 @@ import static java.util.stream.Collectors.toList;
  */
 public final class BeanFactoryInjector extends AbstractFactory {
 
+    private final Module module;
+
     private final List<AlternativeEntryPointBean> beanComponents;
 
-    BeanFactoryInjector(final List<AlternativeEntryPoint> beanComponents) {
+    BeanFactoryInjector(final Module module,
+                        final List<AlternativeEntryPoint> beanComponents) {
+        this.module = require(module);
         this.beanComponents = beanComponents.stream().map(AlternativeEntryPointBean::new).collect(toList());
     }
 
@@ -47,8 +51,8 @@ public final class BeanFactoryInjector extends AbstractFactory {
     @SuppressWarnings("unchecked")
     public void injectIfFound(final List<Object> testInstances) {
         if (isBeansFound()) {
-            registerFactory(BEAN_FACTORY_IMPL_CLASS_NAME, this);
-            instantiate(format("?.?", ENTRY_POINT_PACKAGE, BEAN_FACTORY_IMPL_CLASS_NAME));
+            registerFactory(module, BEAN_FACTORY_IMPL_CLASS_NAME, this);
+            instantiate(getEntryPointFullClassName(module, BEAN_FACTORY_IMPL_CLASS_NAME));
             for (final AlternativeEntryPointBean bean : beanComponents) {
                 bean.alternativeEntryPoint.readValue(testInstances);
                 override(

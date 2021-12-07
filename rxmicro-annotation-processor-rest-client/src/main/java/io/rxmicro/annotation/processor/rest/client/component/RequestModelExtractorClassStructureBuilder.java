@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.client.component;
 
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.rest.client.model.RequestModelExtractorClassStructure;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 
@@ -28,5 +29,6 @@ import java.util.Set;
  */
 public interface RequestModelExtractorClassStructureBuilder {
 
-    Set<RequestModelExtractorClassStructure> build(List<MappedRestObjectModelClass> mappedRestObjectModelClasses);
+    Set<RequestModelExtractorClassStructure> build(EnvironmentContext environmentContext,
+                                                   List<MappedRestObjectModelClass> mappedRestObjectModelClasses);
 }

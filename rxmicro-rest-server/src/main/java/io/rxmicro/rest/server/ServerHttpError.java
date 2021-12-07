@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.client;
+package io.rxmicro.rest.server;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -24,20 +24,18 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
- * This annotation indicates that the RxMicro framework must find all created {@link RestClient}s that can be found at all library modules.
+ * Marks annotated class as a server http error response.
  *
  * <p>
- * All library modules must be defined at the {@code module-info.java} for the current module.
+ * This annotation is useful for library modules.
+ * Because the RxMicro framework can resolve server http error responses for non-library modules successfully without this annotation.
  *
  * @author nedis
- * @see RestClient
- * @see RestClientConfig
- * @see RestClientFactory
  * @since 0.10
  */
 @Documented
 @Retention(CLASS)
 @Target(TYPE)
-public @interface FindAllRestClients {
+public @interface ServerHttpError {
 
 }

@@ -23,6 +23,8 @@ import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ModelFromJsonConverterClassStructure;
 import io.rxmicro.rest.model.ExchangeFormat;
 
+import javax.lang.model.element.ModuleElement;
+
 /**
  * @author nedis
  * @since 0.1
@@ -33,9 +35,10 @@ public final class RestModelFromJsonConverterBuilderImpl
         implements RestModelFromJsonConverterBuilder {
 
     @Override
-    protected ModelFromJsonConverterClassStructure newInstance(final RestObjectModelClass modelClass,
+    protected ModelFromJsonConverterClassStructure newInstance(final ModuleElement moduleElement,
+                                                               final RestObjectModelClass modelClass,
                                                                final ExchangeFormat exchangeFormat,
                                                                final boolean isRestClientModel) {
-        return new ModelFromJsonConverterClassStructure(modelClass, exchangeFormat);
+        return new ModelFromJsonConverterClassStructure(moduleElement, modelClass, exchangeFormat);
     }
 }

@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.data.component;
 
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 
 import java.util.Optional;
@@ -28,5 +29,6 @@ import java.util.Set;
  */
 public interface DataRepositoryConfigAutoCustomizerBuilder {
 
-    Optional<ClassStructure> build(Set<DataRepositoryClassStructure> dataRepositoryClassStructures);
+    Optional<ClassStructure> build(EnvironmentContext environmentContext,
+                                   Set<DataRepositoryClassStructure> dataRepositoryClassStructures);
 }

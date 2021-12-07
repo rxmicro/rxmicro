@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.server.component.impl;
 
 import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
@@ -27,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
@@ -38,11 +40,13 @@ import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
 public abstract class AbstractRestControllerModelBuilder<T extends AbstractRestControllerModelClassStructure>
         extends BaseProcessorComponent {
 
-    protected abstract T newInstance(ReaderType readerType,
+    protected abstract T newInstance(ModuleElement moduleElement,
+                                     ReaderType readerType,
                                      RestObjectModelClass modelClass,
                                      ExchangeFormat exchangeFormat);
 
-    public final Set<T> build(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+    public final Set<T> build(final EnvironmentContext environmentContext,
+                              final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                               final ExchangeFormat exchangeFormat) {
         final Set<T> structures = new HashSet<>();
         for (final MappedRestObjectModelClass mappedRestObjectModelClass : mappedRestObjectModelClasses) {
@@ -51,7 +55,10 @@ public abstract class AbstractRestControllerModelBuilder<T extends AbstractRestC
                     Stream.concat(Stream.of(modelClass), modelClass.getAllParents().stream())
                             .map(mc -> (RestObjectModelClass) mc)
                             .filter(mc -> shouldModelClassBeProcessed(mappedRestObjectModelClass, mc))
-                            .map(mc -> newInstance(mappedRestObjectModelClass.getReaderType(), mc, exchangeFormat))
+                            .map(mc -> newInstance(
+                                    environmentContext.getCurrentModule(),
+                                    mappedRestObjectModelClass.getReaderType(), mc, exchangeFormat
+                            ))
                             .collect(toOrderedSet())
             );
         }
