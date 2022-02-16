@@ -18,7 +18,6 @@ package io.rxmicro.annotation.processor.rest.client.component.impl.method;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
-import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientMethodSignature;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
@@ -55,12 +54,8 @@ public final class HttpBodyObjectParameterRestClientMethodBodyBuilder
     @Override
     protected void validate(final RestClientMethodSignature methodSignature,
                             final StaticQueryParameters queryParams) {
-        if (!queryParams.isEmpty()) {
-            throw new InterruptProcessingException(methodSignature.getMethod(),
-                    "Query parameter(s) not allowed for '?' HTTP method",
-                    methodSignature.getHttpMethodMapping().getMethod()
-            );
-        }
+        // Some external API does not follow this rule: For example https://pushy.me/docs/api/send-notifications
+        // So this validation must be disabled!!!
     }
 
     @Override
