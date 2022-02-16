@@ -111,7 +111,8 @@ public final class StaticResourceRestController extends AbstractRestController {
                 .flatMap(identity())
                 .forEach(path -> {
                     try {
-                        final Path absolutePath = config.getRootDirectory().resolve(path).toAbsolutePath();
+                        final String normalizedPath = path.startsWith("/") ? path.substring(1) : path;
+                        final Path absolutePath = config.getRootDirectory().resolve(normalizedPath).toAbsolutePath();
                         if (!Files.exists(absolutePath)) {
                             throw new ConfigException("'?' path not found!", absolutePath);
                         } else if (!Files.isRegularFile(absolutePath)) {
