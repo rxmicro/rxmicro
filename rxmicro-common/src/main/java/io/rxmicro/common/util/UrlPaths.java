@@ -37,7 +37,7 @@ public final class UrlPaths {
      *     <li>Removes last character if it is {@code /}</li>
      *     <li>Removes duplicates of path separator, (i.e. replaces {@code //} by {@code /})</li>
      *     <li>Removes invalid characters: {@value #TO_REMOVE_CHARACTERS}</li>
-     *     <li>Removes {@code /} before {@code ?} charcter</li>
+     *     <li>Removes {@code /} before {@code ?} character</li>
      * </ul>
      *
      * @param path the URL path to normalize
