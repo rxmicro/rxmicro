@@ -35,8 +35,15 @@ public class RequiredListConstraintValidator implements ConstraintValidator<List
     public void validate(final List<?> actual,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (actual.isEmpty()) {
+        if (actual == null || actual.isEmpty()) {
             throw new ValidationException("? \"?\" is required!", httpModelType, modelName);
         }
+    }
+
+    @Override
+    public void validateNonNull(final List<?> actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        validate(actual, httpModelType, modelName);
     }
 }

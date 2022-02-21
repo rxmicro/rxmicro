@@ -34,7 +34,6 @@ import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassS
 import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.constraint.MaxNumber;
 import io.rxmicro.validation.constraint.MinNumber;
-import io.rxmicro.validation.constraint.Nullable;
 
 import java.util.HashSet;
 import java.util.List;
@@ -77,14 +76,14 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
         final Set<ModelValidatorClassStructure> result = new HashSet<>();
         for (final RestObjectModelClass objectModelClass : objectModelClasses) {
             final boolean isValidatorGenerated =
-                    extractValidators(environmentContext, result, objectModelClass, new HashSet<>(), false);
+                    extractValidators(environmentContext, result, objectModelClass, new HashSet<>());
             boolean childrenAdded = false;
             for (final ObjectModelClass<RestModelField> p : objectModelClass.getAllParents()) {
                 final RestObjectModelClass parent = (RestObjectModelClass) p;
                 if (parent.isModelClassReturnedByRestMethod() ||
                         parent.isHeadersOrPathVariablesOrInternalsPresent() ||
                         parent.isParamEntriesPresent()) {
-                    final boolean extracted = extractValidators(environmentContext, result, parent, new HashSet<>(), false);
+                    final boolean extracted = extractValidators(environmentContext, result, parent, new HashSet<>());
                     if (extracted) {
                         childrenAdded = true;
                     }
@@ -94,7 +93,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                 // Generate empty validator for child class that has parent validators!
                 result.add(
                         new ModelValidatorClassStructure.Builder(environmentContext.getCurrentModule(), objectModelClass)
-                                .build(false)
+                                .build()
                 );
             }
         }
@@ -104,8 +103,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
     private boolean extractValidators(final EnvironmentContext environmentContext,
                                       final Set<ModelValidatorClassStructure> result,
                                       final RestObjectModelClass objectModelClass,
-                                      final Set<ModelValidatorClassStructure> childrenValidators,
-                                      final boolean optional) {
+                                      final Set<ModelValidatorClassStructure> childrenValidators) {
         final ModelValidatorClassStructure.Builder builder =
                 new ModelValidatorClassStructure.Builder(environmentContext.getCurrentModule(), objectModelClass);
         extractPrimitiveValidators(objectModelClass, builder);
@@ -114,7 +112,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
         if (builder.isValidatorsNotFound()) {
             return false;
         } else {
-            final ModelValidatorClassStructure classStructure = builder.build(optional);
+            final ModelValidatorClassStructure classStructure = builder.build();
             result.add(classStructure);
             childrenValidators.add(classStructure);
             return true;
@@ -142,8 +140,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                         environmentContext,
                         result,
                         e.getValue().asObject(),
-                        builder.getChildrenValidators(),
-                        e.getKey().hasAnnotation(Nullable.class)));
+                        builder.getChildrenValidators()));
     }
 
     private void extractObjectIterableChildValidators(final EnvironmentContext environmentContext,
@@ -156,8 +153,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                         environmentContext,
                         result,
                         (RestObjectModelClass) e.getValue().asIterable().getElementModelClass(),
-                        builder.getChildrenValidators(),
-                        e.getKey().hasAnnotation(Nullable.class)));
+                        builder.getChildrenValidators()));
     }
 
     private void extractFieldValidators(final ModelValidatorClassStructure.Builder builder,

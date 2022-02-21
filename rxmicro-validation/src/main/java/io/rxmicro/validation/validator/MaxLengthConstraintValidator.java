@@ -44,16 +44,14 @@ public class MaxLengthConstraintValidator extends AbstractMaxConstraintValidator
     }
 
     @Override
-    public void validate(final String value,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (value != null) {
-            final int actual = value.length();
-            validateMaxValue(
-                    maxValue, inclusive, actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected that 'string length' <= ?, where 'string length' is '?'!",
-                    "Invalid ? \"?\": Expected that 'string length' < ?, where 'string length' is '?'!"
-            );
-        }
+    public void validateNonNull(final String value,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final int actual = value.length();
+        validateMaxValue(
+                maxValue, inclusive, actual, httpModelType, modelName,
+                "Invalid ? \"?\": Expected that 'string length' <= ?, where 'string length' is '?'!",
+                "Invalid ? \"?\": Expected that 'string length' < ?, where 'string length' is '?'!"
+        );
     }
 }

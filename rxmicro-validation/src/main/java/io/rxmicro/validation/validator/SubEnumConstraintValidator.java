@@ -66,10 +66,10 @@ public class SubEnumConstraintValidator<T extends Enum<T>> implements Constraint
     }
 
     @Override
-    public void validate(final T actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null && !allowed.contains(actual.name())) {
+    public void validateNonNull(final T actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        if (!allowed.contains(actual.name())) {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a value from the set ?, but actual is '?'!",
                     httpModelType, modelName, allowed, actual

@@ -35,8 +35,15 @@ public class RequiredSetConstraintValidator implements ConstraintValidator<Set<?
     public void validate(final Set<?> actual,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (actual.isEmpty()) {
+        if (actual == null || actual.isEmpty()) {
             throw new ValidationException("? \"?\" is required!", httpModelType, modelName);
         }
+    }
+
+    @Override
+    public void validateNonNull(final Set<?> actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        validate(actual, httpModelType, modelName);
     }
 }

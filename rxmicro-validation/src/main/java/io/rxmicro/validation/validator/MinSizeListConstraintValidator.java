@@ -52,16 +52,14 @@ public class MinSizeListConstraintValidator extends AbstractContainerConstraintV
     }
 
     @Override
-    public void validate(final List<?> values,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (values != null) {
-            final int actual = values.size();
-            validateMinValue(
-                    minValue, inclusive, actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected that array length >= ?, but actual is ?. (array: " + values + ")!",
-                    "Invalid ? \"?\": Expected that array length > ?, but actual is ?. (array: " + values + ")!"
-            );
-        }
+    public void validateNonNull(final List<?> values,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final int actual = values.size();
+        validateMinValue(
+                minValue, inclusive, actual, httpModelType, modelName,
+                "Invalid ? \"?\": Expected that array length >= ?, but actual is ?. (array: " + values + ")!",
+                "Invalid ? \"?\": Expected that array length > ?, but actual is ?. (array: " + values + ")!"
+        );
     }
 }

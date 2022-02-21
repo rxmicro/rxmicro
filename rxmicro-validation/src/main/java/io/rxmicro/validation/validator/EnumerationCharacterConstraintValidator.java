@@ -46,10 +46,10 @@ public class EnumerationCharacterConstraintValidator implements ConstraintValida
     }
 
     @Override
-    public void validate(final Character actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null && !allowed.contains(actual)) {
+    public void validateNonNull(final Character actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        if (!allowed.contains(actual)) {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a value from the set ?, but actual is '?' (0x?)!",
                     httpModelType, modelName, allowed, actual, Integer.toHexString(actual)

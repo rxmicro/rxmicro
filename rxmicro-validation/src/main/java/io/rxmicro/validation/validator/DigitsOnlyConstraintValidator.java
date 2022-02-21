@@ -30,18 +30,16 @@ import io.rxmicro.validation.ConstraintValidator;
 public class DigitsOnlyConstraintValidator implements ConstraintValidator<String> {
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null) {
-            for (int i = 0; i < actual.length(); i++) {
-                final char ch = actual.charAt(i);
-                if (ch < '0' || ch > '9') {
-                    throw new ValidationException("Invalid ? \"?\": " +
-                            "Expected a string with digits only, " +
-                            "but actual value contains invalid character: '?' (0x?)!",
-                            httpModelType, modelName, ch, Integer.toHexString(ch));
-                }
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        for (int i = 0; i < actual.length(); i++) {
+            final char ch = actual.charAt(i);
+            if (ch < '0' || ch > '9') {
+                throw new ValidationException("Invalid ? \"?\": " +
+                        "Expected a string with digits only, " +
+                        "but actual value contains invalid character: '?' (0x?)!",
+                        httpModelType, modelName, ch, Integer.toHexString(ch));
             }
         }
     }

@@ -32,17 +32,15 @@ import java.time.Instant;
 public class FutureInstantConstraintValidator implements ConstraintValidator<Instant> {
 
     @Override
-    public void validate(final Instant actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null) {
-            final Instant now = Instant.now();
-            if (actual.compareTo(now) <= 0) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected a future instant, but actual is '?' (now is '?')!",
-                        httpModelType, modelName, actual, now
-                );
-            }
+    public void validateNonNull(final Instant actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final Instant now = Instant.now();
+        if (actual.compareTo(now) <= 0) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected a future instant, but actual is '?' (now is '?')!",
+                    httpModelType, modelName, actual, now
+            );
         }
     }
 }

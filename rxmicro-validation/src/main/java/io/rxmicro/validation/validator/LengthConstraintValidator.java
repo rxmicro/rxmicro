@@ -41,17 +41,15 @@ public class LengthConstraintValidator implements ConstraintValidator<String> {
     }
 
     @Override
-    public void validate(final String value,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (value != null) {
-            final int actual = value.length();
-            if (expectedLength != actual) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected ? characters, but actual is ?!",
-                        httpModelType, modelName, expectedLength, actual
-                );
-            }
+    public void validateNonNull(final String value,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final int actual = value.length();
+        if (expectedLength != actual) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected ? characters, but actual is ?!",
+                    httpModelType, modelName, expectedLength, actual
+            );
         }
     }
 }

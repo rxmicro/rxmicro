@@ -55,30 +55,28 @@ public class TruncatedTimeInstantConstraintValidator extends AbstractDateTimeEqu
     }
 
     @Override
-    public void validate(final Instant actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null) {
-            final long instantMillis = actual.toEpochMilli();
-            if (truncated == MILLIS) {
-                if (!isTruncatedToMillis(instantMillis)) {
-                    throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "milli seconds", actual);
-                }
-            } else if (truncated == SECONDS) {
-                if (!isTruncatedToSeconds(instantMillis)) {
-                    throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "seconds", actual);
-                }
-            } else if (truncated == MINUTES) {
-                if (!isTruncatedToMinutes(instantMillis)) {
-                    throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "minutes", actual);
-                }
-            } else if (truncated == HOURS) {
-                if (!isTruncatedToHour(instantMillis)) {
-                    throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "hours", actual);
-                }
-            } else {
-                throw new ImpossibleException("Unsupported truncated: ?", truncated);
+    public void validateNonNull(final Instant actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final long instantMillis = actual.toEpochMilli();
+        if (truncated == MILLIS) {
+            if (!isTruncatedToMillis(instantMillis)) {
+                throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "milli seconds", actual);
             }
+        } else if (truncated == SECONDS) {
+            if (!isTruncatedToSeconds(instantMillis)) {
+                throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "seconds", actual);
+            }
+        } else if (truncated == MINUTES) {
+            if (!isTruncatedToMinutes(instantMillis)) {
+                throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "minutes", actual);
+            }
+        } else if (truncated == HOURS) {
+            if (!isTruncatedToHour(instantMillis)) {
+                throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "hours", actual);
+            }
+        } else {
+            throw new ImpossibleException("Unsupported truncated: ?", truncated);
         }
     }
 

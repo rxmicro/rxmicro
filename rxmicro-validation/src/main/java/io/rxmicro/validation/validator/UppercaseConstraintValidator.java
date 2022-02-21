@@ -30,18 +30,16 @@ import io.rxmicro.validation.ConstraintValidator;
 public class UppercaseConstraintValidator implements ConstraintValidator<String> {
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null) {
-            for (int i = 0; i < actual.length(); i++) {
-                final char ch = actual.charAt(i);
-                if (Character.isLetter(ch) && !Character.isUpperCase(ch)) {
-                    throw new ValidationException(
-                            "Invalid ? \"?\": Expected an uppercase string, but actual is '?'!",
-                            httpModelType, modelName, actual
-                    );
-                }
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        for (int i = 0; i < actual.length(); i++) {
+            final char ch = actual.charAt(i);
+            if (Character.isLetter(ch) && !Character.isUpperCase(ch)) {
+                throw new ValidationException(
+                        "Invalid ? \"?\": Expected an uppercase string, but actual is '?'!",
+                        httpModelType, modelName, actual
+                );
             }
         }
     }

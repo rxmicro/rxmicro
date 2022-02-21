@@ -43,17 +43,15 @@ public class SizeListConstraintValidator extends AbstractContainerConstraintVali
     }
 
     @Override
-    public void validate(final List<?> value,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (value != null) {
-            final int actual = value.size();
-            if (actual != expectedSize) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected array length = ?, but actual is ?. (array: ?)!",
-                        httpModelType, modelName, expectedSize, actual, value
-                );
-            }
+    public void validateNonNull(final List<?> value,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final int actual = value.size();
+        if (actual != expectedSize) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected array length = ?, but actual is ?. (array: ?)!",
+                    httpModelType, modelName, expectedSize, actual, value
+            );
         }
     }
 }

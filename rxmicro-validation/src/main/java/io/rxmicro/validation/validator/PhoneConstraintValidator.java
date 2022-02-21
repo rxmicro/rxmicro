@@ -52,10 +52,10 @@ public class PhoneConstraintValidator implements ConstraintValidator<String> {
     }
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null && actual.length() > 0) {
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        if (actual.length() > 0) {
             final String validValue = allowsSpaces ? actual.trim() : actual;
             validatePlusChar(validValue, httpModelType, modelName, withoutPlus);
             validateDigitsOnly(validValue, httpModelType, modelName);

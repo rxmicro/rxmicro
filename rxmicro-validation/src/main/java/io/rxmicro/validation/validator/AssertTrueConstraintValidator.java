@@ -30,10 +30,10 @@ import io.rxmicro.validation.ConstraintValidator;
 public class AssertTrueConstraintValidator implements ConstraintValidator<Boolean> {
 
     @Override
-    public void validate(final Boolean actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null && !actual) {
+    public void validateNonNull(final Boolean actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        if (!actual) {
             throw new ValidationException("Invalid ? \"?\": Expected 'true', but actual is 'false'!", httpModelType, modelName);
         }
     }

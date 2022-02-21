@@ -35,8 +35,15 @@ public class RequiredMapConstraintValidator implements ConstraintValidator<Map<?
     public void validate(final Map<?, ?> map,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (map.isEmpty()) {
+        if (map == null || map.isEmpty()) {
             throw new ValidationException("? \"?\" is required!", httpModelType, modelName);
         }
+    }
+
+    @Override
+    public void validateNonNull(final Map<?, ?> actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        validate(actual, httpModelType, modelName);
     }
 }

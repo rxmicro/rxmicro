@@ -43,17 +43,15 @@ public class SizeSetConstraintValidator extends AbstractContainerConstraintValid
     }
 
     @Override
-    public void validate(final Set<?> value,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (value != null) {
-            final int actual = value.size();
-            if (actual != expectedSize) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected array length = ?, but actual is ?. (array: ?)!",
-                        httpModelType, modelName, expectedSize, actual, value
-                );
-            }
+    public void validateNonNull(final Set<?> value,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final int actual = value.size();
+        if (actual != expectedSize) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected array length = ?, but actual is ?. (array: ?)!",
+                    httpModelType, modelName, expectedSize, actual, value
+            );
         }
     }
 }

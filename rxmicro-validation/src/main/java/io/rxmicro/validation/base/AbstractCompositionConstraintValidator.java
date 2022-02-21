@@ -42,9 +42,9 @@ public abstract class AbstractCompositionConstraintValidator<T> implements Const
     }
 
     @Override
-    public final void validate(final T actual,
-                               final HttpModelType httpModelType,
-                               final String modelName) {
+    public final void validateNonNull(final T actual,
+                                      final HttpModelType httpModelType,
+                                      final String modelName) {
         for (final ConstraintValidator<T> validator : validators) {
             validator.validate(actual, httpModelType, modelName);
         }

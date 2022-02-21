@@ -62,8 +62,6 @@ public final class ModelValidatorClassStructure extends ClassStructure
 
     private final ModuleElement moduleElement;
 
-    private final boolean optional;
-
     private final ClassHeader.Builder classHeaderBuilder;
 
     private final RestObjectModelClass modelClass;
@@ -79,7 +77,6 @@ public final class ModelValidatorClassStructure extends ClassStructure
     private ModelValidatorClassStructure parent;
 
     private ModelValidatorClassStructure(final ModuleElement moduleElement,
-                                         final boolean optional,
                                          final ClassHeader.Builder classHeaderBuilder,
                                          final RestObjectModelClass modelClass,
                                          final List<ModelValidatorCreator> modelValidatorCreators,
@@ -87,7 +84,6 @@ public final class ModelValidatorClassStructure extends ClassStructure
                                          final Set<String> stdValidatorClassImports,
                                          final Set<ModelValidatorClassStructure> childrenValidators) {
         this.moduleElement = moduleElement;
-        this.optional = optional;
         this.classHeaderBuilder = classHeaderBuilder;
         this.modelClass = require(modelClass);
         this.modelValidatorCreators = require(modelValidatorCreators);
@@ -125,7 +121,6 @@ public final class ModelValidatorClassStructure extends ClassStructure
     public Map<String, Object> getTemplateVariables() {
         final Map<String, Object> map = new LinkedHashMap<>();
         map.put("JAVA_MODEL_CLASS", modelClass);
-        map.put("OPTIONAL", optional);
         map.put("JAVA_MODEL_VALIDATOR_CREATORS", modelValidatorCreators);
         map.put("JAVA_MODEL_VALIDATOR_INVOKERS", modelFieldValidatorsInvokers);
         map.put("JAVA_MODEL_VALIDATOR_CHILDREN", childrenValidators);
@@ -277,10 +272,9 @@ public final class ModelValidatorClassStructure extends ClassStructure
             }
         }
 
-        public ModelValidatorClassStructure build(final boolean optional) {
+        public ModelValidatorClassStructure build() {
             return new ModelValidatorClassStructure(
                     moduleElement,
-                    optional,
                     classHeaderBuilder, modelClass,
                     Stream.concat(
                             stateLessValidatorMap.values().stream(),

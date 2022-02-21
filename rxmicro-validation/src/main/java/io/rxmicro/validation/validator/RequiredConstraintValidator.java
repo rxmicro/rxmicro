@@ -42,6 +42,13 @@ public class RequiredConstraintValidator implements ConstraintValidator<Object> 
         }
     }
 
+    @Override
+    public void validateNonNull(final Object actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        // do nothing
+    }
+
     // These methods fix the following compilation error:
     // incompatible types: java.util.List<T> cannot be converted to java.lang.Iterable<java.lang.Object>
     // incompatible types: java.util.Map<String, T> cannot be converted to java.util.Map<String, java.lang.Object>

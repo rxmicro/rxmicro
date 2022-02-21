@@ -62,10 +62,10 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
     }
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null && actual.length() > 0) {
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        if (actual.length() > 0) {
             if (versions.size() == 1) {
                 if (versions.contains(IP_V4)) {
                     validateIPv4(actual, httpModelType, modelName);

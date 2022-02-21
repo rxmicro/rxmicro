@@ -52,16 +52,14 @@ public class MaxSizeSetConstraintValidator extends AbstractContainerConstraintVa
     }
 
     @Override
-    public void validate(final Set<?> values,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (values != null) {
-            final int actual = values.size();
-            validateMaxValue(
-                    maxValue, inclusive, actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected that array length <= ?, but actual is ?. (array: " + values + ")!",
-                    "Invalid ? \"?\": Expected that array length < ?, but actual is ?. (array: " + values + ")!"
-            );
-        }
+    public void validateNonNull(final Set<?> values,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final int actual = values.size();
+        validateMaxValue(
+                maxValue, inclusive, actual, httpModelType, modelName,
+                "Invalid ? \"?\": Expected that array length <= ?, but actual is ?. (array: " + values + ")!",
+                "Invalid ? \"?\": Expected that array length < ?, but actual is ?. (array: " + values + ")!"
+        );
     }
 }

@@ -32,21 +32,19 @@ import java.net.URISyntaxException;
 public class URIConstraintValidator implements ConstraintValidator<String> {
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null) {
-            try {
-                new java.net.URI(actual);
-            } catch (final URISyntaxException ex) {
-                // The RxMicro team supposes that business logic code does not use not recommended @AllowEmptyString annotation,
-                // so empty string for URI value is unlikely
-                if (actual.length() > 0) {
-                    throw new ValidationException(
-                            "Invalid ? \"?\": Expected a valid URL, but actual is '?'. Error message is '?'!",
-                            httpModelType, modelName, actual, ex.getMessage()
-                    );
-                }
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        try {
+            new java.net.URI(actual);
+        } catch (final URISyntaxException ex) {
+            // The RxMicro team supposes that business logic code does not use not recommended @AllowEmptyString annotation,
+            // so empty string for URI value is unlikely
+            if (actual.length() > 0) {
+                throw new ValidationException(
+                        "Invalid ? \"?\": Expected a valid URL, but actual is '?'. Error message is '?'!",
+                        httpModelType, modelName, actual, ex.getMessage()
+                );
             }
         }
     }

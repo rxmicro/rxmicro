@@ -43,17 +43,15 @@ public class SizeMapConstraintValidator extends AbstractContainerConstraintValid
     }
 
     @Override
-    public void validate(final Map<?, ?> map,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (map != null) {
-            final int actual = map.size();
-            if (actual != expectedSize) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected ? object property(ies), but actual is ?. (object: ?)!",
-                        httpModelType, modelName, expectedSize, actual, map
-                );
-            }
+    public void validateNonNull(final Map<?, ?> map,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final int actual = map.size();
+        if (actual != expectedSize) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected ? object property(ies), but actual is ?. (object: ?)!",
+                    httpModelType, modelName, expectedSize, actual, map
+            );
         }
     }
 }

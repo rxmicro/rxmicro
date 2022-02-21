@@ -41,10 +41,10 @@ public final class StartsWithConstraintValidator implements ConstraintValidator<
     }
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null && !actual.startsWith(prefix)) {
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        if (!actual.startsWith(prefix)) {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected that value starts with '?' prefix, but actual is '?'!",
                     httpModelType, modelName, prefix, actual

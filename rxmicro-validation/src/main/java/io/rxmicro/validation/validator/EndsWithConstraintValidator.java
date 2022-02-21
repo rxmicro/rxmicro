@@ -41,10 +41,10 @@ public final class EndsWithConstraintValidator implements ConstraintValidator<St
     }
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null && !actual.endsWith(suffix)) {
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        if (!actual.endsWith(suffix)) {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected that value ends with '?' suffix, but actual is '?'!",
                     httpModelType, modelName, suffix, actual

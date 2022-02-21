@@ -46,10 +46,10 @@ public class EnumerationStringConstraintValidator implements ConstraintValidator
     }
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null && !allowed.contains(actual)) {
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        if (!allowed.contains(actual)) {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a value from the set ?, but actual is '?'!",
                     httpModelType, modelName, allowed, actual

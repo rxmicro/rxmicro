@@ -51,18 +51,16 @@ public class MinSizeMapConstraintValidator extends AbstractContainerConstraintVa
     }
 
     @Override
-    public void validate(final Map<?, ?> map,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (map != null) {
-            final int actual = map.size();
-            validateMinValue(
-                    minValue, inclusive, actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected ? min supported object property(ies) (inclusive), " +
-                            "but actual is ?. (object: " + map + ")!",
-                    "Invalid ? \"?\": Expected ? min supported object property(ies) (exclusive), " +
-                            "but actual is ?. (object: " + map + ")!"
-            );
-        }
+    public void validateNonNull(final Map<?, ?> map,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final int actual = map.size();
+        validateMinValue(
+                minValue, inclusive, actual, httpModelType, modelName,
+                "Invalid ? \"?\": Expected ? min supported object property(ies) (inclusive), " +
+                        "but actual is ?. (object: " + map + ")!",
+                "Invalid ? \"?\": Expected ? min supported object property(ies) (exclusive), " +
+                        "but actual is ?. (object: " + map + ")!"
+        );
     }
 }

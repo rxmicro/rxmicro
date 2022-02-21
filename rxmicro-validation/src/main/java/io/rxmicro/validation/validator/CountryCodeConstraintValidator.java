@@ -59,9 +59,9 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
     }
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
         constraintValidator.validate(actual, httpModelType, modelName);
     }
 

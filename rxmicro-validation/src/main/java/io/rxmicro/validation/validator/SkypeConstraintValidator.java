@@ -29,9 +29,9 @@ import io.rxmicro.validation.ConstraintValidator;
 public class SkypeConstraintValidator implements ConstraintValidator<String> {
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
         // do nothing. It seems that skype name can contains any symbols
     }
 }

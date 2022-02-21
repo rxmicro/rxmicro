@@ -42,9 +42,28 @@ public interface ConstraintValidator<T> {
      * @param modelName     the parameter or header name
      * @throws ValidationException if actual does not pass the constraint
      */
-    void validate(T actual,
-                  HttpModelType httpModelType,
-                  String modelName);
+    default void validate(T actual,
+                          HttpModelType httpModelType,
+                          String modelName) {
+        if (actual != null) {
+            validateNonNull(actual, httpModelType, modelName);
+        }
+    }
+
+    /**
+     * Validates the single not null actual.
+     *
+     * <p>
+     * The state of the {@code actual} must not be altered.
+     *
+     * @param actual        the actual value to validate
+     * @param httpModelType the http model type
+     * @param modelName     the parameter or header name
+     * @throws ValidationException if actual does not pass the constraint
+     */
+    void validateNonNull(T actual,
+                         HttpModelType httpModelType,
+                         String modelName);
 
     /**
      * Validates the root model.

@@ -70,15 +70,13 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
     protected abstract String getName();
 
     @Override
-    public final void validate(final String actual,
-                               final HttpModelType httpModelType,
-                               final String modelName) {
-        if (actual != null) {
-            final int lastIndex = actual.length() - 1;
-            if (lastIndex >= 0) {
-                // If actual is not empty string
-                validateActual(actual, httpModelType, modelName, lastIndex);
-            }
+    public final void validateNonNull(final String actual,
+                                      final HttpModelType httpModelType,
+                                      final String modelName) {
+        final int lastIndex = actual.length() - 1;
+        if (lastIndex >= 0) {
+            // If actual is not empty string
+            validateActual(actual, httpModelType, modelName, lastIndex);
         }
     }
 

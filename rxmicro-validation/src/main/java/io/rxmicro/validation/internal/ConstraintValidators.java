@@ -32,21 +32,19 @@ public final class ConstraintValidators {
                                                                   final String modelName,
                                                                   final String inclusiveErrorMessageTemplate,
                                                                   final String exclusiveErrorMessageTemplate) {
-        if (actual != null) {
-            if (inclusive) {
-                if (actual.compareTo(maxValue) > 0) {
-                    throw new ValidationException(
-                            inclusiveErrorMessageTemplate,
-                            httpModelType, modelName, maxValue, actual
-                    );
-                }
-            } else {
-                if (actual.compareTo(maxValue) >= 0) {
-                    throw new ValidationException(
-                            exclusiveErrorMessageTemplate,
-                            httpModelType, modelName, maxValue, actual
-                    );
-                }
+        if (inclusive) {
+            if (actual.compareTo(maxValue) > 0) {
+                throw new ValidationException(
+                        inclusiveErrorMessageTemplate,
+                        httpModelType, modelName, maxValue, actual
+                );
+            }
+        } else {
+            if (actual.compareTo(maxValue) >= 0) {
+                throw new ValidationException(
+                        exclusiveErrorMessageTemplate,
+                        httpModelType, modelName, maxValue, actual
+                );
             }
         }
     }
@@ -58,21 +56,19 @@ public final class ConstraintValidators {
                                                                   final String modelName,
                                                                   final String inclusiveErrorMessageTemplate,
                                                                   final String exclusiveErrorMessageTemplate) {
-        if (actual != null) {
-            if (inclusive) {
-                if (actual.compareTo(minValue) < 0) {
-                    throw new ValidationException(
-                            inclusiveErrorMessageTemplate,
-                            httpModelType, modelName, minValue, actual
-                    );
-                }
-            } else {
-                if (actual.compareTo(minValue) <= 0) {
-                    throw new ValidationException(
-                            exclusiveErrorMessageTemplate,
-                            httpModelType, modelName, minValue, actual
-                    );
-                }
+        if (inclusive) {
+            if (actual.compareTo(minValue) < 0) {
+                throw new ValidationException(
+                        inclusiveErrorMessageTemplate,
+                        httpModelType, modelName, minValue, actual
+                );
+            }
+        } else {
+            if (actual.compareTo(minValue) <= 0) {
+                throw new ValidationException(
+                        exclusiveErrorMessageTemplate,
+                        httpModelType, modelName, minValue, actual
+                );
             }
         }
     }

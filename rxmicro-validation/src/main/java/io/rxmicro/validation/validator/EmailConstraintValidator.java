@@ -74,15 +74,13 @@ public final class EmailConstraintValidator implements ConstraintValidator<Strin
     }
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null) {
-            final int lastIndex = actual.length() - 1;
-            if (lastIndex >= 0) {
-                // If actual is not empty string
-                validateActual(actual, httpModelType, modelName, lastIndex);
-            }
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final int lastIndex = actual.length() - 1;
+        if (lastIndex >= 0) {
+            // If actual is not empty string
+            validateActual(actual, httpModelType, modelName, lastIndex);
         }
     }
 

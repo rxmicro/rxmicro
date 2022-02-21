@@ -37,4 +37,11 @@ public final class NotEmptyStringConstraintValidator implements ConstraintValida
             throw new ValidationException("Invalid ? \"?\": Empty string is not valid value!", httpModelType, modelName);
         }
     }
+
+    @Override
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        validate(actual, httpModelType, modelName);
+    }
 }

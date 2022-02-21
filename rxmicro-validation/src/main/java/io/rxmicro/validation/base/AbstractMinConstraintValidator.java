@@ -63,9 +63,9 @@ public abstract class AbstractMinConstraintValidator<T extends Comparable<T>> {
      * @param modelName     the parameter or header name
      * @throws ValidationException if actual does not pass the constraint
      */
-    public final void validate(final T actual,
-                               final HttpModelType httpModelType,
-                               final String modelName) {
+    public final void validateNonNull(final T actual,
+                                      final HttpModelType httpModelType,
+                                      final String modelName) {
         validateMinValue(
                 minValue, inclusive, actual, httpModelType, modelName,
                 "Invalid ? \"?\": Expected that value >= ?, but actual is ?!",

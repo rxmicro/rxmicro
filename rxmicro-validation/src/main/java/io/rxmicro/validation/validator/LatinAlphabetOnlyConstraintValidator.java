@@ -52,18 +52,16 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
     }
 
     @Override
-    public void validate(final String actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null) {
-            for (int i = 0; i < actual.length(); i++) {
-                final char ch = actual.charAt(i);
-                if (!alphabet.contains(ch)) {
-                    throw new ValidationException("Invalid ? \"?\": " +
-                            "Expected a string which contains the following characters only [[?]], " +
-                            "but actual value contains invalid character: '?' (0x?)!",
-                            httpModelType, modelName, alphabetToString(), ch, Integer.toHexString(ch));
-                }
+    public void validateNonNull(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        for (int i = 0; i < actual.length(); i++) {
+            final char ch = actual.charAt(i);
+            if (!alphabet.contains(ch)) {
+                throw new ValidationException("Invalid ? \"?\": " +
+                        "Expected a string which contains the following characters only [[?]], " +
+                        "but actual value contains invalid character: '?' (0x?)!",
+                        httpModelType, modelName, alphabetToString(), ch, Integer.toHexString(ch));
             }
         }
     }

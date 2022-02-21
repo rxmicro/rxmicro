@@ -34,17 +34,15 @@ import java.util.Set;
 public class UniqueItemsListConstraintValidator extends AbstractContainerConstraintValidator<List<?>> {
 
     @Override
-    public void validate(final List<?> actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null) {
-            final Set<?> set = new HashSet<>(actual);
-            if (set.size() != actual.size()) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected unique array items, but actual is ?!",
-                        httpModelType, modelName, actual
-                );
-            }
+    public void validateNonNull(final List<?> actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        final Set<?> set = new HashSet<>(actual);
+        if (set.size() != actual.size()) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected unique array items, but actual is ?!",
+                    httpModelType, modelName, actual
+            );
         }
     }
 }

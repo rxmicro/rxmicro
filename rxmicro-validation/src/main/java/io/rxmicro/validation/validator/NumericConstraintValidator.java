@@ -54,16 +54,14 @@ public class NumericConstraintValidator implements ConstraintValidator<BigDecima
     }
 
     @Override
-    public void validate(final BigDecimal actual,
-                         final HttpModelType httpModelType,
-                         final String modelName) {
-        if (actual != null) {
-            if (expectedScale != -1) {
-                validateScale(actual, httpModelType, modelName);
-            }
-            if (expectedPrecision != -1) {
-                validatePrecision(actual, httpModelType, modelName);
-            }
+    public void validateNonNull(final BigDecimal actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        if (expectedScale != -1) {
+            validateScale(actual, httpModelType, modelName);
+        }
+        if (expectedPrecision != -1) {
+            validatePrecision(actual, httpModelType, modelName);
         }
     }
 
