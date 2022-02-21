@@ -87,6 +87,16 @@ public final class WaitFor {
     public static final String WAIT_FOR_TYPE_PARAM_NAME = "type";
 
     /**
+     * Wait for delimiter character.
+     */
+    public static final String WAIT_FOR_DELIMITER = "&";
+
+    /**
+     * Wait for param prefix.
+     */
+    public static final String WAIT_FOR_PARAM_PREFIX = "--";
+
+    /**
      * Default wait for type: {@code tcp-socket}.
      */
     public static final String WAIT_FOR_TCP_SOCKET_TYPE_NAME = "tcp-socket";

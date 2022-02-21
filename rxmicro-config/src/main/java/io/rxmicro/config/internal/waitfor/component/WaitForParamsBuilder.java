@@ -21,11 +21,15 @@ import io.rxmicro.config.internal.waitfor.model.Params;
 
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import static io.rxmicro.config.WaitFor.WAIT_FOR_DELIMITER;
+import static io.rxmicro.config.WaitFor.WAIT_FOR_PARAM_PREFIX;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_TCP_SOCKET_TYPE_NAME;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_TIMEOUT;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_TIMEOUT_DEFAULT_VALUE_IN_SECONDS;
@@ -38,28 +42,32 @@ import static java.util.Map.entry;
  */
 public final class WaitForParamsBuilder {
 
-    private static final String DESTINATION = "destination";
+    static final String DESTINATION = "destination";
 
-    public static Params buildWaitForParams(final List<String> paramsList) {
-        final Map<String, String> paramsMap = getParamsMap(paramsList);
-        return new Params(
-                paramsMap.getOrDefault(WAIT_FOR_TYPE_PARAM_NAME, WAIT_FOR_TCP_SOCKET_TYPE_NAME),
-                getTimeout(paramsMap),
-                Optional.ofNullable(paramsMap.get(DESTINATION)).orElseThrow(() -> {
-                    throw new ConfigException("Expected destination. For example: java Main.class wait-for localhost:8080");
-                })
-        );
+    public static List<Params> buildWaitForParams(final List<String> paramsList) {
+        final List<Map<String, String>> groupedParams = buildGroupedParams(paramsList);
+        return groupedParams.stream()
+                .map(paramsMap -> new Params(
+                        paramsMap.getOrDefault(WAIT_FOR_TYPE_PARAM_NAME, WAIT_FOR_TCP_SOCKET_TYPE_NAME),
+                        getTimeout(paramsMap),
+                        Optional.ofNullable(paramsMap.get(DESTINATION)).orElseThrow(() -> {
+                            throw new ConfigException("Expected destination. For example: java Main.class wait-for localhost:8080");
+                        })
+                ))
+                .collect(Collectors.toList());
     }
 
-    private static Map<String, String> getParamsMap(final List<String> params) {
-        if (params.isEmpty()) {
-            return Map.of();
-        } else {
-            final Map<String, String> map = new HashMap<>();
-            for (final String param : params) {
-                final String key;
-                final String value;
-                if (param.startsWith("--")) {
+    private static List<Map<String, String>> buildGroupedParams(final List<String> params) {
+        final List<Map<String, String>> groupedParams = new ArrayList<>();
+        Map<String, String> currentMap = new HashMap<>();
+        for (final String param : params) {
+            final String key;
+            final String value;
+            if (WAIT_FOR_DELIMITER.equals(param)) {
+                groupedParams.add(currentMap);
+                currentMap = new HashMap<>();
+            } else {
+                if (param.startsWith(WAIT_FOR_PARAM_PREFIX)) {
                     final Map.Entry<String, String> entry = parseParam(param);
                     key = entry.getKey();
                     value = entry.getValue();
@@ -67,7 +75,7 @@ public final class WaitForParamsBuilder {
                     key = DESTINATION;
                     value = param;
                 }
-                final String oldValue = map.put(key, value);
+                final String oldValue = currentMap.put(key, value);
                 if (oldValue != null) {
                     throw new ConfigException(
                             "Detected a duplicate of parameter: name=?, value1=?, value2=?",
@@ -75,8 +83,11 @@ public final class WaitForParamsBuilder {
                     );
                 }
             }
-            return map;
         }
+        if (!currentMap.isEmpty()) {
+            groupedParams.add(currentMap);
+        }
+        return groupedParams;
     }
 
     private static Map.Entry<String, String> parseParam(final String param) {

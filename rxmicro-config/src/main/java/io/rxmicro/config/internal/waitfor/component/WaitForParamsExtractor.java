@@ -27,7 +27,9 @@ import java.util.Optional;
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_COMMAND_LINE_ARG;
+import static io.rxmicro.config.WaitFor.WAIT_FOR_DELIMITER;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME;
+import static io.rxmicro.config.WaitFor.WAIT_FOR_PARAM_PREFIX;
 import static java.lang.System.lineSeparator;
 
 /**
@@ -63,7 +65,7 @@ public final class WaitForParamsExtractor {
             while (iterator.hasNext()) {
                 final String next = iterator.next();
                 result.add(next);
-                if (!next.startsWith("--")) {
+                if (!next.startsWith(WAIT_FOR_PARAM_PREFIX) && !next.contains(":") && !WAIT_FOR_DELIMITER.equals(next)) {
                     break;
                 }
             }

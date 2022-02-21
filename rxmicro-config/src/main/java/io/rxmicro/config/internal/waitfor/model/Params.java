@@ -49,4 +49,12 @@ public final class Params {
     public String getDestination() {
         return destination;
     }
+
+    @Override
+    public String toString() {
+        return "Params{" + "type='" + type + '\'' +
+                ", timeout=" + timeout +
+                ", destination='" + destination + '\'' +
+                '}';
+    }
 }

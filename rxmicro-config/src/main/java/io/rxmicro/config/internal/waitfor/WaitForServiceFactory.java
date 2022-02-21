@@ -17,6 +17,7 @@
 package io.rxmicro.config.internal.waitfor;
 
 import io.rxmicro.config.ConfigException;
+import io.rxmicro.config.internal.waitfor.impl.CompositeWaitForService;
 import io.rxmicro.config.internal.waitfor.impl.TcpSocketWaitForService;
 import io.rxmicro.config.internal.waitfor.model.Params;
 import io.rxmicro.logger.Logger;
@@ -24,6 +25,7 @@ import io.rxmicro.logger.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static io.rxmicro.config.WaitFor.WAIT_FOR_TCP_SOCKET_TYPE_NAME;
 import static io.rxmicro.config.internal.waitfor.component.WaitForParamsBuilder.buildWaitForParams;
@@ -43,12 +45,24 @@ public final class WaitForServiceFactory {
             LOGGER.warn("wait-for is not configured");
             return Optional.empty();
         } else {
-            final Params params = buildWaitForParams(paramsList);
-            if (WAIT_FOR_TCP_SOCKET_TYPE_NAME.equals(params.getType())) {
-                return Optional.of(new TcpSocketWaitForService(params));
+            final List<Params> params = buildWaitForParams(paramsList);
+            if (params.size() == 1) {
+                return Optional.of(build(params.get(0)));
             } else {
-                throw new ConfigException("Unsupported type: '?'!", params.getType());
+                return Optional.of(
+                        new CompositeWaitForService(
+                                params.stream().map(WaitForServiceFactory::build).collect(Collectors.toList())
+                        )
+                );
             }
+        }
+    }
+
+    private static WaitForService build(final Params params) {
+        if (WAIT_FOR_TCP_SOCKET_TYPE_NAME.equals(params.getType())) {
+            return new TcpSocketWaitForService(params);
+        } else {
+            throw new ConfigException("Unsupported type: '?'!", params.getType());
         }
     }
 
