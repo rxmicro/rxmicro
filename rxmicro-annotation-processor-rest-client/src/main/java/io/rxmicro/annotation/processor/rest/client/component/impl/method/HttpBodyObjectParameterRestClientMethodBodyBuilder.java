@@ -23,6 +23,7 @@ import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
 import io.rxmicro.exchange.json.detail.ModelToJsonConverter;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
+import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.util.Map;
 import javax.lang.model.element.TypeElement;
@@ -60,7 +61,10 @@ public final class HttpBodyObjectParameterRestClientMethodBodyBuilder
 
     @Override
     protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder) {
-        classHeaderBuilder.addImports(HeaderBuilder.class);
+        classHeaderBuilder.addImports(
+                HeaderBuilder.class,
+                QueryBuilder.class
+        );
     }
 
     @Override

@@ -24,6 +24,13 @@ headerBuilder.add("${HEADER.key}", ${HEADER.value});
 ${EXTRACTOR}.extract(${MODEL}, headerBuilder);
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
+<#if QUERY_PARAMS?has_content>
+final QueryBuilder queryBuilder = new QueryBuilder();
+<#list QUERY_PARAMS as PARAM>
+queryBuilder.add("${PARAM.key}", ${PARAM.value});
+</#list>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
 <#if HAS_BODY>
 final Object body = ${REQUEST_CONVERTER}.toJson(${MODEL});
 </#if>
@@ -31,19 +38,36 @@ final Object body = ${REQUEST_CONVERTER}.toJson(${MODEL});
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#if HAS_BODY>
-<#if HAS_MODEL_HEADERS || HEADERS?has_content>
+<#if (HAS_MODEL_HEADERS || HEADERS?has_content) && (HAS_MODEL_QUERY_PARAMS || QUERY_PARAMS?has_content)>
+final CompletableFuture<HttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", joinPath(path, queryBuilder.build()), headerBuilder.build(), body)
+        .handle(throwExceptionIfNotSuccess());
+<#elseif HAS_MODEL_HEADERS || HEADERS?has_content>
 final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", path, headerBuilder.build(), body)
+        .handle(throwExceptionIfNotSuccess());
+<#elseif HAS_MODEL_QUERY_PARAMS || QUERY_PARAMS?has_content>
+final CompletableFuture<HttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", joinPath(path, queryBuilder.build()), EMPTY_HEADERS, body)
         .handle(throwExceptionIfNotSuccess());
 <#else>
 final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", path, EMPTY_HEADERS, body)
         .handle(throwExceptionIfNotSuccess());
 </#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
-<#if HAS_MODEL_HEADERS || HEADERS?has_content>
+<#if (HAS_MODEL_HEADERS || HEADERS?has_content) && (HAS_MODEL_QUERY_PARAMS || QUERY_PARAMS?has_content)>
+final CompletableFuture<HttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", joinPath(path, queryBuilder.build()), headerBuilder.build())
+        .handle(throwExceptionIfNotSuccess());
+<#elseif HAS_MODEL_HEADERS || HEADERS?has_content>
 final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", path, headerBuilder.build())
+        .handle(throwExceptionIfNotSuccess());
+<#elseif HAS_MODEL_QUERY_PARAMS || QUERY_PARAMS?has_content>
+final CompletableFuture<HttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
         .handle(throwExceptionIfNotSuccess());
 <#else>
 final CompletableFuture<HttpResponse> response = client
