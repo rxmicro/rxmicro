@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.cdi;
 import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.cdi.component.BeanWithInjectionsClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.component.BeanWithoutInjectionsClassStructureBuilder;
+import io.rxmicro.annotation.processor.cdi.component.FactoryBeanClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.model.BeanFactoryImplClassStructure;
 import io.rxmicro.annotation.processor.cdi.model.BeanSupplierClassStructure;
 import io.rxmicro.annotation.processor.common.CommonDependenciesModule;
@@ -27,6 +28,7 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClass
 import io.rxmicro.annotation.processor.common.model.CDIUsageCandidateClassStructure;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.cdi.Factory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,6 +54,9 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
     @Inject
     private BeanWithoutInjectionsClassStructureBuilder beanWithoutInjectionsClassStructureBuilder;
 
+    @Inject
+    private FactoryBeanClassStructureBuilder factoryBeanClassStructureBuilder;
+
     public static CDIClassStructuresBuilder create() {
         final CDIClassStructuresBuilder builder = new CDIClassStructuresBuilder();
         injectDependencies(
@@ -73,22 +78,35 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
-        return INJECT_ANNOTATIONS.stream().map(Class::getName).collect(toSet());
+        return Stream
+                .concat(
+                        INJECT_ANNOTATIONS.stream(),
+                        Stream.of(Factory.class)
+                )
+                .map(Class::getName)
+                .collect(toSet());
     }
 
+    @SuppressWarnings("CollectionAddAllCanBeReplacedWithConstructor")
     @Override
     public Set<? extends ClassStructure> buildClassStructures(final EnvironmentContext environmentContext,
                                                               final Set<? extends TypeElement> annotations,
                                                               final RoundEnvironment roundEnv) {
+        final Set<BeanSupplierClassStructure> beanSupplierClassStructures = new HashSet<>();
+
         final Set<BeanSupplierClassStructure> beanWithInjectionsClassStructures =
                 beanWithInjectionsClassStructureBuilder.build(environmentContext, annotations, roundEnv);
+        beanSupplierClassStructures.addAll(beanWithInjectionsClassStructures);
+
         final Set<BeanSupplierClassStructure> beanWithoutInjectionsClassStructures =
                 beanWithoutInjectionsClassStructureBuilder.build(environmentContext, beanWithInjectionsClassStructures);
-        logAllFoundBeanSuppliers(beanWithInjectionsClassStructures, beanWithoutInjectionsClassStructures);
-
-        final Set<BeanSupplierClassStructure> beanSupplierClassStructures = new HashSet<>();
-        beanSupplierClassStructures.addAll(beanWithInjectionsClassStructures);
         beanSupplierClassStructures.addAll(beanWithoutInjectionsClassStructures);
+
+        final Set<BeanSupplierClassStructure> factoryBeanClassStructures =
+                factoryBeanClassStructureBuilder.build(environmentContext, beanSupplierClassStructures, roundEnv);
+        beanSupplierClassStructures.addAll(factoryBeanClassStructures);
+
+        logAllFoundBeanSuppliers(beanWithInjectionsClassStructures, beanWithoutInjectionsClassStructures, factoryBeanClassStructures);
 
         beanDefinitionTypes = beanSupplierClassStructures.stream()
                 .map(s -> s.getBeanDefinition().getBeanTypeElement().asType().toString())
@@ -102,10 +120,12 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
     }
 
     private void logAllFoundBeanSuppliers(final Set<BeanSupplierClassStructure> beanWithInjectionsClassStructures,
-                                          final Set<BeanSupplierClassStructure> beanWithoutInjectionsClassStructures) {
+                                          final Set<BeanSupplierClassStructure> beanWithoutInjectionsClassStructures,
+                                          final Set<BeanSupplierClassStructure> factoryBeanClassStructures) {
         if (isDebugEnabled()) {
             logClassStructureStorageItem("bean with injection(s) supplier(s)", beanWithInjectionsClassStructures);
             logClassStructureStorageItem("bean without injection(s) supplier(s)", beanWithoutInjectionsClassStructures);
+            logClassStructureStorageItem("factory bean supplier(s)", factoryBeanClassStructures);
         }
     }
 

@@ -27,10 +27,12 @@ import io.rxmicro.annotation.processor.cdi.model.BeanSupplierClassStructure;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.cdi.Factory;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
@@ -101,7 +103,7 @@ abstract class AbstractBeanDefinitionClassStructureBuilder {
         );
     }
 
-    protected final Optional<Map.Entry<ExecutableElement, TypeElement>> getFactoryClassEntry(final TypeElement beanTypeElement) {
+    final Optional<Map.Entry<ExecutableElement, TypeElement>> getFactoryClassEntry(final TypeElement beanTypeElement) {
         final boolean result = beanTypeElement.getAnnotation(Factory.class) != null;
         if (result) {
             final TypeMirror supplierType = findSuperType(beanTypeElement, Supplier.class).orElseThrow(() -> {
@@ -126,6 +128,23 @@ abstract class AbstractBeanDefinitionClassStructureBuilder {
         } else {
             return Optional.empty();
         }
+    }
+
+    @SuppressWarnings("ConfusingArgumentToVarargsMethod")
+    final TypeElement getOwnerType(final Element element,
+                                   final List<Class<? extends Annotation>> annotations) {
+        Element ownerType = element;
+        while (ownerType != null) {
+            if (ownerType instanceof TypeElement) {
+                return (TypeElement) ownerType;
+            }
+            ownerType = ownerType.getEnclosingElement();
+        }
+        throw new InterruptProcessingException(
+                element,
+                "Can't find class element for @? annotation!",
+                annotations.stream().map(Class::getSimpleName).toArray(String[]::new)
+        );
     }
 
     private void validate(final TypeElement beanTypeElement,

@@ -25,6 +25,7 @@ import io.rxmicro.annotation.processor.cdi.component.BeanWithoutInjectionsClassS
 import io.rxmicro.annotation.processor.cdi.component.ConstructorInjectionPointBuilder;
 import io.rxmicro.annotation.processor.cdi.component.ConverterClassResolver;
 import io.rxmicro.annotation.processor.cdi.component.DefaultNameBuilder;
+import io.rxmicro.annotation.processor.cdi.component.FactoryBeanClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.component.FactoryMethodFinder;
 import io.rxmicro.annotation.processor.cdi.component.FieldOrMethodInjectionPointBuilder;
 import io.rxmicro.annotation.processor.cdi.component.InjectionPointTypeBuilder;
@@ -37,6 +38,7 @@ import io.rxmicro.annotation.processor.cdi.component.impl.BeanWithInjectionsClas
 import io.rxmicro.annotation.processor.cdi.component.impl.BeanWithoutInjectionsClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.ConstructorInjectionPointBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.DefaultNameBuilderImpl;
+import io.rxmicro.annotation.processor.cdi.component.impl.FactoryBeanClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.FactoryMethodFinderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.FieldOrMethodInjectionPointBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.InjectionPointTypeBuilderImpl;
@@ -58,6 +60,11 @@ public final class CDIDependenciesModule extends AbstractModule {
     protected void configure() {
         bind(BeanWithInjectionsClassStructureBuilder.class)
                 .to(BeanWithInjectionsClassStructureBuilderImpl.class);
+        bind(BeanWithoutInjectionsClassStructureBuilder.class)
+                .to(BeanWithoutInjectionsClassStructureBuilderImpl.class);
+        bind(FactoryBeanClassStructureBuilder.class)
+                .to(FactoryBeanClassStructureBuilderImpl.class);
+
         bind(ConstructorInjectionPointBuilder.class)
                 .to(ConstructorInjectionPointBuilderImpl.class);
         bind(FieldOrMethodInjectionPointBuilder.class)
@@ -66,8 +73,6 @@ public final class CDIDependenciesModule extends AbstractModule {
                 .to(InjectionPointTypeBuilderImpl.class);
         bind(PostConstructMethodFinder.class)
                 .to(PostConstructMethodFinderImpl.class);
-        bind(BeanWithoutInjectionsClassStructureBuilder.class)
-                .to(BeanWithoutInjectionsClassStructureBuilderImpl.class);
         bind(FactoryMethodFinder.class)
                 .to(FactoryMethodFinderImpl.class);
         bind(UserDefinedNameBuilder.class)
