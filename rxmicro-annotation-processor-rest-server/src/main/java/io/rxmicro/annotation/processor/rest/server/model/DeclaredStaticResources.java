@@ -21,6 +21,7 @@ import io.rxmicro.rest.server.detail.model.mapping.resource.UrlPathMatchTemplate
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
@@ -46,9 +47,9 @@ public final class DeclaredStaticResources {
                                    final Map<UrlPathMatchTemplate, String> customTemplateResourceMapping,
                                    final Collection<String> exactResourcePaths,
                                    final Map<String, String> customExactResourceMapping) {
-        this.resourcePathTemplates = unmodifiableList(resourcePathTemplates);
+        this.resourcePathTemplates = unmodifiableList(new TreeSet<>(resourcePathTemplates));
         this.customTemplateResourceMapping = unmodifiableOrderedMap(customTemplateResourceMapping);
-        this.exactResourcePaths = unmodifiableList(exactResourcePaths);
+        this.exactResourcePaths = unmodifiableList(new TreeSet<>(exactResourcePaths));
         this.customExactResourceMapping = unmodifiableOrderedMap(customExactResourceMapping);
     }
 
