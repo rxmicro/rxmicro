@@ -30,7 +30,7 @@ import javax.lang.model.element.ModuleElement;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointPackage;
-import static io.rxmicro.rest.server.detail.component.CustomExceptionServerModelWriters.CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME;
+import static io.rxmicro.rest.server.detail.component.CustomExceptionServerModelWriters.CUSTOM_EXCEPTION_MODEL_WRITERS_CLASS_NAME;
 
 /**
  * @author nedis
@@ -51,7 +51,7 @@ public final class CustomExceptionServerModelWritersCustomizerClassStructure ext
 
     @Override
     public String getTargetFullClassName() {
-        return getEntryPointFullClassName(moduleElement, CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME);
+        return getEntryPointFullClassName(moduleElement, CUSTOM_EXCEPTION_MODEL_WRITERS_CLASS_NAME);
     }
 
     @Override
@@ -67,7 +67,7 @@ public final class CustomExceptionServerModelWritersCustomizerClassStructure ext
     @Override
     public Map<String, Object> getTemplateVariables() {
         final Map<String, Object> map = new HashMap<>();
-        map.put("CLASS_NAME", CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME);
+        map.put("CLASS_NAME", CUSTOM_EXCEPTION_MODEL_WRITERS_CLASS_NAME);
         map.put("ENVIRONMENT_CUSTOMIZER_CLASS", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
         map.put("CUSTOM_EXCEPTION_MODEL_WRITERS", customExceptionModelWriters);
         return map;
@@ -76,7 +76,7 @@ public final class CustomExceptionServerModelWritersCustomizerClassStructure ext
     @Override
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder builder = ClassHeader.newClassHeaderBuilder(getEntryPointPackage(moduleElement))
-                .addStaticImport(CustomExceptionServerModelWriters.class, "CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME")
+                .addStaticImport(CustomExceptionServerModelWriters.class, "CUSTOM_EXCEPTION_MODEL_WRITERS_CLASS_NAME")
                 .addStaticImport(CustomExceptionServerModelWriters.class, "registerCustomExceptionServerModelWriter")
                 .addStaticImport(Configs.class, "getConfig")
                 .addImports(RestServerConfig.class);

@@ -13,8 +13,8 @@ import io.rxmicro.rest.server.detail.model.mapping.resource.StartsWithAndSingleP
 import java.util.List;
 import java.util.Map;
 
-import static io.rxmicro.rest.server.detail.component.CustomExceptionServerModelWriters.CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME;
-import static io.rxmicro.runtime.detail.ChildrenInitializer.invokeAllStaticSections;
+import static io.rxmicro.rest.server.detail.component.CustomExceptionServerModelWriters.CUSTOM_EXCEPTION_MODEL_WRITERS_CLASS_NAME;
+import static io.rxmicro.runtime.detail.ChildrenInitHelper.invokeAllStaticSections;
 import static java.util.Map.entry;
 
 /**
@@ -24,7 +24,7 @@ public final class $$RestControllerAggregatorImpl extends RestControllerAggregat
 
     static {
         $$EnvironmentCustomizer.customize();
-        invokeAllStaticSections(null, CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME);
+        invokeAllStaticSections(null, CUSTOM_EXCEPTION_MODEL_WRITERS_CLASS_NAME);
     }
 
     @Override

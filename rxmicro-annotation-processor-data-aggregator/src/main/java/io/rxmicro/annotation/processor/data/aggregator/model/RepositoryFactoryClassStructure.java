@@ -28,7 +28,7 @@ import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.data.RepositoryFactory;
 import io.rxmicro.data.mongo.detail.MongoRepositoryFactory;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLRepositoryFactory;
-import io.rxmicro.runtime.detail.ChildrenInitializer;
+import io.rxmicro.runtime.detail.ChildrenInitHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,7 +112,7 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
         final ClassHeader.Builder builder = newClassHeaderBuilder(getEntryPointPackage(environmentContext.getCurrentModule()))
                 .addImports(RepositoryFactory.class)
                 .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
-                .addStaticImport(ChildrenInitializer.class, "invokeAllStaticSections")
+                .addStaticImport(ChildrenInitHelper.class, "invokeAllStaticSections")
                 .addStaticImport(RepositoryFactory.class, "REPOSITORY_FACTORY_IMPL_CLASS_NAME");
         addRepositoryImports(
                 builder, mongoRepositories, MongoRepositoryFactory.class, "createMongoRepository");

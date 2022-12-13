@@ -4,7 +4,7 @@ public final class ${IMPL_CLASS_NAME} extends RestControllerAggregator {
 
     static {
         ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
-        invokeAllStaticSections(null, CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME);
+        invokeAllStaticSections(null, CUSTOM_EXCEPTION_MODEL_WRITERS_CLASS_NAME);
     }
 
     @Override

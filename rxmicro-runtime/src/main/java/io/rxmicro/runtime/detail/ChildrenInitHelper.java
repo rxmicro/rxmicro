@@ -28,7 +28,7 @@ import static io.rxmicro.runtime.detail.RxMicroRuntime.getEntryPointFullClassNam
  * @author nedis
  * @since 0.10
  */
-public final class ChildrenInitializer {
+public final class ChildrenInitHelper {
 
     private static final Set<String> INITIALIZED_CLASSES = new HashSet<>();
 
@@ -52,12 +52,9 @@ public final class ChildrenInitializer {
                     return false;
                 } else if (excludedModule != null) {
                     return !m.getName().equals(excludedModule.getName());
-                } else {
-                    return true;
                 }
-            } else {
-                return true;
             }
+            return true;
         };
         return ModuleLayer.boot().modules().stream()
                 .filter(predicate)
@@ -68,6 +65,6 @@ public final class ChildrenInitializer {
         INITIALIZED_CLASSES.clear();
     }
 
-    private ChildrenInitializer() {
+    private ChildrenInitHelper() {
     }
 }

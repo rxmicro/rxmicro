@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.reflection.ReflectionConstants;
-import io.rxmicro.runtime.detail.ChildrenInitializer;
+import io.rxmicro.runtime.detail.ChildrenInitHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -79,7 +79,7 @@ public final class EnvironmentCustomizerClassStructure extends ClassStructure {
         return newClassHeaderBuilder(packageName)
                 .addStaticImport(ReflectionConstants.class, "RX_MICRO_REFLECTION_MODULE")
                 .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
-                .addStaticImport(ChildrenInitializer.class, "invokeAllStaticSections")
+                .addStaticImport(ChildrenInitHelper.class, "invokeAllStaticSections")
                 .build();
     }
 }

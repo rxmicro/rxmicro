@@ -62,9 +62,9 @@ public final class SourceCodeResource extends BaseModel {
                 temp = resource;
             }
         }
-        String[] parts = temp.split("/");
+        final String[] parts = temp.split("/");
         final StringBuilder stringBuilder = new StringBuilder();
-        for (String part : parts) {
+        for (final String part : parts) {
             if (stringBuilder.length() > 0) {
                 stringBuilder.append('.');
             }

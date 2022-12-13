@@ -32,7 +32,7 @@ import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PR
  */
 public final class CustomExceptionServerModelWriters {
 
-    public static final String CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME =
+    public static final String CUSTOM_EXCEPTION_MODEL_WRITERS_CLASS_NAME =
             format("??Customizer", GENERATED_CLASS_NAME_PREFIX, CustomExceptionServerModelWriters.class.getSimpleName());
 
     private static final Map<Class<?>, CustomExceptionServerModelWriter<?>> REGISTERED_CUSTOM_EXCEPTION_WRITERS = new HashMap<>();

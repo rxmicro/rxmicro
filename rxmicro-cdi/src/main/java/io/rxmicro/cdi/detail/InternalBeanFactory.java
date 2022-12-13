@@ -104,8 +104,9 @@ public abstract class InternalBeanFactory extends BeanFactory {
         ).collect(toOrderedSet());
     }
 
+    @SafeVarargs
     private static <T> Optional<T> tryCreateBeanViaReflection(final Set<Class<T>> classes,
-                                                              final InstanceQualifier<? super T>[] instanceQualifiers) {
+                                                              final InstanceQualifier<? super T>... instanceQualifiers) {
         for (final Class<T> type : classes) {
             if (!type.isInterface() && !type.isEnum() && !type.isArray() && !type.isAnnotation()) {
                 final int modifiers = type.getModifiers();

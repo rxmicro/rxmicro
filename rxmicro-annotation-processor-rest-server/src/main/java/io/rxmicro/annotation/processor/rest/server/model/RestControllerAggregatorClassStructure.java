@@ -34,7 +34,7 @@ import io.rxmicro.rest.server.detail.model.CrossOriginResourceSharingResource;
 import io.rxmicro.rest.server.detail.model.HttpHealthCheckRegistration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 import io.rxmicro.rest.server.detail.model.mapping.resource.UrlPathMatchTemplate;
-import io.rxmicro.runtime.detail.ChildrenInitializer;
+import io.rxmicro.runtime.detail.ChildrenInitHelper;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -135,8 +135,8 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder classHeaderBuilder = ClassHeader.newClassHeaderBuilder(getEntryPointPackage(moduleElement))
                 .addImports(AbstractRestController.class, RestControllerAggregator.class, List.class)
-                .addStaticImport(ChildrenInitializer.class, "invokeAllStaticSections")
-                .addStaticImport(CustomExceptionServerModelWriters.class, "CUSTOM_EXCEPTION_MODEL_WRITERS_CUSTOMIZER_CLASS_NAME");
+                .addStaticImport(ChildrenInitHelper.class, "invokeAllStaticSections")
+                .addStaticImport(CustomExceptionServerModelWriters.class, "CUSTOM_EXCEPTION_MODEL_WRITERS_CLASS_NAME");
         if (!crossOriginResourceSharingResources.isEmpty()) {
             classHeaderBuilder.addImports(
                     Set.class,

@@ -101,7 +101,8 @@
             <property name="maximumAsserts" value="15"/>
         </properties>
     </rule>
-    <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert"/>
+    <!-- It seems that this rule can't detect assert or fail method that are defined in the parent class -->
+    <!-- rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert"/-->
 
     <!-- The RxMicro framework does not use JUnit4: -->
     <!-- rule ref="category/java/bestpractices.xml/JUnitUseExpected"/ -->

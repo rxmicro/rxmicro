@@ -78,7 +78,7 @@ public final class ClasspathResources {
     private static void readAll(final Set<String> resources,
                                 final String folder,
                                 final Predicate<String> resourcePredicate) {
-        URL resUrl = getResource(folder);
+        final URL resUrl = getResource(folder);
         if (resUrl != null) {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(resUrl.openStream(), UTF_8))) {
                 while (true) {

@@ -55,7 +55,7 @@ import java.util.Map;
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.clearEventLoopGroupFactory;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithoutRestControllers;
-import static io.rxmicro.runtime.detail.ChildrenInitializer.resetChildrenInitializer;
+import static io.rxmicro.runtime.detail.ChildrenInitHelper.resetChildrenInitializer;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.HttpServers.getRandomFreePort;

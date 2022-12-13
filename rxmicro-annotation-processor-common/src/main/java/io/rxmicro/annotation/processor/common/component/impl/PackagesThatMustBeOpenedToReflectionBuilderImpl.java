@@ -20,7 +20,6 @@ import io.rxmicro.annotation.processor.common.component.PackagesThatMustBeOpened
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.model.BaseModel;
-import io.rxmicro.runtime.detail.InstanceQualifier;
 
 import java.util.List;
 import java.util.Set;
@@ -62,7 +61,7 @@ public final class PackagesThatMustBeOpenedToReflectionBuilderImpl implements Pa
      * If cdi enabled, then any package can contain pojo class that can be used as bean.
      * For this case the RxMicro framework must create this bean via reflection.
      *
-     * @see io.rxmicro.cdi.detail.InternalBeanFactory#tryCreateBeanViaReflection(Set, InstanceQualifier[])
+     * @see io.rxmicro.cdi.detail.InternalBeanFactory#tryCreateBeanViaReflection(Set, io.rxmicro.runtime.detail.InstanceQualifier[])
      */
     private Set<String> getPackagesThatMustBeOpened(final EnvironmentContext environmentContext,
                                                     final ModuleElement currentModule) {

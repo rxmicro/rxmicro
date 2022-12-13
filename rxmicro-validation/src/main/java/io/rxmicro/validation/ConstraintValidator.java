@@ -32,25 +32,6 @@ import java.util.Map;
 public interface ConstraintValidator<T> {
 
     /**
-     * Validates the single actual.
-     *
-     * <p>
-     * The state of the {@code actual} must not be altered.
-     *
-     * @param actual        the actual value to validate
-     * @param httpModelType the http model type
-     * @param modelName     the parameter or header name
-     * @throws ValidationException if actual does not pass the constraint
-     */
-    default void validate(T actual,
-                          HttpModelType httpModelType,
-                          String modelName) {
-        if (actual != null) {
-            validateNonNull(actual, httpModelType, modelName);
-        }
-    }
-
-    /**
      * Validates the single not null actual.
      *
      * <p>
@@ -64,6 +45,25 @@ public interface ConstraintValidator<T> {
     void validateNonNull(T actual,
                          HttpModelType httpModelType,
                          String modelName);
+
+    /**
+     * Validates the single actual.
+     *
+     * <p>
+     * The state of the {@code actual} must not be altered.
+     *
+     * @param actual        the actual value to validate
+     * @param httpModelType the http model type
+     * @param modelName     the parameter or header name
+     * @throws ValidationException if actual does not pass the constraint
+     */
+    default void validate(final T actual,
+                          final HttpModelType httpModelType,
+                          final String modelName) {
+        if (actual != null) {
+            validateNonNull(actual, httpModelType, modelName);
+        }
+    }
 
     /**
      * Validates the root model.
