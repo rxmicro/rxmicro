@@ -19,9 +19,9 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new EmailConstraintValidator(false);
 
     @Override
-    public void validate(final $$VirtualRequest model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final $$VirtualRequest model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
         emailEmailEmailConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
     }

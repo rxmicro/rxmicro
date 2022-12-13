@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-module examples.cdi.ambiguty.resolving {
+module examples.cdi.ambiguty.resolving.impl.classname.and.Named.annotation {
     requires rxmicro.cdi;
 }

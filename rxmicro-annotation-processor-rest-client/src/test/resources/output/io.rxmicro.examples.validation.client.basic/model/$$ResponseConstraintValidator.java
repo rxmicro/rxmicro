@@ -19,9 +19,9 @@ public final class $$ResponseConstraintValidator implements ConstraintValidator<
             new EmailConstraintValidator(false);
 
     @Override
-    public void validate(final Response model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final Response model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
         emailEmailEmailConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
     }

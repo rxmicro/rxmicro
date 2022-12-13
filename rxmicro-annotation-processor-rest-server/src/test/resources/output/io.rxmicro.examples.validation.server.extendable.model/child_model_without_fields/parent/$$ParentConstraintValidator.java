@@ -23,9 +23,9 @@ public final class $$ParentConstraintValidator implements ConstraintValidator<Pa
             getStatelessValidator(UppercaseConstraintValidator.class);
 
     @Override
-    public void validate(final Parent model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final Parent model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         parentValidator.validate(model, httpModelType, name);
         requiredAndNotEmptyStringConstraintValidator.validate(model.parentParameter, HttpModelType.PARAMETER, "parentParameter");
         uppercaseConstraintValidator.validate(model.parentParameter, HttpModelType.PARAMETER, "parentParameter");

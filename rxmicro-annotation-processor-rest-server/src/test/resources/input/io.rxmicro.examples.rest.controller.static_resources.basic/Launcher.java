@@ -28,7 +28,7 @@ public final class Launcher {
     }
 
     public static void main(final String[] args) {
-        RxMicroRestServer.startRestServer(Launcher.class.getPackageName());
+        RxMicroRestServer.startRestServer(Launcher.class.getModule(), Launcher.class.getPackageName());
     }
 }
 

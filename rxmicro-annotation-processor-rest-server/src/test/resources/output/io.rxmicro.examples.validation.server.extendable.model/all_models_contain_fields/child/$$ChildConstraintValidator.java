@@ -23,9 +23,9 @@ public final class $$ChildConstraintValidator implements ConstraintValidator<Chi
             getStatelessValidator(UppercaseConstraintValidator.class);
 
     @Override
-    public void validate(final Child model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final Child model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         parentValidator.validate(model, httpModelType, name);
         requiredAndNotEmptyStringConstraintValidator.validate(model.childParameter, HttpModelType.PARAMETER, "childParameter");
         uppercaseConstraintValidator.validate(model.childParameter, HttpModelType.PARAMETER, "childParameter");

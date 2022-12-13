@@ -27,16 +27,14 @@ public final class ExpectedZeroConstraintValidator
         implements ConstraintValidator<BigDecimal> { // <1>
 
     @Override
-    public void validate(final BigDecimal value,
-                         final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
-        if (value != null) { // <2>
-            if (value.compareTo(BigDecimal.ZERO) != 0) { // <3>
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected a zero value!",
-                        httpModelType, modelName
-                );
-            }
+    public void validateNonNull(final BigDecimal value,
+                                final HttpModelType httpModelType,
+                                final String modelName) throws ValidationException {
+        if (value.compareTo(BigDecimal.ZERO) != 0) { // <2>
+            throw new ValidationException(
+                "Invalid ? \"?\": Expected a zero value!",
+                httpModelType, modelName
+            );
         }
     }
 

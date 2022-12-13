@@ -23,9 +23,9 @@ public final class $$ArrayRequestConstraintValidator implements ConstraintValida
             getStatelessValidator(RequiredConstraintValidator.class);
 
     @Override
-    public void validate(final ArrayRequest model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final ArrayRequest model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredListConstraintValidator.validate(model.nestedList, HttpModelType.PARAMETER, "nestedList");
         requiredConstraintValidator.validateIterable(model.nestedList, HttpModelType.PARAMETER, "nestedList");
         nestedConstraintValidator.validateIterable(model.nestedList, HttpModelType.PARAMETER, "nestedList");

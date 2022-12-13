@@ -29,9 +29,9 @@ public final class $$StringModelWithRequiredNonNullValidatorsOnlyConstraintValid
             new EnumerationStringConstraintValidator(List.of("yes", "no"));
 
     @Override
-    public void validate(final StringModelWithRequiredNonNullValidatorsOnly model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final StringModelWithRequiredNonNullValidatorsOnly model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredConstraintValidator.validate(model.allowEmptyString, HttpModelType.PARAMETER, "allowEmptyString");
 
         requiredConstraintValidator.validate(model.minLength, HttpModelType.PARAMETER, "minLength");

@@ -27,9 +27,9 @@ public final class $$PrimitiveStringListModelConstraintValidator implements Cons
             getStatelessValidator(RequiredConstraintValidator.class);
 
     @Override
-    public void validate(final PrimitiveStringListModel model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final PrimitiveStringListModel model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredListConstraintValidator.validate(model.requiredListWithNotEmptyItems, HttpModelType.PARAMETER, "requiredListWithNotEmptyItems");
         requiredAndNotEmptyStringConstraintValidator.validateIterable(model.requiredListWithNotEmptyItems, HttpModelType.PARAMETER, "requiredListWithNotEmptyItems");
 

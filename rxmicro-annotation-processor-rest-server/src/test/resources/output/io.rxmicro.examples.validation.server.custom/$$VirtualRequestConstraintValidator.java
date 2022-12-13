@@ -18,9 +18,9 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new io.rxmicro.examples.validation.server.custom.ExpectedZeroConstraintValidator();
 
     @Override
-    public void validate(final $$VirtualRequest model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final $$VirtualRequest model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredConstraintValidator.validate(model.value, HttpModelType.PARAMETER, "value");
         valueExpectedZeroExpectedZeroConstraintValidator.validate(model.value, HttpModelType.PARAMETER, "value");
     }

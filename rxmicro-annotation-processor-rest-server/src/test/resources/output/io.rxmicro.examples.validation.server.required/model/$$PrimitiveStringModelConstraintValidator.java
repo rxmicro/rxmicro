@@ -23,9 +23,9 @@ public final class $$PrimitiveStringModelConstraintValidator implements Constrai
             getStatelessValidator(RequiredConstraintValidator.class);
 
     @Override
-    public void validate(final PrimitiveStringModel model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final PrimitiveStringModel model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.requiredNotEmptyString, HttpModelType.PARAMETER, "requiredNotEmptyString");
 
         notEmptyStringConstraintValidator.validate(model.nullableString, HttpModelType.PARAMETER, "nullableString");

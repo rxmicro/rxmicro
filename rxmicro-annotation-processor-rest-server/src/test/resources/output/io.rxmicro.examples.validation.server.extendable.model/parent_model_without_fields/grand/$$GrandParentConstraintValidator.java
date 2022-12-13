@@ -19,9 +19,9 @@ public final class $$GrandParentConstraintValidator implements ConstraintValidat
             getStatelessValidator(UppercaseConstraintValidator.class);
 
     @Override
-    public void validate(final GrandParent model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final GrandParent model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.grandParameter, HttpModelType.PARAMETER, "grandParameter");
         uppercaseConstraintValidator.validate(model.grandParameter, HttpModelType.PARAMETER, "grandParameter");
     }

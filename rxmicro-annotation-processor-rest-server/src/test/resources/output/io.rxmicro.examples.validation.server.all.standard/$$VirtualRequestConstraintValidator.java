@@ -1041,9 +1041,9 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new LngConstraintValidator(LocationAccuracy.ACCURACY_1_CENTIMETER);
 
     @Override
-    public void validate(final $$VirtualRequest model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final $$VirtualRequest model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         notEmptyStringConstraintValidator.validate(model.optionalParameter, HttpModelType.PARAMETER, "optionalParameter");
 
         requiredConstraintValidator.validate(model.booleanParameter, HttpModelType.PARAMETER, "booleanParameter");

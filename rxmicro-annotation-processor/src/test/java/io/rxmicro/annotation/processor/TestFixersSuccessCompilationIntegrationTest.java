@@ -22,9 +22,8 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
 import javax.annotation.processing.Processor;
@@ -110,13 +109,8 @@ final class TestFixersSuccessCompilationIntegrationTest extends AbstractRxMicroA
     }
 
     @Order(1)
-    @ParameterizedTest
-    @ValueSource(strings = {
-            "io.rxmicro.examples.test.fixer.component",
-            "io.rxmicro.examples.test.fixer.microservice",
-            "io.rxmicro.examples.test.fixer.integration",
-    })
-    void Should_compile_successfully(final String packageName) throws IOException {
-        shouldCompileAndGenerateClassesSuccessfully(packageName);
+    @Test
+    void Should_compile_successfully() throws IOException {
+        shouldCompileAndGenerateClassesSuccessfully("io.rxmicro.examples.test.fixer");
     }
 }

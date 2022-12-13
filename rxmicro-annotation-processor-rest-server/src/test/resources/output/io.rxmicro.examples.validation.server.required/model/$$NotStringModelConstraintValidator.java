@@ -19,9 +19,9 @@ public final class $$NotStringModelConstraintValidator implements ConstraintVali
             getStatelessValidator(RequiredListConstraintValidator.class);
 
     @Override
-    public void validate(final NotStringModel model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final NotStringModel model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredConstraintValidator.validate(model.requiredPrimitive, HttpModelType.PARAMETER, "requiredPrimitive");
 
         requiredListConstraintValidator.validate(model.requiredListWithRequiredItems, HttpModelType.PARAMETER, "requiredListWithRequiredItems");

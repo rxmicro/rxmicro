@@ -15,9 +15,9 @@ public final class $$ResponseConstraintValidator implements ConstraintValidator<
             getStatelessValidator(RequiredAndNotEmptyStringConstraintValidator.class);
 
     @Override
-    public void validate(final Response model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final Response model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.message, HttpModelType.PARAMETER, "message");
     }
 }

@@ -13,9 +13,9 @@ public final class $$ChildConstraintValidator implements ConstraintValidator<Chi
             new $$ParentConstraintValidator();
 
     @Override
-    public void validate(final Child model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final Child model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         parentValidator.validate(model, httpModelType, name);
     }
 }

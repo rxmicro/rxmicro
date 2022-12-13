@@ -15,9 +15,9 @@ public final class $$StringModelWithRequiredAndNotEmptyValidatorsOnlyConstraintV
             getStatelessValidator(RequiredAndNotEmptyStringConstraintValidator.class);
 
     @Override
-    public void validate(final StringModelWithRequiredAndNotEmptyValidatorsOnly model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final StringModelWithRequiredAndNotEmptyValidatorsOnly model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.string, HttpModelType.PARAMETER, "string");
 
         requiredAndNotEmptyStringConstraintValidator.validate(model.minLength, HttpModelType.PARAMETER, "minLength");

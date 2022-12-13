@@ -19,9 +19,9 @@ public final class $$NestedConstraintValidator implements ConstraintValidator<Ne
             new PhoneConstraintValidator(true, false);
 
     @Override
-    public void validate(final Nested model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final Nested model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.phone, HttpModelType.PARAMETER, "phone");
         phonePhonePhoneConstraintValidator.validate(model.phone, HttpModelType.PARAMETER, "phone");
     }

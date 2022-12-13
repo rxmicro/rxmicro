@@ -19,9 +19,9 @@ public final class $$VirtualREST2Request4ConstraintValidator implements Constrai
             new EmailConstraintValidator(false);
 
     @Override
-    public void validate(final $$VirtualREST2Request4 model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final $$VirtualREST2Request4 model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
         emailEmailEmailConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
     }

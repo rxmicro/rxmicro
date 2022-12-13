@@ -19,9 +19,9 @@ public final class $$ObjectRequestConstraintValidator implements ConstraintValid
             getStatelessValidator(RequiredConstraintValidator.class);
 
     @Override
-    public void validate(final ObjectRequest model,
-                         final HttpModelType httpModelType,
-                         final String name) {
+    public void validateNonNull(final ObjectRequest model,
+                                final HttpModelType httpModelType,
+                                final String name) {
         requiredConstraintValidator.validate(model.nested, HttpModelType.PARAMETER, "nested");
         nestedConstraintValidator.validate(model.nested, HttpModelType.PARAMETER, "nested");
     }
