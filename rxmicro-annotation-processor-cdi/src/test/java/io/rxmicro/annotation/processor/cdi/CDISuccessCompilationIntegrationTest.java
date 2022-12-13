@@ -47,7 +47,6 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_SPI_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
-import static io.rxmicro.cdi.BeanFactory.BEAN_FACTORY_IMPL_CLASS_NAME;
 
 /**
  * @author nedis
@@ -56,10 +55,6 @@ import static io.rxmicro.cdi.BeanFactory.BEAN_FACTORY_IMPL_CLASS_NAME;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class CDISuccessCompilationIntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
-
-    public CDISuccessCompilationIntegrationTest() {
-        super(BEAN_FACTORY_IMPL_CLASS_NAME);
-    }
 
     @Override
     protected Processor createAnnotationProcessor() {
@@ -94,7 +89,6 @@ final class CDISuccessCompilationIntegrationTest extends AbstractRxMicroAnnotati
     @IncludeExample("io.rxmicro.examples.unnamed.module")
     @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
     void Should_compile_unnamed_module_successful(final String packageName) throws IOException {
-        addAggregator("$$EnvironmentCustomizer");
         addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
         shouldCompileAndGenerateClassesSuccessfully(packageName);
     }

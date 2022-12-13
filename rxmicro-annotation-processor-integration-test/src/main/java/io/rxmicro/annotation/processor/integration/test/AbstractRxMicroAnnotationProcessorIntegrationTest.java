@@ -36,10 +36,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -49,7 +46,6 @@ import javax.tools.JavaFileObject;
 import static com.google.testing.compile.CompilationSubject.assertThat;
 import static com.google.testing.compile.JavaFileObjects.forSourceLines;
 import static io.rxmicro.annotation.processor.integration.test.ClasspathResources.getOnlyChildrenAtTheFolder;
-import static io.rxmicro.annotation.processor.integration.test.ClasspathResources.getResourceContent;
 import static io.rxmicro.annotation.processor.integration.test.ClasspathResources.getResourcesAtTheFolderWithAllNestedOnes;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -71,8 +67,6 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
 
     private static final String PATH_ELEMENT_SEPARATOR = "/";
 
-    private final Map<String, String> aggregators;
-
     private final Set<ExternalModule> externalModules = new HashSet<>();
 
     public static String getInputAbsolutePath(final Class<?> clazz) {
@@ -92,22 +86,13 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
         }
     }
 
-    public AbstractRxMicroAnnotationProcessorIntegrationTest(final String... aggregatorSimpleClassName) {
+    public AbstractRxMicroAnnotationProcessorIntegrationTest() {
         super(
                 Arrays.stream(require(new File("..").list()))
                         .filter(module -> module.startsWith("rxmicro"))
                         .map(module -> "../" + module + "/target/classes")
                         .collect(toSet())
         );
-        /*FIXME: this.aggregators = Stream.concat(
-                Arrays.stream(aggregatorSimpleClassName),
-                Stream.of("$$Reflections")
-        ).collect(toMap(identity(), cl -> format("?.?", ENTRY_POINT_PACKAGE, cl)));*/
-        this.aggregators = Map.of();
-    }
-
-    protected final void addAggregator(final String name) {
-        //FIXME: this.aggregators.put(name, format("?.?", ENTRY_POINT_PACKAGE, name));
     }
 
     protected JavaFileObject moduleInfo(final Collection<RxMicroModule> rxMicroModules,
@@ -160,6 +145,26 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
     protected Compilation compileAllIn(final String packageName) {
         return compile(getResourcesAtTheFolderWithAllNestedOnes(INPUT + PATH_ELEMENT_SEPARATOR + packageName, r -> r.endsWith(".java")));
     }
+    
+    protected String getModuleName(final String packageName) {
+        Set<String> sourceCodes = getResourcesAtTheFolderWithAllNestedOnes(INPUT + PATH_ELEMENT_SEPARATOR + packageName, r -> r.endsWith(".java"));
+        for (String sourceCode : sourceCodes) {
+            if(sourceCode.contains("moduleinfo.java")) {
+                String content = ClasspathResources.getResourceContent(sourceCode);
+                String[] lines = content.split(System.lineSeparator());
+                for (String line : lines) {
+                    if (line.startsWith("module ")) {
+                        // Reads module name from module-info.java file:
+                        return line.replace("module", "")
+                            .replace("{", "")
+                            .trim();
+                    }
+                }
+                throw new IllegalStateException("Invalid content of the file: " + sourceCode);
+            }
+        }
+        return "unnamed-" + packageName;
+    }
 
     protected SourceCodeResource sourceCodeResource(final String resource) {
         if (resource.startsWith(OUTPUT)) {
@@ -169,42 +174,23 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
         }
     }
 
-    protected boolean withEnvironmentCustomizer() {
-        return true;
-    }
-
     private void assertAllGeneratedIn(final Compilation compilation,
                                       final String packageName) throws IOException {
-        final Set<SourceCodeResource> resources = getResourcesAtTheFolderWithAllNestedOnes(
-                OUTPUT + PATH_ELEMENT_SEPARATOR + packageName,
-                r -> r.endsWith(".java"))
-                .stream()
-                .map(this::sourceCodeResource)
-                .collect(toSet());
-        registerAllOverriddenSourceOutputs(resources);
-        if (withEnvironmentCustomizer()) {
-            // FIXME: resources.add(sourceCodeResource(format("?/?/$$EnvironmentCustomizer.java", OUTPUT, ENTRY_POINT_PACKAGE)));
-        }
+        final String moduleName = getModuleName(packageName);
         assertGenerated(
-                compilation,
-                resources.toArray(new SourceCodeResource[0])
+            compilation,
+            Stream.concat(
+                    getResourcesAtTheFolderWithAllNestedOnes(
+                        OUTPUT + PATH_ELEMENT_SEPARATOR + packageName,
+                        r -> r.endsWith(".java"))
+                        .stream(),
+                    getResourcesAtTheFolderWithAllNestedOnes(
+                        OUTPUT + PATH_ELEMENT_SEPARATOR + "rxmicro" + PATH_ELEMENT_SEPARATOR + moduleName,
+                        r -> r.endsWith(".java"))
+                        .stream()
+                )
+                .map(this::sourceCodeResource).distinct().toArray(SourceCodeResource[]::new)
         );
-    }
-
-    private void registerAllOverriddenSourceOutputs(final Set<SourceCodeResource> resources) {
-        final Iterator<SourceCodeResource> iterator = resources.iterator();
-        final Set<SourceCodeResource> toAdd = new HashSet<>();
-        while (iterator.hasNext()) {
-            final SourceCodeResource resource = iterator.next();
-            Optional.ofNullable(aggregators.get(resource.getSimpleClassName())).ifPresent(aggregatorFullClassName -> {
-                final String aggregatorResource =
-                        format("?/?.java", OUTPUT, aggregatorFullClassName.replace(".", PATH_ELEMENT_SEPARATOR));
-                registerOverriddenSourceOutput(aggregatorFullClassName, getResourceContent(resource.getOriginalClasspathResource()));
-                iterator.remove();
-                toAdd.add(sourceCodeResource(aggregatorResource));
-            });
-        }
-        resources.addAll(toAdd);
     }
 
     private static void validateIncludesAndExcludes(final Method method,

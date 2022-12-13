@@ -39,8 +39,6 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_RX_JAVA_3_MODULE;
-import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
-import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCustomizer.POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME;
 
 /**
  * @author nedis
@@ -49,10 +47,6 @@ import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCu
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class PostgreSQLDataRepositoriesSuccessCompilationIntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
-
-    public PostgreSQLDataRepositoriesSuccessCompilationIntegrationTest() {
-        super(REPOSITORY_FACTORY_IMPL_CLASS_NAME, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
-    }
 
     @Override
     protected Processor createAnnotationProcessor() {

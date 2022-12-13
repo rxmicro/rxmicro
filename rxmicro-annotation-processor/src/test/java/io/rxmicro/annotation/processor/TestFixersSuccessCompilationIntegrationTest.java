@@ -49,9 +49,6 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_SPI_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
-import static io.rxmicro.tool.common.TestFixers.COMPONENT_TEST_FIXER;
-import static io.rxmicro.tool.common.TestFixers.INTEGRATION_TEST_FIXER;
-import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FIXER;
 
 /**
  * @author nedis
@@ -61,22 +58,9 @@ import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FI
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class TestFixersSuccessCompilationIntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
 
-    public TestFixersSuccessCompilationIntegrationTest() {
-        super(
-                COMPONENT_TEST_FIXER,
-                REST_BASED_MICRO_SERVICE_TEST_FIXER,
-                INTEGRATION_TEST_FIXER
-        );
-    }
-
     @Override
     protected Processor createAnnotationProcessor() {
         return new RxMicroTestsAnnotationProcessor();
-    }
-
-    @Override
-    protected boolean withEnvironmentCustomizer() {
-        return false;
     }
 
     @BeforeEach

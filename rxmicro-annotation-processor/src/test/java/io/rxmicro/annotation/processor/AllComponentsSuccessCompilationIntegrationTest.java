@@ -45,10 +45,6 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_SPI_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
-import static io.rxmicro.cdi.BeanFactory.BEAN_FACTORY_IMPL_CLASS_NAME;
-import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
-import static io.rxmicro.rest.client.RestClientFactory.REST_CLIENT_FACTORY_IMPL_CLASS_NAME;
-import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
 
 /**
  * @author nedis
@@ -59,12 +55,6 @@ import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.R
 final class AllComponentsSuccessCompilationIntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
 
     public AllComponentsSuccessCompilationIntegrationTest() {
-        super(
-                REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME,
-                REST_CLIENT_FACTORY_IMPL_CLASS_NAME,
-                BEAN_FACTORY_IMPL_CLASS_NAME,
-                REPOSITORY_FACTORY_IMPL_CLASS_NAME
-        );
         addCompilerOption(RX_MICRO_LOG_LEVEL, LogLevel.DEBUG.name());
     }
 

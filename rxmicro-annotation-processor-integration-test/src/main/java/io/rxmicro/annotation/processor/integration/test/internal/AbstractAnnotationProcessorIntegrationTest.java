@@ -66,8 +66,6 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
 
     private final Set<String> modulePath;
 
-    private final Map<String, String> overriddenSourceOutput = new HashMap<>();
-
     protected AbstractAnnotationProcessorIntegrationTest(final Set<String> modulePath) {
         this.modulePath = modulePath;
     }
@@ -83,11 +81,6 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
     protected void addCompilerOption(final String name,
                                      final String value) {
         compilerOptions.put(name, value);
-    }
-
-    protected void registerOverriddenSourceOutput(final String sourceCode,
-                                                  final String content) {
-        overriddenSourceOutput.put(sourceCode, content);
     }
 
     protected abstract Processor createAnnotationProcessor();
@@ -149,15 +142,7 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
     private void assertGeneratedFile(final Compilation compilation,
                                      final SourceCodeResource expectedSourceCodeResource,
                                      final boolean useEqualsToInsteadOfEquivalentSource) throws IOException {
-        final JavaFileObject expectedJavaFileObject;
-        if (overriddenSourceOutput.containsKey(expectedSourceCodeResource.getFullClassName())) {
-            expectedJavaFileObject = forSourceString(
-                    expectedSourceCodeResource.getFullClassName() + ".java",
-                    overriddenSourceOutput.get(expectedSourceCodeResource.getFullClassName())
-            );
-        } else {
-            expectedJavaFileObject = JavaSources.forResource(expectedSourceCodeResource.getOriginalClasspathResource());
-        }
+        final JavaFileObject expectedJavaFileObject = JavaSources.forResource(expectedSourceCodeResource.getOriginalClasspathResource());
         final JavaFileObjectSubject javaFileObjectSubject =
                 assertThat(compilation)
                         .generatedSourceFile(expectedSourceCodeResource.getFullClassName());

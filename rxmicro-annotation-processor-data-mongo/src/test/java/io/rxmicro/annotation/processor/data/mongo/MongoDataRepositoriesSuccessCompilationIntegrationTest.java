@@ -39,7 +39,6 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_RX_JAVA_3_MODULE;
-import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
 
 /**
  * @author nedis
@@ -48,10 +47,6 @@ import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NA
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class MongoDataRepositoriesSuccessCompilationIntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
-
-    public MongoDataRepositoriesSuccessCompilationIntegrationTest() {
-        super(REPOSITORY_FACTORY_IMPL_CLASS_NAME);
-    }
 
     @Override
     protected Processor createAnnotationProcessor() {

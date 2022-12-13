@@ -35,7 +35,6 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_RX_JAVA_3_MODULE;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
-import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
 
 /**
  * @author nedis
@@ -44,10 +43,6 @@ import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.R
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class RestControllerFailedCompilationIntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
-
-    public RestControllerFailedCompilationIntegrationTest() {
-        super(REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);
-    }
 
     @Override
     protected Processor createAnnotationProcessor() {

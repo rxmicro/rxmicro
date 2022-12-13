@@ -16,13 +16,15 @@
 
 package io.rxmicro.annotation.processor.integration.test.internal;
 
+import io.rxmicro.model.BaseModel;
+
 import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public final class SourceCodeResource {
+public final class SourceCodeResource extends BaseModel {
 
     private static final String JAVA_EXTENSION_WITH_DOT = ".java";
 
@@ -60,15 +62,16 @@ public final class SourceCodeResource {
                 temp = resource;
             }
         }
+        String[] parts = temp.split("/");
         final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < temp.length(); i++) {
-            final char ch = temp.charAt(i);
-            if (ch == '/') {
-                if (stringBuilder.length() > 0) {
-                    stringBuilder.append('.');
-                }
+        for (String part : parts) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append('.');
+            }
+            if (part.startsWith("unnamed-")) {
+                stringBuilder.append("unnamed");
             } else {
-                stringBuilder.append(ch);
+                stringBuilder.append(part);
             }
         }
         return stringBuilder.toString();
@@ -107,5 +110,10 @@ public final class SourceCodeResource {
 
     public String getSimpleClassName() {
         return simpleClassName;
+    }
+
+    @Override
+    public String toString() {
+        return generatedClassNameSourceCodeFile;
     }
 }
