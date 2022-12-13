@@ -32,7 +32,6 @@ import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -79,23 +78,25 @@ public final class ClasspathResources {
     private static void readAll(final Set<String> resources,
                                 final String folder,
                                 final Predicate<String> resourcePredicate) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getResource(folder).openStream(), UTF_8))) {
-            while (true) {
-                final String line = br.readLine();
-                if (line == null) {
-                    break;
+        URL resUrl = getResource(folder);
+        if (resUrl != null) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(resUrl.openStream(), UTF_8))) {
+                while (true) {
+                    final String line = br.readLine();
+                    if (line == null) {
+                        break;
+                    }
+                    final String resource = normalize(folder + "/" + line);
+                    //If current resource is directory (i.e. resource with name without extension)
+                    if (line.indexOf('.') == -1) {
+                        readAll(resources, resource, resourcePredicate);
+                    } else if (resourcePredicate.test(resource)) {
+                        resources.add(resource);
+                    }
                 }
-                final String resource = normalize(folder + "/" + line);
-                //If current resource is directory (i.e. resource with name without extension)
-                if (line.indexOf('.') == -1) {
-                    readAll(resources, resource, resourcePredicate);
-                } else if (resourcePredicate.test(resource)) {
-                    resources.add(resource);
-                }
+            } catch (final IOException ex) {
+                throw new ResourceException(ex, "Can't read resources from folder: ?", folder);
             }
-
-        } catch (final IOException ex) {
-            throw new ResourceException(ex, "Can't read resources from folder: ?", folder);
         }
     }
 
@@ -111,7 +112,7 @@ public final class ClasspathResources {
                 return url;
             }
         }
-        throw new IllegalArgumentException(format("Classpath resource not found: '?'", resource));
+        return null;
     }
 
     private static String normalize(final String path) {
