@@ -31,7 +31,7 @@ public interface DeleteOneEntityUsingRequiredCompletionStageRepository {
     CompletionStage<Void> delete01(Account account);
 
     @Delete
-    CompletionStage<Integer> delete02(Account account);
+    CompletionStage<Long> delete02(Account account);
 
     @Delete
     CompletionStage<Boolean> delete03(Account account);

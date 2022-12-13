@@ -45,7 +45,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingRequiredCompletionStage
     }
 
     @Override
-    public CompletionStage<Integer> insert02(final String firstName, final String lastName) {
+    public CompletionStage<Long> insert02(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?)'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = {firstName, lastName};
@@ -56,7 +56,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingRequiredCompletionStage
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Long.class))))
                 .toFuture();
     }
 

@@ -43,7 +43,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingRequiredCompletionStage
     }
 
     @Override
-    public CompletionStage<Integer> delete02(final Long id) {
+    public CompletionStage<Long> delete02(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE id = ?'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return this.connectionFactory.create()
@@ -52,7 +52,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingRequiredCompletionStage
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Long.class))))
                 .toFuture();
     }
 

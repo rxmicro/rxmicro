@@ -31,11 +31,11 @@ public interface DataRepository {
 
     @ExpectedUpdatedRowsCount(1)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE email=?")
-    Mono<Integer> update01(String firstName, String lastName, String email);
+    Mono<Long> update01(String firstName, String lastName, String email);
 
     @ExpectedUpdatedRowsCount(1)
     @Update("UPDATE ${table} SET first_name='firstName', last_name='lastName' WHERE email='email'")
-    Mono<Integer> update02();
+    Mono<Long> update02();
 
     @ExpectedUpdatedRowsCount(1)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE email=? RETURNING *")

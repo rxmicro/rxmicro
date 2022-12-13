@@ -34,7 +34,7 @@ public interface InsertOneEntityFieldsUsingMonoRepository {
     Mono<Void> insert01(String firstName, String lastName);
 
     @Insert("INSERT INTO ${table}(first_name, last_name) VALUES(?,?)")
-    Mono<Integer> insert02(String firstName, String lastName);
+    Mono<Long> insert02(String firstName, String lastName);
 
     @Insert("INSERT INTO ${table}(first_name, last_name) VALUES(?,?)")
     Mono<Boolean> insert03(String firstName, String lastName);

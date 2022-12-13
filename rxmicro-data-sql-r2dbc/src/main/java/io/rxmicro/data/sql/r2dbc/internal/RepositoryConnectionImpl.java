@@ -21,12 +21,16 @@ import io.r2dbc.spi.Connection;
 import io.r2dbc.spi.ConnectionMetadata;
 import io.r2dbc.spi.IsolationLevel;
 import io.r2dbc.spi.Statement;
+import io.r2dbc.spi.TransactionDefinition;
 import io.r2dbc.spi.ValidationDepth;
 import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.logger.RequestIdSupplier;
+import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
+
+import java.time.Duration;
 
 /**
  * @author nedis
@@ -67,6 +71,22 @@ public final class RepositoryConnectionImpl implements RepositoryConnection {
                             getConnectionClassName(),
                             getConnectionId()
                     )
+            );
+        }
+        return mono;
+    }
+
+    @Override
+    public Publisher<Void> beginTransaction(final TransactionDefinition definition) {
+        final Mono<Void> mono = Mono.from(connection.beginTransaction(definition));
+        if (logger.isTraceEnabled()) {
+            return mono.doOnSuccess(s ->
+                logger.trace(
+                    this,
+                    "Transaction started using connection: class='?', id='?'.",
+                    getConnectionClassName(),
+                    getConnectionId()
+                )
             );
         }
         return mono;
@@ -233,6 +253,42 @@ public final class RepositoryConnectionImpl implements RepositoryConnection {
                             getConnectionClassName(),
                             getConnectionId()
                     )
+            );
+        } else {
+            return mono;
+        }
+    }
+
+    @Override
+    public Publisher<Void> setLockWaitTimeout(final Duration timeout) {
+        final Mono<Void> mono = Mono.from(connection.setLockWaitTimeout(timeout));
+        if (logger.isTraceEnabled()) {
+            return mono.doOnSuccess(s ->
+                logger.trace(
+                    this,
+                    "Lock wait timeout updated: timeout='?', class='?', id='?'.",
+                    timeout,
+                    getConnectionClassName(),
+                    getConnectionId()
+                )
+            );
+        } else {
+            return mono;
+        }
+    }
+
+    @Override
+    public Publisher<Void> setStatementTimeout(final Duration timeout) {
+        final Mono<Void> mono = Mono.from(connection.setStatementTimeout(timeout));
+        if (logger.isTraceEnabled()) {
+            return mono.doOnSuccess(s ->
+                logger.trace(
+                    this,
+                    "Statement timeout updated: timeout='?', class='?', id='?'.",
+                    timeout,
+                    getConnectionClassName(),
+                    getConnectionId()
+                )
             );
         } else {
             return mono;

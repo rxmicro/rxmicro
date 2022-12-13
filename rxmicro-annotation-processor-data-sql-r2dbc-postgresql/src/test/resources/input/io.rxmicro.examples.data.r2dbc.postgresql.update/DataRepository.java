@@ -36,7 +36,7 @@ public interface DataRepository {
     @VariableValues({
             "${table}", "account"
     })
-    CompletableFuture<Integer> update2(String firstName, String lastName, Long id);
+    CompletableFuture<Long> update2(String firstName, String lastName, Long id);
 
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE ${by-id-filter} RETURNING *")
     CompletableFuture<Account> update3(String firstName, String lastName, Long id);
@@ -46,7 +46,7 @@ public interface DataRepository {
                     "WHERE id = ?",
             entityClass = Account.class
     )
-    CompletableFuture<Integer> update4(String firstName, String lastName, Long id);
+    CompletableFuture<Long> update4(String firstName, String lastName, Long id);
 
     @Update(
             value = "UPDATE ${table} SET first_name=?, last_name=? " +

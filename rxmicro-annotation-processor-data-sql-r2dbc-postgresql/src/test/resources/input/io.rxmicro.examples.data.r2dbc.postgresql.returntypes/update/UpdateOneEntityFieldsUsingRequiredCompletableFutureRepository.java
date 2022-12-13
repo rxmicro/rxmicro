@@ -35,7 +35,7 @@ public interface UpdateOneEntityFieldsUsingRequiredCompletableFutureRepository {
     CompletableFuture<Void> update01(String firstName, String lastName, Long id);
 
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
-    CompletableFuture<Integer> update02(String firstName, String lastName, Long id);
+    CompletableFuture<Long> update02(String firstName, String lastName, Long id);
 
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
     CompletableFuture<Boolean> update03(String firstName, String lastName, Long id);

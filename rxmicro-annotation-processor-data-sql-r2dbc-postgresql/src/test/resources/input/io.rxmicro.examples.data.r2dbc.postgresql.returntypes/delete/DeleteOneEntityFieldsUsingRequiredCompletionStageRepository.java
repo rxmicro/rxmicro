@@ -35,7 +35,7 @@ public interface DeleteOneEntityFieldsUsingRequiredCompletionStageRepository {
     CompletionStage<Void> delete01(Long id);
 
     @Delete("DELETE FROM ${table} WHERE id=?")
-    CompletionStage<Integer> delete02(Long id);
+    CompletionStage<Long> delete02(Long id);
 
     @Delete("DELETE FROM ${table} WHERE id=?")
     CompletionStage<Boolean> delete03(Long id);

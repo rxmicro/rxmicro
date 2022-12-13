@@ -31,7 +31,7 @@ public final class $$PostgreSQLInsertOneEntityUsingSingleRepository extends Abst
     }
 
     @Override
-    public Single<Integer> insert01(final Account account) {
+    public Single<Long> insert01(final Account account) {
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values})'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);

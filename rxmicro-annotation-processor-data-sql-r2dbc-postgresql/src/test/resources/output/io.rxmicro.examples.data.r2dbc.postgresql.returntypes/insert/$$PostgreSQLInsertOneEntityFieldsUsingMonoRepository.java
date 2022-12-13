@@ -41,7 +41,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
     }
 
     @Override
-    public Mono<Integer> insert02(final String firstName, final String lastName) {
+    public Mono<Long> insert02(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?)'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = {firstName, lastName};

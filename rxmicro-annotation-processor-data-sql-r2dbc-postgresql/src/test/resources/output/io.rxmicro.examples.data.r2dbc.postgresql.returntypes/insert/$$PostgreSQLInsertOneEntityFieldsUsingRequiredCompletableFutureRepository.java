@@ -45,7 +45,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingRequiredCompletableFutu
     }
 
     @Override
-    public CompletableFuture<Integer> insert02(final String firstName, final String lastName) {
+    public CompletableFuture<Long> insert02(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?)'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = {firstName, lastName};
@@ -56,7 +56,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingRequiredCompletableFutu
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 

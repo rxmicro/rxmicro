@@ -212,7 +212,8 @@
     <rule ref="category/java/errorprone.xml/SuspiciousEqualsMethodName"/>
     <rule ref="category/java/errorprone.xml/SuspiciousHashcodeMethodName"/>
     <rule ref="category/java/errorprone.xml/SuspiciousOctalEscape"/>
-    <rule ref="category/java/errorprone.xml/TestClassWithoutTestCases"/>
+    <!-- RxMicro team uses test classes for not only unit tests: -->
+    <!-- rule ref="category/java/errorprone.xml/TestClassWithoutTestCases"/ -->
     <rule ref="category/java/errorprone.xml/UnconditionalIfStatement"/>
     <rule ref="category/java/errorprone.xml/UnnecessaryBooleanAssertion"/>
     <rule ref="category/java/errorprone.xml/UnnecessaryCaseChange"/>

@@ -51,7 +51,7 @@ public final class SuccessInvocationSQLMockFactory extends AbstractInvocationSQL
 
     public void prepare(final ConnectionPool connectionPool,
                         final SQLQueryWithParamsMock sqlQueryWithParamsMock,
-                        final int rowsUpdated) {
+                        final long rowsUpdated) {
         getResult(connectionPool, sqlQueryWithParamsMock)
                 .ifPresent(result -> {
                     when(result.getRowsUpdated()).thenReturn(Mono.just(rowsUpdated));

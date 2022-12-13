@@ -44,7 +44,7 @@ public interface InsertDataRepository {
     @VariableValues({
             "${table}", "account"
     })
-    CompletableFuture<Integer> insert3(
+    CompletableFuture<Long> insert3(
             RequestIdSupplier requestIdSupplier, String email, String firstName, String lastName, BigDecimal balance, Role role
     );
 
@@ -57,7 +57,7 @@ public interface InsertDataRepository {
             value = "INSERT INTO ${table} VALUES(nextval('account_seq'),?,?,?,?,?)",
             entityClass = Account.class
     )
-    CompletableFuture<Integer> insert5(
+    CompletableFuture<Long> insert5(
             RequestIdSupplier requestIdSupplier, String email, String firstName, String lastName, BigDecimal balance, Role role
     );
 
@@ -90,6 +90,6 @@ public interface InsertDataRepository {
     CompletableFuture<List<Account>> insertMany1(RequestIdSupplier requestIdSupplier);
 
     @Insert("INSERT INTO account SELECT * FROM dump")
-    CompletableFuture<Integer> insertMany2(RequestIdSupplier requestIdSupplier);
+    CompletableFuture<Long> insertMany2(RequestIdSupplier requestIdSupplier);
 }
 // end::content[]

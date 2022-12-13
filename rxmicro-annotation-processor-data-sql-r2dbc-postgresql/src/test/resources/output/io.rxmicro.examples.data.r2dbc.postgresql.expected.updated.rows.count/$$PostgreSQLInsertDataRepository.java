@@ -52,7 +52,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public CompletableFuture<Integer> insert02() {
+    public CompletableFuture<Long> insert02() {
         // Original SQL statement:  'INSERT INTO ${table} SELECT * FROM dump'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump";
         return this.connectionFactory.create()
@@ -63,7 +63,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 
@@ -148,7 +148,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public CompletionStage<Integer> insert07() {
+    public CompletionStage<Long> insert07() {
         // Original SQL statement:  'INSERT INTO ${table} SELECT * FROM dump'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump";
         return this.connectionFactory.create()
@@ -159,7 +159,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Long.class))))
                 .toFuture();
     }
 
@@ -242,7 +242,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public Mono<Integer> insert12() {
+    public Mono<Long> insert12() {
         // Original SQL statement:  'INSERT INTO ${table} SELECT * FROM dump'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump";
         return this.connectionFactory.create()
@@ -329,7 +329,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public Single<Integer> insert17() {
+    public Single<Long> insert17() {
         // Original SQL statement:  'INSERT INTO ${table} SELECT * FROM dump'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump";
         return Single.fromPublisher(

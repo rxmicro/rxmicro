@@ -42,10 +42,10 @@ public abstract class AbstractSQLRepository extends AbstractDataRepository {
         this.logger = LoggerFactory.getLogger(repositoryInterface);
     }
 
-    protected final int validateRowsUpdated(final int expected,
-                                            final int actual,
-                                            final String sql,
-                                            final Object... params) {
+    protected final long validateRowsUpdated(final long expected,
+                                             final long actual,
+                                             final String sql,
+                                             final Object... params) {
         if (expected != actual) {
             throw new InvalidDatabaseStateException(
                     "Last DML operation failed: Expected ? updated row count, but actual is ? for the SQL: '?'?!",

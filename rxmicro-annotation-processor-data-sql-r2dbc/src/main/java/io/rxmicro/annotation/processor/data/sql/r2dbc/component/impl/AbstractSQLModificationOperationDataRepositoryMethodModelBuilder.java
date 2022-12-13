@@ -61,7 +61,7 @@ public abstract class AbstractSQLModificationOperationDataRepositoryMethodModelB
                                   final ExecutableElement method,
                                   final DataMethodParams dataMethodParams) {
         validateRequiredSingleReturnType(method, methodResult);
-        validateReturnType(method, methodResult.getResultType(), Void.class, Integer.class, Boolean.class);
+        validateReturnType(method, methodResult.getResultType(), Void.class, Long.class, Boolean.class);
         final List<Variable> customSelectParams = dataMethodParams.getParamsOfGroup(CUSTOM_SELECT_GROUP);
         if (!customSelectParams.isEmpty()) {
             throw new InterruptProcessingException(

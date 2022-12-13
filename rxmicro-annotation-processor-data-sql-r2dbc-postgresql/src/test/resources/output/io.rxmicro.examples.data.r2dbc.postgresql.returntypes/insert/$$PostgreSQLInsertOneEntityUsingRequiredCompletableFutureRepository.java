@@ -49,7 +49,7 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletableFutureRepo
     }
 
     @Override
-    public CompletableFuture<Integer> insert02(final Account account) {
+    public CompletableFuture<Long> insert02(final Account account) {
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values})'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
@@ -60,7 +60,7 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletableFutureRepo
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 

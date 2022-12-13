@@ -55,8 +55,8 @@ module rxmicro.netty.runtime {
     requires transitive io.netty.buffer;
     requires transitive io.netty.common;
 
-    requires static io.netty.transport.epoll;
-    requires static io.netty.transport.kqueue;
+    requires static io.netty.transport.classes.epoll;
+    requires static io.netty.transport.classes.kqueue;
 
     exports io.rxmicro.netty.runtime;
 

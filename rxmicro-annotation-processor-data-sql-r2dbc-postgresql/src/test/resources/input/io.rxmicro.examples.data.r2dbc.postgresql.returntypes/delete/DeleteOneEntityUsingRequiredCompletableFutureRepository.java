@@ -31,7 +31,7 @@ public interface DeleteOneEntityUsingRequiredCompletableFutureRepository {
     CompletableFuture<Void> delete01(Account account);
 
     @Delete
-    CompletableFuture<Integer> delete02(Account account);
+    CompletableFuture<Long> delete02(Account account);
 
     @Delete
     CompletableFuture<Boolean> delete03(Account account);

@@ -27,7 +27,7 @@ import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
 public interface UpdateOneEntityUsingSingleRepository {
 
     @Update
-    Single<Integer> update01(Account account);
+    Single<Long> update01(Account account);
 
     @Update
     Single<Boolean> update02(Account account);

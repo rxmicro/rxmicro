@@ -49,7 +49,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingRequiredCompletionStageReposi
     }
 
     @Override
-    public CompletionStage<Integer> update02(final Account account) {
+    public CompletionStage<Long> update02(final Account account) {
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
@@ -60,7 +60,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingRequiredCompletionStageReposi
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Long.class))))
                 .toFuture();
     }
 

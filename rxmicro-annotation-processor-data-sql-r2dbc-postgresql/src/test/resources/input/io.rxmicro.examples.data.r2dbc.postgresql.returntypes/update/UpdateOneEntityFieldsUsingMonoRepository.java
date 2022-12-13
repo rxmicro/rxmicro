@@ -34,7 +34,7 @@ public interface UpdateOneEntityFieldsUsingMonoRepository {
     Mono<Void> update01(String firstName, String lastName, Long id);
 
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
-    Mono<Integer> update02(String firstName, String lastName, Long id);
+    Mono<Long> update02(String firstName, String lastName, Long id);
 
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
     Mono<Boolean> update03(String firstName, String lastName, Long id);

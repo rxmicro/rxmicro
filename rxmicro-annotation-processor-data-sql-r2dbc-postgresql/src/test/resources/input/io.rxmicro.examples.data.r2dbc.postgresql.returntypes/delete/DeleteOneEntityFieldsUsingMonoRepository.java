@@ -34,7 +34,7 @@ public interface DeleteOneEntityFieldsUsingMonoRepository {
     Mono<Void> delete01(Long id);
 
     @Delete("DELETE FROM ${table} WHERE id=?")
-    Mono<Integer> delete02(Long id);
+    Mono<Long> delete02(Long id);
 
     @Delete("DELETE FROM ${table} WHERE id=?")
     Mono<Boolean> delete03(Long id);

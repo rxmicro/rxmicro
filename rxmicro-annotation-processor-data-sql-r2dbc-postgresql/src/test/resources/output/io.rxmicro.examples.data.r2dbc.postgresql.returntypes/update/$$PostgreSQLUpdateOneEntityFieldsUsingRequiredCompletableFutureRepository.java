@@ -45,7 +45,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
     }
 
     @Override
-    public CompletableFuture<Integer> update02(final String firstName, final String lastName, final Long id) {
+    public CompletableFuture<Long> update02(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ?'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = {firstName, lastName, id};
@@ -56,7 +56,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 

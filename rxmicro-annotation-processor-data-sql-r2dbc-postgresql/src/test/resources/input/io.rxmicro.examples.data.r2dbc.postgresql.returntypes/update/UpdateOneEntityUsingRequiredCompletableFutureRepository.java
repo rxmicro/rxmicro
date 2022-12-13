@@ -31,7 +31,7 @@ public interface UpdateOneEntityUsingRequiredCompletableFutureRepository {
     CompletableFuture<Void> update01(Account account);
 
     @Update
-    CompletableFuture<Integer> update02(Account account);
+    CompletableFuture<Long> update02(Account account);
 
     @Update
     CompletableFuture<Boolean> update03(Account account);

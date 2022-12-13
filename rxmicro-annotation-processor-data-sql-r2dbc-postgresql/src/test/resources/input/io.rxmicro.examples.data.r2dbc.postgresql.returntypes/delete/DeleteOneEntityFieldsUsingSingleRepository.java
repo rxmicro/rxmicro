@@ -31,7 +31,7 @@ import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
 public interface DeleteOneEntityFieldsUsingSingleRepository {
 
     @Delete("DELETE FROM ${table} WHERE id=?")
-    Single<Integer> delete01(Long id);
+    Single<Long> delete01(Long id);
 
     @Delete("DELETE FROM ${table} WHERE id=?")
     Single<Boolean> delete02(Long id);

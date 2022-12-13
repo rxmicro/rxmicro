@@ -35,7 +35,7 @@ public interface DeleteOneEntityFieldsUsingRequiredCompletableFutureRepository {
     CompletableFuture<Void> delete01(Long id);
 
     @Delete("DELETE FROM ${table} WHERE id=?")
-    CompletableFuture<Integer> delete02(Long id);
+    CompletableFuture<Long> delete02(Long id);
 
     @Delete("DELETE FROM ${table} WHERE id=?")
     CompletableFuture<Boolean> delete03(Long id);

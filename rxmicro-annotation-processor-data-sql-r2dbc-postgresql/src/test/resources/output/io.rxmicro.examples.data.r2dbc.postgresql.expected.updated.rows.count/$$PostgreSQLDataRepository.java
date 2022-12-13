@@ -24,7 +24,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public Mono<Integer> update01(final String firstName, final String lastName, final String email) {
+    public Mono<Long> update01(final String firstName, final String lastName, final String email) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE email = ?'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE email = $3";
         final Object[] updateParams = {firstName, lastName, email};
@@ -40,7 +40,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public Mono<Integer> update02() {
+    public Mono<Long> update02() {
         // Original SQL statement:  'UPDATE ${table} SET first_name = 'firstName', last_name = 'lastName' WHERE email = 'email''
         final String generatedSQL = "UPDATE account SET first_name = 'firstName', last_name = 'lastName' WHERE email = 'email'";
         return this.connectionFactory.create()

@@ -49,7 +49,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public CompletableFuture<Integer> delete2(final RequestIdSupplier requestIdSupplier, final BigDecimal minRequiredBalance) {
+    public CompletableFuture<Long> delete2(final RequestIdSupplier requestIdSupplier, final BigDecimal minRequiredBalance) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE balance < ?'
         final String generatedSQL = "DELETE FROM account WHERE balance < $1";
         return this.connectionFactory.create(requestIdSupplier)
@@ -58,7 +58,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 
@@ -81,7 +81,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public CompletableFuture<Integer> delete4(final RequestIdSupplier requestIdSupplier, final Long id) {
+    public CompletableFuture<Long> delete4(final RequestIdSupplier requestIdSupplier, final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return this.connectionFactory.create(requestIdSupplier)
@@ -90,7 +90,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 

@@ -31,7 +31,7 @@ import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
 public interface UpdateOneEntityFieldsUsingSingleRepository {
 
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
-    Single<Integer> update01(String firstName, String lastName, Long id);
+    Single<Long> update01(String firstName, String lastName, Long id);
 
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
     Single<Boolean> update02(String firstName, String lastName, Long id);

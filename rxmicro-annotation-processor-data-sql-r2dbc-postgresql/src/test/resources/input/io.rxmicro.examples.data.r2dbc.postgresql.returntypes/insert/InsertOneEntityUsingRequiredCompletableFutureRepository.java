@@ -31,7 +31,7 @@ public interface InsertOneEntityUsingRequiredCompletableFutureRepository {
     CompletableFuture<Void> insert01(Account account);
 
     @Insert
-    CompletableFuture<Integer> insert02(Account account);
+    CompletableFuture<Long> insert02(Account account);
 
     @Insert
     CompletableFuture<Boolean> insert03(Account account);

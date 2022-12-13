@@ -31,7 +31,7 @@ import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
 public interface InsertOneEntityFieldsUsingSingleRepository {
 
     @Insert("INSERT INTO ${table}(first_name, last_name) VALUES(?,?)")
-    Single<Integer> insert01(String firstName, String lastName);
+    Single<Long> insert01(String firstName, String lastName);
 
     @Insert("INSERT INTO ${table}(first_name, last_name) VALUES(?,?)")
     Single<Boolean> insert02(String firstName, String lastName);

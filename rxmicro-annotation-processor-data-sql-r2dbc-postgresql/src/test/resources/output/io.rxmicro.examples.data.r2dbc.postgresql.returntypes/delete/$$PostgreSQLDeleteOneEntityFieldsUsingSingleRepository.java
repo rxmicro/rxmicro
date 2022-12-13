@@ -27,7 +27,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingSingleRepository extend
     }
 
     @Override
-    public Single<Integer> delete01(final Long id) {
+    public Single<Long> delete01(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE id = ?'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return Single.fromPublisher(

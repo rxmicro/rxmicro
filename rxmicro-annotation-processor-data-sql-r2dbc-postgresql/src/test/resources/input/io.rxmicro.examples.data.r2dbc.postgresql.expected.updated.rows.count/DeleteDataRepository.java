@@ -43,7 +43,7 @@ public interface DeleteDataRepository {
 
     @ExpectedUpdatedRowsCount(10)
     @Delete
-    CompletableFuture<Integer> delete02();
+    CompletableFuture<Long> delete02();
 
     @ExpectedUpdatedRowsCount(1)
     @Delete(entityClass = Account.class)
@@ -63,7 +63,7 @@ public interface DeleteDataRepository {
 
     @ExpectedUpdatedRowsCount(10)
     @Delete("DELETE FROM ${table} WHERE first_name=? OR first_name=? OR first_name=?")
-    CompletionStage<Integer> delete07(String firstName1, String firstName2, String firstName3);
+    CompletionStage<Long> delete07(String firstName1, String firstName2, String firstName3);
 
     @ExpectedUpdatedRowsCount(1)
     @Delete(entityClass = Account.class)
@@ -84,7 +84,7 @@ public interface DeleteDataRepository {
 
     @ExpectedUpdatedRowsCount(10)
     @Delete("DELETE FROM ${table} WHERE first_name ILIKE ? OR last_name ILIKE ?")
-    Mono<Integer> delete12(Transaction transaction, @RepeatParameter(2) String name);
+    Mono<Long> delete12(Transaction transaction, @RepeatParameter(2) String name);
 
     @ExpectedUpdatedRowsCount(1)
     @Delete(entityClass = Account.class)
@@ -105,7 +105,7 @@ public interface DeleteDataRepository {
 
     @ExpectedUpdatedRowsCount(1)
     @Delete("DELETE FROM ${table} WHERE email NOT IN (SELECT email FROM blocked_accounts)")
-    Single<Integer> delete17();
+    Single<Long> delete17();
 
     @ExpectedUpdatedRowsCount(1)
     @Delete(entityClass = Account.class)

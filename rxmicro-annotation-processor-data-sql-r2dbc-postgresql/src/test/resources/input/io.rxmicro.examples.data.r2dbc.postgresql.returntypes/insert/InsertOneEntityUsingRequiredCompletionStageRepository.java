@@ -31,7 +31,7 @@ public interface InsertOneEntityUsingRequiredCompletionStageRepository {
     CompletionStage<Void> insert01(Account account);
 
     @Insert
-    CompletionStage<Integer> insert02(Account account);
+    CompletionStage<Long> insert02(Account account);
 
     @Insert
     CompletionStage<Boolean> insert03(Account account);

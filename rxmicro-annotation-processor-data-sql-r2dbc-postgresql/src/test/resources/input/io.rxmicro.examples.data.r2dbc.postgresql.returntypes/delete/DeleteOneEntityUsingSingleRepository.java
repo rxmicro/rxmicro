@@ -27,7 +27,7 @@ import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
 public interface DeleteOneEntityUsingSingleRepository {
 
     @Delete
-    Single<Integer> delete01(Account account);
+    Single<Long> delete01(Account account);
 
     @Delete
     Single<Boolean> delete02(Account account);

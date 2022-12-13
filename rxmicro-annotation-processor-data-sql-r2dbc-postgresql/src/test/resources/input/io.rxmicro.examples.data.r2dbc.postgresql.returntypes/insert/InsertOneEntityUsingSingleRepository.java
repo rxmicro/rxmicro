@@ -27,7 +27,7 @@ import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
 public interface InsertOneEntityUsingSingleRepository {
 
     @Insert
-    Single<Integer> insert01(Account account);
+    Single<Long> insert01(Account account);
 
     @Insert
     Single<Boolean> insert02(Account account);

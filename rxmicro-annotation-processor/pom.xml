@@ -40,8 +40,11 @@
                         rxmicro.annotation.processor.common/io.rxmicro.annotation.processor.common.component=ALL-UNNAMED
                         --add-exports
                         rxmicro.annotation.processor.common/io.rxmicro.annotation.processor.common.component.impl=ALL-UNNAMED
+                        --add-exports org.junit.platform.commons/org.junit.platform.commons.util=ALL-UNNAMED
+                        --add-exports org.junit.platform.commons/org.junit.platform.commons.logging=ALL-UNNAMED
                         --add-opens rxmicro.annotation.processor/io.rxmicro.annotation.processor=ALL-UNNAMED
                         --add-opens java.base/java.lang=com.google.guice
+                        --add-opens rxmicro.annotation.processor/io.rxmicro.annotation.processor=org.junit.platform.commons
                     </argLine>
                 </configuration>
             </plugin>

@@ -26,7 +26,7 @@ final String generatedSQL = ${SQL.sqlExpression};
 <#if RETURN.void>
 return ${RESULT_PUBLISHER}
         .then();
-<#elseif RETURN.integer>
+<#elseif RETURN.long>
 return ${RESULT_PUBLISHER}
 <#elseif RETURN.boolean>
 return ${RESULT_PUBLISHER}
@@ -42,7 +42,7 @@ return ${RESULT_PUBLISHER}
         .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class))))
         .toFuture()
         .thenApply(r -> null);
-<#elseif RETURN.integer>
+<#elseif RETURN.long>
 return ${RESULT_PUBLISHER}
         .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class))))
         .toFuture();
@@ -63,7 +63,7 @@ return Completable.fromPublisher(
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.single>
 <@defineRESULT_PUBLISHER shift='        ' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
-<#if RETURN.integer>
+<#if RETURN.long>
 return Single.fromPublisher(
         ${RESULT_PUBLISHER}
 );
@@ -97,7 +97,7 @@ ${shift}                .flatMap(r -> Mono.from(r.getRowsUpdated()))
 ${shift}                .delayUntil(s -> close(c))
 ${shift}                .onErrorResume(createCloseThenReturnErrorFallback(c))
 </#if>
-${shift}        )<#if RETURN.mono && RETURN.integer>;</#if></#assign>
+${shift}        )<#if RETURN.mono && RETURN.long>;</#if></#assign>
 </#macro>
 <#-- ------------------------------------------------------------------------------------------------ -->
 <#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->

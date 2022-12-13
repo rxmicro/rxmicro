@@ -40,7 +40,7 @@ public interface InsertDataRepository {
 
     @ExpectedUpdatedRowsCount(10)
     @Insert("INSERT INTO ${table} SELECT * FROM dump")
-    CompletableFuture<Integer> insert02();
+    CompletableFuture<Long> insert02();
 
     @ExpectedUpdatedRowsCount(1)
     @Insert("INSERT INTO ${table} VALUES(nextval('account_seq'),?,?)")
@@ -60,7 +60,7 @@ public interface InsertDataRepository {
 
     @ExpectedUpdatedRowsCount(10)
     @Insert("INSERT INTO ${table} SELECT * FROM dump")
-    CompletionStage<Integer> insert07();
+    CompletionStage<Long> insert07();
 
     @ExpectedUpdatedRowsCount(1)
     @Insert("INSERT INTO ${table} VALUES(nextval('account_seq'),?,?)")
@@ -81,7 +81,7 @@ public interface InsertDataRepository {
     // tag::content[]
     @ExpectedUpdatedRowsCount(10)
     @Insert("INSERT INTO ${table} SELECT * FROM dump")
-    Mono<Integer> insert12();
+    Mono<Long> insert12();
 
     @ExpectedUpdatedRowsCount(1)
     @Insert("INSERT INTO ${table} VALUES(nextval('account_seq'),?,?)")
@@ -102,7 +102,7 @@ public interface InsertDataRepository {
 
     @ExpectedUpdatedRowsCount(10)
     @Insert("INSERT INTO ${table} SELECT * FROM dump")
-    Single<Integer> insert17();
+    Single<Long> insert17();
 
     @ExpectedUpdatedRowsCount(1)
     @Insert("INSERT INTO ${table} VALUES(nextval('account_seq'),?,?)")

@@ -40,7 +40,7 @@ public interface UpdateDataRepository {
 
     @ExpectedUpdatedRowsCount(10)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE email=?")
-    CompletableFuture<Integer> update02(String firstName, String lastName, String email);
+    CompletableFuture<Long> update02(String firstName, String lastName, String email);
 
     @ExpectedUpdatedRowsCount(1)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
@@ -60,7 +60,7 @@ public interface UpdateDataRepository {
 
     @ExpectedUpdatedRowsCount(10)
     @Update("UPDATE ${table} SET first_name=?, last_name=?")
-    CompletionStage<Integer> update07(String firstName, String lastName);
+    CompletionStage<Long> update07(String firstName, String lastName);
 
     @ExpectedUpdatedRowsCount(1)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
@@ -81,7 +81,7 @@ public interface UpdateDataRepository {
     // tag::content[]
     @ExpectedUpdatedRowsCount(10)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE email=?")
-    Mono<Integer> update12(String firstName, String lastName, String email);
+    Mono<Long> update12(String firstName, String lastName, String email);
 
     @ExpectedUpdatedRowsCount(1)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
@@ -102,7 +102,7 @@ public interface UpdateDataRepository {
 
     @ExpectedUpdatedRowsCount(10)
     @Update("UPDATE ${table} SET first_name=?, last_name=?")
-    Single<Integer> update17(String firstName, String lastName);
+    Single<Long> update17(String firstName, String lastName);
 
     @ExpectedUpdatedRowsCount(1)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")

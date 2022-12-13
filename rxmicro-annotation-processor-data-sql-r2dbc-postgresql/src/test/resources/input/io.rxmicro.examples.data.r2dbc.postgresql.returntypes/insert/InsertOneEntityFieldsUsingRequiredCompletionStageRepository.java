@@ -35,7 +35,7 @@ public interface InsertOneEntityFieldsUsingRequiredCompletionStageRepository {
     CompletionStage<Void> insert01(String firstName, String lastName);
 
     @Insert("INSERT INTO ${table}(first_name, last_name) VALUES(?,?)")
-    CompletionStage<Integer> insert02(String firstName, String lastName);
+    CompletionStage<Long> insert02(String firstName, String lastName);
 
     @Insert("INSERT INTO ${table}(first_name, last_name) VALUES(?,?)")
     CompletionStage<Boolean> insert03(String firstName, String lastName);

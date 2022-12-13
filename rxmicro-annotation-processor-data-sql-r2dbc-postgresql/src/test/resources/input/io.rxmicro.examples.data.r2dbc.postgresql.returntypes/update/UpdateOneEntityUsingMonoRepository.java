@@ -30,7 +30,7 @@ public interface UpdateOneEntityUsingMonoRepository {
     Mono<Void> update01(Account account);
 
     @Update
-    Mono<Integer> update02(Account account);
+    Mono<Long> update02(Account account);
 
     @Update
     Mono<Boolean> update03(Account account);

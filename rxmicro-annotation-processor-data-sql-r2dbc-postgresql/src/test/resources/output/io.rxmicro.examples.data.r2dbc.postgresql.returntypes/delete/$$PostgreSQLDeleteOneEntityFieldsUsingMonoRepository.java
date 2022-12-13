@@ -39,7 +39,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingMonoRepository extends 
     }
 
     @Override
-    public Mono<Integer> delete02(final Long id) {
+    public Mono<Long> delete02(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE id = ?'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return this.connectionFactory.create()

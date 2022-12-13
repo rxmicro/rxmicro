@@ -31,7 +31,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
     }
 
     @Override
-    public Single<Integer> delete01(final Account account) {
+    public Single<Long> delete01(final Account account) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);

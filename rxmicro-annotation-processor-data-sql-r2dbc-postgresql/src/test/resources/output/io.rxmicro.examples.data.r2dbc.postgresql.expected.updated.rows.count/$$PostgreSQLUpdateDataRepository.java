@@ -52,7 +52,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public CompletableFuture<Integer> update02(final String firstName, final String lastName, final String email) {
+    public CompletableFuture<Long> update02(final String firstName, final String lastName, final String email) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE email = ?'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE email = $3";
         final Object[] updateParams = {firstName, lastName, email};
@@ -65,7 +65,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 
@@ -150,7 +150,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public CompletionStage<Integer> update07(final String firstName, final String lastName) {
+    public CompletionStage<Long> update07(final String firstName, final String lastName) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ?'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2";
         final Object[] updateParams = {firstName, lastName};
@@ -163,7 +163,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Long.class))))
                 .toFuture();
     }
 
@@ -246,7 +246,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public Mono<Integer> update12(final String firstName, final String lastName, final String email) {
+    public Mono<Long> update12(final String firstName, final String lastName, final String email) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE email = ?'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE email = $3";
         final Object[] updateParams = {firstName, lastName, email};
@@ -335,7 +335,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public Single<Integer> update17(final String firstName, final String lastName) {
+    public Single<Long> update17(final String firstName, final String lastName) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ?'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2";
         final Object[] updateParams = {firstName, lastName};

@@ -76,7 +76,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public CompletableFuture<Integer> insert3(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
+    public CompletableFuture<Long> insert3(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(nextval('account_seq'), ?, ?, ?, ?, ?)'
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5)";
         final Object[] insertParams = {email, firstName, lastName, balance, role};
@@ -87,7 +87,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 
@@ -112,7 +112,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public CompletableFuture<Integer> insert5(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
+    public CompletableFuture<Long> insert5(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(nextval('account_seq'), ?, ?, ?, ?, ?)'
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5)";
         final Object[] insertParams = {email, firstName, lastName, balance, role};
@@ -123,7 +123,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 
@@ -235,7 +235,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public CompletableFuture<Integer> insertMany2() {
+    public CompletableFuture<Long> insertMany2() {
         // Original SQL statement:  'INSERT INTO account SELECT * FROM dump'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump";
         return this.connectionFactory.create()
@@ -244,7 +244,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 }

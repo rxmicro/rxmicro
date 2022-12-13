@@ -37,13 +37,13 @@ public interface DataRepository {
     @VariableValues({
             "${table}", "account"
     })
-    CompletableFuture<Integer> delete2(BigDecimal minRequiredBalance);
+    CompletableFuture<Long> delete2(BigDecimal minRequiredBalance);
 
     @Delete("DELETE FROM ${table} WHERE ${by-id-filter} RETURNING *")
     CompletableFuture<Account> delete3(Long id);
 
     @Delete(entityClass = Account.class)
-    CompletableFuture<Integer> delete4(Long id);
+    CompletableFuture<Long> delete4(Long id);
 
     @Delete(
             value = "DELETE FROM ${table} WHERE ${by-id-filter} RETURNING *",

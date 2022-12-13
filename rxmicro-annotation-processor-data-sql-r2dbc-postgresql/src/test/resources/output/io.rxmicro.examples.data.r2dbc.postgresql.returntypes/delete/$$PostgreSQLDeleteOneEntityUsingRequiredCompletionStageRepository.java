@@ -48,7 +48,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingRequiredCompletionStageReposi
     }
 
     @Override
-    public CompletionStage<Integer> delete02(final Account account) {
+    public CompletionStage<Long> delete02(final Account account) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
@@ -58,7 +58,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingRequiredCompletionStageReposi
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Long.class))))
                 .toFuture();
     }
 

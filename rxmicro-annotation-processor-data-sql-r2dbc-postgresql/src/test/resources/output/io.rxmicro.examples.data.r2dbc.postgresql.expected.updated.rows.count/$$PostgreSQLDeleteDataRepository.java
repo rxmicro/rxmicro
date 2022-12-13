@@ -48,7 +48,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public CompletableFuture<Integer> delete02() {
+    public CompletableFuture<Long> delete02() {
         // Original SQL statement:  'DELETE FROM ${table}'
         final String generatedSQL = "DELETE FROM account";
         return this.connectionFactory.create()
@@ -59,7 +59,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class))))
                 .toFuture();
     }
 
@@ -136,7 +136,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public CompletionStage<Integer> delete07(final String firstName1, final String firstName2, final String firstName3) {
+    public CompletionStage<Long> delete07(final String firstName1, final String firstName2, final String firstName3) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE first_name = ? OR first_name = ? OR first_name = ?'
         final String generatedSQL = "DELETE FROM account WHERE first_name = $1 OR first_name = $2 OR first_name = $3";
         return this.connectionFactory.create()
@@ -147,7 +147,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
-                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Long.class))))
                 .toFuture();
     }
 
@@ -222,7 +222,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public Mono<Integer> delete12(final Transaction transaction, final String name) {
+    public Mono<Long> delete12(final Transaction transaction, final String name) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE first_name ILIKE ? OR last_name ILIKE ?'
         final String generatedSQL = "DELETE FROM account WHERE first_name ILIKE $1 OR last_name ILIKE $2";
         return extractConnectionFrom(transaction)
@@ -299,7 +299,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     }
 
     @Override
-    public Single<Integer> delete17() {
+    public Single<Long> delete17() {
         // Original SQL statement:  'DELETE FROM ${table} WHERE email NOT IN (SELECT email FROM blocked_accounts)'
         final String generatedSQL = "DELETE FROM account WHERE email NOT IN (SELECT email FROM blocked_accounts)";
         return Single.fromPublisher(

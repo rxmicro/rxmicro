@@ -240,14 +240,9 @@ public final class MethodResult {
         return isResultType(Boolean.class);
     }
 
-    @UsedByFreemarker("mongo-lib.javaftl")
+    @UsedByFreemarker({"mongo-lib.javaftl", "postgre-sql-lib.javaftl"})
     public boolean isLong() {
         return isResultType(Long.class);
-    }
-
-    @UsedByFreemarker("postgre-sql-lib.javaftl")
-    public boolean isInteger() {
-        return isResultType(Integer.class);
     }
 
     public boolean isPrimitive() {

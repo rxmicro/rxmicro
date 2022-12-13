@@ -31,7 +31,7 @@ public interface UpdateOneEntityUsingRequiredCompletionStageRepository {
     CompletionStage<Void> update01(Account account);
 
     @Update
-    CompletionStage<Integer> update02(Account account);
+    CompletionStage<Long> update02(Account account);
 
     @Update
     CompletionStage<Boolean> update03(Account account);

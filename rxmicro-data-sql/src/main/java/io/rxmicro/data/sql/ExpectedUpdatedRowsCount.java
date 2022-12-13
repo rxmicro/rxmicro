@@ -45,5 +45,5 @@ public @interface ExpectedUpdatedRowsCount {
      *
      * @return the expected updated rows count
      */
-    int value();
+    long value();
 }

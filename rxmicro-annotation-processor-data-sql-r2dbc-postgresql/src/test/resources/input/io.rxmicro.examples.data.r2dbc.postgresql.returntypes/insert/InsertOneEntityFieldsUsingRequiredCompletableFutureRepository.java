@@ -35,7 +35,7 @@ public interface InsertOneEntityFieldsUsingRequiredCompletableFutureRepository {
     CompletableFuture<Void> insert01(String firstName, String lastName);
 
     @Insert("INSERT INTO ${table}(first_name, last_name) VALUES(?,?)")
-    CompletableFuture<Integer> insert02(String firstName, String lastName);
+    CompletableFuture<Long> insert02(String firstName, String lastName);
 
     @Insert("INSERT INTO ${table}(first_name, last_name) VALUES(?,?)")
     CompletableFuture<Boolean> insert03(String firstName, String lastName);

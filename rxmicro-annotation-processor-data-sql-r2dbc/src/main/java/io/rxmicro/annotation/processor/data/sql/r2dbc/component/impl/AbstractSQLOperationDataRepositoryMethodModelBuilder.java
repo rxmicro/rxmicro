@@ -149,7 +149,7 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
     }
 
     protected final void validateExpectedUpdatedRowsCount(final ExecutableElement method,
-                                                          final int expectedValue) {
+                                                          final long expectedValue) {
         if (expectedValue < 0) {
             throw new InterruptProcessingException(
                     method,

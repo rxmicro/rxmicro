@@ -30,7 +30,7 @@ public interface InsertOneEntityUsingMonoRepository {
     Mono<Void> insert01(Account account);
 
     @Insert
-    Mono<Integer> insert02(Account account);
+    Mono<Long> insert02(Account account);
 
     @Insert
     Mono<Boolean> insert03(Account account);

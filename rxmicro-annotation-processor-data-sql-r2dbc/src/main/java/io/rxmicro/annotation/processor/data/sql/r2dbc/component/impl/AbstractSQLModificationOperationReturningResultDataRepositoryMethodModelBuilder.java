@@ -83,7 +83,7 @@ public abstract class AbstractSQLModificationOperationReturningResultDataReposit
             );
         }
         Optional.ofNullable(method.getAnnotation(ExpectedUpdatedRowsCount.class)).ifPresent(expectedUpdatedRowsCount -> {
-            final int expectedValue = expectedUpdatedRowsCount.value();
+            final long expectedValue = expectedUpdatedRowsCount.value();
             if (methodResult.isOneItem()) {
                 if (expectedValue > 1) {
                     throw new InterruptProcessingException(

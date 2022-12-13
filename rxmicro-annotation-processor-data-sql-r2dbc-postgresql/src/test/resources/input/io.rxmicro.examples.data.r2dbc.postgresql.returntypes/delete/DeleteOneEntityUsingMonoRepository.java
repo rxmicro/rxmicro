@@ -30,7 +30,7 @@ public interface DeleteOneEntityUsingMonoRepository {
     Mono<Void> delete01(Account account);
 
     @Delete
-    Mono<Integer> delete02(Account account);
+    Mono<Long> delete02(Account account);
 
     @Delete
     Mono<Boolean> delete03(Account account);

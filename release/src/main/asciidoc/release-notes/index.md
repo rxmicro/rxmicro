@@ -6,24 +6,35 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 ## RxMicro v0.10
 
+* Add `ArgumentSupplier`
+* Aggregate all possible config exceptions
+* Add required `ConstraintParametersOrder` annotation for constraint validators that contain two and more parameters
+* Add `TestRequestIdGenerator`
+* Add description for `ModelExceptionErrorResponse`
+* Add logger for tests
+* Add `JDK6448699Bug` (Workaround for [https://bugs.openjdk.java.net/browse/JDK-6448699](https://bugs.openjdk.java.net/browse/JDK-6448699))
+* Disable logger for annotation processor
+* Add `RX_MICRO_ANNOTATION_PROCESSOR_RUNTIME` parameter
+* Add multi module support
 * Dependency updates:
-  * `guice`: 4.2.3 -> 5.0.1
-  * `guava`: 30.1-jre -> 31.0.1-jre
+  * `guice`: 4.2.3 -> 5.1.0
+  * `guava`: 30.1-jre -> 31.1-jre
   * `freemarker`: 2.3.30 -> 2.3.31
-  * `maven-model`: 3.6.3 -> 3.8.3
-  * `junit`: 5.7.0 -> 5.8.1
-  * `junit-platform`: 1.7.0 -> 1.8.1
-  * `mockito`: 3.6.28 -> 4.0.0
-  * `dbunit`: 2.7.0 -> 2.7.2
-  * `wiremock`: 2.27.2 -> 2.31.0
-  * `netty`: 4.1.56.Final -> 4.1.69.Final
-  * `rxjava`: 3.0.9 -> 3.1.2
-  * `projectreactor`: 3.4.1 -> 3.4.11
-  * `reactor-netty`: 1.0.2 -> 1.0.12
-  * `mongo-driver`: 4.1.1 -> 4.3.3
-  * `r2dbc-spi`: 0.8.3.RELEASE -> 0.8.6.RELEASE
-  * `r2dbc-postgresql`: 0.8.6.RELEASE -> 0.8.10.RELEASE
-  * `r2dbc-pool`: 0.8.5.RELEASE -> 0.8.7.RELEASE
+  * `maven-model`: 3.6.3 -> 3.8.6
+  * `junit`: 5.7.0 -> 5.9.1
+  * `junit-platform`: 1.7.0 -> 1.9.1
+  * `mockito`: 3.6.28 -> 4.9.0
+  * `dbunit`: 2.7.0 -> 2.7.3
+  * `wiremock`: 2.27.2 -> 2.35.0
+  * `netty`: 4.1.56.Final -> 4.1.85.Final
+  * `rxjava`: 3.0.9 -> 3.1.5
+  * `projectreactor`: 3.4.1 -> 3.5.0
+  * `reactive streams`: 1.0.3 -> 1.0.4
+  * `reactor-netty`: 1.0.2 -> 1.1.0
+  * `mongo-driver`: 4.1.1 -> 4.8.1
+  * `r2dbc-spi`: 0.8.3.RELEASE -> 1.0.0.RELEASE
+  * `r2dbc-postgresql`: 0.8.6.RELEASE -> 0.8.13.RELEASE
+  * `r2dbc-pool`: 0.8.5.RELEASE -> 1.0.0.RELEASE
 * Source code tool updates:
   * `spotbugs`: 4.2.0 -> 4.4.2
   * `pmd`: 6.30.0 -> 6.40.0

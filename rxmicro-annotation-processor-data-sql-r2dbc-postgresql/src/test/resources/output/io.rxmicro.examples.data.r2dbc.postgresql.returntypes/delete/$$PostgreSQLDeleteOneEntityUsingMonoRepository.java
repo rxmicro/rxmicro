@@ -44,7 +44,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingMonoRepository extends Abstra
     }
 
     @Override
-    public Mono<Integer> delete02(final Account account) {
+    public Mono<Long> delete02(final Account account) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
