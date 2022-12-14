@@ -27,7 +27,7 @@ name: Verify on Push
 # Global settings
 env:
   DEFAULT_JDK_LTS_VERSION: '11'
-  GRAAL_VM_VERSION: '20.3.0'
+  GRAAL_VM_VERSION: '22.3.0'
 
 on:
   push:
