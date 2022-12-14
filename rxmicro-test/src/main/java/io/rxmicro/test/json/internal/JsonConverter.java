@@ -20,6 +20,8 @@ import io.rxmicro.json.JsonNumber;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -87,6 +89,8 @@ public final class JsonConverter {
         } else if (value instanceof Number) {
             return convertJavaNumber((Number) value);
         } else if (value instanceof CharSequence) {
+            return value.toString();
+        } else if (value instanceof Temporal) {
             return value.toString();
         } else {
             throw new IllegalArgumentException(
