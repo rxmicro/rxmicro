@@ -142,8 +142,8 @@ jobs:
       - verify-using-profiles
     strategy:
       matrix:
-        # LTS and latest JDK
-        jdk: [ '15' ]
+        # LTS JDK
+        jdk: [ '11' ]
         os: [ ubuntu-latest, windows-latest ]
       fail-fast: false
 

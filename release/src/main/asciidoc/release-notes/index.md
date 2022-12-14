@@ -4,7 +4,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 <!--- DON'T FORGET TO UPDATE DEPENDENCIES BEFORE RELEASING THE RX MICRO FRAMEWORK! --->
 
-## RxMicro v0.10
+## RxMicro v0.11
 
 * Add `ArgumentSupplier`
 * Aggregate all possible config exceptions
@@ -39,6 +39,10 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * `spotbugs`: 4.2.0 -> 4.4.2
   * `pmd`: 6.30.0 -> 6.40.0
   * `checkstyle`: 8.39 -> 9.1
+
+## RxMicro v0.10
+
+* `v0.10` version was used as internal project. 
   
 ## RxMicro v0.9
 
