@@ -100,8 +100,14 @@ public final class SupportedOptions {
      */
     public static final boolean RX_MICRO_STRICT_MODE_DEFAULT_VALUE = false;
 
+    /**
+     * Indicates that the current project is a library one.
+     */
     public static final String RX_MICRO_LIBRARY_MODULE = "RX_MICRO_LIBRARY_MODULE";
 
+    /**
+     * Library module is disabled by default.
+     */
     public static final boolean RX_MICRO_LIBRARY_MODULE_DEFAULT_VALUE = false;
 
     /**
