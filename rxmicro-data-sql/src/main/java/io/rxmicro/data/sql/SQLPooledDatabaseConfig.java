@@ -35,6 +35,11 @@ import static io.rxmicro.config.Secrets.hideSecretInfo;
 public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
 
     /**
+     * Constant indicating that timeout should not apply.
+     */
+    public static final Duration NO_TIMEOUT = Duration.ofMillis(-1);
+
+    /**
      * Default acquire retry.
      */
     public static final int DEFAULT_ACQUIRE_RETRY = 2;
@@ -84,12 +89,9 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         this.maxSize = DEFAULT_MAX_POOL_SIZE;
         this.validationQuery = DEFAULT_VALIDATION_QUERY;
         this.maxIdleTime = DEFAULT_MAX_IDLE_DURATION;
-        // ZERO indicates no-timeout
-        this.maxCreateConnectionTime = Duration.ZERO;
-        // ZERO indicates no-timeout
-        this.maxAcquireTime = Duration.ZERO;
-        // ZERO indicates no-timeout
-        this.maxLifeTime = Duration.ZERO;
+        this.maxCreateConnectionTime = NO_TIMEOUT;
+        this.maxAcquireTime = NO_TIMEOUT;
+        this.maxLifeTime = NO_TIMEOUT;
     }
 
     /**
