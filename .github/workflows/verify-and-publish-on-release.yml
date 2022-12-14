@@ -428,6 +428,7 @@ jobs:
           echo '${{secrets.SIGN_KEY}}' > rxmicro.txt
           gpg --quiet --batch --yes --passphrase="${{ secrets.OSSRH_PASSPHRASE}}" --allow-secret-key-import --import rxmicro.txt
 
+      # Removes the `-SNAPSHOT` suffix
       - name: Update version of the RxMicro framework
         run: |
           LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
