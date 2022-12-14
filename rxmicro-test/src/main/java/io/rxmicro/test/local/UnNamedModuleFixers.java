@@ -50,6 +50,7 @@ public final class UnNamedModuleFixers {
     }
 
     private static void testFix(final String testFixSimpleClassName) {
+        commonFix();
         final String entryPointTestFullClassName = getEntryPointTestFullClassName(testFixSimpleClassName);
         try {
             instantiate(entryPointTestFullClassName);
@@ -58,7 +59,6 @@ public final class UnNamedModuleFixers {
                 LOGGER.error(ex, "Can't instantiate a `?` class: ?", entryPointTestFullClassName, ex.getMessage());
             }
         }
-        commonFix();
     }
 
     private static void commonFix() {
