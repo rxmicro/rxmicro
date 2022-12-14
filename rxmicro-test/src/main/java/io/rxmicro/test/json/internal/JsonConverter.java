@@ -20,7 +20,6 @@ import io.rxmicro.json.JsonNumber;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -80,18 +79,12 @@ public final class JsonConverter {
     private static Object convertJsonPrimitive(final Object value) {
         if (value == null) {
             return null;
-        } else if (value instanceof Enum<?>) {
+        } else if (value instanceof Enum<?> || value instanceof CharSequence || value instanceof Temporal) {
             return value.toString();
-        } else if (value instanceof Boolean) {
-            return value;
-        } else if (value instanceof JsonNumber) {
+        } else if (value instanceof Boolean || value instanceof JsonNumber) {
             return value;
         } else if (value instanceof Number) {
             return convertJavaNumber((Number) value);
-        } else if (value instanceof CharSequence) {
-            return value.toString();
-        } else if (value instanceof Temporal) {
-            return value.toString();
         } else {
             throw new IllegalArgumentException(
                     format("Can't convert '?' value of '?' class to json primitive!", value, value.getClass().getName())
