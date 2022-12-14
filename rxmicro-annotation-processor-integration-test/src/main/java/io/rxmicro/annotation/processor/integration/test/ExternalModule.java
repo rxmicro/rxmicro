@@ -105,7 +105,7 @@ public enum ExternalModule {
 
     EXTERNAL_R2DBC_POSTGRESQL_MODULE(
             "r2dbc.postgresql",
-            "?/.m2/repository/io/r2dbc/r2dbc-postgresql/?/r2dbc-postgresql-?.jar",
+            "?/.m2/repository/org/postgresql/r2dbc-postgresql/?/r2dbc-postgresql-?.jar",
             getMavenProperty("external.lib.r2dbc-postgresql.version")
     ),
 

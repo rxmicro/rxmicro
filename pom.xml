@@ -167,8 +167,8 @@
 
         <!-- https://mvnrepository.com/artifact/io.r2dbc/r2dbc-spi -->
         <external.lib.r2dbc-spi.version>1.0.0.RELEASE</external.lib.r2dbc-spi.version>
-        <!-- https://mvnrepository.com/artifact/io.r2dbc/r2dbc-postgresql -->
-        <external.lib.r2dbc-postgresql.version>0.8.13.RELEASE</external.lib.r2dbc-postgresql.version>
+        <!-- https://mvnrepository.com/artifact/org.postgresql/r2dbc-postgresql -->
+        <external.lib.r2dbc-postgresql.version>1.0.0.RELEASE</external.lib.r2dbc-postgresql.version>
         <!-- https://mvnrepository.com/artifact/io.r2dbc/r2dbc-pool -->
         <external.lib.r2dbc-pool.version>1.0.0.RELEASE</external.lib.r2dbc-pool.version>
         <!-- ========== Tests ========== -->

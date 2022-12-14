@@ -50,7 +50,7 @@
             <version>0.10-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>io.r2dbc</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>r2dbc-postgresql</artifactId>
             <version>${external.lib.r2dbc-postgresql.version}</version>
             <exclusions>

@@ -33,7 +33,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * `reactor-netty`: 1.0.2 -> 1.1.0
   * `mongo-driver`: 4.1.1 -> 4.8.1
   * `r2dbc-spi`: 0.8.3.RELEASE -> 1.0.0.RELEASE
-  * `r2dbc-postgresql`: 0.8.6.RELEASE -> 0.8.13.RELEASE
+  * `r2dbc-postgresql`: 0.8.6.RELEASE -> 1.0.0.RELEASE
   * `r2dbc-pool`: 0.8.5.RELEASE -> 1.0.0.RELEASE
 * Source code tool updates:
   * `spotbugs`: 4.2.0 -> 4.4.2
