@@ -67,6 +67,7 @@ import org.bson.codecs.CharacterCodec;
 import org.bson.codecs.CodeCodec;
 import org.bson.codecs.CodeWithScopeCodec;
 import org.bson.codecs.Codec;
+import org.bson.codecs.CollectionCodecProvider;
 import org.bson.codecs.DateCodec;
 import org.bson.codecs.Decimal128Codec;
 import org.bson.codecs.DecoderContext;
@@ -93,6 +94,7 @@ import org.bson.codecs.jsr310.LocalTimeCodec;
 import org.bson.conversions.Bson;
 import org.bson.types.CodeWithScope;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
@@ -287,7 +289,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
      *
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
-    public MongoCodecsConfigurator withBsonValuesCodes() {
+    public MongoCodecsConfigurator withBsonValuesCodecs() {
         addCodec(new BsonNullCodec());
         addCodec(new BsonBinaryCodec());
         addCodec(new BsonBooleanCodec());
@@ -325,8 +327,19 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
      *
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
-    public MongoCodecsConfigurator withDBRefCodec() {
+    public MongoCodecsConfigurator withDBRefCodecs() {
         addCodecProvider(DBRef.class, DBRefCodec::new);
+        return this;
+    }
+
+    /**
+     * Adds the codecs that supports the java type that extends from {@link Collection} interface.
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
+    public MongoCodecsConfigurator withCollectionCodecs() {
+        final CollectionCodecProvider provider = new CollectionCodecProvider();
+        addCodecProvider(Collection.class::isAssignableFrom, codecRegistry -> provider.get(Collection.class, codecRegistry));
         return this;
     }
 
@@ -373,9 +386,9 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
                 .withDateTimeCodecs()
                 .withExtendJavaCodecs()
                 .withExtendMongoCodecs()
-                .withBsonValuesCodes()
+                .withBsonValuesCodecs()
                 .withMongoDocumentCodecs()
-                .withDBRefCodec();
+                .withDBRefCodecs();
     }
 
     /**
