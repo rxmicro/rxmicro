@@ -1,8 +1,6 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.model.fields.reflection;
 
 import io.r2dbc.pool.ConnectionPool;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.model.fields.reflection.model.$$EntityEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.model.fields.reflection.model.$$EntityEntityToR2DBCSQLDBConverter;
@@ -24,11 +22,8 @@ public final class $$PostgreSQLReflectionDataRepository extends AbstractPostgreS
     private final $$EntityEntityToR2DBCSQLDBConverter entityEntityToR2DBCSQLDBConverter =
             new $$EntityEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLReflectionDataRepository(final ConnectionPool pool) {
-        super(ReflectionDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(ReflectionDataRepository.class, pool);
+        super(ReflectionDataRepository.class, pool);
     }
 
     @Override

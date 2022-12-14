@@ -4,8 +4,6 @@ import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.rxjava3.Transaction;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 
 /**
@@ -13,11 +11,8 @@ import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
  */
 public final class $$PostgreSQLBeginRxJava3TransactionRepository extends AbstractPostgreSQLRepository implements BeginRxJava3TransactionRepository {
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLBeginRxJava3TransactionRepository(final ConnectionPool pool) {
-        super(BeginRxJava3TransactionRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(BeginRxJava3TransactionRepository.class, pool);
+        super(BeginRxJava3TransactionRepository.class, pool);
     }
 
     @Override

@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.data.r2dbc.postgresql.partial.implementation;
 
+import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 
 import java.util.concurrent.CompletableFuture;
@@ -24,8 +25,8 @@ import java.util.concurrent.CompletableFuture;
 public abstract class AbstractDataRepository extends AbstractPostgreSQLRepository
         implements DataRepository {
 
-    protected AbstractDataRepository(final Class<?> repositoryClass) {
-        super(repositoryClass);
+    protected AbstractDataRepository(final Class<?> repositoryClass, final ConnectionPool pool) {
+        super(repositoryClass, pool);
     }
 
     @Override

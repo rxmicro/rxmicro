@@ -2,8 +2,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.request.id.supplier;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.Pageable;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.request.id.supplier.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.request.id.supplier.model.Account;
@@ -21,11 +19,8 @@ public final class $$PostgreSQLSelectLimitedDataRepository extends AbstractPostg
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLSelectLimitedDataRepository(final ConnectionPool pool) {
-        super(SelectLimitedDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(SelectLimitedDataRepository.class, pool);
+        super(SelectLimitedDataRepository.class, pool);
     }
 
     @Override

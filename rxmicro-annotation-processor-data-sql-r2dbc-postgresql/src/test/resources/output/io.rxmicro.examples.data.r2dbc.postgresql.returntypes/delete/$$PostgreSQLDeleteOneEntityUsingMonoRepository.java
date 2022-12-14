@@ -3,8 +3,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.delete;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -22,11 +20,8 @@ public final class $$PostgreSQLDeleteOneEntityUsingMonoRepository extends Abstra
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLDeleteOneEntityUsingMonoRepository(final ConnectionPool pool) {
-        super(DeleteOneEntityUsingMonoRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(DeleteOneEntityUsingMonoRepository.class, pool);
+        super(DeleteOneEntityUsingMonoRepository.class, pool);
     }
 
     @Override

@@ -16,7 +16,10 @@
 
 package io.rxmicro.data.sql.r2dbc.postgresql.detail;
 
+import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.r2dbc.detail.AbstractR2DBCRepository;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_CHAR;
 
@@ -38,12 +41,19 @@ import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_CHAR;
 public abstract class AbstractPostgreSQLRepository extends AbstractR2DBCRepository {
 
     /**
+     * Represents the connection factory.
+     */
+    protected final RepositoryConnectionFactory connectionFactory;
+
+    /**
      * Creates an instance of {@link AbstractPostgreSQLRepository} type.
      *
      * @param repositoryInterface the specified repository interface
+     * @param pool connection pool
      */
-    protected AbstractPostgreSQLRepository(final Class<?> repositoryInterface) {
+    protected AbstractPostgreSQLRepository(final Class<?> repositoryInterface, final ConnectionPool pool) {
         super(repositoryInterface);
+        this.connectionFactory = new RepositoryConnectionPool(repositoryInterface, pool);
     }
 
     /**

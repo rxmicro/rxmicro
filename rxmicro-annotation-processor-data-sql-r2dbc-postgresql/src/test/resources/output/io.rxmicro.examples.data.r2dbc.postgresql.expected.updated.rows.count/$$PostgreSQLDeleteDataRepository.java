@@ -4,8 +4,6 @@ import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.data.sql.model.reactor.Transaction;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.expected.updated.rows.count.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.expected.updated.rows.count.model.Account;
@@ -23,11 +21,8 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLDeleteDataRepository(final ConnectionPool pool) {
-        super(DeleteDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(DeleteDataRepository.class, pool);
+        super(DeleteDataRepository.class, pool);
     }
 
     @Override

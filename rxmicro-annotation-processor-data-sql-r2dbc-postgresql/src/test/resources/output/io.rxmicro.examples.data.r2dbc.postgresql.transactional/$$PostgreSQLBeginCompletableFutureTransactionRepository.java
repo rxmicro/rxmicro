@@ -3,8 +3,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.transactional;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.completablefuture.Transaction;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,11 +13,8 @@ import java.util.concurrent.CompletionStage;
  */
 public final class $$PostgreSQLBeginCompletableFutureTransactionRepository extends AbstractPostgreSQLRepository implements BeginCompletableFutureTransactionRepository {
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLBeginCompletableFutureTransactionRepository(final ConnectionPool pool) {
-        super(BeginCompletableFutureTransactionRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(BeginCompletableFutureTransactionRepository.class, pool);
+        super(BeginCompletableFutureTransactionRepository.class, pool);
     }
 
     @Override

@@ -2,8 +2,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.update;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Completable;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -17,11 +15,8 @@ public final class $$PostgreSQLUpdateOneEntityUsingCompletableRepository extends
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLUpdateOneEntityUsingCompletableRepository(final ConnectionPool pool) {
-        super(UpdateOneEntityUsingCompletableRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(UpdateOneEntityUsingCompletableRepository.class, pool);
+        super(UpdateOneEntityUsingCompletableRepository.class, pool);
     }
 
     @Override

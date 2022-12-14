@@ -3,8 +3,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.transactional;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.reactor.Transaction;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import reactor.core.publisher.Mono;
 
@@ -13,11 +11,8 @@ import reactor.core.publisher.Mono;
  */
 public final class $$PostgreSQLBeginReactorTransactionRepository extends AbstractPostgreSQLRepository implements BeginReactorTransactionRepository {
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLBeginReactorTransactionRepository(final ConnectionPool pool) {
-        super(BeginReactorTransactionRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(BeginReactorTransactionRepository.class, pool);
+        super(BeginReactorTransactionRepository.class, pool);
     }
 
     @Override

@@ -2,8 +2,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.select.parameters;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.SortOrder;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.parameters.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.parameters.model.Account;
@@ -25,11 +23,8 @@ public final class $$PostgreSQLSelectComplexDataRepository extends AbstractPostg
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLSelectComplexDataRepository(final ConnectionPool pool) {
-        super(SelectComplexDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(SelectComplexDataRepository.class, pool);
+        super(SelectComplexDataRepository.class, pool);
     }
 
     @Override

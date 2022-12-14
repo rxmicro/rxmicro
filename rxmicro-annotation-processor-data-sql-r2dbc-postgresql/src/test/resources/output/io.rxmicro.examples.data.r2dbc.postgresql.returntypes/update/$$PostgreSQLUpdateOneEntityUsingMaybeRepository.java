@@ -5,8 +5,6 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -24,11 +22,8 @@ public final class $$PostgreSQLUpdateOneEntityUsingMaybeRepository extends Abstr
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLUpdateOneEntityUsingMaybeRepository(final ConnectionPool pool) {
-        super(UpdateOneEntityUsingMaybeRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(UpdateOneEntityUsingMaybeRepository.class, pool);
+        super(UpdateOneEntityUsingMaybeRepository.class, pool);
     }
 
     @Override

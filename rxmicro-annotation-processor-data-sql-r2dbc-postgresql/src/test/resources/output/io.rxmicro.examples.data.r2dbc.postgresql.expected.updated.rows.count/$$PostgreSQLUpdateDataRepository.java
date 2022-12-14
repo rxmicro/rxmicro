@@ -3,8 +3,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.expected.updated.rows.count;
 import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.expected.updated.rows.count.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.expected.updated.rows.count.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -25,11 +23,8 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLUpdateDataRepository(final ConnectionPool pool) {
-        super(UpdateDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(UpdateDataRepository.class, pool);
+        super(UpdateDataRepository.class, pool);
     }
 
     @Override

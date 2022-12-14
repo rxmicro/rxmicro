@@ -2,8 +2,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.insert;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Completable;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import reactor.core.publisher.Mono;
 
@@ -12,11 +10,8 @@ import reactor.core.publisher.Mono;
  */
 public final class $$PostgreSQLInsertOneEntityFieldsUsingCompletableRepository extends AbstractPostgreSQLRepository implements InsertOneEntityFieldsUsingCompletableRepository {
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLInsertOneEntityFieldsUsingCompletableRepository(final ConnectionPool pool) {
-        super(InsertOneEntityFieldsUsingCompletableRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(InsertOneEntityFieldsUsingCompletableRepository.class, pool);
+        super(InsertOneEntityFieldsUsingCompletableRepository.class, pool);
     }
 
     @Override

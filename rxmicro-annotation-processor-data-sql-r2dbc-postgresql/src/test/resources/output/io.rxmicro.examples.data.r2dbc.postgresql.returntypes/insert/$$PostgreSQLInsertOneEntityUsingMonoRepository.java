@@ -3,8 +3,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.insert;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -22,11 +20,8 @@ public final class $$PostgreSQLInsertOneEntityUsingMonoRepository extends Abstra
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLInsertOneEntityUsingMonoRepository(final ConnectionPool pool) {
-        super(InsertOneEntityUsingMonoRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(InsertOneEntityUsingMonoRepository.class, pool);
+        super(InsertOneEntityUsingMonoRepository.class, pool);
     }
 
     @Override

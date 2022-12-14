@@ -2,8 +2,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.delete;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Completable;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import reactor.core.publisher.Mono;
 
@@ -12,11 +10,8 @@ import reactor.core.publisher.Mono;
  */
 public final class $$PostgreSQLDeleteOneEntityFieldsUsingCompletableRepository extends AbstractPostgreSQLRepository implements DeleteOneEntityFieldsUsingCompletableRepository {
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLDeleteOneEntityFieldsUsingCompletableRepository(final ConnectionPool pool) {
-        super(DeleteOneEntityFieldsUsingCompletableRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(DeleteOneEntityFieldsUsingCompletableRepository.class, pool);
+        super(DeleteOneEntityFieldsUsingCompletableRepository.class, pool);
     }
 
     @Override

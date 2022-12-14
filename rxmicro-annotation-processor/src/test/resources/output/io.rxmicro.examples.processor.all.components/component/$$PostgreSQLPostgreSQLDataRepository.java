@@ -1,8 +1,6 @@
 package io.rxmicro.examples.processor.all.components.component;
 
 import io.r2dbc.pool.ConnectionPool;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.processor.all.components.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.processor.all.components.model.Account;
@@ -18,11 +16,8 @@ public final class $$PostgreSQLPostgreSQLDataRepository extends AbstractPostgreS
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLPostgreSQLDataRepository(final ConnectionPool pool) {
-        super(PostgreSQLDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(PostgreSQLDataRepository.class, pool);
+        super(PostgreSQLDataRepository.class, pool);
     }
 
     @Override

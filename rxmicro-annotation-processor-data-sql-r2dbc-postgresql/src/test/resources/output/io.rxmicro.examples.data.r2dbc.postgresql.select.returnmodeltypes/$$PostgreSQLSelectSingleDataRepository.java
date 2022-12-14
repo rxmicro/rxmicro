@@ -3,8 +3,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.select.returnmodeltypes;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.returnmodeltypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.returnmodeltypes.model.Account;
@@ -22,11 +20,8 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLSelectSingleDataRepository(final ConnectionPool pool) {
-        super(SelectSingleDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(SelectSingleDataRepository.class, pool);
+        super(SelectSingleDataRepository.class, pool);
     }
 
     @Override

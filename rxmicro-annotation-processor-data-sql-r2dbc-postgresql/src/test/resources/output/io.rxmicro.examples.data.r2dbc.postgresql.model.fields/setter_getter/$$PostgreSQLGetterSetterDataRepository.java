@@ -1,8 +1,6 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.model.fields.setter_getter;
 
 import io.r2dbc.pool.ConnectionPool;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.model.fields.setter_getter.model.$$EntityEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.model.fields.setter_getter.model.$$EntityEntityToR2DBCSQLDBConverter;
@@ -24,11 +22,8 @@ public final class $$PostgreSQLGetterSetterDataRepository extends AbstractPostgr
     private final $$EntityEntityToR2DBCSQLDBConverter entityEntityToR2DBCSQLDBConverter =
             new $$EntityEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLGetterSetterDataRepository(final ConnectionPool pool) {
-        super(GetterSetterDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(GetterSetterDataRepository.class, pool);
+        super(GetterSetterDataRepository.class, pool);
     }
 
     @Override

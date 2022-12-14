@@ -1,8 +1,6 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.select.projection;
 
 import io.r2dbc.pool.ConnectionPool;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.projection.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.projection.model.Account;
@@ -18,11 +16,8 @@ public final class $$PostgreSQLSelectProjectionDataRepository extends AbstractPo
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLSelectProjectionDataRepository(final ConnectionPool pool) {
-        super(SelectProjectionDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(SelectProjectionDataRepository.class, pool);
+        super(SelectProjectionDataRepository.class, pool);
     }
 
     @Override

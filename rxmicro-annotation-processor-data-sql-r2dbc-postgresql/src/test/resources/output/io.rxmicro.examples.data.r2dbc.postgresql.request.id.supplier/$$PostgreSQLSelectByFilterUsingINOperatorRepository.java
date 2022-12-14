@@ -1,8 +1,6 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.request.id.supplier;
 
 import io.r2dbc.pool.ConnectionPool;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.request.id.supplier.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.request.id.supplier.model.Account;
@@ -29,11 +27,8 @@ public final class $$PostgreSQLSelectByFilterUsingINOperatorRepository extends A
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLSelectByFilterUsingINOperatorRepository(final ConnectionPool pool) {
-        super(SelectByFilterUsingINOperatorRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(SelectByFilterUsingINOperatorRepository.class, pool);
+        super(SelectByFilterUsingINOperatorRepository.class, pool);
     }
 
     @Override

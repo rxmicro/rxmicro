@@ -1,8 +1,6 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.primary.keys;
 
 import io.r2dbc.pool.ConnectionPool;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$AccountEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$CompositePrimaryKeyEntityToR2DBCSQLDBConverter;
@@ -33,11 +31,8 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     private final $$ProductEntityToR2DBCSQLDBConverter productEntityToR2DBCSQLDBConverter =
             new $$ProductEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLUpdateDataRepository(final ConnectionPool pool) {
-        super(UpdateDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(UpdateDataRepository.class, pool);
+        super(UpdateDataRepository.class, pool);
     }
 
     @Override

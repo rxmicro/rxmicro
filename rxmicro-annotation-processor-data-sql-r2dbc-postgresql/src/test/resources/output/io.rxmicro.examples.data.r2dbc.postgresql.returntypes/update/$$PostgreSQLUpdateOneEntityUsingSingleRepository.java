@@ -4,8 +4,6 @@ import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -23,11 +21,8 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLUpdateOneEntityUsingSingleRepository(final ConnectionPool pool) {
-        super(UpdateOneEntityUsingSingleRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(UpdateOneEntityUsingSingleRepository.class, pool);
+        super(UpdateOneEntityUsingSingleRepository.class, pool);
     }
 
     @Override

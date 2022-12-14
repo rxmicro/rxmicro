@@ -2,8 +2,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.variables;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldMap;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.variables.model.$$EntityEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.variables.model.$$EntityEntityToR2DBCSQLDBConverter;
@@ -23,11 +21,8 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     private final $$EntityEntityToR2DBCSQLDBConverter entityEntityToR2DBCSQLDBConverter =
             new $$EntityEntityToR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLInsertDataRepository(final ConnectionPool pool) {
-        super(InsertDataRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(InsertDataRepository.class, pool);
+        super(InsertDataRepository.class, pool);
     }
 
     @Override

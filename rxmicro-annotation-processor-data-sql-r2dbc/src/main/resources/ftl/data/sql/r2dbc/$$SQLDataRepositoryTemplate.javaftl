@@ -7,11 +7,8 @@ public final class ${JAVA_REPOSITORY_IMPL_CLASS} extends ${JAVA_REPOSITORY_ABSTR
             new ${TRANSFORMER.javaSimpleClassName}();
 
     </#list>
-    private final RepositoryConnectionFactory connectionFactory;
-
     public ${JAVA_REPOSITORY_IMPL_CLASS}(final ConnectionPool pool) {
-        super(${JAVA_REPOSITORY_INTERFACE}.class);
-        this.connectionFactory = new RepositoryConnectionPool(${JAVA_REPOSITORY_INTERFACE}.class, pool);
+        super(${JAVA_REPOSITORY_INTERFACE}.class, pool);
     }
     <#list JAVA_REPOSITORY_METHODS as METHOD>
 

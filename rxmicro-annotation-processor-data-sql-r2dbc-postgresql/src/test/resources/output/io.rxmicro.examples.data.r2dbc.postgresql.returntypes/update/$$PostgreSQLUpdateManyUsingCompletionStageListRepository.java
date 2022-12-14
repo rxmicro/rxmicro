@@ -3,8 +3,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.update;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -21,11 +19,8 @@ public final class $$PostgreSQLUpdateManyUsingCompletionStageListRepository exte
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final RepositoryConnectionFactory connectionFactory;
-
     public $$PostgreSQLUpdateManyUsingCompletionStageListRepository(final ConnectionPool pool) {
-        super(UpdateManyUsingCompletionStageListRepository.class);
-        this.connectionFactory = new RepositoryConnectionPool(UpdateManyUsingCompletionStageListRepository.class, pool);
+        super(UpdateManyUsingCompletionStageListRepository.class, pool);
     }
 
     @Override
