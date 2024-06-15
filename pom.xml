@@ -126,41 +126,41 @@
         <maven.compiler.release>11</maven.compiler.release>
         <!-- ========== Used By Annotation Processor libraries ========== -->
         <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
-        <freemarker.version>2.3.31</freemarker.version>
+        <freemarker.version>2.3.33</freemarker.version>
         <!-- https://mvnrepository.com/artifact/com.google.inject/guice -->
-        <google.guice.version>5.1.0</google.guice.version>
+        <google.guice.version>7.0.0</google.guice.version>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <google.guava.version>31.1-jre</google.guava.version>
+        <google.guava.version>33.2.1-jre</google.guava.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-model -->
-        <maven-model.version>3.8.6</maven-model.version>
+        <maven-model.version>3.9.7</maven-model.version>
         <!-- ========== Test libraries ========== -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-        <junit.version>5.9.1</junit.version>
+        <junit.version>5.10.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
-        <junit-platform.version>1.9.1</junit-platform.version>
+        <junit-platform.version>1.10.2</junit-platform.version>
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-        <mockito.version>4.9.0</mockito.version>
+        <mockito.version>5.12.0</mockito.version>
         <!-- https://mvnrepository.com/artifact/com.google.testing.compile/compile-testing -->
         <google.compile-testing.version>0.19</google.compile-testing.version>
         <!-- https://mvnrepository.com/artifact/org.dbunit/dbunit -->
         <dbunit.version>2.7.3</dbunit.version>
-        <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-jre8 -->
-        <wiremock-jre8.version>2.35.0</wiremock-jre8.version>
+        <!-- https://mvnrepository.com/artifact/org.wiremock/wiremock -->
+        <wiremock.version>3.6.0</wiremock.version>
         <!-- ========== Runtime Libraries ========== -->
         <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
-        <netty.version>4.1.85.Final</netty.version>
+        <netty.version>4.1.111.Final</netty.version>
         
         <!-- https://mvnrepository.com/artifact/io.reactivex.rxjava3/rxjava -->
-        <external.lib.rxjava3.version>3.1.5</external.lib.rxjava3.version>
+        <external.lib.rxjava3.version>3.1.8</external.lib.rxjava3.version>
         <!-- https://mvnrepository.com/artifact/io.projectreactor/reactor-core -->
-        <external.lib.projectreactor.version>3.5.0</external.lib.projectreactor.version>
+        <external.lib.projectreactor.version>3.6.7</external.lib.projectreactor.version>
         <!-- https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams -->
         <external.lib.reactivestreams.version>1.0.4</external.lib.reactivestreams.version>
         <!-- https://mvnrepository.com/artifact/io.projectreactor.netty/reactor-netty -->
-        <external.lib.reactor-netty.version>1.1.0</external.lib.reactor-netty.version>
+        <external.lib.reactor-netty.version>1.1.20</external.lib.reactor-netty.version>
         
         <!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core -->
-        <mongo-driver.version>4.8.1</mongo-driver.version>
+        <mongo-driver.version>5.1.1</mongo-driver.version>
         <external.lib.mongodb-driver-reactivestreams.version>${mongo-driver.version}</external.lib.mongodb-driver-reactivestreams.version>
         <external.lib.mongodb-driver-core.version>${mongo-driver.version}</external.lib.mongodb-driver-core.version>
         <external.lib.bson.version>${mongo-driver.version}</external.lib.bson.version>
@@ -168,69 +168,69 @@
         <!-- https://mvnrepository.com/artifact/io.r2dbc/r2dbc-spi -->
         <external.lib.r2dbc-spi.version>1.0.0.RELEASE</external.lib.r2dbc-spi.version>
         <!-- https://mvnrepository.com/artifact/org.postgresql/r2dbc-postgresql -->
-        <external.lib.r2dbc-postgresql.version>1.0.0.RELEASE</external.lib.r2dbc-postgresql.version>
+        <external.lib.r2dbc-postgresql.version>1.0.5.RELEASE</external.lib.r2dbc-postgresql.version>
         <!-- https://mvnrepository.com/artifact/io.r2dbc/r2dbc-pool -->
-        <external.lib.r2dbc-pool.version>1.0.0.RELEASE</external.lib.r2dbc-pool.version>
+        <external.lib.r2dbc-pool.version>1.0.1.RELEASE</external.lib.r2dbc-pool.version>
         <!-- ========== Tests ========== -->
         <external.lib.junit-platform-commons.version>${junit-platform.version}</external.lib.junit-platform-commons.version>
         <!-- https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api -->
-        <external.lib.apiguardian-api.version>1.0.0</external.lib.apiguardian-api.version>
+        <external.lib.apiguardian-api.version>1.1.2</external.lib.apiguardian-api.version>
         <!-- https://mvnrepository.com/artifact/org.opentest4j/opentest4j -->
-        <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
+        <external.lib.opentest4j.version>1.3.0</external.lib.opentest4j.version>
 
         <!-- ========== Code quality ========== -->
         <!-- https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs -->
-        <spotbugs.version>4.7.3</spotbugs.version>
+        <spotbugs.version>4.8.5</spotbugs.version>
         <!-- https://mvnrepository.com/artifact/net.sourceforge.pmd/pmd -->
-        <pmd.version>6.52.0</pmd.version>
+        <pmd.version>7.2.0</pmd.version>
         <!-- https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle -->
-        <checkstyle.version>10.5.0</checkstyle.version>
+        <checkstyle.version>10.17.0</checkstyle.version>
 
         <!-- ========== Maven core plugins ========== -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-clean-plugin -->
-        <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
+        <maven-clean-plugin.version>3.3.2</maven-clean-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
-        <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
-        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
-        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <maven-jar-plugin.version>3.4.1</maven-jar-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-install-plugin -->
-        <maven-install-plugin.version>3.1.0</maven-install-plugin.version>
+        <maven-install-plugin.version>3.1.2</maven-install-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin -->
-        <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
+        <maven-deploy-plugin.version>3.1.2</maven-deploy-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-site-plugin -->
-        <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
+        <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-project-info-reports-plugin -->
-        <maven-project-info-reports-plugin.version>3.4.1</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>3.5.0</maven-project-info-reports-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin -->
-        <maven-dependency-plugin.version>3.4.0</maven-dependency-plugin.version>
+        <maven-dependency-plugin.version>3.7.0</maven-dependency-plugin.version>
         <!-- ========== Maven tools plugins ========== -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-enforcer-plugin -->
-        <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
+        <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/versions-maven-plugin -->
-        <versions-maven-plugin.version>2.13.0</versions-maven-plugin.version>
+        <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
         <!-- ========== Maven publish plugins ========== -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
-        <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.7.0</maven-javadoc-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
-        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+        <maven-gpg-plugin.version>3.2.4</maven-gpg-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin -->
-        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
 
         <!-- ========== Code quality plugins ========== -->
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
-        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs-maven-plugin -->
-        <spotbugs-maven-plugin.version>4.7.3.0</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.8.5.0</spotbugs-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-pmd-plugin -->
-        <maven-pmd-plugin.version>3.19.0</maven-pmd-plugin.version>
+        <maven-pmd-plugin.version>3.23.0</maven-pmd-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
-        <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
+        <maven-checkstyle-plugin.version>3.4.0</maven-checkstyle-plugin.version>
 
         <!-- ========== Code quality plugin configuration properties ========== -->
         <spotbugs-maven-plugin.failOnError>true</spotbugs-maven-plugin.failOnError>
