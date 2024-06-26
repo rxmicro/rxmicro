@@ -211,6 +211,26 @@ public final class Strings {
         return !string.isEmpty() && string.charAt(0) == prefix;
     }
 
+    /**
+     * Verifies that the provided string is blank or not.
+     *
+     * @param string the provided string
+     * @return result of verification.
+     */
+    public static boolean isNotBlank(final String string) {
+        return string != null && !string.isBlank();
+    }
+
+    /**
+     * Verifies that the provided string is blank or not.
+     *
+     * @param string the provided string
+     * @return result of verification.
+     */
+    public static boolean isBlank(final String string) {
+        return string == null || string.isBlank();
+    }
+
     private Strings() {
     }
 }

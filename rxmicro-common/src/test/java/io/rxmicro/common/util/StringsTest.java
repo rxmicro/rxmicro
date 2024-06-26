@@ -23,13 +23,18 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
+import static io.rxmicro.common.util.Strings.isBlank;
+import static io.rxmicro.common.util.Strings.isNotBlank;
 import static io.rxmicro.common.util.Strings.split;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author nedis
@@ -86,5 +91,33 @@ final class StringsTest {
     void method_split_should_ignore_a_last_comma() {
         final List<String> actual = assertDoesNotThrow(() -> split("value1,value2,value3,", ","));
         assertEquals(List.of("value1", "value2", "value3"), actual);
+    }
+
+    @ParameterizedTest
+    @Order(7)
+    @CsvSource(nullValues = "null", value = {"null", "''", "'  '", "'\t'"})
+    void method_isNotBlank_should_return_false(final String string) {
+        assertFalse(isNotBlank(string));
+    }
+
+    @ParameterizedTest
+    @Order(8)
+    @CsvSource({"null", " qwerty "})
+    void method_isNotBlank_should_return_true(final String string) {
+        assertTrue(isNotBlank(string));
+    }
+
+    @ParameterizedTest
+    @Order(9)
+    @CsvSource(nullValues = "null", value = {"null", "''", "'  '", "'\t'"})
+    void method_isBlank_should_return_true(final String string) {
+        assertTrue(isBlank(string));
+    }
+
+    @ParameterizedTest
+    @Order(10)
+    @CsvSource({"null", " qwerty "})
+    void method_isBlank_should_return_false(final String string) {
+        assertFalse(isBlank(string));
     }
 }
