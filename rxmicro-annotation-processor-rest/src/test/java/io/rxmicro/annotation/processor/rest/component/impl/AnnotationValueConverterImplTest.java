@@ -79,7 +79,7 @@ final class AnnotationValueConverterImplTest extends AbstractRxMicroAnnotationPr
 
     @Override
     protected Processor createAnnotationProcessor() {
-        return new TestAnnotationProcessor();
+        return new DummyAnnotationProcessor();
     }
 
     @BeforeEach
@@ -212,7 +212,7 @@ final class AnnotationValueConverterImplTest extends AbstractRxMicroAnnotationPr
      * @since 0.2
      */
     @SuppressWarnings("PMD.AvoidBranchingStatementAsLastInLoop")
-    static final class TestAnnotationProcessor extends AbstractProcessor {
+    static final class DummyAnnotationProcessor extends AbstractProcessor {
 
         @Override
         public Set<String> getSupportedAnnotationTypes() {

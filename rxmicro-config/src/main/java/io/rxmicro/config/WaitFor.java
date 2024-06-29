@@ -133,10 +133,10 @@ public final class WaitFor {
      * @throws ConfigException if the provided arguments are not valid
      */
     public WaitFor(final String commandLineArgs) {
-        if (commandLineArgs.indexOf(' ') != -1) {
-            waitForService = createWaitForService(commandLineArgs.split(" ")).orElse(null);
+        if (commandLineArgs.indexOf(' ') == -1) {
+            waitForService = createWaitForService(commandLineArgs).orElse(null);
         } else {
-            waitForService = createWaitForService(new String[]{commandLineArgs}).orElse(null);
+            waitForService = createWaitForService(commandLineArgs.split(" ")).orElse(null);
         }
     }
 

@@ -126,7 +126,7 @@ final class BaseRestControllerMethodRedirectIntegrationTest extends AbstractBase
      * @author nedis
      */
     @SuppressWarnings({"CodeBlock2Expr", "PMD.AvoidDuplicateLiterals"})
-    private static class ThrowRedirectExceptionArgumentsProvider implements ArgumentsProvider {
+    private static final class ThrowRedirectExceptionArgumentsProvider implements ArgumentsProvider {
 
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {

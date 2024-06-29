@@ -118,6 +118,8 @@ public final class AnyHttpErrorHttpResponseBuilder extends ErrorHandler {
 
         private static final String DELIMITER = ", ";
 
+        private static final int DEFAULT_CAPACITY = 50;
+
         private final HttpResponse originalResponse;
 
         private HttpVersion httpVersion;
@@ -133,7 +135,7 @@ public final class AnyHttpErrorHttpResponseBuilder extends ErrorHandler {
         }
 
         private String getNonNullParams(final HttpErrorException exception) {
-            final StringBuilder stringBuilder = new StringBuilder();
+            final StringBuilder stringBuilder = new StringBuilder(DEFAULT_CAPACITY);
             stringBuilder.append("status=").append(status);
             if (httpVersion != null) {
                 stringBuilder.append(DELIMITER).append("version=").append(httpVersion);

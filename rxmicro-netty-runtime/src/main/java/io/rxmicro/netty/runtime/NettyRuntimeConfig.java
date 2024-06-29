@@ -97,7 +97,7 @@ public final class NettyRuntimeConfig extends Config {
     private NettyChannelIdType channelIdType = PredefinedNettyChannelIdType.SHORT;
 
     public NettyRuntimeConfig() {
-        super(Config.getDefaultNameSpace(NettyRuntimeConfig.class));
+        super(getDefaultNameSpace(NettyRuntimeConfig.class));
     }
 
     /**

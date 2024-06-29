@@ -554,12 +554,7 @@ public final class Reflections {
                                       final Object... args) {
         final Class<?>[] parameterTypes = Arrays.stream(args).map(Object::getClass).toArray(Class[]::new);
         for (final Object instance : instances) {
-            Method method;
-            try {
-                method = findMethod(instance.getClass(), methodName, parameterTypes);
-            } catch (final CheckedWrapperException ignored) {
-                method = null;
-            }
+            final Method method = findMethod(true, instance.getClass(), methodName, parameterTypes);
             if (method != null) {
                 if (!method.canAccess(instance)) {
                     method.setAccessible(true);
@@ -664,9 +659,9 @@ public final class Reflections {
     @SuppressWarnings("UnusedReturnValue")
     public static Object invokeMethod(final Object instance,
                                       final String methodName,
-                                      final Class[] parameterTypes,
-                                      final Object[] args) {
-        final Method method = findMethod(instance.getClass(), methodName, parameterTypes);
+                                      final Class<?>[] parameterTypes,
+                                      final Object... args) {
+        final Method method = findMethod(false, instance.getClass(), methodName, parameterTypes);
         final Object validInstance = isStatic(method.getModifiers()) ? null : instance;
         if (!method.canAccess(instance)) {
             method.setAccessible(true);
@@ -1103,19 +1098,7 @@ public final class Reflections {
                                     final Class<?>[] argTypes,
                                     final Object... constructorArgs) {
         try {
-            Constructor<T> constructor;
-            try {
-                constructor = targetClass.getConstructor(argTypes);
-            } catch (final NoSuchMethodException exception) {
-                if (setAccessibleIfRequired) {
-                    constructor = targetClass.getDeclaredConstructor(argTypes);
-                    if (!constructor.canAccess(null)) {
-                        constructor.setAccessible(true);
-                    }
-                } else {
-                    throw exception;
-                }
-            }
+            final Constructor<T> constructor = getConstructor(targetClass, setAccessibleIfRequired, argTypes);
             return constructor.newInstance(constructorArgs);
         } catch (final NoSuchMethodException ex) {
             throw new CheckedWrapperException(
@@ -1135,6 +1118,24 @@ public final class Reflections {
                     "Can't instantiate ? class, because constructor throws an exception with message: ?",
                     targetClass.getName(), ex.getTargetException().getMessage()
             );
+        }
+    }
+
+    private static <T> Constructor<T> getConstructor(final Class<T> targetClass,
+                                                     final boolean setAccessibleIfRequired,
+                                                     final Class<?>... argTypes) throws NoSuchMethodException {
+        try {
+            return targetClass.getConstructor(argTypes);
+        } catch (final NoSuchMethodException exception) {
+            if (setAccessibleIfRequired) {
+                final Constructor<T> constructor = targetClass.getDeclaredConstructor(argTypes);
+                if (!constructor.canAccess(null)) {
+                    constructor.setAccessible(true);
+                }
+                return constructor;
+            } else {
+                throw exception;
+            }
         }
     }
 
@@ -1267,7 +1268,8 @@ public final class Reflections {
         }
     }
 
-    private static Method findMethod(final Class<?> clazz,
+    private static Method findMethod(final boolean returnNullIfNotFound,
+                                     final Class<?> clazz,
                                      final String methodName,
                                      final Class<?>... parameterTypes) {
         try {
@@ -1280,13 +1282,17 @@ public final class Reflections {
                     // do nothing
                 }
             }
-            throw new CheckedWrapperException(
-                    ex,
-                    "Method '?.?(?)' not defined",
-                    clazz.getName(),
-                    methodName,
-                    Arrays.stream(parameterTypes).map(Class::getName).collect(joining(", "))
-            );
+            if (returnNullIfNotFound) {
+                return null;
+            } else {
+                throw new CheckedWrapperException(
+                        ex,
+                        "Method '?.?(?)' not defined",
+                        clazz.getName(),
+                        methodName,
+                        Arrays.stream(parameterTypes).map(Class::getName).collect(joining(", "))
+                );
+            }
         }
     }
 

@@ -26,7 +26,7 @@ public final class ThrowExceptionConstraintViolationReporter implements Constrai
 
     @Override
     public void reportViolation(final String message) {
-        throw ConstraintViolationReportManager.ExceptionTranslationHelper.newCustomException(message)
+        throw ConstraintViolationReportHelper.ExceptionTranslationHelper.newCustomException(message)
                 .orElseGet(() -> new ConstraintViolationException(message));
     }
 }

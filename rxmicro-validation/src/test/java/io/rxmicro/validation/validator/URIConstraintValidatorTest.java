@@ -64,7 +64,7 @@ final class URIConstraintValidatorTest extends AbstractNullableConstraintValidat
     })
     @Order(11)
     void Should_process_parameter_as_a_valid_one(final String value) {
-        assertDoesNotThrow(() -> validator.validate(value, PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(value, PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -75,9 +75,9 @@ final class URIConstraintValidatorTest extends AbstractNullableConstraintValidat
     void Should_throw_ConstraintViolationException(final String value,
                                                    final String details) {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": " + details,
+                "Invalid parameter \"fieldName\": " + details,
                 exception.getMessage()
         );
     }

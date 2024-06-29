@@ -23,6 +23,7 @@ package io.rxmicro.rest.client.detail;
  * @hidden
  * @since 0.1
  */
+@SuppressWarnings("unused")
 public abstract class RequestModelExtractor<T> {
 
     public void extract(final T model,

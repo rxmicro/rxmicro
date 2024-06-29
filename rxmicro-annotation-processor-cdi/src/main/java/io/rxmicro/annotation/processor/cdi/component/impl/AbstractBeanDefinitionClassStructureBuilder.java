@@ -98,7 +98,7 @@ abstract class AbstractBeanDefinitionClassStructureBuilder {
                 beanDefinition,
                 beanRegistrationQualifierRuleBuilder.build(beanDefinition.getBeanTypeElement()),
                 beanDefinition.getFactoryTypeProviderMethod()
-                        .map(e -> beanRegistrationQualifierRuleBuilder.build(e))
+                        .map(beanRegistrationQualifierRuleBuilder::build)
                         .orElse(List.of())
         );
     }
@@ -130,7 +130,6 @@ abstract class AbstractBeanDefinitionClassStructureBuilder {
         }
     }
 
-    @SuppressWarnings("ConfusingArgumentToVarargsMethod")
     final TypeElement getOwnerType(final Element element,
                                    final List<Class<? extends Annotation>> annotations) {
         Element ownerType = element;
@@ -143,7 +142,7 @@ abstract class AbstractBeanDefinitionClassStructureBuilder {
         throw new InterruptProcessingException(
                 element,
                 "Can't find class element for @? annotation!",
-                annotations.stream().map(Class::getSimpleName).toArray(String[]::new)
+                annotations.stream().map(Class::getSimpleName).toArray(Object[]::new)
         );
     }
 

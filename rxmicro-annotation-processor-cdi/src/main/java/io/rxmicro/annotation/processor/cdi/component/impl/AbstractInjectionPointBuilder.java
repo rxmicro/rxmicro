@@ -34,7 +34,6 @@ import io.rxmicro.cdi.Resource;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
@@ -62,8 +61,7 @@ public abstract class AbstractInjectionPointBuilder {
     @Inject
     private InjectionResourceBuilder injectionResourceBuilder;
 
-    final InjectionPoint build(final TypeElement beanTypeElement,
-                               final VariableElement field) {
+    final InjectionPoint build(final VariableElement field) {
         validateOnlyOneAnnotationPerElement(field, field.getAnnotationMirrors(), new SupportedAnnotations(INJECT_ANNOTATIONS));
         final String modelName = userDefinedNameBuilder.getName(field).orElseGet(() -> defaultNameBuilder.getName(field));
         final InjectionPointType type = injectionPointTypeBuilder.build(field, modelName);

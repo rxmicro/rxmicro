@@ -30,8 +30,7 @@
 
     <rule ref="category/java/documentation.xml/CommentContent">
         <properties>
-            <property name="caseSensitive" value="false"/>
-            <property name="disallowedTerms" value="idiot|jerk"/>
+            <property name="forbiddenRegex" value="idiot|jerk"/>
         </properties>
     </rule>
 

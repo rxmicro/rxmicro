@@ -73,6 +73,9 @@ public final class NettyConfiguratorController {
         nettyConfiguratorBuilder = null;
     }
 
+    private NettyConfiguratorController() {
+    }
+
     /**
      * @author nedis
      * @since 0.7.2

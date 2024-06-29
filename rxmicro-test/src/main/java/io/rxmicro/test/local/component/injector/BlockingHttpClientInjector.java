@@ -85,10 +85,10 @@ public final class BlockingHttpClientInjector {
             return validatePort(settings.port());
         } else {
             final String portProvider = settings.randomPortProvider();
-            if (!portProvider.isEmpty()) {
-                return reader.getPort(testClass, portProvider);
-            } else {
+            if (portProvider.isEmpty()) {
                 return defaultPort;
+            } else {
+                return reader.getPort(testClass, portProvider);
             }
         }
     }

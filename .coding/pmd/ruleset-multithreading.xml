@@ -39,18 +39,18 @@
 
     <rule ref="category/java/multithreading.xml/DontCallThreadRun"/>
     <rule ref="category/java/multithreading.xml/DoubleCheckedLocking"/>
-
-    <!-- Reactive stream libs do not require the thread safe singletons: -->
-    <!-- rule ref="category/java/multithreading.xml/NonThreadSafeSingleton"/ -->
-
+    <rule ref="category/java/multithreading.xml/NonThreadSafeSingleton">
+        <properties>
+            <property name="checkNonStaticMethods" value="true"/>
+            <property name="checkNonStaticFields" value="false"/>
+        </properties>
+    </rule>
     <rule ref="category/java/multithreading.xml/UnsynchronizedStaticFormatter">
         <properties>
             <property name="allowMethodLevelSynchronization" value="false"/>
         </properties>
     </rule>
-
-    <!-- ConcurrentHashMap is not actual for reactive programming! -->
+    <!-- We have a lot of false-positive results fo this rule: -->
     <!-- rule ref="category/java/multithreading.xml/UseConcurrentHashMap" /-->
-
     <rule ref="category/java/multithreading.xml/UseNotifyAllInsteadOfNotify"/>
 </ruleset>

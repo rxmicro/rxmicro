@@ -73,7 +73,7 @@ public final class ConfigValidatorDescriptorFactory {
             addRequiredValidator(validators, propertyType, annotatedElement);
             for (final Annotation annotation : annotatedElement.getAnnotations()) {
                 final Class<? extends Annotation> annotationType = annotation.annotationType();
-                if (annotationType.getPackageName().equals(RX_MICRO_VALIDATION_PACKAGE)) {
+                if (RX_MICRO_VALIDATION_PACKAGE.equals(annotationType.getPackageName())) {
                     final Class<? extends ConstraintValidator> validatorClass =
                             getValidatorClass(propertyErrorDescriptor, propertyType, annotationType);
                     final ConstraintParametersOrder parametersOrder = annotationType.getAnnotation(ConstraintParametersOrder.class);
@@ -91,7 +91,7 @@ public final class ConfigValidatorDescriptorFactory {
         return validators.values();
     }
 
-    private static Class[] getAnnotationParameterTypes(final Object[] args) {
+    private static Class[] getAnnotationParameterTypes(final Object... args) {
         final Class[] result = new Class[args.length];
         for (int i = 0; i < args.length; i++) {
             final Object arg = args[i];
@@ -118,7 +118,7 @@ public final class ConfigValidatorDescriptorFactory {
         return result;
     }
 
-    private static Object[] getAnnotationParameters(final Annotation annotation, final String[] value) {
+    private static Object[] getAnnotationParameters(final Annotation annotation, final String... value) {
         return Arrays.stream(value)
                 .filter(param -> !ConstraintRule.OFF.equals(param))
                 .map(param -> Reflections.invokeMethod(annotation, param)).toArray();

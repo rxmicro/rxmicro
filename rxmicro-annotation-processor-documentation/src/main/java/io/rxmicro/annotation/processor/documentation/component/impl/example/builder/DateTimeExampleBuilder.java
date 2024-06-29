@@ -82,13 +82,13 @@ public final class DateTimeExampleBuilder implements TypeExampleBuilder {
         if (typeMirror.toString().equals(Instant.class.getName())) {
             long epochMilli = Instant.parse(INSTANT_EXAMPLE).toEpochMilli();
             if (truncatedTime.value() == TruncatedTime.Truncated.MILLIS) {
-                epochMilli = (epochMilli / TRUNCATED_MILLISECONDS) * TRUNCATED_MILLISECONDS;
+                epochMilli = epochMilli / TRUNCATED_MILLISECONDS * TRUNCATED_MILLISECONDS;
             } else if (truncatedTime.value() == TruncatedTime.Truncated.SECONDS) {
-                epochMilli = (epochMilli / TRUNCATED_SECONDS) * TRUNCATED_SECONDS;
+                epochMilli = epochMilli / TRUNCATED_SECONDS * TRUNCATED_SECONDS;
             } else if (truncatedTime.value() == TruncatedTime.Truncated.MINUTES) {
-                epochMilli = (epochMilli / TRUNCATED_MINUTES) * TRUNCATED_MINUTES;
+                epochMilli = epochMilli / TRUNCATED_MINUTES * TRUNCATED_MINUTES;
             } else {
-                epochMilli = (epochMilli / TRUNCATED_HOURS) * TRUNCATED_HOURS;
+                epochMilli = epochMilli / TRUNCATED_HOURS * TRUNCATED_HOURS;
             }
             return Instant.ofEpochMilli(epochMilli).toString();
         }

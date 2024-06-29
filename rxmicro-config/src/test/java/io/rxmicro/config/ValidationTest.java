@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ValidationTest {
+class ValidationTest {
 
     private static final String TEST_FOR_VALIDATION_THREAD_PRIORITY = "test-for-validation.threadPriority";
 
@@ -54,7 +54,7 @@ public class ValidationTest {
         System.setProperty(TEST_FOR_VALIDATION_THREAD_PRIORITY, "0");
 
         try {
-            final ConfigException exception = assertThrows(ConfigException.class, () -> Configs.getConfig(TestForValidationConfig.class));
+            final ConfigException exception = assertThrows(ConfigException.class, () -> Configs.getConfig(DummyConfig.class));
 
             assertEquals(
                     "'test-for-validation' config contains the following validation errors:\n" +
@@ -72,7 +72,7 @@ public class ValidationTest {
         System.setProperty(TEST_FOR_VALIDATION_THREAD_PRIORITY, "20");
 
         try {
-            final ConfigException exception = assertThrows(ConfigException.class, () -> Configs.getConfig(TestForValidationConfig.class));
+            final ConfigException exception = assertThrows(ConfigException.class, () -> Configs.getConfig(DummyConfig.class));
 
             assertEquals(
                     "'test-for-validation' config contains the following validation errors:\n" +
@@ -87,7 +87,7 @@ public class ValidationTest {
     @Test
     @Order(Integer.MAX_VALUE)
     void should_not_throw_any_exception_because_properties_are_not_set() {
-        final TestForValidationConfig config = assertDoesNotThrow(() -> Configs.getConfig(TestForValidationConfig.class));
+        final DummyConfig config = assertDoesNotThrow(() -> Configs.getConfig(DummyConfig.class));
 
         assertEquals(Thread.NORM_PRIORITY, config.getThreadPriority());
     }

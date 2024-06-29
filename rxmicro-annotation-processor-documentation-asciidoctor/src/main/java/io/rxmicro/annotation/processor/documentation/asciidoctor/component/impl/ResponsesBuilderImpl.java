@@ -192,7 +192,7 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
                     cl, HEADER, withReadMore
             );
             // Add Request-Id header if not defined!
-            if (headers.stream().noneMatch(f -> f.getName().equalsIgnoreCase(REQUEST_ID))) {
+            if (headers.stream().noneMatch(f -> REQUEST_ID.equalsIgnoreCase(f.getName()))) {
                 return Stream.concat(
                         Stream.of(buildRequestIdHeaderDocumentedModelField(true)),
                         headers.stream()

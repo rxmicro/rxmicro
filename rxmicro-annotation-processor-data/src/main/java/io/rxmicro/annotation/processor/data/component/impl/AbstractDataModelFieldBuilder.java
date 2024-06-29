@@ -95,13 +95,12 @@ public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, 
                                  boolean nullable,
                                  boolean isId);
 
-    @SuppressWarnings("Convert2MethodRef")
     private String getColumnName(final TypeElement typeElement,
                                  final String fieldName,
                                  final AnnotatedModelElement annotated) {
         final Column column = annotated.getAnnotation(Column.class);
         final ColumnMappingStrategy strategy = typeElement.getAnnotation(ColumnMappingStrategy.class);
-        return getModelName(column != null ? column.value() : EMPTY_STRING, strategy, fieldName, () -> strategy.value());
+        return getModelName(column != null ? column.value() : EMPTY_STRING, strategy, fieldName, strategy::value);
     }
 
     protected abstract boolean isColumnId(AnnotatedModelElement annotated);

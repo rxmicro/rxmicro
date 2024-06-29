@@ -119,6 +119,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                 int nestedLevel,
                                 ModelFieldBuilderOptions options);
 
+    @SuppressWarnings("unused")
     protected void validateModelClass(final TypeElement typeElement) {
         // Sub classes can add additional validators for this type element
     }

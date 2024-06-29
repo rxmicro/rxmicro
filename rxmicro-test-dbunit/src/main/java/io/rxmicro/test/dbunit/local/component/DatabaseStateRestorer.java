@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.dbunit.local.component;
 
+import io.rxmicro.common.util.Strings;
 import io.rxmicro.test.dbunit.InitialDataSet;
 import io.rxmicro.test.dbunit.internal.component.AbstractDatabaseStateChanger;
 import org.dbunit.database.DatabaseConnection;
@@ -39,13 +40,13 @@ public final class DatabaseStateRestorer extends AbstractDatabaseStateChanger {
             if (initialDataSet.executeStatementsAfter().length > 0) {
                 executeJdbcStatements(
                         databaseConnection,
-                        Arrays.stream(initialDataSet.executeStatementsAfter()).filter(s -> !s.trim().isEmpty()).collect(toList())
+                        Arrays.stream(initialDataSet.executeStatementsAfter()).filter(Strings::isNotBlank).collect(toList())
                 );
             }
             if (initialDataSet.executeScriptsAfter().length > 0) {
                 executeSqlScripts(
                         databaseConnection,
-                        Arrays.stream(initialDataSet.executeScriptsAfter()).filter(s -> !s.trim().isEmpty()).collect(toList())
+                        Arrays.stream(initialDataSet.executeScriptsAfter()).filter(Strings::isNotBlank).collect(toList())
                 );
             }
         } catch (final SQLException ex) {

@@ -49,7 +49,12 @@ public enum LogLevel {
      * <p>
      * Warnings and errors will be shown always!
      */
-    OFF;
+    OFF {
+        @Override
+        public boolean isEnabled(final LogLevel expectedLogLevel) {
+            return false;
+        }
+    };
 
     /**
      * Returns {@code true} if current log level allows showing a message with the expected log level.
@@ -58,10 +63,6 @@ public enum LogLevel {
      * @return {@code true} if current log level allows showing a message with the expected log level.
      */
     public boolean isEnabled(final LogLevel expectedLogLevel) {
-        if (this == OFF) {
-            return false;
-        } else {
-            return ordinal() <= expectedLogLevel.ordinal();
-        }
+        return ordinal() <= expectedLogLevel.ordinal();
     }
 }

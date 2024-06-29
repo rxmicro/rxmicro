@@ -50,16 +50,16 @@ final class PastInstantConstraintValidatorTest extends AbstractNullableConstrain
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(Instant.now().minus(Duration.ofMinutes(1)), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(Instant.now().minus(Duration.ofMinutes(1)), PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException() {
         final ConstraintViolationException exception = assertThrows(ConstraintViolationException.class, () ->
-                validator.validate(Instant.now().plus(Duration.ofMinutes(1)), PARAMETER, "value"));
+                validator.validate(Instant.now().plus(Duration.ofMinutes(1)), PARAMETER, FIELD_NAME));
         {
-            final String requiredFragment = "Invalid parameter \"value\": Expected a past instant, but actual is ";
+            final String requiredFragment = "Invalid parameter \"fieldName\": Expected a past instant, but actual is ";
             assertTrue(
                     exception.getMessage().contains(requiredFragment),
                     format("Exception message {?} does not contain required fragment: {?}", exception.getMessage(), requiredFragment)

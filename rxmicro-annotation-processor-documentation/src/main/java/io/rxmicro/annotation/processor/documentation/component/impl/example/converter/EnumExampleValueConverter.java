@@ -60,15 +60,15 @@ public final class EnumExampleValueConverter extends ExampleValueConverter {
         } else {
             final Enumeration enumeration = restModelField.getAnnotation(Enumeration.class);
             if (enumeration.value().length > 0) {
-                if (!Set.of(enumeration.value()).contains(value)) {
+                if (Set.of(enumeration.value()).contains(value)) {
+                    return value;
+                } else {
                     showInvalidExampleValueError(
                             restModelField,
                             format("one from the set: ?", Arrays.toString(enumeration.value())),
                             value
                     );
                     return ERROR_DETECTED;
-                } else {
-                    return value;
                 }
             } else {
                 throw new InterruptProcessingException(
@@ -108,15 +108,15 @@ public final class EnumExampleValueConverter extends ExampleValueConverter {
         } else {
             verifySet = enumConstants;
         }
-        if (!verifySet.contains(value)) {
+        if (verifySet.contains(value)) {
+            return value;
+        } else {
             showInvalidExampleValueError(
                     restModelField,
                     format("one from the set: ?", verifySet),
                     value
             );
             return ERROR_DETECTED;
-        } else {
-            return value;
         }
     }
 }

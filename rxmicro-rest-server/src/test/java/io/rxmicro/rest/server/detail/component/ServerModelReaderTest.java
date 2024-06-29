@@ -69,7 +69,7 @@ final class ServerModelReaderTest {
      * @author nedis
      * @since 0.1
      */
-    private static class QueryParamsProvider implements ArgumentsProvider {
+    private static final class QueryParamsProvider implements ArgumentsProvider {
 
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext context) {

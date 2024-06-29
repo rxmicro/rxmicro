@@ -23,12 +23,12 @@ package io.rxmicro.validation.local;
 public interface ConstraintViolationReporter {
 
     default void onValidationStarted() {
-
+        // do nothing
     }
 
     void reportViolation(String message);
 
     default void onValidationCompleted() {
-
+        // do nothing
     }
 }

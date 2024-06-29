@@ -350,18 +350,7 @@ public final class PatternFormatter extends Formatter {
     public PatternFormatter(final String pattern,
                             final boolean singleLineEnabled,
                             final String replacement) {
-        List<BiConsumer<MessageBuilder, LogRecord>> biConsumers;
-        try {
-            biConsumers = new PatternFormatterBiConsumerParser().parse(pattern, singleLineEnabled);
-        } catch (final PatternFormatterParseException ex) {
-            logInternal(
-                    Level.SEVERE,
-                    "The '?' pattern is invalid: ?. Set '?' as pattern for all log messages!",
-                    pattern, ex.getMessage(), DEFAULT_PATTERN
-            );
-            biConsumers = new PatternFormatterBiConsumerParser().parse(DEFAULT_PATTERN, singleLineEnabled);
-        }
-        this.biConsumers = biConsumers;
+        this.biConsumers = buildBiConsumers(pattern, singleLineEnabled);
         if (singleLineEnabled) {
             if (replacement == null) {
                 // Default replacement
@@ -374,7 +363,20 @@ public final class PatternFormatter extends Formatter {
         } else {
             this.messageBuilderSupplier = MessageBuilder::new;
         }
+    }
 
+    private static List<BiConsumer<MessageBuilder, LogRecord>> buildBiConsumers(final String pattern,
+                                                                                final boolean singleLineEnabled) {
+        try {
+            return new PatternFormatterBiConsumerParser().parse(pattern, singleLineEnabled);
+        } catch (final PatternFormatterParseException ex) {
+            logInternal(
+                    Level.SEVERE,
+                    "The '?' pattern is invalid: ?. Set '?' as pattern for all log messages!",
+                    pattern, ex.getMessage(), DEFAULT_PATTERN
+            );
+            return new PatternFormatterBiConsumerParser().parse(DEFAULT_PATTERN, singleLineEnabled);
+        }
     }
 
     /**

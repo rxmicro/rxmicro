@@ -146,7 +146,16 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
                             final List<Map.Entry<String, String>> headers,
                             final byte[] requestBody) {
         nettyHeaders.set(HOST, host);
-        if (!headers.isEmpty()) {
+        if (headers.isEmpty()) {
+            nettyHeaders.set(ACCEPT, contentType);
+            if (requestBody != null) {
+                nettyHeaders.set(CONTENT_TYPE, contentType);
+                nettyHeaders.set(CONTENT_LENGTH, requestBody.length);
+            } else {
+                nettyHeaders.set(CONTENT_LENGTH, 0);
+            }
+            nettyHeaders.set(USER_AGENT, DEFAULT_USER_AGENT);
+        } else {
             final Set<String> addedHeaders = new TreeSet<>(CASE_INSENSITIVE_ORDER);
             headers.forEach(e -> {
                 if (RESTRICTED_HEADER_NAMES.contains(e.getKey())) {
@@ -171,15 +180,6 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
             if (!addedHeaders.contains(USER_AGENT)) {
                 nettyHeaders.set(USER_AGENT, DEFAULT_USER_AGENT);
             }
-        } else {
-            nettyHeaders.set(ACCEPT, contentType);
-            if (requestBody != null) {
-                nettyHeaders.set(CONTENT_TYPE, contentType);
-                nettyHeaders.set(CONTENT_LENGTH, requestBody.length);
-            } else {
-                nettyHeaders.set(CONTENT_LENGTH, 0);
-            }
-            nettyHeaders.set(USER_AGENT, DEFAULT_USER_AGENT);
         }
     }
 

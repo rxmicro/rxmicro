@@ -121,7 +121,7 @@ public enum DatabaseType {
      * @throws ConfigException if the provided JDBC url contains the url to unsupported database.
      */
     public static TestDatabaseConfig parseJdbcUrl(final String jdbcUrl) {
-        for (final DatabaseType databaseType : DatabaseType.values()) {
+        for (final DatabaseType databaseType : values()) {
             if (jdbcUrl.startsWith(databaseType.jdbcUrlPrefix)) {
                 return new JdbcUrlParser().parse(databaseType, jdbcUrl);
             }
@@ -129,7 +129,7 @@ public enum DatabaseType {
         throw new ConfigException(
                 "Unsupported jdbc url: ?. Only following jdbc url supported: ?",
                 jdbcUrl,
-                Arrays.stream(DatabaseType.values())
+                Arrays.stream(values())
                         .map(databaseType -> databaseType.getJdbcUrl("${host}", "${port}", "${databaseName}"))
                         .collect(toList())
         );

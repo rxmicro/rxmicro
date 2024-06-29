@@ -39,9 +39,9 @@ import java.util.TreeSet;
 import javax.annotation.processing.Processor;
 
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_DESTINATION_DIR;
-import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
-import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_PROJECT_DIRECTORY_PATH;
-import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_PROJECT_DOCUMENTATION_VERSION;
+import static io.rxmicro.annotation.processor.documentation.DocSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
+import static io.rxmicro.annotation.processor.documentation.DocSystemProperties.RX_MICRO_PROJECT_DIRECTORY_PATH;
+import static io.rxmicro.annotation.processor.documentation.DocSystemProperties.RX_MICRO_PROJECT_DOCUMENTATION_VERSION;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_BUFFER_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_HTTP_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_MODULE;

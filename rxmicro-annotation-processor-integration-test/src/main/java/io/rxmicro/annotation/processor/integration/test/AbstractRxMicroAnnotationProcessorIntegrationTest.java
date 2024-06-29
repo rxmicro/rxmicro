@@ -35,7 +35,7 @@ import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -67,7 +67,7 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
 
     private static final String PATH_ELEMENT_SEPARATOR = "/";
 
-    private final Set<ExternalModule> externalModules = new HashSet<>();
+    private final Set<ExternalModule> externalModules = EnumSet.noneOf(ExternalModule.class);
 
     public static String getInputAbsolutePath(final Class<?> clazz) {
         return getAbsolutePath(clazz, INPUT);

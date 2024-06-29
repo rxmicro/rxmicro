@@ -19,8 +19,8 @@ package io.rxmicro.validation.detail;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.local.ValidationOptions;
 
-import static io.rxmicro.validation.local.ConstraintViolationReportManager.completeValidation;
-import static io.rxmicro.validation.local.ConstraintViolationReportManager.startValidation;
+import static io.rxmicro.validation.local.ConstraintViolationReportHelper.completeValidation;
+import static io.rxmicro.validation.local.ConstraintViolationReportHelper.startValidation;
 
 
 /**

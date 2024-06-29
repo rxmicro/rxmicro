@@ -49,7 +49,7 @@ final class RuntimeReflectionsTest {
     @Order(1)
     void method_setFieldValue_should_wrap_IllegalAccessException() {
         final CheckedWrapperException exception = assertThrows(CheckedWrapperException.class, () ->
-                setFieldValue(new TestClass(), "value", "test", null));
+                setFieldValue(new DummyClass(), "value", "test", null));
 
         assertEquals(
                 "java.lang.IllegalAccessException: class io.rxmicro.runtime.detail.RuntimeReflections " +
@@ -65,7 +65,7 @@ final class RuntimeReflectionsTest {
     @Order(2)
     void method_setFieldValue_should_throw_InvalidStateException_if_field_not_found() {
         final InvalidStateException exception = assertThrows(InvalidStateException.class, () ->
-                setFieldValue(new TestClass(), "not_found", "test", null));
+                setFieldValue(new DummyClass(), "not_found", "test", null));
 
         assertEquals(
                 "Field 'io.rxmicro.runtime.detail.RuntimeReflectionsTest$TestClass.not_found' is not defined",
@@ -92,7 +92,7 @@ final class RuntimeReflectionsTest {
         final Consumer<Field> fieldConsumer = field -> {
         };
         final CheckedWrapperException exception = assertThrows(CheckedWrapperException.class, () ->
-                getFieldValue(new TestClass(), "value", fieldConsumer));
+                getFieldValue(new DummyClass(), "value", fieldConsumer));
 
         assertEquals(
                 "java.lang.IllegalAccessException: class io.rxmicro.runtime.detail.RuntimeReflections " +
@@ -110,7 +110,7 @@ final class RuntimeReflectionsTest {
         final Consumer<Field> fieldConsumer = field -> {
         };
         final InvalidStateException exception = assertThrows(InvalidStateException.class, () ->
-                getFieldValue(new TestClass(), "not_found", fieldConsumer));
+                getFieldValue(new DummyClass(), "not_found", fieldConsumer));
 
         assertEquals(
                 "Field 'io.rxmicro.runtime.detail.RuntimeReflectionsTest$TestClass.not_found' is not defined",
@@ -135,7 +135,7 @@ final class RuntimeReflectionsTest {
     @Order(7)
     void method_invoke_should_wrap_IllegalAccessException() {
         final CheckedWrapperException exception = assertThrows(CheckedWrapperException.class, () ->
-                invoke(new TestClass(), "privateMethod", null));
+                invoke(new DummyClass(), "privateMethod", null));
 
         assertEquals(
                 "java.lang.IllegalAccessException: class io.rxmicro.runtime.detail.RuntimeReflections " +
@@ -153,7 +153,7 @@ final class RuntimeReflectionsTest {
         final Consumer<Method> methodConsumer = method -> {
         };
         final CheckedWrapperException exception = assertThrows(CheckedWrapperException.class, () ->
-                invoke(TestClass.class, "methodThatThrowsException", methodConsumer));
+                invoke(DummyClass.class, "methodThatThrowsException", methodConsumer));
 
         assertEquals(
                 "java.lang.reflect.InvocationTargetException",
@@ -191,7 +191,7 @@ final class RuntimeReflectionsTest {
             "PMD.AvoidThrowingRawExceptionTypes",
             "unused"
     })
-    private static class TestClass {
+    private static class DummyClass {
 
         private String value = "init";
 
@@ -209,7 +209,7 @@ final class RuntimeReflectionsTest {
      * @since 0.7.3
      */
     @SuppressWarnings("unused")
-    static class Child extends TestClass {
+    static class Child extends DummyClass {
 
         static final int CONSTANT = 1;
 

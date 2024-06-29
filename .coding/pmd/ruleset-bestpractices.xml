@@ -54,7 +54,7 @@
     <rule ref="category/java/bestpractices.xml/AvoidStringBufferField"/>
     <rule ref="category/java/bestpractices.xml/AvoidUsingHardCodedIP">
         <properties>
-            <property name="checkAddressTypes" value="IPv4 mapped IPv6|IPv6|IPv4"/>
+            <property name="checkAddressTypes" value="IPv4,IPv6,IPv4 mapped IPv6"/>
         </properties>
     </rule>
 
@@ -99,16 +99,27 @@
     <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts">
         <properties>
             <property name="maximumAsserts" value="15"/>
+            <property name="extraAssertMethodNames" value="verify"/>
         </properties>
     </rule>
-    <!-- It seems that this rule can't detect assert or fail method that are defined in the parent class -->
-    <!-- rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert"/-->
+    <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert">
+        <properties>
+            <property name="extraAssertMethodNames"
+                      value="verify,shouldCompileAndGenerateClassesSuccessfully,shouldThrowCompilationError"/>
+        </properties>
+    </rule>
 
     <!-- The RxMicro framework does not use JUnit4: -->
     <!-- rule ref="category/java/bestpractices.xml/JUnitUseExpected"/ -->
 
     <rule ref="category/java/bestpractices.xml/LiteralsFirstInComparisons"/>
-    <rule ref="category/java/bestpractices.xml/LooseCoupling"/>
+
+    <!-- We have a lot of false-positive results fo this rule: -->
+    <!--rule ref="category/java/bestpractices.xml/LooseCoupling">
+        <properties>
+            <property name="allowedTypes" value="java.util.Properties" />
+        </properties>
+    </rule-->
     <rule ref="category/java/bestpractices.xml/MethodReturnsInternalArray"/>
     <rule ref="category/java/bestpractices.xml/MissingOverride"/>
     <rule ref="category/java/bestpractices.xml/OneDeclarationPerLine">
@@ -127,29 +138,24 @@
     <rule ref="category/java/bestpractices.xml/SimplifiableTestAssertion"/>
     <rule ref="category/java/bestpractices.xml/SwitchStmtsShouldHaveDefault"/>
     <rule ref="category/java/bestpractices.xml/SystemPrintln"/>
+    <rule ref="category/java/bestpractices.xml/UnnecessaryVarargsArrayCreation"/>
 
-    <!-- This rule works incorrectly, because does not ignore the overridden methods! -->
-    <!-- rule ref="category/java/bestpractices.xml/UnusedAssignment">
+    <rule ref="category/java/bestpractices.xml/UnusedAssignment">
         <properties>
-            <property name="checkUnusedPrefixIncrement" value="true" />
-            <property name="reportUnusedVariables" value="false" />
+            <property name="checkUnusedPrefixIncrement" value="false"/>
+            <property name="reportUnusedVariables" value="false"/>
         </properties>
-    </rule -->
+    </rule>
 
     <rule ref="category/java/bestpractices.xml/UnusedFormalParameter">
         <properties>
-            <property name="checkAll" value="false"/>
+            <property name="checkAll" value="true"/>
         </properties>
     </rule>
     <rule ref="category/java/bestpractices.xml/UnusedLocalVariable"/>
     <rule ref="category/java/bestpractices.xml/UnusedPrivateField">
         <properties>
-            <property name="ignoredAnnotations"
-                      value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.EqualsAndHashCode|
-                            lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|lombok.experimental.Delegate|
-                            java.lang.Deprecated|
-                            javafx.fxml.FXML|
-                            org.mockito.Mock"/>
+            <property name="ignoredFieldNames" value="serialVersionUID,serialPersistentFields"/>
         </properties>
     </rule>
     <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
@@ -158,6 +164,7 @@
         </properties>
     </rule>
     <rule ref="category/java/bestpractices.xml/UseCollectionIsEmpty"/>
+    <rule ref="category/java/bestpractices.xml/UseEnumCollections"/>
     <rule ref="category/java/bestpractices.xml/UseStandardCharsets"/>
     <rule ref="category/java/bestpractices.xml/UseTryWithResources">
         <properties>

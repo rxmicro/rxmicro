@@ -149,10 +149,10 @@ public class RxMicroMongoCodecRegistry implements CodecRegistry {
 
         @Override
         public <T> Codec<T> get(final Class<T> clazz) {
-            if (clazz != Document.class) {
-                return RxMicroMongoCodecRegistry.this.get(clazz);
-            } else {
+            if (clazz == Document.class) {
                 throw new CodecConfigurationException(format("Can't find a codec for ?.", clazz.getName()));
+            } else {
+                return RxMicroMongoCodecRegistry.this.get(clazz);
             }
         }
 

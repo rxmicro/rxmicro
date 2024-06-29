@@ -37,7 +37,8 @@ public abstract class CustomExceptionServerModelWriter<T extends HttpErrorExcept
         serverModelWriter.write(model, response);
     }
 
+    @SuppressWarnings("unused")
     public void validate(final T exception) {
-        // do nothing: sub classes can override this method
+        // do nothing: subclasses should override this method.
     }
 }

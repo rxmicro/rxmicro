@@ -207,13 +207,11 @@ public final class PostgreSQLDependenciesModule extends AbstractModule {
                 .toInstance(SUPPORTED_DELETE_RESULTS_VARIABLES);
     }
 
-    // SuppressWarnings(Convert2Diamond) fixes the bug: https://bugs.openjdk.java.net/browse/JDK-8203913
-    @SuppressWarnings("Convert2Diamond")
     private void bindMethodBodyBuilders() {
         final Multibinder<SQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>> sqlOperationBinder =
                 newSetBinder(
                         binder(),
-                        new TypeLiteral<SQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>>() {
+                        new TypeLiteral<>() {
                         }
                 );
         sqlOperationBinder.addBinding()

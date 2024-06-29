@@ -50,7 +50,7 @@ final class ReleaseModuleTest {
     @Test
     @Order(1)
     void file_pom_xml_of_release_module_should_contain_all_dependencies() throws IOException, XmlPullParserException {
-        final File rootDirectory = TestUtils.getRootDirectory();
+        final File rootDirectory = Utils.getRootDirectory();
         final File pomXml = new File(rootDirectory.getAbsolutePath() + "/release/pom.xml");
         if (!pomXml.exists()) {
             fail("pom.xml of release module not found. Is it valid root directory: " + rootDirectory.getAbsolutePath() + "?");

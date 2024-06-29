@@ -115,15 +115,17 @@ public final class Annotations {
         return asTypeElement(annotation.getAnnotationType()).orElseThrow();
     }
 
+    private static TypeElement getTypeElement(final Supplier<Class<?>> classSupplier) {
+        try {
+            return getElements().getTypeElement(classSupplier.get().getName());
+        } catch (final MirroredTypeException ex) {
+            return asTypeElement(ex.getTypeMirror()).orElse(null);
+        }
+    }
+
     public static Optional<TypeElement> getAnnotationClassParameter(final Supplier<Class<?>> classSupplier,
                                                                     final Class<?> excludeClass) {
-        TypeElement type;
-        try {
-            type = getElements().getTypeElement(classSupplier.get().getName());
-        } catch (final MirroredTypeException ex) {
-            type = asTypeElement(ex.getTypeMirror()).orElse(null);
-        }
-        return Optional.ofNullable(type)
+        return Optional.ofNullable(getTypeElement(classSupplier))
                 .filter(t -> !excludeClass.getName().equals(t.getQualifiedName().toString()));
     }
 
@@ -221,18 +223,18 @@ public final class Annotations {
                                                     final Supplier<Class<?>> classSupplier,
                                                     final String defaultConfigNameSpace) {
         final Optional<TypeElement> annotationClassParameter = getAnnotationClassParameter(classSupplier, Config.class);
-        if (name.indexOf('.') != -1) {
+        if (name.indexOf('.') == -1) {
+            return annotationClassParameter
+                    .map(te -> {
+                        validateThatConfigClassContainsProperty(element, annotationClass, te, name);
+                        return getDefaultNameSpace(getSimpleName(te));
+                    })
+                    .orElse(defaultConfigNameSpace) + "." + name;
+        } else {
             if (annotationClassParameter.isPresent()) {
                 throw new InterruptProcessingException(element, "Redundant config class! Remove it!");
             }
             return name;
-        } else {
-            annotationClassParameter.ifPresent(typeElement ->
-                    validateThatConfigClassContainsProperty(element, annotationClass, typeElement, name)
-            );
-            return annotationClassParameter
-                    .map(te -> getDefaultNameSpace(getSimpleName(te)))
-                    .orElse(defaultConfigNameSpace) + "." + name;
         }
     }
 

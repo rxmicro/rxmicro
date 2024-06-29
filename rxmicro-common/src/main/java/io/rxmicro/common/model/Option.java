@@ -28,17 +28,32 @@ public enum Option {
     /**
      * Option is enabled.
      */
-    ENABLED,
+    ENABLED {
+        @Override
+        public boolean toBoolean(final boolean autoValue) {
+            return true;
+        }
+    },
 
     /**
      * Option is disabled.
      */
-    DISABLED,
+    DISABLED {
+        @Override
+        public boolean toBoolean(final boolean autoValue) {
+            return false;
+        }
+    },
 
     /**
      * Option state must be defined using external functions.
      */
-    AUTO;
+    AUTO {
+        @Override
+        public boolean toBoolean(final boolean autoValue) {
+            return autoValue;
+        }
+    };
 
     /**
      * Converts the {@link Option} to the {@code boolean} type.
@@ -46,13 +61,5 @@ public enum Option {
      * @param autoValue the external value for {@link #AUTO} state of the current {@link Option}
      * @return the {@code boolean} representation of the current {@link Option}
      */
-    public boolean toBoolean(final boolean autoValue) {
-        if (this == ENABLED) {
-            return true;
-        } else if (this == DISABLED) {
-            return false;
-        } else {
-            return autoValue;
-        }
-    }
+    public abstract boolean toBoolean(boolean autoValue);
 }

@@ -39,7 +39,7 @@ import io.rxmicro.validation.constraint.Viber;
 import io.rxmicro.validation.constraint.WhatsApp;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -179,7 +179,7 @@ public final class StringExampleBuilder implements TypeExampleBuilder {
     }
 
     private String getIPExample(final IP ip) {
-        final Set<IP.Version> versions = new HashSet<>(Arrays.asList(ip.value()));
+        final Set<IP.Version> versions = EnumSet.copyOf(Arrays.asList(ip.value()));
         if (versions.contains(IP.Version.IP_V4)) {
             return "8.8.8.8";
         } else {

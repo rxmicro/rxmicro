@@ -57,7 +57,7 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
     }
 
     public BlockingHttpClientConfig() {
-        super(BlockingHttpClientConfig.getDefaultNameSpace(BlockingHttpClientConfig.class), HTTP, LOCALHOST, DEFAULT_PORT);
+        super(getDefaultNameSpace(BlockingHttpClientConfig.class), HTTP, LOCALHOST, DEFAULT_PORT);
     }
 
     public String getBaseUrlPath() {

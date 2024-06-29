@@ -59,13 +59,25 @@ public abstract class BaseRestControllerMethod {
 
     protected final CompletionStage<HttpResponse> call(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        CompletionStage<HttpResponse> response;
+        final CompletionStage<HttpResponse> response = invokeAndHandlePossibleErrors(pathVariableMapping, request);
+        return decorateWithCorsIfNecessary(request, response);
+    }
+
+    protected abstract CompletionStage<HttpResponse> invoke(PathVariableMapping pathVariableMapping,
+                                                            HttpRequest request);
+
+    private CompletionStage<HttpResponse> invokeAndHandlePossibleErrors(final PathVariableMapping pathVariableMapping,
+                                                                        final HttpRequest request) {
         try {
-            response = invoke(pathVariableMapping, request)
+            return invoke(pathVariableMapping, request)
                     .exceptionally(throwable -> errorHttpResponseBuilder.build(request, throwable));
         } catch (final Throwable th) {
-            response = completedStage(errorHttpResponseBuilder.build(request, th));
+            return completedStage(errorHttpResponseBuilder.build(request, th));
         }
+    }
+
+    private CompletionStage<HttpResponse> decorateWithCorsIfNecessary(final HttpRequest request,
+                                                                      final CompletionStage<HttpResponse> response) {
         final String origin = request.getHeaders().getValue(ORIGIN);
         if (corsRequestPossible && origin != null) {
             return response.whenComplete((resp, th) ->
@@ -74,7 +86,4 @@ public abstract class BaseRestControllerMethod {
             return response;
         }
     }
-
-    protected abstract CompletionStage<HttpResponse> invoke(PathVariableMapping pathVariableMapping,
-                                                            HttpRequest request);
 }

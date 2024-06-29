@@ -103,20 +103,23 @@ public final class AnnotationValidators {
 
     public static void validateSupportedTypes(final Element element,
                                               final Class<? extends Annotation> annotationType) {
-        List<String> types;
-        try {
-            types = Arrays.stream(annotationType.getAnnotation(SupportedTypes.class).value())
-                    .map(AnnotationValidators::getClassName)
-                    .collect(Collectors.toList());
-        } catch (final MirroredTypesException ex) {
-            types = ex.getTypeMirrors().stream()
-                    .map(Object::toString)
-                    .collect(Collectors.toList());
-        }
+        final List<String> types = getSupportedTypes(annotationType);
         if (!types.contains(element.asType().toString())) {
             throw new InterruptProcessingException(element,
                     "Field type '?' not supported. Use one of the following: ?",
                     element.asType(), types);
+        }
+    }
+
+    private static List<String> getSupportedTypes(final Class<? extends Annotation> annotationType) {
+        try {
+            return Arrays.stream(annotationType.getAnnotation(SupportedTypes.class).value())
+                    .map(AnnotationValidators::getClassName)
+                    .collect(Collectors.toList());
+        } catch (final MirroredTypesException ex) {
+            return ex.getTypeMirrors().stream()
+                    .map(Object::toString)
+                    .collect(Collectors.toList());
         }
     }
 

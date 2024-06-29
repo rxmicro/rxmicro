@@ -52,7 +52,7 @@ import java.lang.reflect.InaccessibleObjectException;
 import java.util.List;
 import java.util.Map;
 
-import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
+import static io.rxmicro.config.local.DefaultConfigValueBuildHelperReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.clearEventLoopGroupFactory;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithoutRestControllers;
 import static io.rxmicro.runtime.detail.ChildrenInitHelper.resetChildrenInitializer;

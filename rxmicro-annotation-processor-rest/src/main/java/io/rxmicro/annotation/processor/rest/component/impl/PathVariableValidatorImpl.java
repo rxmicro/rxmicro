@@ -82,10 +82,7 @@ public final class PathVariableValidatorImpl implements PathVariableValidator {
         for (final VariableElement field : allModelFields(typeElement)) {
             final PathVariable pathVariable = field.getAnnotation(PathVariable.class);
             if (pathVariable != null) {
-                result.add(!pathVariable.value().isEmpty() ?
-                        pathVariable.value() :
-                        field.getSimpleName().toString()
-                );
+                result.add(pathVariable.value().isEmpty() ? field.getSimpleName().toString() : pathVariable.value());
             }
         }
         return result;

@@ -55,7 +55,7 @@ public enum TransactionType {
     /**
      * All supported reactive libraries.
      */
-    public static final Set<String> SUPPORTED_TRANSACTION_TYPES = Arrays.stream(TransactionType.values())
+    public static final Set<String> SUPPORTED_TRANSACTION_TYPES = Arrays.stream(values())
             .map(e -> e.transactionClass.getName())
             .collect(Collectors.toUnmodifiableSet());
 
@@ -69,7 +69,7 @@ public enum TransactionType {
      * @throws IllegalArgumentException if the provided full class name is not a name of transaction class
      */
     public static TransactionType byClassName(final String fullClassName) {
-        for (final TransactionType transactionType : TransactionType.values()) {
+        for (final TransactionType transactionType : values()) {
             if (transactionType.transactionClass.getName().equals(fullClassName)) {
                 return transactionType;
             }

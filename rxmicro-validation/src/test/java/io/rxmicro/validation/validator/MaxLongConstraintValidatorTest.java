@@ -17,10 +17,17 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author nedis
@@ -33,5 +40,22 @@ final class MaxLongConstraintValidatorTest extends AbstractNullableConstraintVal
     @Override
     ConstraintValidator<Long> instantiate() {
         return new MaxLongConstraintValidator(10, true);
+    }
+
+    @Test
+    @Order(11)
+    void Should_process_parameter_as_a_valid_one() {
+        assertDoesNotThrow(() -> validator.validate(8L, PARAMETER, FIELD_NAME));
+    }
+
+    @Test
+    @Order(12)
+    void Should_throw_ConstraintViolationException() {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(100L, PARAMETER, FIELD_NAME));
+        assertEquals(
+                "Invalid parameter \"fieldName\": Expected that value <= 10, but actual is 100!",
+                exception.getMessage()
+        );
     }
 }

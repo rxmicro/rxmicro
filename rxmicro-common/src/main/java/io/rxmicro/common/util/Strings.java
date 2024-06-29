@@ -190,8 +190,9 @@ public final class Strings {
                     ch >= '\u2000' && ch < '\u2100') {
                 resultBuilder.append("\\u");
                 final String hexCode = Integer.toHexString(ch);
-                resultBuilder.append("0000", 0, HEX_CODE_LENGTH - hexCode.length());
-                resultBuilder.append(hexCode);
+                resultBuilder
+                        .append("0000", 0, HEX_CODE_LENGTH - hexCode.length())
+                        .append(hexCode);
             } else {
                 resultBuilder.append(ch);
             }

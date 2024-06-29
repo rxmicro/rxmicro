@@ -76,8 +76,8 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
         modulePath.removeIf(path -> path.contains(pathFragment));
     }
 
-    protected void addCompilerOption(final String name,
-                                     final String value) {
+    protected final void addCompilerOption(final String name,
+                                           final String value) {
         compilerOptions.put(name, value);
     }
 

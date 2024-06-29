@@ -50,11 +50,11 @@ import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.HOST;
 import static io.rxmicro.http.HttpStandardHeaderNames.USER_AGENT;
+import static io.rxmicro.rest.client.netty.internal.DummyFactory.StubHttpClientContentConverter;
+import static io.rxmicro.rest.client.netty.internal.DummyFactory.TEST_CONTENT_DATA;
+import static io.rxmicro.rest.client.netty.internal.DummyFactory.TEST_CONTENT_LENGTH;
+import static io.rxmicro.rest.client.netty.internal.DummyFactory.TEST_CONTENT_TYPE;
 import static io.rxmicro.rest.client.netty.internal.NettyHttpClient.DEFAULT_USER_AGENT;
-import static io.rxmicro.rest.client.netty.internal.TestFactory.TEST_CONTENT_DATA;
-import static io.rxmicro.rest.client.netty.internal.TestFactory.TEST_CONTENT_LENGTH;
-import static io.rxmicro.rest.client.netty.internal.TestFactory.TEST_CONTENT_TYPE;
-import static io.rxmicro.rest.client.netty.internal.TestFactory.TestHttpClientContentConverter;
 import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -100,7 +100,7 @@ final class NettyHttpClientSimpleIntegrationTest {
             restClientConfig.getNameSpace(),
             restClientConfig,
             Secrets.getDefaultInstance(),
-            new TestHttpClientContentConverter()
+            new StubHttpClientContentConverter()
     );
 
     @Test

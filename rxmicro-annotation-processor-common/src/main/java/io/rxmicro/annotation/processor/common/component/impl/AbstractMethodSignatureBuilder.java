@@ -53,12 +53,7 @@ public abstract class AbstractMethodSignatureBuilder extends BaseProcessorCompon
 
     protected final boolean notContainIn(final ExecutableElement method,
                                          final List<ExecutableElement> methods) {
-        if (methods.isEmpty()) {
-            return true;
-        } else {
-            return methods.stream()
-                    .noneMatch(otherMethod -> methodSignatureEquals(method, otherMethod));
-        }
+        return methods.stream().noneMatch(otherMethod -> methodSignatureEquals(method, otherMethod));
     }
 
     protected final void validateAnnotatedInterfaceMethodModifiers(final ExecutableElement method,

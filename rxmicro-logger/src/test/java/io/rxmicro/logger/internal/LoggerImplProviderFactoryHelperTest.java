@@ -54,8 +54,8 @@ final class LoggerImplProviderFactoryHelperTest {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setErr(new PrintStream(byteArrayOutputStream));
         try {
-            final LoggerImplProvider provider = createAndSetupLoggerImplProvider(TestLoggerImplProvider.class);
-            assertEquals(TestLoggerImplProvider.class, provider.getClass());
+            final LoggerImplProvider provider = createAndSetupLoggerImplProvider(StubLoggerImplProvider.class);
+            assertEquals(StubLoggerImplProvider.class, provider.getClass());
             final List<String> lines = Arrays.stream(new String(byteArrayOutputStream.toByteArray(), UTF_8)
                             .split(lineSeparator()))
                     .collect(toList());
@@ -70,7 +70,7 @@ final class LoggerImplProviderFactoryHelperTest {
      * @author nedis
      * @since 0.7.3
      */
-    public static final class TestLoggerImplProvider implements LoggerImplProvider {
+    public static final class StubLoggerImplProvider implements LoggerImplProvider {
 
         @Override
         public void setup() throws IOException {

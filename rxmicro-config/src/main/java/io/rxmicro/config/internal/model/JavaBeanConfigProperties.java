@@ -34,7 +34,7 @@ import static io.rxmicro.common.local.RxMicroEnvironment.isRuntimeStrictModeEnab
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
 import static io.rxmicro.common.util.Strings.unCapitalize;
-import static io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuilder.getCurrentDefaultConfigValueStorage;
+import static io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuildHelper.getCurrentDefaultConfigValueStorage;
 import static io.rxmicro.reflection.JavaBeans.findPublicSetters;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toList;

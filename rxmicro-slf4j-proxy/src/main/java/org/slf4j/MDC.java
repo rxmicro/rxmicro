@@ -45,6 +45,7 @@ import java.util.Map;
  * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/MDC.html</a>
  * @since 0.7
  */
+@SuppressWarnings("unused")
 public final class MDC {
 
     /**

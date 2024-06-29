@@ -32,7 +32,7 @@ import static io.rxmicro.common.util.ExCollectors.toUnmodifiableOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
 import static io.rxmicro.config.internal.Converters.convertWithoutTypeDefinition;
-import static io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuilder.getCurrentDefaultConfigValueStorage;
+import static io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuildHelper.getCurrentDefaultConfigValueStorage;
 import static java.util.Map.entry;
 
 /**

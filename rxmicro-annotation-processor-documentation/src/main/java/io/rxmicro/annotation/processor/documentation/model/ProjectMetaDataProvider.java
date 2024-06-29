@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.component.PathVariablesResolver.USER_DIR_PATH;
-import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_PROJECT_DIRECTORY_PATH;
-import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_PROJECT_DOCUMENTATION_VERSION;
+import static io.rxmicro.annotation.processor.documentation.DocSystemProperties.RX_MICRO_PROJECT_DIRECTORY_PATH;
+import static io.rxmicro.annotation.processor.documentation.DocSystemProperties.RX_MICRO_PROJECT_DOCUMENTATION_VERSION;
 
 /**
  * @author nedis

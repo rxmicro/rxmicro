@@ -54,7 +54,7 @@ final class SubEnumConstraintValidatorTest extends AbstractNullableConstraintVal
     void Should_process_parameter_as_a_valid_one_with_include_specified_items(final TimeUnit timeUnit) {
         final SubEnumConstraintValidator<TimeUnit> validator =
                 new SubEnumConstraintValidator<>(TimeUnit.class, List.of("NANOSECONDS", "MICROSECONDS"), List.of());
-        assertDoesNotThrow(() -> validator.validate(timeUnit, PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(timeUnit, PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -63,7 +63,7 @@ final class SubEnumConstraintValidatorTest extends AbstractNullableConstraintVal
     void Should_process_parameter_as_a_valid_one_with_exclude_specified_items(final TimeUnit timeUnit) {
         final SubEnumConstraintValidator<TimeUnit> validator =
                 new SubEnumConstraintValidator<>(TimeUnit.class, List.of(), List.of("NANOSECONDS", "MICROSECONDS"));
-        assertDoesNotThrow(() -> validator.validate(timeUnit, PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(timeUnit, PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -72,9 +72,9 @@ final class SubEnumConstraintValidatorTest extends AbstractNullableConstraintVal
     void Should_throw_ConstraintViolationException_if_include_and_exclude_are_missing(final TimeUnit timeUnit) {
         final SubEnumConstraintValidator<TimeUnit> validator = new SubEnumConstraintValidator<>(TimeUnit.class, List.of(), List.of());
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(timeUnit, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(timeUnit, PARAMETER, FIELD_NAME));
         assertEquals(
-                format("Invalid parameter \"value\": Expected a value from the set [], but actual is '?'!", timeUnit),
+                format("Invalid parameter \"fieldName\": Expected a value from the set [], but actual is '?'!", timeUnit),
                 exception.getMessage()
         );
     }

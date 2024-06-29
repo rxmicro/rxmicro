@@ -41,9 +41,9 @@
     <rule ref="category/java/errorprone.xml/AvoidAssertAsIdentifier"/>
     <rule ref="category/java/errorprone.xml/AvoidBranchingStatementAsLastInLoop">
         <properties>
-            <property name="checkBreakLoopTypes" value="for|do|while"/>
-            <property name="checkContinueLoopTypes" value="for|do|while"/>
-            <property name="checkReturnLoopTypes" value="for|do|while"/>
+            <property name="checkBreakLoopTypes" value="for,do,while"/>
+            <property name="checkContinueLoopTypes" value="for,do,while"/>
+            <property name="checkReturnLoopTypes" value="for,do,while"/>
         </properties>
     </rule>
 
@@ -57,14 +57,14 @@
     <rule ref="category/java/errorprone.xml/AvoidDecimalLiteralsInBigDecimalConstructor"/>
     <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals">
         <properties>
-            <property name="separator" value=","/>
             <property name="maxDuplicateLiterals" value="5"/>
             <property name="minimumLength" value="3"/>
             <property name="skipAnnotations" value="true"/>
             <property name="exceptionList" value=""/>
         </properties>
     </rule>
-    <rule ref="category/java/errorprone.xml/AvoidEnumAsIdentifier"/>
+    <!-- It does not make sense for java 11 and higher -->
+    <!-- rule ref="category/java/errorprone.xml/AvoidEnumAsIdentifier"/-->
     <rule ref="category/java/errorprone.xml/AvoidFieldNameMatchingMethodName"/>
     <rule ref="category/java/errorprone.xml/AvoidFieldNameMatchingTypeName"/>
     <rule ref="category/java/errorprone.xml/AvoidInstanceofChecksInCatchClause"/>
@@ -74,17 +74,10 @@
 
     <rule ref="category/java/errorprone.xml/AvoidLosingExceptionInformation"/>
     <rule ref="category/java/errorprone.xml/AvoidMultipleUnaryOperators"/>
-    <rule ref="category/java/errorprone.xml/AvoidUsingOctalValues">
+    <!-- We have a lot of false-positive results fo this rule: -->
+    <!-- rule ref="category/java/errorprone.xml/AvoidUsingOctalValues">
         <properties>
             <property name="strict" value="true"/>
-        </properties>
-    </rule>
-
-    <!-- PMD tool detects java bean incorrectly!-->
-    <!-- rule ref="category/java/errorprone.xml/BeanMembersShouldSerialize">
-        <properties>
-            <property name="ignoredAnnotations" value="lombok.Data|lombok.Getter|lombok.Value"/>
-            <property name="prefix" value=""/>
         </properties>
     </rule -->
 
@@ -101,14 +94,14 @@
     <rule ref="category/java/errorprone.xml/CloneMethodReturnTypeMustMatchClassName"/>
     <rule ref="category/java/errorprone.xml/CloseResource">
         <properties>
-            <property name="closeTargets" value=""/>
+            <property name="closeTargets" value="close"/>
             <property name="types"
                       value="java.lang.AutoCloseable"/>
             <property name="closeAsDefaultTarget" value="true"/>
             <property name="allowedResourceTypes"
                       value="java.io.ByteArrayOutputStream|java.io.ByteArrayInputStream|java.io.StringWriter|java.io.CharArrayWriter|
                              java.util.stream.Stream|java.util.stream.IntStream|java.util.stream.LongStream|java.util.stream.DoubleStream"/>
-            <property name="closeNotInFinally" value="false"/>
+            <property name="closeNotInFinally" value="true"/>
         </properties>
     </rule>
     <rule ref="category/java/errorprone.xml/CompareObjectsWithEquals">
@@ -117,6 +110,7 @@
         </properties>
     </rule>
     <rule ref="category/java/errorprone.xml/ComparisonWithNaN"/>
+    <rule ref="category/java/errorprone.xml/ConfusingArgumentToVarargsMethod"/>
     <rule ref="category/java/errorprone.xml/ConstructorCallsOverridableMethod"/>
     <rule ref="category/java/errorprone.xml/DetachedTestCase"/>
     <rule ref="category/java/errorprone.xml/DoNotCallGarbageCollectionExplicitly"/>
@@ -141,15 +135,11 @@
     <!-- Conflicts with checkstyle.NoFinalizer -->
     <!-- rule ref="category/java/errorprone.xml/EmptyFinalizer"/ -->
 
-    <rule ref="category/java/errorprone.xml/EmptyFinallyBlock"/>
-    <rule ref="category/java/errorprone.xml/EmptyIfStmt"/>
-    <rule ref="category/java/errorprone.xml/EmptyInitializer"/>
-    <rule ref="category/java/errorprone.xml/EmptyStatementBlock"/>
-    <rule ref="category/java/errorprone.xml/EmptyStatementNotInLoop"/>
-    <rule ref="category/java/errorprone.xml/EmptySwitchStatements"/>
-    <rule ref="category/java/errorprone.xml/EmptySynchronizedBlock"/>
-    <rule ref="category/java/errorprone.xml/EmptyTryBlock"/>
-    <rule ref="category/java/errorprone.xml/EmptyWhileStmt"/>
+    <rule ref="category/java/codestyle.xml/EmptyControlStatement">
+        <properties>
+            <property name="allowCommentedBlocks" value="true"/>
+        </properties>
+    </rule>
     <rule ref="category/java/errorprone.xml/EqualsNull"/>
 
     <!-- Conflicts with checkstyle.NoFinalizer -->
@@ -177,7 +167,7 @@
     <rule ref="category/java/errorprone.xml/MissingStaticMethodInNonInstantiatableClass">
         <properties>
             <property name="annotations"
-                      value="org.springframework.beans.factory.annotation.Autowired,javax.inject.Inject"/>
+                      value="javax.inject.Inject"/>
         </properties>
     </rule>
 
@@ -185,20 +175,27 @@
     <!-- rule ref="category/java/errorprone.xml/MoreThanOneLogger"/ -->
 
     <rule ref="category/java/errorprone.xml/NonCaseLabelInSwitchStatement"/>
+    <rule ref="category/java/errorprone.xml/NonSerializableClass">
+        <properties>
+            <property name="checkAbstractTypes" value="false"/>
+        </properties>
+    </rule>
     <rule ref="category/java/errorprone.xml/NonStaticInitializer"/>
 
-    <!-- Unfortunately this rule detects the useful operations: init final fields, etc: -->
+    <!-- We have a lot of false-positive results fo this rule: -->
     <!-- rule ref="category/java/errorprone.xml/NullAssignment"/ -->
 
     <rule ref="category/java/errorprone.xml/OverrideBothEqualsAndHashcode"/>
     <rule ref="category/java/errorprone.xml/ProperCloneImplementation"/>
-    <rule ref="category/java/errorprone.xml/ProperLogger">
+
+    <!-- Does not make sense for a framework -->
+    <!-- rule ref="category/java/errorprone.xml/ProperLogger">
         <properties>
             <property name="staticLoggerName" value="LOGGER"/>
             <property name="loggerName" value="logger"/>
             <property name="loggerClass" value="io.rxmicro.logger.Logger"/>
         </properties>
-    </rule>
+    </rule -->
     <rule ref="category/java/errorprone.xml/ReturnEmptyCollectionRatherThanNull"/>
     <rule ref="category/java/errorprone.xml/ReturnFromFinallyBlock"/>
     <rule ref="category/java/errorprone.xml/SimpleDateFormatNeedsLocale"/>
@@ -212,8 +209,11 @@
     <rule ref="category/java/errorprone.xml/SuspiciousEqualsMethodName"/>
     <rule ref="category/java/errorprone.xml/SuspiciousHashcodeMethodName"/>
     <rule ref="category/java/errorprone.xml/SuspiciousOctalEscape"/>
-    <!-- RxMicro team uses test classes for not only unit tests: -->
-    <!-- rule ref="category/java/errorprone.xml/TestClassWithoutTestCases"/ -->
+    <rule ref="category/java/errorprone.xml/TestClassWithoutTestCases">
+        <properties>
+            <property name="testClassPattern" value="^(?:.*\.)?Test[^\.]*$|^(?:.*\.)?.*Tests?$|^(?:.*\.)?.*TestCase$"/>
+        </properties>
+    </rule>
     <rule ref="category/java/errorprone.xml/UnconditionalIfStatement"/>
     <rule ref="category/java/errorprone.xml/UnnecessaryBooleanAssertion"/>
     <rule ref="category/java/errorprone.xml/UnnecessaryCaseChange"/>

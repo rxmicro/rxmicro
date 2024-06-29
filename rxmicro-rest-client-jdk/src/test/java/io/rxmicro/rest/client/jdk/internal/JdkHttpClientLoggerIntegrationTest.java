@@ -24,8 +24,8 @@ import io.rxmicro.logger.Level;
 import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.rest.client.RestClientConfig;
-import io.rxmicro.rest.client.jdk.internal.TestFactory.TestAbstractLogger;
-import io.rxmicro.rest.client.jdk.internal.TestFactory.TestHttpClientContentConverter;
+import io.rxmicro.rest.client.jdk.internal.DummyFactory.StubAbstractLogger;
+import io.rxmicro.rest.client.jdk.internal.DummyFactory.StubHttpClientContentConverter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -41,7 +41,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Duration;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,9 +57,9 @@ import static io.rxmicro.logger.Level.DEBUG;
 import static io.rxmicro.logger.Level.TRACE;
 import static io.rxmicro.logger.LoggerImplProviderFactory.resetLoggerImplFactory;
 import static io.rxmicro.logger.LoggerImplProviderFactory.setLoggerImplFactory;
-import static io.rxmicro.rest.client.jdk.internal.TestFactory.TEST_CONTENT_DATA;
-import static io.rxmicro.rest.client.jdk.internal.TestFactory.TEST_CONTENT_LENGTH;
-import static io.rxmicro.rest.client.jdk.internal.TestFactory.TEST_CONTENT_TYPE;
+import static io.rxmicro.rest.client.jdk.internal.DummyFactory.TEST_CONTENT_DATA;
+import static io.rxmicro.rest.client.jdk.internal.DummyFactory.TEST_CONTENT_LENGTH;
+import static io.rxmicro.rest.client.jdk.internal.DummyFactory.TEST_CONTENT_TYPE;
 import static java.util.Map.entry;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -101,9 +101,9 @@ final class JdkHttpClientLoggerIntegrationTest {
         WIRE_MOCK_SERVER.stop();
     }
 
-    private final Map<Level, Boolean> levelEnabledMap = new HashMap<>();
+    private final Map<Level, Boolean> levelEnabledMap = new EnumMap<>(Level.class);
 
-    private final TestAbstractLogger logger = spy(new TestAbstractLogger(levelEnabledMap));
+    private final StubAbstractLogger logger = spy(new StubAbstractLogger(levelEnabledMap));
 
     @Mock
     private LoggerImplProvider loggerImplProvider;
@@ -124,7 +124,7 @@ final class JdkHttpClientLoggerIntegrationTest {
                 JdkHttpClient.class,
                 restClientConfig,
                 Secrets.getDefaultInstance(),
-                new TestHttpClientContentConverter()
+                new StubHttpClientContentConverter()
         );
     }
 

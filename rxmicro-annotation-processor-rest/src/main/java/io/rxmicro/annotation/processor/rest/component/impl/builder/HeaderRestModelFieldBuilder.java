@@ -54,7 +54,6 @@ public final class HeaderRestModelFieldBuilder extends BaseProcessorComponent im
     private SupportedTypesProvider supportedTypesProvider;
 
     @Override
-    @SuppressWarnings("Convert2MethodRef")
     public RestModelField build(final ModelFieldType modelFieldType,
                                 final TypeElement typeElement,
                                 final AnnotatedModelElement annotated,
@@ -84,7 +83,7 @@ public final class HeaderRestModelFieldBuilder extends BaseProcessorComponent im
             );
         }
         final HeaderMappingStrategy strategy = typeElement.getAnnotation(HeaderMappingStrategy.class);
-        final String modelName = annotated.getModelName(header.value(), strategy, () -> strategy.value());
+        final String modelName = annotated.getModelName(header.value(), strategy, strategy::value);
         if (!modelNames.add(modelName)) {
             error(
                     annotated.getElementAnnotatedBy(Header.class).orElse(field),

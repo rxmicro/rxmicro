@@ -226,8 +226,5 @@ public final class JsonNumber implements Comparable<JsonNumber> {
                 return new NumberFormatException("Multiple points: " + number);
             }
         }
-
-        private JsonNumberValidators() {
-        }
     }
 }

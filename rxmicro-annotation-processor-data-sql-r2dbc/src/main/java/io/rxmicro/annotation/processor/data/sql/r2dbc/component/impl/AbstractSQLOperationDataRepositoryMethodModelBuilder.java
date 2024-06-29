@@ -159,6 +159,7 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
         }
     }
 
+    @SuppressWarnings("unused")
     protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder,
                                                final MethodResult methodResult,
                                                final DataGenerationContext<DMF, DMC> dataGenerationContext,

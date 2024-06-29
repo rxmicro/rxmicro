@@ -40,11 +40,11 @@ public final class BooleanExampleValueConverter extends ExampleValueConverter {
         if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
             final boolean result = Boolean.parseBoolean(value);
             if (restModelField.getAnnotation(AssertTrue.class) != null) {
-                if (!result) {
+                if (result) {
+                    return result;
+                } else {
                     showInvalidExampleValueError(restModelField, "true", "false");
                     return ERROR_DETECTED;
-                } else {
-                    return result;
                 }
             } else if (restModelField.getAnnotation(AssertFalse.class) != null) {
                 if (result) {

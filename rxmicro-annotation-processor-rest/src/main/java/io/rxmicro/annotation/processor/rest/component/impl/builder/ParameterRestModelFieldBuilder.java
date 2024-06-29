@@ -52,7 +52,6 @@ public final class ParameterRestModelFieldBuilder extends BaseProcessorComponent
     private SupportedTypesProvider supportedTypesProvider;
 
     @Override
-    @SuppressWarnings("Convert2MethodRef")
     public RestModelField build(final ModelFieldType modelFieldType,
                                 final TypeElement typeElement,
                                 final AnnotatedModelElement annotated,
@@ -62,7 +61,7 @@ public final class ParameterRestModelFieldBuilder extends BaseProcessorComponent
         final VariableElement field = annotated.getField();
         final ParameterMappingStrategy strategy = typeElement.getAnnotation(ParameterMappingStrategy.class);
         final String customParameterName = parameter != null ? parameter.value() : EMPTY_STRING;
-        final String modelName = annotated.getModelName(customParameterName, strategy, () -> strategy.value());
+        final String modelName = annotated.getModelName(customParameterName, strategy, strategy::value);
         if (!modelNames.add(modelName)) {
             error(
                     annotated.getElementAnnotatedBy(Parameter.class).orElse(field),

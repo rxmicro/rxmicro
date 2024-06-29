@@ -45,16 +45,16 @@ final class EndsWithConstraintValidatorTest extends AbstractNullableConstraintVa
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate("Test.java", PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate("Test.java", PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate("test.css", PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("test.css", PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": Expected that value ends with '.java' suffix, but actual is 'test.css'!",
+                "Invalid parameter \"fieldName\": Expected that value ends with '.java' suffix, but actual is 'test.css'!",
                 exception.getMessage()
         );
     }

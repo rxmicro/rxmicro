@@ -19,7 +19,6 @@ package io.rxmicro.test.dbunit.internal.data.type;
 import io.rxmicro.test.GlobalTestConfig;
 import io.rxmicro.test.dbunit.internal.data.value.InstantIntervalValue;
 import org.dbunit.dataset.datatype.AbstractDataType;
-import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.dataset.datatype.TypeCastException;
 
 import java.sql.PreparedStatement;
@@ -41,15 +40,13 @@ import static io.rxmicro.test.dbunit.internal.ExpressionValueResolvers.resolveEx
 import static java.time.temporal.ChronoField.NANO_OF_SECOND;
 
 /**
- * Unfortunately org.dbunit.dataset.datatype.TimestampDataType class has default constructor :(
+ * Unfortunately {@link org.dbunit.dataset.datatype.TimestampDataType} class has default constructor :(
  * So it is necessary to use composition instead of inheritance!
  *
  * @author nedis
  * @since 0.7
  */
 public class RxMicroTimestampDataType extends AbstractDataType {
-
-    private final DataType defaultTimestampDataType = DataType.TIMESTAMP;
 
     private TimeZone prevTimeZone;
 
@@ -68,7 +65,7 @@ public class RxMicroTimestampDataType extends AbstractDataType {
         } else if (value instanceof String) {
             return parseString((String) value);
         } else {
-            return defaultTimestampDataType.typeCast(value);
+            return TIMESTAMP.typeCast(value);
         }
     }
 
@@ -90,7 +87,7 @@ public class RxMicroTimestampDataType extends AbstractDataType {
         try {
             return Timestamp.from(dateTimeFormatter.parse(value, Instant::from));
         } catch (final DateTimeParseException ignored) {
-            return defaultTimestampDataType.typeCast(value);
+            return TIMESTAMP.typeCast(value);
         }
     }
 

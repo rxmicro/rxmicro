@@ -32,7 +32,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
 
     @Test
     void Should_resolve_config_from_all_supported_sources() {
-        final TestConfig config = Configs.getConfig(TestConfig.class);
+        final DummyConfig config = Configs.getConfig(DummyConfig.class);
         assertEquals("defaultConfigValues", config.getDefaultConfigValues());
         assertEquals("rxmicroClassPathResource", config.getRxmicroClassPathResource());
         assertEquals("separateClassPathResource", config.getSeparateClassPathResource());
@@ -53,7 +53,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
      * @since 0.3
      */
     @SuppressWarnings("unused")
-    public static final class TestConfig extends Config {
+    public static final class DummyConfig extends Config {
 
         private String defaultConfigValues;
 
@@ -81,7 +81,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
 
         private String commandLineArguments;
 
-        public TestConfig(final String namespace) {
+        public DummyConfig(final String namespace) {
             super(namespace);
         }
 
@@ -90,7 +90,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setDefaultConfigValues(final String defaultConfigValues) {
+        public DummyConfig setDefaultConfigValues(final String defaultConfigValues) {
             this.defaultConfigValues = defaultConfigValues;
             return this;
         }
@@ -100,7 +100,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setRxmicroClassPathResource(final String rxmicroClassPathResource) {
+        public DummyConfig setRxmicroClassPathResource(final String rxmicroClassPathResource) {
             this.rxmicroClassPathResource = rxmicroClassPathResource;
             return this;
         }
@@ -110,7 +110,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setSeparateClassPathResource(final String separateClassPathResource) {
+        public DummyConfig setSeparateClassPathResource(final String separateClassPathResource) {
             this.separateClassPathResource = separateClassPathResource;
             return this;
         }
@@ -120,7 +120,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setEnvironmentVariables(final String environmentVariables) {
+        public DummyConfig setEnvironmentVariables(final String environmentVariables) {
             this.environmentVariables = environmentVariables;
             return this;
         }
@@ -130,7 +130,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setNormalizedEnvironmentVariables(final String normalizedEnvironmentVariables) {
+        public DummyConfig setNormalizedEnvironmentVariables(final String normalizedEnvironmentVariables) {
             this.normalizedEnvironmentVariables = normalizedEnvironmentVariables;
             return this;
         }
@@ -140,7 +140,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setRxmicroFileAtTheHomeDir(final String rxmicroFileAtTheHomeDir) {
+        public DummyConfig setRxmicroFileAtTheHomeDir(final String rxmicroFileAtTheHomeDir) {
             this.rxmicroFileAtTheHomeDir = rxmicroFileAtTheHomeDir;
             return this;
         }
@@ -150,7 +150,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setRxmicroFileAtTheRxmicroConfigDir(final String rxmicroFileAtTheRxmicroConfigDir) {
+        public DummyConfig setRxmicroFileAtTheRxmicroConfigDir(final String rxmicroFileAtTheRxmicroConfigDir) {
             this.rxmicroFileAtTheRxmicroConfigDir = rxmicroFileAtTheRxmicroConfigDir;
             return this;
         }
@@ -160,7 +160,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setRxmicroFileAtTheCurrentDir(final String rxmicroFileAtTheCurrentDir) {
+        public DummyConfig setRxmicroFileAtTheCurrentDir(final String rxmicroFileAtTheCurrentDir) {
             this.rxmicroFileAtTheCurrentDir = rxmicroFileAtTheCurrentDir;
             return this;
         }
@@ -170,7 +170,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setSeparateFileAtTheHomeDir(final String separateFileAtTheHomeDir) {
+        public DummyConfig setSeparateFileAtTheHomeDir(final String separateFileAtTheHomeDir) {
             this.separateFileAtTheHomeDir = separateFileAtTheHomeDir;
             return this;
         }
@@ -180,7 +180,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setSeparateFileAtTheRxmicroConfigDir(final String separateFileAtTheRxmicroConfigDir) {
+        public DummyConfig setSeparateFileAtTheRxmicroConfigDir(final String separateFileAtTheRxmicroConfigDir) {
             this.separateFileAtTheRxmicroConfigDir = separateFileAtTheRxmicroConfigDir;
             return this;
         }
@@ -190,7 +190,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setSeparateFileAtTheCurrentDir(final String separateFileAtTheCurrentDir) {
+        public DummyConfig setSeparateFileAtTheCurrentDir(final String separateFileAtTheCurrentDir) {
             this.separateFileAtTheCurrentDir = separateFileAtTheCurrentDir;
             return this;
         }
@@ -200,7 +200,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setJavaSystemProperties(final String javaSystemProperties) {
+        public DummyConfig setJavaSystemProperties(final String javaSystemProperties) {
             this.javaSystemProperties = javaSystemProperties;
             return this;
         }
@@ -210,7 +210,7 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
         }
 
         @BuilderMethod
-        public TestConfig setCommandLineArguments(final String commandLineArguments) {
+        public DummyConfig setCommandLineArguments(final String commandLineArguments) {
             this.commandLineArguments = commandLineArguments;
             return this;
         }

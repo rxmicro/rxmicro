@@ -122,7 +122,7 @@ public final class VirtualTypeElement implements TypeElement, VirtualElement {
     @Override
     public <A extends Annotation> A[] getAnnotationsByType(final Class<A> annotationType) {
         final A[] annotations = method.getAnnotationsByType(annotationType);
-        return annotations.length != 0 ? annotations : ownerClass.getAnnotationsByType(annotationType);
+        return annotations.length == 0 ? ownerClass.getAnnotationsByType(annotationType) : annotations;
     }
 
     @Override

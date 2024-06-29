@@ -82,7 +82,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
         validateClassStructureDuplicates(environmentContext, classStructures);
         return classStructures.stream()
                 .filter(cl -> isTestRuntime() || cl.shouldSourceCodeBeGenerated(environmentContext, isLibraryModule()))
-                .map(cl -> sourceCodeGenerator.generate(cl))
+                .map(sourceCodeGenerator::generate)
                 .collect(toList());
     }
 
@@ -112,6 +112,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessor
         return !isUnnamedModule();
     }
 
+    @SuppressWarnings("unused")
     public void afterAllClassStructuresBuilt(final Set<? extends ClassStructure> classStructures) {
         // do nothing
     }

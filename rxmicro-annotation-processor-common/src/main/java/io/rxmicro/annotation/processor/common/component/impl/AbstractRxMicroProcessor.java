@@ -17,7 +17,6 @@
 package io.rxmicro.annotation.processor.common.component.impl;
 
 import com.google.inject.Inject;
-import com.google.inject.Module;
 import io.rxmicro.annotation.processor.common.component.AnnotationProcessingInformer;
 import io.rxmicro.annotation.processor.common.component.ClassWriter;
 import io.rxmicro.annotation.processor.common.component.EnvironmentContextBuilder;
@@ -58,11 +57,7 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
     private AnnotationProcessingInformer annotationProcessingInformer;
 
     public AbstractRxMicroProcessor() {
-        injectDependencies(this, getDependenciesModules().toArray(new Module[0]));
-    }
-
-    protected Set<Module> getDependenciesModules() {
-        return Set.of(new RxMicroAnnotationProcessorDependenciesModule());
+        injectDependencies(this, new RxMicroAnnotationProcessorDependenciesModule());
     }
 
     @Override

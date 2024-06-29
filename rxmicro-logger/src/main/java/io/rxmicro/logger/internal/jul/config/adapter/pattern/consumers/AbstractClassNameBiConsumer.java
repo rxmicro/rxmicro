@@ -71,7 +71,7 @@ abstract class AbstractClassNameBiConsumer extends AbstractBiConsumer {
         } else {
             final String fullName = getName(logRecord);
             final int index = fullName.lastIndexOf('.');
-            final String shortName = index != -1 ? fullName.substring(index + 1) : fullName;
+            final String shortName = index == -1 ? fullName : fullName.substring(index + 1);
             messageBuilder.appendWithoutTransformation(shortName);
         }
     }

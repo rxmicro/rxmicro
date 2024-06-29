@@ -17,7 +17,7 @@
 package io.rxmicro.config.internal.validator;
 
 import io.rxmicro.config.ConfigException;
-import io.rxmicro.validation.local.ConstraintViolationReportManager;
+import io.rxmicro.validation.local.ConstraintViolationReportHelper;
 import io.rxmicro.validation.local.ConstraintViolationReporter;
 import io.rxmicro.validation.local.ThrowExceptionConstraintViolationReporter;
 import io.rxmicro.validation.local.ValidationOptions;
@@ -36,15 +36,15 @@ public final class ConfigValidationCustomizer {
     public static <T> T collectAllViolationsAndTranslateIntoConfigException(final Supplier<T> supplier) {
         try {
             final ConstraintViolationReporter currentConstraintViolationReporter = new DefaultConfigConstraintViolationReporter();
-            ConstraintViolationReportManager.setCurrentConstraintViolationReporter(currentConstraintViolationReporter);
-            ConstraintViolationReportManager.startValidation(VALIDATION_OPTIONS);
+            ConstraintViolationReportHelper.setCurrentConstraintViolationReporter(currentConstraintViolationReporter);
+            ConstraintViolationReportHelper.startValidation(VALIDATION_OPTIONS);
             return supplier.get();
         } finally {
             try {
-                ConstraintViolationReportManager.completeValidation();
+                ConstraintViolationReportHelper.completeValidation();
             } finally {
                 // Reset to default. This reporter will be used by rxmicro framework for validation of requests and responses
-                ConstraintViolationReportManager.setCurrentConstraintViolationReporter(new ThrowExceptionConstraintViolationReporter());
+                ConstraintViolationReportHelper.setCurrentConstraintViolationReporter(new ThrowExceptionConstraintViolationReporter());
             }
         }
     }

@@ -34,11 +34,11 @@ public final class CharacterExampleValueConverter extends ExampleValueConverter 
 
     @Override
     public Object convert(final RestModelField restModelField, final String value) {
-        if (value.length() != 1) {
+        if (value.length() == 1) {
+            return value;
+        } else {
             showInvalidExampleTypeError(restModelField, Character.class, value);
             return ERROR_DETECTED;
-        } else {
-            return value;
         }
     }
 }

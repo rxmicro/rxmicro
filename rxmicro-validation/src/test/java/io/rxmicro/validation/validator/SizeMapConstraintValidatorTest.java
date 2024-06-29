@@ -50,7 +50,7 @@ final class SizeMapConstraintValidatorTest extends AbstractNullableConstraintVal
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(Map.of(1, 2, 3, 4), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(Map.of(1, 2, 3, 4), PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -62,9 +62,9 @@ final class SizeMapConstraintValidatorTest extends AbstractNullableConstraintVal
     void Should_throw_ConstraintViolationException(final String value) {
         final Map<String, String> list = value.isEmpty() ? Map.of() : Map.of(value.substring(0, 1), value.substring(2));
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(list, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(list, PARAMETER, FIELD_NAME));
         assertEquals(
-                format("Invalid parameter \"value\": Expected 2 object property(ies), but actual is ?. (object: ?)!", list.size(), list),
+                format("Invalid parameter \"fieldName\": Expected 2 object property(ies), but actual is ?. (object: ?)!", list.size(), list),
                 exception.getMessage()
         );
     }

@@ -35,16 +35,16 @@ class ExistingPathPathConstraintValidatorTest extends AbstractNullableConstraint
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(tempDir, PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(tempDir, PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(tempDir.resolve("/not-found"), PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(tempDir.resolve("/not-found"), PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": Path not found: '/not-found'!",
+                "Invalid parameter \"fieldName\": Path not found: '/not-found'!",
                 exception.getMessage()
         );
     }

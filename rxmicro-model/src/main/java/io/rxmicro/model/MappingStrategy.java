@@ -17,6 +17,7 @@
 package io.rxmicro.model;
 
 import io.rxmicro.common.ImpossibleException;
+import io.rxmicro.common.util.Strings;
 
 import java.util.List;
 import java.util.Locale;
@@ -96,7 +97,7 @@ public enum MappingStrategy {
     public String getModelName(final List<String> words) {
         return words.stream()
                 .map(this::convert)
-                .filter(v -> !v.trim().isEmpty())
+                .filter(Strings::isNotBlank)
                 .collect(joining(delimiter));
     }
 

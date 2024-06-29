@@ -33,7 +33,7 @@ class PortConstraintValidatorTest extends AbstractNullableConstraintValidatorTes
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(8080, PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(8080, PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -41,9 +41,9 @@ class PortConstraintValidatorTest extends AbstractNullableConstraintValidatorTes
     @Order(12)
     void Should_throw_ConstraintViolationException_if_value_less_then_min_allowed(final int value) {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, FIELD_NAME));
         assertEquals(
-                format("Invalid parameter \"value\": Expected that value >= 0, but actual is ?!", value),
+                format("Invalid parameter \"fieldName\": Expected that value >= 0, but actual is ?!", value),
                 exception.getMessage()
         );
     }
@@ -53,9 +53,9 @@ class PortConstraintValidatorTest extends AbstractNullableConstraintValidatorTes
     @Order(13)
     void Should_throw_ConstraintViolationException_if_value_greater_then_max_allowed(final int value) {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, FIELD_NAME));
         assertEquals(
-                format("Invalid parameter \"value\": Expected that value <= 65535, but actual is ?!", value),
+                format("Invalid parameter \"fieldName\": Expected that value <= 65535, but actual is ?!", value),
                 exception.getMessage()
         );
     }

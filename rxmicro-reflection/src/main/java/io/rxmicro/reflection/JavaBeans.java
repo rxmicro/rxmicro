@@ -66,12 +66,12 @@ public final class JavaBeans {
 
     public static List<AnnotatedElement> getAnnotatedElements(final Class<?> classInstance,
                                                               final String propertyName) {
+        final List<AnnotatedElement> localResult = new ArrayList<>(3);
         final List<AnnotatedElement> result = new ArrayList<>();
         final String getter1Name = "get" + capitalize(propertyName);
         final String getter2Name = "is" + capitalize(propertyName);
         Class<?> current = classInstance;
         while (current != null && current != Object.class) {
-            final List<AnnotatedElement> localResult = new ArrayList<>(3);
             try {
                 localResult.add(classInstance.getDeclaredField(propertyName));
             } catch (final NoSuchFieldException ignore) {
@@ -84,6 +84,7 @@ public final class JavaBeans {
             }
             if (!localResult.isEmpty()) {
                 result.addAll(0, localResult);
+                localResult.clear();
             }
             current = current.getSuperclass();
         }

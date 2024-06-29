@@ -30,6 +30,7 @@ import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.documentation.DocumentationDefinition;
 import io.rxmicro.documentation.asciidoctor.DocumentAttributes;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -83,7 +84,7 @@ public final class GenerationOutputOrganizerImpl implements GenerationOutputOrga
         if (outputs.length == 0) {
             throw new InterruptProcessingException(currentModule, "Expected at least one GenerationOutput item");
         }
-        final Set<DocumentationDefinition.GenerationOutput> outputSet = new HashSet<>();
+        final Set<DocumentationDefinition.GenerationOutput> outputSet = EnumSet.noneOf(DocumentationDefinition.GenerationOutput.class);
         for (final DocumentationDefinition.GenerationOutput output : outputs) {
             if (!outputSet.add(output)) {
                 throw new InterruptProcessingException(currentModule, "GenerationOutput duplicates not allowed");

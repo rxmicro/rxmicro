@@ -51,16 +51,16 @@ final class DigitsOnlyConstraintValidatorTest extends AbstractNullableConstraint
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate("0123456789", PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate("0123456789", PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException_if_parameter_contains_not_digit_char() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate("1O", PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("1O", PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": " +
+                "Invalid parameter \"fieldName\": " +
                         "Expected a string with digits only, but actual value contains invalid character: 'O' (0x4f)!",
                 exception.getMessage()
         );

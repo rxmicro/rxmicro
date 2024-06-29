@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.TestLoggers.logInfoTestMessage;
+import static io.rxmicro.common.util.InternalLoggers.logInfoTestMessage;
 import static io.rxmicro.http.QueryParams.joinPath;
 import static io.rxmicro.test.mockito.httpclient.internal.AnyValues.ANY_BODY;
 import static io.rxmicro.test.mockito.httpclient.internal.AnyValues.ANY_HEADERS;

@@ -43,14 +43,14 @@ public final class SQLScriptReader {
                 if (ch == -1) {
                     break;
                 } else if (ch == ';') {
-                    if (!stringLiteral) {
+                    if (stringLiteral) {
+                        statementBuilder.append((char) ch);
+                    } else {
                         trimStatementBuilder(statementBuilder);
                         if (statementBuilder.length() > 0) {
                             statements.add(statementBuilder.toString());
                             statementBuilder.delete(0, statementBuilder.length());
                         }
-                    } else {
-                        statementBuilder.append((char) ch);
                     }
                 } else if (ch == '\'') {
                     stringLiteral = !stringLiteral;

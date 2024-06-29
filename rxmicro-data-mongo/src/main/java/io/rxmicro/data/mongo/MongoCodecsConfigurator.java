@@ -124,11 +124,11 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
      */
     @BuilderMethod
     public MongoCodecsConfigurator setDefaultUuidRepresentation(final UuidRepresentation defaultUuidRepresentation) {
-        if (!uuidInitialized) {
+        if (uuidInitialized) {
+            throw new InvalidStateException("`setDefaultUuidRepresentation` must be invoked before any configuration!");
+        } else {
             this.uuidRepresentation = defaultUuidRepresentation;
             return this;
-        } else {
-            throw new InvalidStateException("`setDefaultUuidRepresentation` must be invoked before any configuration!");
         }
     }
 

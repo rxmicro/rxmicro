@@ -173,7 +173,7 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
         final StringBuilder httpMessageBuilder = new StringBuilder();
         httpMessageBuilder.append(format("? ? ??", HTTP_VERSION, statusCode, getStatusMessage(statusCode), lineSeparator()));
         if (body != null) {
-            if (customHeaders.stream().noneMatch(e -> e.getKey().equalsIgnoreCase(CONTENT_TYPE))) {
+            if (customHeaders.stream().noneMatch(e -> CONTENT_TYPE.equalsIgnoreCase(e.getKey()))) {
                 httpMessageBuilder
                         .append(format(HEADER_ENTRY_TEMPLATE, CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON))
                         .append(lineSeparator());
@@ -183,14 +183,15 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
             httpMessageBuilder.append(format("?: 0", CONTENT_LENGTH)).append(lineSeparator());
         }
         if (resourceDefinition.withRequestIdResponseHeader() &&
-                customHeaders.stream().noneMatch(e -> e.getKey().equalsIgnoreCase(REQUEST_ID))) {
+                customHeaders.stream().noneMatch(e -> REQUEST_ID.equalsIgnoreCase(e.getKey()))) {
             httpMessageBuilder.append(format(HEADER_ENTRY_TEMPLATE, REQUEST_ID, REQUEST_ID_EXAMPLE)).append(lineSeparator());
         }
         customHeaders
                 .forEach(e -> httpMessageBuilder.append(format(HEADER_ENTRY_TEMPLATE, e.getKey(), e.getValue())).append(lineSeparator()));
         if (body != null) {
-            httpMessageBuilder.append(lineSeparator());
-            httpMessageBuilder.append(body);
+            httpMessageBuilder
+                    .append(lineSeparator())
+                    .append(body);
         }
         return httpMessageBuilder.toString();
     }

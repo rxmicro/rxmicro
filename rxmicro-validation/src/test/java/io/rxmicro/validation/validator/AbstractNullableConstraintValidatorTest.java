@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.validator;
 
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -26,9 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  * @author nedis
  * @since 0.12
  */
-abstract class AbstractNullableConstraintValidatorTest<T> extends AbstractConstraintValidatorTest {
+abstract class AbstractNullableConstraintValidatorTest<T> {
 
-    static final String FIELD_NAME = "fieldName";
+    static final ModelType PARAMETER = Constants.PARAMETER;
+
+    static final String FIELD_NAME = Constants.FIELD_NAME;
 
     final ConstraintValidator<T> validator = instantiate();
 

@@ -56,7 +56,7 @@ public final class PathVariableRestModelFieldBuilder extends BaseProcessorCompon
                     PathVariable.class.getSimpleName()
             );
         }
-        final String modelName = !pathVariable.value().isEmpty() ? pathVariable.value() : field.getSimpleName().toString();
+        final String modelName = pathVariable.value().isEmpty() ? field.getSimpleName().toString() : pathVariable.value();
         if (!modelNames.add(modelName)) {
             error(
                     annotated.getElementAnnotatedBy(PathVariable.class).orElse(field),

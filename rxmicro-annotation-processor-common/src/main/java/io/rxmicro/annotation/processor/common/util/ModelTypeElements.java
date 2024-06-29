@@ -61,7 +61,7 @@ public final class ModelTypeElements {
                 if (options.isRequireDefConstructor()) {
                     validateAccessibleDefaultConstructor(typeElement);
                 }
-                validateModuleDeclaration(currentModule, owner, validPrefix, typeElement, options.isWithFieldsFromParentClasses());
+                validateModuleDeclaration(currentModule, typeElement, options.isWithFieldsFromParentClasses());
             }
             return typeElement;
         } else {

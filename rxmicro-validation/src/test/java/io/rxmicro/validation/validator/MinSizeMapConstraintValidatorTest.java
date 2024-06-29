@@ -52,7 +52,7 @@ final class MinSizeMapConstraintValidatorTest extends AbstractNullableConstraint
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(Map.of(1, 2, 3, 4), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(Map.of(1, 2, 3, 4), PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -64,9 +64,9 @@ final class MinSizeMapConstraintValidatorTest extends AbstractNullableConstraint
     void Should_throw_ConstraintViolationException(final String value) {
         final Map<String, String> map = value.isEmpty() ? Map.of() : Map.of(value.substring(0, 1), value.substring(2));
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(map, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(map, PARAMETER, FIELD_NAME));
         assertEquals(
-                format("Invalid parameter \"value\": " +
+                format("Invalid parameter \"fieldName\": " +
                         "Expected 2 min supported object property(ies) (inclusive), but actual is ?. (object: ?)!", map.size(), map),
                 exception.getMessage()
         );

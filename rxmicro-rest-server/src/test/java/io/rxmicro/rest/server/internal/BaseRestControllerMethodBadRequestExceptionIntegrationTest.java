@@ -122,7 +122,7 @@ final class BaseRestControllerMethodBadRequestExceptionIntegrationTest extends A
     /**
      * @author nedis
      */
-    private static class ThrowValidationExceptionArgumentsProvider implements ArgumentsProvider {
+    private static final class ThrowValidationExceptionArgumentsProvider implements ArgumentsProvider {
 
         private static final ValidationException VALIDATION_EXCEPTION = new ValidationException("'name' is required");
 

@@ -52,7 +52,7 @@ import static java.util.Collections.unmodifiableList;
  * @hidden
  * @since 0.1
  */
-@SuppressWarnings({"unchecked", "ForLoopReplaceableByForEach"})
+@SuppressWarnings({"unchecked", "ForLoopReplaceableByForEach", "unused"})
 public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConverter {
 
     public final List<T> fromJsonArray(final Object body) {
@@ -1067,10 +1067,10 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
                 types.add("nulls");
             }
         }
-        if (!types.isEmpty()) {
-            return format("'?' (array of ?)", toJsonString(list, false), String.join(", ", types));
-        } else {
+        if (types.isEmpty()) {
             return "'[]' (empty array)";
+        } else {
+            return format("'?' (array of ?)", toJsonString(list, false), String.join(", ", types));
         }
     }
 

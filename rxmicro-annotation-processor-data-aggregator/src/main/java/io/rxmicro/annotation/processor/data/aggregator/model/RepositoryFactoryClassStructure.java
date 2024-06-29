@@ -24,7 +24,7 @@ import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryConfigAutoCustomizerClassStructure;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLRepositoryClassStructure;
-import io.rxmicro.config.detail.DefaultConfigValueBuilder;
+import io.rxmicro.config.detail.DefaultConfigValueBuildHelper;
 import io.rxmicro.data.RepositoryFactory;
 import io.rxmicro.data.mongo.detail.MongoRepositoryFactory;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLRepositoryFactory;
@@ -111,7 +111,7 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder builder = newClassHeaderBuilder(getEntryPointPackage(environmentContext.getCurrentModule()))
                 .addImports(RepositoryFactory.class)
-                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
+                .addStaticImport(DefaultConfigValueBuildHelper.class, "putDefaultConfigValue")
                 .addStaticImport(ChildrenInitHelper.class, "invokeAllStaticSections")
                 .addStaticImport(RepositoryFactory.class, "REPOSITORY_FACTORY_IMPL_CLASS_NAME");
         addRepositoryImports(

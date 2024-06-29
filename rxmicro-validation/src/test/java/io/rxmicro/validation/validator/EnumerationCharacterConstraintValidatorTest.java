@@ -47,16 +47,16 @@ final class EnumerationCharacterConstraintValidatorTest extends AbstractNullable
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate('y', PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate('y', PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate('u', PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate('u', PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": Expected a value from the set [y, n], but actual is 'u' (0x75)!",
+                "Invalid parameter \"fieldName\": Expected a value from the set [y, n], but actual is 'u' (0x75)!",
                 exception.getMessage()
         );
     }

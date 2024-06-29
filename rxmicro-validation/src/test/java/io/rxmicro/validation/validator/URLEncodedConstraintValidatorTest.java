@@ -59,16 +59,16 @@ final class URLEncodedConstraintValidatorTest extends AbstractNullableConstraint
     })
     @Order(11)
     void Should_process_parameter_as_a_valid_one(final String value) {
-        assertDoesNotThrow(() -> validator.validate(value, PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(value, PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException_if_parameter_contains_invalid_character() {
         final ConstraintViolationException exception = assertThrows(ConstraintViolationException.class, () ->
-                validator.validate("http://localhost:8080?value=ю", PARAMETER, "value"));
+                validator.validate("http://localhost:8080?value=ю", PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": " +
+                "Invalid parameter \"fieldName\": " +
                         "Expected a URL encoded string, where all characters are between 0x00 and 0x7F (ASCII), " +
                         "but actual is 'http://localhost:8080?value=ю'. " +
                         "Invalid character is 'ю' (0x44e)!",

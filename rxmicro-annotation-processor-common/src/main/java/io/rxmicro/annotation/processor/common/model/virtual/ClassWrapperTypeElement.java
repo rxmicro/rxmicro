@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.common.model.virtual;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import javax.lang.model.element.AnnotationMirror;
@@ -124,7 +124,7 @@ public final class ClassWrapperTypeElement implements TypeElement {
 
     @Override
     public Set<Modifier> getModifiers() {
-        final Set<Modifier> result = new HashSet<>();
+        final Set<Modifier> result = EnumSet.noneOf(Modifier.class);
         final int modifiers = typeClass.getModifiers();
         if (java.lang.reflect.Modifier.isAbstract(modifiers)) {
             result.add(Modifier.ABSTRACT);

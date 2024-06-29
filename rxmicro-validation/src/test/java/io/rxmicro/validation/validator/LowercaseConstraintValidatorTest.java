@@ -54,7 +54,7 @@ final class LowercaseConstraintValidatorTest extends AbstractNullableConstraintV
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate("lowercase", PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate("lowercase", PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -66,9 +66,9 @@ final class LowercaseConstraintValidatorTest extends AbstractNullableConstraintV
     @Order(12)
     void Should_throw_ConstraintViolationException(final String value) {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, FIELD_NAME));
         assertEquals(
-                format("Invalid parameter \"value\": Expected a lowercase string, but actual is '?'!", value),
+                format("Invalid parameter \"fieldName\": Expected a lowercase string, but actual is '?'!", value),
                 exception.getMessage()
         );
     }

@@ -17,7 +17,6 @@
 package io.rxmicro.rest.server;
 
 import io.rxmicro.common.meta.BuilderMethod;
-import io.rxmicro.config.Config;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
@@ -65,7 +64,7 @@ public final class HttpServerConfig extends HttpConfig {
      * Creates a HTTP server config instance with default settings.
      */
     public HttpServerConfig() {
-        super(Config.getDefaultNameSpace(HttpServerConfig.class), HTTP, "0.0.0.0", DEFAULT_SERVER_PORT);
+        super(getDefaultNameSpace(HttpServerConfig.class), HTTP, "0.0.0.0", DEFAULT_SERVER_PORT);
     }
 
     /**

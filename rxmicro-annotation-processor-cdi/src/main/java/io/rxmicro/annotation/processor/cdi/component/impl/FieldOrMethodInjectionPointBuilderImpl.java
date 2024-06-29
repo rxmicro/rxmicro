@@ -57,11 +57,11 @@ public final class FieldOrMethodInjectionPointBuilderImpl extends AbstractInject
         );
         return Stream.concat(
                 fields.stream()
-                        .map(p -> build(beanTypeElement, p)),
+                        .map(this::build),
                 methods.stream()
                         .peek(this::validateInjectionMethod)
                         .flatMap(m -> m.getParameters().stream())
-                        .map(p -> build(beanTypeElement, p))
+                        .map(this::build)
         ).collect(toList());
     }
 
@@ -89,7 +89,7 @@ public final class FieldOrMethodInjectionPointBuilderImpl extends AbstractInject
     }
 
     private void validateInjectionMethod(final ExecutableElement method) {
-        if (method.getParameters().size() == 0) {
+        if (method.getParameters().isEmpty()) {
             throw new InterruptProcessingException(
                     method,
                     "Injection method must contain a parameter. This parameter is injectable component!"

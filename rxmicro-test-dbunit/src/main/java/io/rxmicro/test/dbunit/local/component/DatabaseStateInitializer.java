@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.dbunit.local.component;
 
+import io.rxmicro.common.util.Strings;
 import io.rxmicro.test.dbunit.InitialDataSet;
 import io.rxmicro.test.dbunit.internal.component.AbstractDatabaseStateChanger;
 import io.rxmicro.test.dbunit.internal.data.TestValueProvider;
@@ -70,13 +71,13 @@ public final class DatabaseStateInitializer extends AbstractDatabaseStateChanger
         if (initialDataSet.executeStatementsBefore().length > 0) {
             executeJdbcStatements(
                     databaseConnection,
-                    Arrays.stream(initialDataSet.executeStatementsBefore()).filter(s -> !s.trim().isEmpty()).collect(toList())
+                    Arrays.stream(initialDataSet.executeStatementsBefore()).filter(Strings::isNotBlank).collect(toList())
             );
         }
         if (initialDataSet.executeScriptsBefore().length > 0) {
             executeSqlScripts(
                     databaseConnection,
-                    Arrays.stream(initialDataSet.executeScriptsBefore()).filter(s -> !s.trim().isEmpty()).collect(toList())
+                    Arrays.stream(initialDataSet.executeScriptsBefore()).filter(Strings::isNotBlank).collect(toList())
             );
         }
     }

@@ -34,7 +34,7 @@
     <rule ref="category/java/performance.xml/AvoidCalendarDateCreation"/>
     <rule ref="category/java/performance.xml/AvoidFileStream"/>
 
-    <!-- Creation objects in loop can be a part of the data transformation: -->
+    <!-- Creation objects in loop can be a normal business case for a class -->
     <!-- rule ref="category/java/performance.xml/AvoidInstantiatingObjectsInLoops"/ -->
 
     <rule ref="category/java/performance.xml/BigIntegerInstantiation"/>

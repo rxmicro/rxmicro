@@ -22,7 +22,6 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -43,12 +42,6 @@ final class PhoneConstraintValidatorTest extends AbstractNullableConstraintValid
     @Override
     ConstraintValidator<String> instantiate() {
         return new PhoneConstraintValidator(true, false);
-    }
-
-    @Test
-    @Order(10)
-    void Should_ignore_validation_for_empty_string() {
-        assertDoesNotThrow(() -> validator.validate("", PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -79,9 +72,9 @@ final class PhoneConstraintValidatorTest extends AbstractNullableConstraintValid
                                                    final String details) {
         final PhoneConstraintValidator validator = new PhoneConstraintValidator(withoutPlus, allowsSpaces);
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": " + details,
+                "Invalid parameter \"fieldName\": " + details,
                 exception.getMessage()
         );
     }

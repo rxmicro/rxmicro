@@ -45,16 +45,16 @@ final class StartsWithConstraintValidatorTest extends AbstractNullableConstraint
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate("https://rxmicro.io", PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate("https://rxmicro.io", PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate("http://rxmicro.io", PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("http://rxmicro.io", PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": Expected that value starts with 'https://' prefix, but actual is 'http://rxmicro.io'!",
+                "Invalid parameter \"fieldName\": Expected that value starts with 'https://' prefix, but actual is 'http://rxmicro.io'!",
                 exception.getMessage()
         );
     }

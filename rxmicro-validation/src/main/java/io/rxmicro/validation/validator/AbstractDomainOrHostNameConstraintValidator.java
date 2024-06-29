@@ -87,14 +87,16 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
         int lastPeriodIndex = -1;
         for (int i = 0; i <= lastIndex; i++) {
             final char ch = actual.charAt(i);
-            if (!ALLOWED_CHARACTERS.contains(ch)) {
+            if (ALLOWED_CHARACTERS.contains(ch)) {
+                if (ch == '.') {
+                    lastPeriodIndex = i;
+                    validateDelimiterCharacters(actual, modelType, modelName, lastIndex, i, ch);
+                } else if (ch == '-' || ch == '_') {
+                    validateDelimiterCharacters(actual, modelType, modelName, lastIndex, i, ch);
+                }
+            } else {
                 final String details = format("Unsupported ? character: '?'. ?", getName(), ch, getRule());
                 reportViolation(modelType, modelName, details);
-            } else if (ch == '.') {
-                lastPeriodIndex = i;
-                validateDelimiterCharacters(actual, modelType, modelName, lastIndex, i, ch);
-            } else if (ch == '-' || ch == '_') {
-                validateDelimiterCharacters(actual, modelType, modelName, lastIndex, i, ch);
             }
         }
         if (lastPeriodIndex == -1) {

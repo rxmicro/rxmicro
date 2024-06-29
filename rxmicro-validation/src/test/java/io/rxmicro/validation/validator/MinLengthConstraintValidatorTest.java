@@ -47,7 +47,7 @@ final class MinLengthConstraintValidatorTest extends AbstractNullableConstraintV
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate("usa", PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate("usa", PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -62,9 +62,9 @@ final class MinLengthConstraintValidatorTest extends AbstractNullableConstraintV
                                                    final String details) {
         final MinLengthConstraintValidator validator = new MinLengthConstraintValidator(3, inclusive);
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(value == null ? "" : value, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(value == null ? "" : value, PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": " + details,
+                "Invalid parameter \"fieldName\": " + details,
                 exception.getMessage()
         );
     }

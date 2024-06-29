@@ -125,19 +125,7 @@ public final class RequestBuilderImpl implements RequestBuilder {
                                final RestObjectModelClass restObjectModelClass,
                                final Request.Builder builder) {
         final boolean withReadMore = resourceDefinition.withReadMore();
-        if (!httpMethodMapping.isHttpBody()) {
-            if (resourceDefinition.withQueryParametersDescriptionTable()) {
-                builder.setQueryParameters(
-                        documentedModelFieldBuilder.buildSimple(
-                                environmentContext,
-                                resourceDefinition.withStandardDescriptions(),
-                                projectMetaData.getProjectDirectory(),
-                                restObjectModelClass, PARAMETER, withReadMore
-                        )
-                );
-            }
-
-        } else {
+        if (httpMethodMapping.isHttpBody()) {
             if (resourceDefinition.withBodyParametersDescriptionTable()) {
                 builder.setBodyParameters(
                         documentedModelFieldBuilder.buildComplex(
@@ -152,6 +140,17 @@ public final class RequestBuilderImpl implements RequestBuilder {
                 builder.setSchema(
                         toJsonString(jsonSchemaBuilder.getJsonObjectSchema(
                                 environmentContext, projectMetaData.getProjectDirectory(), restObjectModelClass), true
+                        )
+                );
+            }
+        } else {
+            if (resourceDefinition.withQueryParametersDescriptionTable()) {
+                builder.setQueryParameters(
+                        documentedModelFieldBuilder.buildSimple(
+                                environmentContext,
+                                resourceDefinition.withStandardDescriptions(),
+                                projectMetaData.getProjectDirectory(),
+                                restObjectModelClass, PARAMETER, withReadMore
                         )
                 );
             }

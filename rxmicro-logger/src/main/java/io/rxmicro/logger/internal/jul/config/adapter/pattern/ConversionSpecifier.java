@@ -189,7 +189,7 @@ public enum ConversionSpecifier {
     private final String specifier;
 
     public static Optional<ConversionSpecifier> ofConversionSpecifier(final String specifier) {
-        return Arrays.stream(ConversionSpecifier.values())
+        return Arrays.stream(values())
                 .filter(conversionSpecifier -> conversionSpecifier.getSpecifier().equals(specifier))
                 .findFirst();
     }

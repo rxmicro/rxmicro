@@ -29,6 +29,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,9 +48,10 @@ import java.util.Set;
 import java.util.stream.Stream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.release.TestUtils.getRootDirectory;
+import static io.rxmicro.release.Utils.getRootDirectory;
 import static java.util.Spliterator.IMMUTABLE;
 import static java.util.Spliterator.NONNULL;
 import static java.util.Spliterator.ORDERED;
@@ -132,14 +134,18 @@ final class ValidateCodingRulesTest {
     private static final class CheckstyleCommonSuppressionClassFileArgumentsProvider implements ArgumentsProvider {
 
         @Override
-        public Stream<? extends Arguments> provideArguments(final ExtensionContext context) throws Exception {
+        public Stream<? extends Arguments> provideArguments(
+                final ExtensionContext context
+        ) throws ParserConfigurationException, IOException, SAXException {
             return Stream.concat(
                     provideArguments("common-suppressions.xml"),
                     provideArguments("public-api-suppressions.xml")
             );
         }
 
-        private Stream<? extends Arguments> provideArguments(final String suppressionName) throws Exception {
+        private Stream<? extends Arguments> provideArguments(
+                final String suppressionName
+        ) throws ParserConfigurationException, IOException, SAXException {
             final File excludeXml = getCodingConfigFile("/.coding/checkstyle/" + suppressionName);
             final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             final DocumentBuilder builder = factory.newDocumentBuilder();

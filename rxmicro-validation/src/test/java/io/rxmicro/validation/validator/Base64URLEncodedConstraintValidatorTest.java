@@ -74,9 +74,9 @@ final class Base64URLEncodedConstraintValidatorTest extends AbstractNullableCons
     @Order(13)
     void Should_throw_ConstraintViolationException_if_parameter_contains_invalid_character() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate("A*B", PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("A*B", PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": " +
+                "Invalid parameter \"fieldName\": " +
                         "Expected a valid Base64 string, i.e. string which contains the following characters only " +
                         "[[+, /, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, " +
                         "A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, " +

@@ -97,29 +97,29 @@ final class ConvertersTest {
     @Test
     @Order(2)
     void Should_convert_to_interface_type_using_defined_enum_constant() {
-        final Object result = convertToType(TestInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestEnum:VALUE");
-        assertSame(TestEnum.VALUE, result);
+        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestEnum:VALUE");
+        assertSame(DummyEnum.VALUE, result);
     }
 
     @Test
     @Order(3)
     void Should_convert_to_interface_type_using_defined_interface_constant() {
-        final Object result = convertToType(TestInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestInterface:VALUE");
-        assertSame(TestInterface.VALUE, result);
+        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestInterface:VALUE");
+        assertSame(DummyInterface.VALUE, result);
     }
 
     @Test
     @Order(4)
     void Should_convert_to_interface_type_using_defined_class_constant() {
-        final Object result = convertToType(TestInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestClass:VALUE");
-        assertSame(TestClass.VALUE, result);
+        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestClass:VALUE");
+        assertSame(DummyClass.VALUE, result);
     }
 
     @Test
     @Order(5)
     void Should_convert_to_interface_type_using_defined_annotation_constant() {
-        final Object result = convertToType(TestInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestAnnotation:VALUE");
-        assertSame(TestAnnotation.VALUE, result);
+        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestAnnotation:VALUE");
+        assertSame(DummyAnnotation.VALUE, result);
     }
 
     /**
@@ -127,9 +127,9 @@ final class ConvertersTest {
      * @since 0.7.2
      */
     @SuppressWarnings("PMD.ConstantsInInterface")
-    private interface TestInterface {
+    private interface DummyInterface {
 
-        TestInterface VALUE = new TestInterface() {
+        DummyInterface VALUE = new DummyInterface() {
 
         };
     }
@@ -138,7 +138,7 @@ final class ConvertersTest {
      * @author nedis
      * @since 0.7.2
      */
-    private enum TestEnum implements TestInterface {
+    private enum DummyEnum implements DummyInterface {
 
         VALUE
     }
@@ -147,9 +147,9 @@ final class ConvertersTest {
      * @author nedis
      * @since 0.7.2
      */
-    private static final class TestClass {
+    private static final class DummyClass {
 
-        public static final TestInterface VALUE = new TestInterface() {
+        public static final DummyInterface VALUE = new DummyInterface() {
 
         };
     }
@@ -159,9 +159,9 @@ final class ConvertersTest {
      * @since 0.7.2
      */
     @Retention(RUNTIME)
-    private @interface TestAnnotation {
+    private @interface DummyAnnotation {
 
-        TestInterface VALUE = new TestInterface() {
+        DummyInterface VALUE = new DummyInterface() {
 
         };
     }

@@ -18,7 +18,6 @@ package io.rxmicro.test.dbunit.internal.data.type;
 
 import io.rxmicro.test.dbunit.internal.data.value.LongIntervalValue;
 import org.dbunit.dataset.datatype.AbstractDataType;
-import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.dataset.datatype.TypeCastException;
 
 import java.sql.PreparedStatement;
@@ -29,15 +28,13 @@ import static io.rxmicro.test.dbunit.internal.ExpressionValueResolvers.isExpress
 import static io.rxmicro.test.dbunit.internal.ExpressionValueResolvers.resolveExpressionValue;
 
 /**
- * Unfortunately org.dbunit.dataset.datatype.IntegerDataType class has default constructor :(
+ * Unfortunately {@link org.dbunit.dataset.datatype.IntegerDataType} class has default constructor :(
  * So it is necessary to use composition instead of inheritance!
  *
  * @author nedis
  * @since 0.7
  */
 public class RxMicroIntegerDataType extends AbstractDataType {
-
-    private final DataType defaultIntegerDataType = DataType.INTEGER;
 
     public RxMicroIntegerDataType(final String name,
                                   final int sqlType) {
@@ -49,7 +46,7 @@ public class RxMicroIntegerDataType extends AbstractDataType {
         if (isExpressionValue(value)) {
             return resolveExpressionValue(value);
         } else {
-            return defaultIntegerDataType.typeCast(value);
+            return INTEGER.typeCast(value);
         }
     }
 

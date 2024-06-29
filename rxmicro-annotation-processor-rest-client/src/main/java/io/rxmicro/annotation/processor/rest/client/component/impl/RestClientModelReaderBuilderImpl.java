@@ -31,7 +31,7 @@ import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.rest.Header;
 import io.rxmicro.rest.model.ExchangeFormat;
 
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -64,7 +64,7 @@ public final class RestClientModelReaderBuilderImpl implements RestClientModelRe
     private ClientModelReaderType getModelReaderType(final MappedRestObjectModelClass restModelClass,
                                                      final Set<AbstractRestClientClassSignature> classSignatures) {
         final String type = restModelClass.getModelClass().getJavaFullClassName();
-        final Set<ClientModelReaderType> modelReaders = new HashSet<>();
+        final Set<ClientModelReaderType> modelReaders = EnumSet.noneOf(ClientModelReaderType.class);
         for (final AbstractRestClientClassSignature classSignature : classSignatures) {
             for (final RestClientMethodSignature methodSignature : classSignature.getMethodSignatures()) {
                 methodSignature.getResponseModel().getMethodResult().ifPresent(methodResult -> {

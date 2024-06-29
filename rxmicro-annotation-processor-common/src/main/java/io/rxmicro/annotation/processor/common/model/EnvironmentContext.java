@@ -89,10 +89,10 @@ public final class EnvironmentContext {
     }
 
     public boolean isRxMicroClassShouldBeProcessed(final TypeElement type) {
-        if (!includePackages.isEmpty()) {
-            return filterBy(includePackages, excludePackages, type, FilterType.INCLUDE);
-        } else {
+        if (includePackages.isEmpty()) {
             return filterBy(excludePackages, Set.of(), type, FilterType.EXCLUDE);
+        } else {
+            return filterBy(includePackages, excludePackages, type, FilterType.INCLUDE);
         }
     }
 

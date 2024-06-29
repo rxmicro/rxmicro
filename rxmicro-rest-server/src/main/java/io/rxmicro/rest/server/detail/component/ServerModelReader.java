@@ -37,6 +37,7 @@ import static java.net.URLDecoder.decode;
  */
 public abstract class ServerModelReader<T> extends FromStringValueConverter {
 
+    @SuppressWarnings("unused")
     public T read(final PathVariableMapping pathVariableMapping,
                   final HttpRequest request,
                   final boolean readParametersFromBody) {
@@ -85,16 +86,18 @@ public abstract class ServerModelReader<T> extends FromStringValueConverter {
                      final boolean decode) {
         if (!value.isEmpty()) {
             if (decode) {
-                String decodedValue;
-                try {
-                    decodedValue = decode(value, StandardCharsets.UTF_8);
-                } catch (final IllegalArgumentException ignored) {
-                    decodedValue = value;
-                }
-                queryParams.setOrAdd(name, decodedValue);
+                queryParams.setOrAdd(name, getDecodedValue(value));
             } else {
                 queryParams.setOrAdd(name, value);
             }
+        }
+    }
+
+    private String getDecodedValue(final String value) {
+        try {
+            return decode(value, StandardCharsets.UTF_8);
+        } catch (final IllegalArgumentException ignored) {
+            return value;
         }
     }
 }

@@ -170,7 +170,7 @@ public final class SimpleErrorResponseBuilderImpl extends AbstractErrorResponseB
                                    final Map<String, String> errorHeaders,
                                    final boolean withRequestIdHeader) {
         final List<DocumentedModelField> documentedModelFields = new ArrayList<>();
-        if (withRequestIdHeader && errorHeaders.keySet().stream().noneMatch(h -> h.equalsIgnoreCase(REQUEST_ID))) {
+        if (withRequestIdHeader && errorHeaders.keySet().stream().noneMatch(REQUEST_ID::equalsIgnoreCase)) {
             documentedModelFields.add(buildRequestIdHeaderDocumentedModelField(true));
         }
         int index = 0;

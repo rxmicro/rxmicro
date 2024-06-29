@@ -147,7 +147,7 @@ public final class AnnotatedModelElement {
     public <T extends Annotation> Optional<Element> getElementAnnotatedBy(final Class<T> annotationClass) {
         return Stream.concat(
                         getters.stream(),
-                        Stream.of(field).map(e -> (Element) e))
+                        Stream.of(field))
                 .filter(e -> e.getAnnotation(annotationClass) != null)
                 .findFirst();
     }

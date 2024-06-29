@@ -152,7 +152,7 @@ final class NumericConstraintValidatorTest extends AbstractNullableConstraintVal
         final ConstraintViolationException exception =
                 assertThrows(ConstraintViolationException.class, () -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
         assertEquals(
-                "Invalid parameter \"value\": " + details,
+                "Invalid parameter \"fieldName\": " + details,
                 exception.getMessage()
         );
     }

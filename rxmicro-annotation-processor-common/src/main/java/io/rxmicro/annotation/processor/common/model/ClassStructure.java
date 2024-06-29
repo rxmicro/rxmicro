@@ -69,6 +69,7 @@ public abstract class ClassStructure implements Comparable<ClassStructure>, Logg
         }
     }
 
+    @SuppressWarnings("unused")
     protected boolean shouldSourceCodeBeGenerated(final boolean isLibraryModule) {
         return true;
     }

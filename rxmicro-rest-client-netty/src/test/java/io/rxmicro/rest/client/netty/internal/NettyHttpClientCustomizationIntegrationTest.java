@@ -43,7 +43,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static io.netty.channel.ChannelOption.SO_KEEPALIVE;
 import static io.rxmicro.rest.client.netty.NettyHttpClientConfigCustomizer.getDefaultNettyClientConfiguratorBuilder;
-import static io.rxmicro.rest.client.netty.internal.TestFactory.TestHttpClientContentConverter;
+import static io.rxmicro.rest.client.netty.internal.DummyFactory.StubHttpClientContentConverter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -124,7 +124,7 @@ final class NettyHttpClientCustomizationIntegrationTest {
                     restClientConfig.getNameSpace(),
                     restClientConfig,
                     Secrets.getDefaultInstance(),
-                    new TestHttpClientContentConverter()
+                    new StubHttpClientContentConverter()
             );
 
             final HttpResponse response = nettyHttpClient.sendAsync("GET", "/test", List.of()).join();

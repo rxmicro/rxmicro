@@ -31,7 +31,7 @@ final class ConfigsUsingMapIntegrationTest extends AbstractConfigsIntegrationTes
 
     @Test
     void Should_resolve_config_from_all_supported_sources() {
-        final TestConfig config = Configs.getConfig(TestConfig.class);
+        final AsMapConfig config = Configs.getConfig(DummyConfig.class);
         assertEquals("defaultConfigValues", config.getString("defaultConfigValues"));
         assertEquals("rxmicroClassPathResource", config.getString("rxmicroClassPathResource"));
         assertEquals("separateClassPathResource", config.getString("separateClassPathResource"));
@@ -51,9 +51,9 @@ final class ConfigsUsingMapIntegrationTest extends AbstractConfigsIntegrationTes
      * @author nedis
      * @since 0.7
      */
-    public static final class TestConfig extends AsMapConfig {
+    public static final class DummyConfig extends AsMapConfig {
 
-        public TestConfig(final String namespace) {
+        public DummyConfig(final String namespace) {
             super(namespace);
         }
     }

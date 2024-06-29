@@ -41,7 +41,7 @@ public final class TestValueProviderConfig extends BaseTestConfig {
     private Duration nowInstantGenerationDiscreteStep = DEFAULT_NOW_INSTANT_GENERATION_DISCRETE_STEP;
 
     public TestValueProviderConfig() {
-        super(TestValueProviderConfig.getDefaultNameSpace(TestValueProviderConfig.class));
+        super(getDefaultNameSpace(TestValueProviderConfig.class));
     }
 
     /**

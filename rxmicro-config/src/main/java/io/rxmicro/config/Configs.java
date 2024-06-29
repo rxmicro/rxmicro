@@ -129,11 +129,11 @@ public final class Configs {
                 Map.of() :
                 commandLineArgs.stream().map(cmd -> {
                     final String[] data = cmd.split("=");
-                    if (data.length != 2) {
+                    if (data.length == 2) {
+                        return entry(data[0], data[1]);
+                    } else {
                         throw new ConfigException("Invalid command line arguments. " +
                                 "Expected: 'name_space.propertyName=propertyValue', but actual is '?'", cmd);
-                    } else {
-                        return entry(data[0], data[1]);
                     }
                 }).collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
     }

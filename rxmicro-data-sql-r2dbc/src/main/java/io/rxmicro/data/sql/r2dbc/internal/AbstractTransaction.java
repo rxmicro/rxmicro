@@ -81,18 +81,18 @@ public abstract class AbstractTransaction {
 
     protected Publisher<Void> baseRollback(final SavePoint savePoint) {
         checkActive();
-        if (!savePoints.contains(savePoint)) {
-            throw new IllegalArgumentException("Save point not defined: " + savePoint);
-        } else {
+        if (savePoints.contains(savePoint)) {
             final ListIterator<SavePoint> listIterator = savePoints.listIterator(savePoints.size());
             while (listIterator.hasPrevious()) {
                 final SavePoint previous = listIterator.previous();
-                if (!savePoint.equals(previous)) {
-                    listIterator.remove();
-                } else {
+                if (savePoint.equals(previous)) {
                     break;
+                } else {
+                    listIterator.remove();
                 }
             }
+        } else {
+            throw new IllegalArgumentException("Save point not defined: " + savePoint);
         }
         return connection.rollbackTransaction();
     }

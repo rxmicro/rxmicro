@@ -59,9 +59,7 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
     private static final int DEFAULT_CHUNK_SIZE = 8192;
 
     private static final Map<String, String> MIME_TYPES = loadProperties("mime-types.properties")
-            .orElseThrow(() -> {
-                throw new ImpossibleException("'mime-types.properties' classpath resource must be present!");
-            });
+            .orElseThrow(() -> new ImpossibleException("'mime-types.properties' classpath resource must be present!"));
 
     /**
      * RFC 2046 states in section 4.5.1:
@@ -108,7 +106,7 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
     private String getPathExtension(final Path sendFilePath) {
         final String name = String.valueOf(sendFilePath.getFileName());
         final int index = name.lastIndexOf('.');
-        return index != -1 ? name.substring(index + 1) : name;
+        return index == -1 ? name : name.substring(index + 1);
     }
 
     private void setCacheHeaders(final NettyHttpResponse response,

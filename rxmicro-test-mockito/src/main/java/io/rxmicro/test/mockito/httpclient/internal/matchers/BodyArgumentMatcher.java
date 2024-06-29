@@ -39,7 +39,7 @@ public final class BodyArgumentMatcher implements ArgumentMatcher<Object> {
     @Override
     public boolean matches(final Object actual) {
         if (actual instanceof Map && expected instanceof Map) {
-            return new TreeMap<Object, Object>((Map<?, ?>) actual).equals(new TreeMap<Object, Object>((Map<?, ?>) expected));
+            return new TreeMap<>((Map<?, ?>) actual).equals(new TreeMap<>((Map<?, ?>) expected));
         } else {
             return Objects.equals(expected, actual);
         }

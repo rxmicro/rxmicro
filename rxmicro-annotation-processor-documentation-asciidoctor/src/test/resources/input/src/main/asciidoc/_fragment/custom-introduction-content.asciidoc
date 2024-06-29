@@ -1,3 +1,0 @@
-=== Custom Introduction Title
-
-*Custom* `Introduction` _Content!_

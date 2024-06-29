@@ -120,19 +120,19 @@ public final class DeclaredStaticResourcesResolverImpl extends BaseUrlBuilder im
     private Map.Entry<List<String>, List<String>> getStaticResources(final Element owner,
                                                                      final StaticResources staticResources) {
         final int filePathsLength = staticResources.filePaths().length;
-        if (staticResources.value().length != 0) {
-            final List<String> urls = normalize(owner, staticResources.value(), "value");
-            if (filePathsLength != 0) {
-                return entry(urls, List.of(staticResources.filePaths()));
-            } else {
+        if (staticResources.value().length == 0) {
+            final List<String> urls = normalize(owner, staticResources.urls(), "url");
+            if (filePathsLength == 0) {
                 return entry(urls, List.of());
+            } else {
+                return entry(urls, List.of(staticResources.filePaths()));
             }
         } else {
-            final List<String> urls = normalize(owner, staticResources.urls(), "url");
-            if (filePathsLength != 0) {
-                return entry(urls, List.of(staticResources.filePaths()));
-            } else {
+            final List<String> urls = normalize(owner, staticResources.value(), "value");
+            if (filePathsLength == 0) {
                 return entry(urls, List.of());
+            } else {
+                return entry(urls, List.of(staticResources.filePaths()));
             }
         }
     }

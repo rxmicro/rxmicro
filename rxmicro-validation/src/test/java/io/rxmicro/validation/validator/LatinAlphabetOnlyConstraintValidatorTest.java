@@ -64,16 +64,16 @@ final class LatinAlphabetOnlyConstraintValidatorTest extends AbstractNullableCon
     })
     @Order(11)
     void Should_process_parameter_as_a_valid_one(final String value) {
-        assertDoesNotThrow(() -> validator.validate(value, PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(value, PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException_if_parameter_contains_invalid_character() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate("мир", PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("мир", PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": " +
+                "Invalid parameter \"fieldName\": " +
                         "Expected a string which contains the following characters only " +
                         "[[\\b\\t\\n\\r !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~]], " +
                         "but actual value contains invalid character: 'м' (0x43c)!",

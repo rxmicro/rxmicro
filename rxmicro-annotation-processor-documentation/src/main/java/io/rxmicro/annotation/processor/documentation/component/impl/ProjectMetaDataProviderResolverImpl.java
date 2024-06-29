@@ -41,7 +41,7 @@ import javax.tools.FileObject;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
 import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
-import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
+import static io.rxmicro.annotation.processor.documentation.DocSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.tools.StandardLocation.SOURCE_OUTPUT;

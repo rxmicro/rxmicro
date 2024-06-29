@@ -93,9 +93,6 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
      */
     private static final class LatinAlphabetHelper {
 
-        private LatinAlphabetHelper() {
-        }
-
         static Set<Character> buildLatinAlphabet(final boolean allowsUppercase,
                                                  final boolean allowsLowercase,
                                                  final boolean allowsDigits,

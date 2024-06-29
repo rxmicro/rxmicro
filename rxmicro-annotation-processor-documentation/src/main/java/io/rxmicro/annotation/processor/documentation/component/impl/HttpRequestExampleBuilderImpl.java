@@ -74,15 +74,17 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
         }
         final String body = getRequestHttpBodyOrNull(httpMethodMapping, method, restControllerClassStructureStorage);
         if (body != null) {
-            stringBuilder.append(format("Content-Type: application/json?", lineSeparator()));
-            stringBuilder.append(format("Content-Length: ??", getContentLength(body), lineSeparator()));
+            stringBuilder
+                    .append(format("Content-Type: application/json?", lineSeparator()))
+                    .append(format("Content-Length: ??", getContentLength(body), lineSeparator()));
         } else {
             stringBuilder.append(format("Content-Length: 0?", lineSeparator()));
         }
         addCustomHeaders(stringBuilder, method, restControllerClassStructureStorage);
         if (body != null) {
-            stringBuilder.append(lineSeparator());
-            stringBuilder.append(body);
+            stringBuilder
+                    .append(lineSeparator())
+                    .append(body);
         }
         return stringBuilder.toString();
     }

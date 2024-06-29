@@ -24,6 +24,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import static io.rxmicro.validation.validator.Constants.FIELD_NAME;
+import static io.rxmicro.validation.validator.Constants.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,23 +36,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class RequiredAndNotEmptyStringConstraintValidatorTest extends AbstractConstraintValidatorTest {
+final class RequiredAndNotEmptyStringConstraintValidatorTest {
 
     private final RequiredAndNotEmptyStringConstraintValidator validator = new RequiredAndNotEmptyStringConstraintValidator();
 
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate("value", PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate("value", PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException_if_parameter_is_null() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(null, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(null, PARAMETER, FIELD_NAME));
         assertEquals(
-                "Parameter \"value\" is required!",
+                "Parameter \"fieldName\" is required!",
                 exception.getMessage()
         );
     }
@@ -59,9 +61,9 @@ final class RequiredAndNotEmptyStringConstraintValidatorTest extends AbstractCon
     @Order(12)
     void Should_throw_ConstraintViolationException_if_parameter_is_empty() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate("", PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("", PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": Empty string is not valid value!",
+                "Invalid parameter \"fieldName\": Empty string is not valid value!",
                 exception.getMessage()
         );
     }

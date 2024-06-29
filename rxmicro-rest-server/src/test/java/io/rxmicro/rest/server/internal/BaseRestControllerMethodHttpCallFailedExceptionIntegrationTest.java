@@ -188,7 +188,7 @@ final class BaseRestControllerMethodHttpCallFailedExceptionIntegrationTest exten
      * @author nedis
      * @since 0.1
      */
-    private static class ThrowServerErrorHttpCallFailedExceptionWithBodyArgumentsProvider implements ArgumentsProvider {
+    private static final class ThrowServerErrorHttpCallFailedExceptionWithBodyArgumentsProvider implements ArgumentsProvider {
 
         private static final HttpCallFailedException HTTP_CALL_FAILED_EXCEPTION =
                 new HttpCallFailedException(INTERNAL_SERVER_ERROR_500, HTTP_1_1, of("Header1", "value1"), null, "<body>") {
@@ -222,7 +222,7 @@ final class BaseRestControllerMethodHttpCallFailedExceptionIntegrationTest exten
      * @author nedis
      * @since 0.1
      */
-    private static class ThrowServerErrorHttpCallFailedExceptionWithoutBodyArgumentsProvider implements ArgumentsProvider {
+    private static final class ThrowServerErrorHttpCallFailedExceptionWithoutBodyArgumentsProvider implements ArgumentsProvider {
 
         private static final HttpCallFailedException HTTP_CALL_FAILED_EXCEPTION =
                 new HttpCallFailedException(INTERNAL_SERVER_ERROR_500, HTTP_1_1, of("Header1", "value1"), null, "") {
@@ -255,7 +255,7 @@ final class BaseRestControllerMethodHttpCallFailedExceptionIntegrationTest exten
      * @author nedis
      * @since 0.1
      */
-    private static class ThrowServerErrorHttpCallFailedExceptionArgumentsProvider implements ArgumentsProvider {
+    private static final class ThrowServerErrorHttpCallFailedExceptionArgumentsProvider implements ArgumentsProvider {
 
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
@@ -270,7 +270,7 @@ final class BaseRestControllerMethodHttpCallFailedExceptionIntegrationTest exten
      * @author nedis
      * @since 0.1
      */
-    private static class ThrowClientErrorHttpCallFailedExceptionWithBodyArgumentsProvider implements ArgumentsProvider {
+    private static final class ThrowClientErrorHttpCallFailedExceptionWithBodyArgumentsProvider implements ArgumentsProvider {
 
         private static final HttpCallFailedException HTTP_CALL_FAILED_EXCEPTION =
                 new HttpCallFailedException(BAD_REQUEST_400, HTTP_1_1, of("Header1", "value1"), null, "<body>") {

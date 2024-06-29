@@ -113,7 +113,7 @@ public class RestServerConfig extends Config {
     private List<String> forwardedHeaderNames = List.of("Forwarded", "X-Forwarded-For", "X-Real-IP");
 
     public RestServerConfig() {
-        super(Config.getDefaultNameSpace(RestServerConfig.class));
+        super(getDefaultNameSpace(RestServerConfig.class));
     }
 
     /**

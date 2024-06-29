@@ -112,7 +112,7 @@ final class BaseRestControllerMethodThrowableIntegrationTest extends AbstractBas
      * @author nedis
      */
     @SuppressWarnings("CodeBlock2Expr")
-    private static class ThrowAnyExceptionArgumentsProvider implements ArgumentsProvider {
+    private static final class ThrowAnyExceptionArgumentsProvider implements ArgumentsProvider {
 
         private static final NullPointerException NULL_POINTER_EXCEPTION = new NullPointerException();
 

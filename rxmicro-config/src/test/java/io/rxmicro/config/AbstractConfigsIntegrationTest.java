@@ -31,11 +31,11 @@ import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.common.util.SystemPrintlnHelper.printStackTraceToStdErr;
-import static io.rxmicro.config.detail.DefaultConfigValueBuilder.putDefaultConfigValue;
+import static io.rxmicro.config.detail.DefaultConfigValueBuildHelper.putDefaultConfigValue;
 import static io.rxmicro.config.internal.ExternalSourceProviderFactory.setCurrentDir;
 import static io.rxmicro.config.internal.ExternalSourceProviderFactory.setEnvironmentVariables;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
-import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
+import static io.rxmicro.config.local.DefaultConfigValueBuildHelperReSetter.resetDefaultConfigValueStorage;
 
 /**
  * @author nedis

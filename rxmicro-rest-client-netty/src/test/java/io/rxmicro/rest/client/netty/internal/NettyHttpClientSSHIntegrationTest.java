@@ -22,7 +22,7 @@ import io.rxmicro.http.HttpVersion;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.HttpClient;
 import io.rxmicro.rest.client.detail.HttpResponse;
-import io.rxmicro.rest.client.netty.internal.TestFactory.TestHttpClientContentConverter;
+import io.rxmicro.rest.client.netty.internal.DummyFactory.StubHttpClientContentConverter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -62,7 +62,7 @@ final class NettyHttpClientSSHIntegrationTest {
                     restClientConfig.getNameSpace(),
                     restClientConfig,
                     Secrets.getDefaultInstance(),
-                    new TestHttpClientContentConverter()
+                    new StubHttpClientContentConverter()
             );
 
     @Test

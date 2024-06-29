@@ -112,10 +112,10 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
 
     protected final boolean isEntityParam(final List<Variable> params,
                                           final DataGenerationContext<DMF, DMC> dataGenerationContext) {
-        if (params.size() != 1) {
-            return false;
-        } else {
+        if (params.size() == 1) {
             return dataGenerationContext.isEntityParamType(params.get(0).getType());
+        } else {
+            return false;
         }
     }
 

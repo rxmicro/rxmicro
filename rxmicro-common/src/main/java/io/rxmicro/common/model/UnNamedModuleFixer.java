@@ -19,7 +19,7 @@ package io.rxmicro.common.model;
 import java.util.Arrays;
 import java.util.function.BiConsumer;
 
-import static io.rxmicro.common.util.TestLoggers.logInfoTestMessage;
+import static io.rxmicro.common.util.InternalLoggers.logInfoTestMessage;
 
 /**
  * Java 9 has introduced the <a href="https://www.oracle.com/corporate/features/understanding-java-9-modules.html">JPMS</a>.

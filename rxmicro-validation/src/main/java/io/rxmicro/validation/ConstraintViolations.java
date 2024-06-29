@@ -17,7 +17,7 @@
 package io.rxmicro.validation;
 
 import io.rxmicro.common.util.Formats;
-import io.rxmicro.validation.local.ConstraintViolationReportManager;
+import io.rxmicro.validation.local.ConstraintViolationReportHelper;
 
 /**
  * Contains util methods that make decision about how the occurred violation should be handled.
@@ -46,7 +46,7 @@ public final class ConstraintViolations {
      */
     public static void reportViolation(final String message,
                                        final Object... args) {
-        ConstraintViolationReportManager.reportViolation(message, args);
+        ConstraintViolationReportHelper.reportViolation(message, args);
     }
 
     private ConstraintViolations() {

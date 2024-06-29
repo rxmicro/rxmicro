@@ -26,7 +26,6 @@ import io.r2dbc.spi.ValidationDepth;
 import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
-import io.rxmicro.logger.RequestIdSupplier;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
@@ -49,7 +48,7 @@ public final class RepositoryConnectionImpl implements RepositoryConnection {
                                     final Connection connection) {
         this.logger = LoggerFactory.getLogger(repositoryInterface);
         this.connection = connection;
-        this.requestId = RequestIdSupplier.UNDEFINED_REQUEST_ID;
+        this.requestId = UNDEFINED_REQUEST_ID;
     }
 
     public RepositoryConnectionImpl(final Class<?> repositoryInterface,

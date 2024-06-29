@@ -27,6 +27,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
  */
 public abstract class ServerModelWriter<T> {
 
+    @SuppressWarnings("unused")
     public void write(final T model,
                       final HttpResponse response) {
         throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");

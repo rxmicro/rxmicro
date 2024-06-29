@@ -25,7 +25,7 @@ import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.common.util.ExCollections;
 import io.rxmicro.common.util.Formats;
-import io.rxmicro.common.util.TestLoggers;
+import io.rxmicro.common.util.InternalLoggers;
 import io.rxmicro.reflection.ReflectionConstants;
 
 import java.util.Map;
@@ -193,19 +193,13 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
 
         @Override
         public final ClassHeader getClassHeader() {
-            final ClassHeader.Builder builder = newClassHeaderBuilder(getEntryPointTestPackage());
-            customizeClassHeader(builder);
-            return builder
+            return newClassHeaderBuilder(getEntryPointTestPackage())
                     .addImports(Set.class)
                     .addStaticImport(Formats.class, "format")
                     .addStaticImport(ReflectionConstants.class, "RX_MICRO_REFLECTION_MODULE")
-                    .addStaticImport(TestLoggers.class, "logInfoTestMessage")
+                    .addStaticImport(InternalLoggers.class, "logInfoTestMessage")
                     .addStaticImport(ExCollections.class, "unmodifiableOrderedSet")
                     .build();
-        }
-
-        protected void customizeClassHeader(final ClassHeader.Builder builder) {
-            // do nothing
         }
     }
 

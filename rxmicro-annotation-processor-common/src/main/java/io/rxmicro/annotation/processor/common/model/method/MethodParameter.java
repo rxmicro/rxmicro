@@ -58,11 +58,11 @@ public final class MethodParameter {
             validateGenericType(method, type, "Invalid method parameter type");
             extractGenerics(set, simpleTypeBuilder, type);
         } else {
-            if (!type.getKind().isPrimitive()) {
+            if (type.getKind().isPrimitive()) {
+                simpleTypeBuilder.append(type);
+            } else {
                 set.add(type.toString());
                 simpleTypeBuilder.append(getSimpleName(type));
-            } else {
-                simpleTypeBuilder.append(type);
             }
         }
         return set;

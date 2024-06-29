@@ -30,6 +30,7 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStru
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructureStorage;
 import io.rxmicro.annotation.processor.rest.server.model.RestServerModuleGeneratorConfig;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ServiceLoader;
@@ -56,7 +57,7 @@ public final class RestDocumentationGeneratorImpl extends BaseProcessorComponent
                 getImplementations(AbstractDocumentationModuleClassStructuresBuilder.class, service ->
                         ServiceLoader.load(service, RestDocumentationGeneratorImpl.class.getClassLoader()));
         final Set<DocumentationType> toProcess =
-                new HashSet<>(environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes());
+                EnumSet.copyOf(environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes());
         final Set<DocumentStructure> result = new HashSet<>();
         for (final AbstractDocumentationModuleClassStructuresBuilder documentationBuilder : documentationBuilders) {
             if (toProcess.remove(documentationBuilder.getDocumentationType())) {

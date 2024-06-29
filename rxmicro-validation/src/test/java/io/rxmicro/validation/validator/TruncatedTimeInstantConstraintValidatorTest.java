@@ -62,7 +62,7 @@ final class TruncatedTimeInstantConstraintValidatorTest extends AbstractNullable
     void Should_process_parameter_as_a_valid_one(final TruncatedTime.Truncated truncated,
                                                  final String value) {
         final TruncatedTimeInstantConstraintValidator validator = new TruncatedTimeInstantConstraintValidator(truncated);
-        assertDoesNotThrow(() -> validator.validate(Instant.parse(value), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(Instant.parse(value), PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -87,9 +87,9 @@ final class TruncatedTimeInstantConstraintValidatorTest extends AbstractNullable
                                                    final String details) {
         final TruncatedTimeInstantConstraintValidator validator = new TruncatedTimeInstantConstraintValidator(truncated);
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(Instant.parse(value), PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(Instant.parse(value), PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": " + details,
+                "Invalid parameter \"fieldName\": " + details,
                 exception.getMessage()
         );
     }
@@ -100,7 +100,7 @@ final class TruncatedTimeInstantConstraintValidatorTest extends AbstractNullable
         final TruncatedTimeInstantConstraintValidator validator =
                 new TruncatedTimeInstantConstraintValidator(mock(TruncatedTime.Truncated.class));
         final ImpossibleException exception =
-                assertThrows(ImpossibleException.class, () -> validator.validate(Instant.now(), PARAMETER, "value"));
+                assertThrows(ImpossibleException.class, () -> validator.validate(Instant.now(), PARAMETER, FIELD_NAME));
         final String requiredFragment = "Unsupported truncated: Mock for Truncated";
         assertTrue(
                 exception.getMessage().contains(requiredFragment),

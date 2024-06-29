@@ -60,7 +60,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
     private CharSequence password;
 
     public TestDatabaseConfig() {
-        super(TestDatabaseConfig.getDefaultNameSpace(TestDatabaseConfig.class));
+        super(getDefaultNameSpace(TestDatabaseConfig.class));
     }
 
     /**

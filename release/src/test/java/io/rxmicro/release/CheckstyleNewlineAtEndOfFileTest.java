@@ -31,7 +31,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.release.TestUtils.getRootDirectory;
+import static io.rxmicro.release.Utils.getRootDirectory;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -48,6 +48,8 @@ final class CheckstyleNewlineAtEndOfFileTest {
     private static final Set<String> IGNORE_FILE_EXTENSIONS = Set.of(
             "iml"
     );
+
+    private static final int CAPACITY = 150;
 
     @Test
     void verify() throws IOException {
@@ -76,17 +78,17 @@ final class CheckstyleNewlineAtEndOfFileTest {
                         while (iterator.previous()) {
                             final char ch = iterator.getCurrent();
                             if (ch != '\r') {
-                                if (ch != '\n') {
-                                    if (!foundNewLine) {
-                                        missingNewLineAtTheEndOfFiles.add(file.toAbsolutePath().toString());
-                                    }
-                                    break;
-                                } else {
+                                if (ch == '\n') {
                                     if (foundNewLine) {
                                         redundantNewLineAtTheEndOfFiles.add(file.toAbsolutePath().toString());
                                         break;
                                     }
                                     foundNewLine = true;
+                                } else {
+                                    if (!foundNewLine) {
+                                        missingNewLineAtTheEndOfFiles.add(file.toAbsolutePath().toString());
+                                    }
+                                    break;
                                 }
                             }
                         }
@@ -101,18 +103,20 @@ final class CheckstyleNewlineAtEndOfFileTest {
             }
         });
         boolean hasError = false;
-        final StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder(CAPACITY);
         if (!missingNewLineAtTheEndOfFiles.isEmpty()) {
             hasError = true;
-            stringBuilder.append("The following resources do not contain required '\\n' at the end of file:\n\t");
-            stringBuilder.append(String.join("\n\t", missingNewLineAtTheEndOfFiles));
-            stringBuilder.append('\n');
+            stringBuilder
+                    .append("The following resources do not contain required '\\n' at the end of file:\n\t")
+                    .append(String.join("\n\t", missingNewLineAtTheEndOfFiles))
+                    .append('\n');
         }
         if (!redundantNewLineAtTheEndOfFiles.isEmpty()) {
             hasError = true;
-            stringBuilder.append("The following resources contain redundant '\\n' at the end of file:\n\t");
-            stringBuilder.append(String.join("\n\t", redundantNewLineAtTheEndOfFiles));
-            stringBuilder.append('\n');
+            stringBuilder
+                    .append("The following resources contain redundant '\\n' at the end of file:\n\t")
+                    .append(String.join("\n\t", redundantNewLineAtTheEndOfFiles))
+                    .append('\n');
         }
         if (hasError) {
             fail(stringBuilder.toString());

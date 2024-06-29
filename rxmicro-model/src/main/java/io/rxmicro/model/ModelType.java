@@ -36,5 +36,6 @@ public interface ModelType {
      * @return String representation
      * @implSpec Should be a lowercase string!
      */
+    @Override
     String toString();
 }

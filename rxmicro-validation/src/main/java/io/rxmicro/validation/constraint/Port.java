@@ -61,7 +61,7 @@ public @interface Port {
     /**
      * Max allowed value (inclusive).
      */
-    int MAX_PORT_VALUE = 65535;
+    int MAX_PORT_VALUE = 65_535;
 
     /**
      * Allows disabling the validation rule if this rule is inherited from super class.

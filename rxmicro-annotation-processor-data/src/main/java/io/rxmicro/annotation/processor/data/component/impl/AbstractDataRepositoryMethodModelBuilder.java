@@ -248,6 +248,7 @@ public abstract class AbstractDataRepositoryMethodModelBuilder
         templateArguments.put("SHOW_ORIGINAL_QUERY", dataRepositoryGeneratorConfig.addOriginalQueryToGeneratedCodeAsComment());
     }
 
+    @SuppressWarnings("unused")
     protected void addCommonImports(final ClassHeader.Builder classHeaderBuilder,
                                     final MethodResult methodResult) {
         // Sub class can add common imports here

@@ -56,10 +56,10 @@ public abstract class UrlPathMatchTemplate implements Comparable<Object> {
     public final boolean equals(final Object other) {
         if (this == other) {
             return true;
-        } else if (!(other instanceof UrlPathMatchTemplate)) {
-            return false;
-        } else {
+        } else if (other instanceof UrlPathMatchTemplate) {
             return urlTemplate.equals(((UrlPathMatchTemplate) other).urlTemplate);
+        } else {
+            return false;
         }
     }
 
@@ -71,12 +71,12 @@ public abstract class UrlPathMatchTemplate implements Comparable<Object> {
     @Override
     @SuppressWarnings("NullableProblems")
     public final int compareTo(final Object other) {
-        if (!(other instanceof UrlPathMatchTemplate)) {
-            return 1;
-        } else {
+        if (other instanceof UrlPathMatchTemplate) {
             final UrlPathMatchTemplate otherUrlPathMatchTemplate = (UrlPathMatchTemplate) other;
             final int res = otherUrlPathMatchTemplate.priority() - priority();
             return res == 0 ? urlTemplate.compareTo(otherUrlPathMatchTemplate.urlTemplate) : res;
+        } else {
+            return 1;
         }
     }
 }

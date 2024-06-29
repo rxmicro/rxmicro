@@ -49,7 +49,7 @@ public final class GlobalTestConfig extends BaseTestConfig {
     private TimeZone timestampTimeZone = DEFAULT_TIMESTAMP_TIME_ZONE;
 
     public GlobalTestConfig() {
-        super(GlobalTestConfig.getDefaultNameSpace(GlobalTestConfig.class));
+        super(getDefaultNameSpace(GlobalTestConfig.class));
     }
 
     /**

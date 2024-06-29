@@ -16,6 +16,7 @@
 
 package io.rxmicro.config.internal.validator;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.util.Collection;
@@ -54,6 +55,7 @@ public final class ConfigValidatorDescriptor {
             // Use static builder() method
         }
 
+        @BuilderMethod
         public Builder setValidators(final Collection<ConstraintValidator<?>> validators) {
             this.validators = require(validators);
             return this;

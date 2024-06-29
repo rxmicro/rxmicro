@@ -45,16 +45,16 @@ final class AssertFalseConstraintValidatorTest extends AbstractNullableConstrain
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(false, PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(false, PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(true, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(true, PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": Expected 'false', but actual is 'true'!",
+                "Invalid parameter \"fieldName\": Expected 'false', but actual is 'true'!",
                 exception.getMessage()
         );
     }

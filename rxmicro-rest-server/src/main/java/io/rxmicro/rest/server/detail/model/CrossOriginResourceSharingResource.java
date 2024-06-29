@@ -192,9 +192,6 @@ public class CrossOriginResourceSharingResource {
             return false;
         }
         final CrossOriginResourceSharingResource resource = (CrossOriginResourceSharingResource) other;
-        if (!Objects.equals(uri, resource.uri)) {
-            return false;
-        }
-        return Objects.equals(urlSegments, resource.urlSegments);
+        return Objects.equals(uri, resource.uri) && Objects.equals(urlSegments, resource.urlSegments);
     }
 }

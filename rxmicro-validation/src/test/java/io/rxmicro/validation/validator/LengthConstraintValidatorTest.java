@@ -48,7 +48,7 @@ final class LengthConstraintValidatorTest extends AbstractNullableConstraintVali
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate("us", PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate("us", PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -60,9 +60,9 @@ final class LengthConstraintValidatorTest extends AbstractNullableConstraintVali
     @Order(12)
     void Should_throw_ConstraintViolationException(final String value) {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, FIELD_NAME));
         assertEquals(
-                format("Invalid parameter \"value\": Expected 2 characters, but actual is ?!", value.length()),
+                format("Invalid parameter \"fieldName\": Expected 2 characters, but actual is ?!", value.length()),
                 exception.getMessage()
         );
     }

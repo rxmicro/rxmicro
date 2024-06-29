@@ -27,6 +27,7 @@ import java.util.List;
  * @hidden
  * @since 0.1
  */
+@SuppressWarnings("unused")
 public abstract class ClientModelReader<T> extends FromStringValueConverter {
 
     public T readSingle(final HttpResponse response) {

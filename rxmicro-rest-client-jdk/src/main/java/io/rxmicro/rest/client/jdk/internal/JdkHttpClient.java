@@ -126,7 +126,13 @@ final class JdkHttpClient implements io.rxmicro.rest.client.detail.HttpClient {
     private void setHeaders(final HttpRequest.Builder requestBuilder,
                             final List<Map.Entry<String, String>> headers,
                             final boolean withBody) {
-        if (!headers.isEmpty()) {
+        if (headers.isEmpty()) {
+            requestBuilder.header(ACCEPT, contentType);
+            if (withBody) {
+                requestBuilder.header(CONTENT_TYPE, contentType);
+            }
+            requestBuilder.header(USER_AGENT, DEFAULT_USER_AGENT);
+        } else {
             final Set<String> addedHeaders = new TreeSet<>(CASE_INSENSITIVE_ORDER);
             headers.forEach(e -> {
                 addedHeaders.add(e.getKey());
@@ -141,12 +147,6 @@ final class JdkHttpClient implements io.rxmicro.rest.client.detail.HttpClient {
             if (!addedHeaders.contains(USER_AGENT)) {
                 requestBuilder.header(USER_AGENT, DEFAULT_USER_AGENT);
             }
-        } else {
-            requestBuilder.header(ACCEPT, contentType);
-            if (withBody) {
-                requestBuilder.header(CONTENT_TYPE, contentType);
-            }
-            requestBuilder.header(USER_AGENT, DEFAULT_USER_AGENT);
         }
     }
 

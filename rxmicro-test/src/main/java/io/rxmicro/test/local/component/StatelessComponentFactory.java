@@ -24,29 +24,41 @@ import io.rxmicro.test.local.component.builder.BlockingHttpClientBuilder;
  */
 public final class StatelessComponentFactory {
 
-    private static ServerPortHelper serverPortHelper;
+    private static volatile ServerPortHelper serverPortHelper;
 
-    private static BlockingHttpClientBuilder blockingHttpClientBuilder;
+    private static volatile BlockingHttpClientBuilder blockingHttpClientBuilder;
 
-    private static ConfigResolver configResolver;
+    private static volatile ConfigResolver configResolver;
 
     public static ServerPortHelper getServerPortHelper() {
         if (serverPortHelper == null) {
-            serverPortHelper = new ServerPortHelper();
+            synchronized (StatelessComponentFactory.class) {
+                if (serverPortHelper == null) {
+                    serverPortHelper = new ServerPortHelper();
+                }
+            }
         }
         return serverPortHelper;
     }
 
     public static BlockingHttpClientBuilder getBlockingHttpClientBuilder() {
         if (blockingHttpClientBuilder == null) {
-            blockingHttpClientBuilder = new BlockingHttpClientBuilder();
+            synchronized (StatelessComponentFactory.class) {
+                if (blockingHttpClientBuilder == null) {
+                    blockingHttpClientBuilder = new BlockingHttpClientBuilder();
+                }
+            }
         }
         return blockingHttpClientBuilder;
     }
 
     public static ConfigResolver getConfigResolver() {
         if (configResolver == null) {
-            configResolver = new ConfigResolver();
+            synchronized (StatelessComponentFactory.class) {
+                if (configResolver == null) {
+                    configResolver = new ConfigResolver();
+                }
+            }
         }
         return configResolver;
     }

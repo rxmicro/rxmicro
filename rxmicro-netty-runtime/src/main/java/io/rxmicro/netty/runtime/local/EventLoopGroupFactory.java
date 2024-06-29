@@ -58,7 +58,7 @@ public abstract class EventLoopGroupFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventLoopGroupFactory.class);
 
-    private static EventLoopGroupFactory eventLoopGroupFactoryInstance;
+    private static volatile EventLoopGroupFactory eventLoopGroupFactoryInstance;
 
     protected final NettyRuntimeConfig nettyRuntimeConfig;
 
@@ -70,15 +70,23 @@ public abstract class EventLoopGroupFactory {
 
     public static EventLoopGroupFactory getEventLoopGroupFactory() {
         if (eventLoopGroupFactoryInstance == null) {
-            eventLoopGroupFactoryInstance = new EventLoopGroupFactoryImpl();
+            synchronized (EventLoopGroupFactory.class) {
+                if (eventLoopGroupFactoryInstance == null) {
+                    eventLoopGroupFactoryInstance = new EventLoopGroupFactoryImpl();
+                }
+            }
         }
         return eventLoopGroupFactoryInstance;
     }
 
     public static void clearEventLoopGroupFactory() {
         if (eventLoopGroupFactoryInstance != null) {
-            eventLoopGroupFactoryInstance.shutdownAll();
-            eventLoopGroupFactoryInstance = null;
+            synchronized (EventLoopGroupFactory.class) {
+                if (eventLoopGroupFactoryInstance != null) {
+                    eventLoopGroupFactoryInstance.shutdownAll();
+                    eventLoopGroupFactoryInstance = null;
+                }
+            }
         }
     }
 

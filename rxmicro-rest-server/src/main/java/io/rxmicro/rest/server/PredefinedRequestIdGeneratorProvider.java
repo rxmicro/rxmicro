@@ -19,11 +19,11 @@ package io.rxmicro.rest.server;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
+import io.rxmicro.rest.server.feature.request.id.generator.ConstantRequestIdGenerator;
 import io.rxmicro.rest.server.feature.request.id.generator.Deterministic96BitsRequestIdGenerator;
 import io.rxmicro.rest.server.feature.request.id.generator.DeterministicValueProvider;
 import io.rxmicro.rest.server.feature.request.id.generator.PartlyRandom96BitsRequestIdGenerator;
 import io.rxmicro.rest.server.feature.request.id.generator.RandomRequestIdGenerator;
-import io.rxmicro.rest.server.feature.request.id.generator.TestRequestIdGenerator;
 import io.rxmicro.rest.server.internal.RequestIdGeneratorProviderHelper;
 
 import java.util.UUID;
@@ -123,12 +123,12 @@ public enum PredefinedRequestIdGeneratorProvider implements RequestIdGeneratorPr
     ),
 
     /**
-     * This request id generator always returns the {@value TestRequestIdGenerator#TEST_REQUEST_ID} value as request id.
+     * This request id generator always returns the {@value ConstantRequestIdGenerator#REQUEST_ID} value as request id.
      *
      * <p>
      * The RxMicro team recommends to use this request id generator for testing purposes only.
      */
-    TEST(TestRequestIdGenerator::new);
+    TEST(ConstantRequestIdGenerator::new);
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PredefinedRequestIdGeneratorProvider.class);
 

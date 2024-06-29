@@ -183,10 +183,10 @@ public final class DbUnitTestExtension implements
             success = true;
             rollbackChangesIfTestTransactionStarted(null);
         } catch (final CheckedWrapperException | Error ex) {
-            if (!success) {
-                rollbackChangesIfTestTransactionStarted(ex);
-            } else {
+            if (success) {
                 throw ex;
+            } else {
+                rollbackChangesIfTestTransactionStarted(ex);
             }
         } finally {
             if (retrieveConnectionStrategy == PER_TEST_METHOD) {

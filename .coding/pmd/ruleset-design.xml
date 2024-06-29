@@ -68,31 +68,17 @@
         </properties>
     </rule>
 
-    <!-- The RxMicro framework team prefers to use Java Beans than DataClasses: -->
+    <!-- The RxMicro framework team prefers to use Java Beans than Data classes: -->
     <!-- rule ref="category/java/design.xml/DataClass"/ -->
 
     <rule ref="category/java/design.xml/DoNotExtendJavaLangError"/>
     <rule ref="category/java/design.xml/ExceptionAsFlowControl"/>
 
-    <!-- Validated by checkstyle.JavaFileLength -->
-    <!-- rule ref="category/java/design.xml/ExcessiveClassLength">
-        <properties>
-            <property name="minimum" value="1000.0"/>
-        </properties>
-    </rule -->
-
     <rule ref="category/java/design.xml/ExcessiveImports">
         <properties>
-            <property name="minimum" value="100.0"/>
+            <property name="minimum" value="100"/>
         </properties>
     </rule>
-
-    <!-- Validated by checkstyle.MethodReturnCount -->
-    <!-- rule ref="category/java/design.xml/ExcessiveMethodLength">
-        <properties>
-            <property name="minimum" value="100.0" />
-        </properties>
-    </rule -->
 
     <!-- Validated by checkstyle.ParameterNumber -->
     <!-- rule ref="category/java/design.xml/ExcessiveParameterList">
@@ -110,13 +96,14 @@
 
     <rule ref="category/java/design.xml/FinalFieldCouldBeStatic"/>
     <rule ref="category/java/design.xml/GodClass"/>
-    <rule ref="category/java/design.xml/ImmutableField">
+    <rule ref="category/java/design.xml/ImmutableField"/>
+    <!-- We have a lot of false-positive results fo this rule, maybe this rule make sense only for specific packages only: -->
+    <!-- rule ref="category/java/design.xml/InvalidJavaBean">
         <properties>
-            <property name="ignoredAnnotations"
-                      value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|
-                             lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor"/>
+            <property name="ensureSerialization" value="false" />
+            <property name="packages" value="" />
         </properties>
-    </rule>
+    </rule -->
 
     <!-- This rule is very complex to support: -->
     <!-- rule ref="category/java/design.xml/LawOfDemeter"/ -->
@@ -126,7 +113,8 @@
     <!-- This rule is redundant, because JPMS solves this problem:  -->
     <!-- rule ref="category/java/design.xml/LoosePackageCoupling"/ -->
 
-    <rule ref="category/java/design.xml/MutableStaticState"/>
+    <!-- This rule does nothing useful: -->
+    <!-- rule ref="category/java/design.xml/MutableStaticState"/ -->
     <rule ref="category/java/design.xml/NcssCount">
         <properties>
             <property name="methodReportLevel" value="60"/>
@@ -146,24 +134,19 @@
     </rule>
     <rule ref="category/java/design.xml/SimplifiedTernary"/>
     <rule ref="category/java/design.xml/SimplifyBooleanExpressions"/>
-    <rule ref="category/java/design.xml/SimplifyBooleanReturns"/>
+    <!-- Sometimes not-simplified boolean conditions are more human friendly -->
+    <!-- rule ref="category/java/design.xml/SimplifyBooleanReturns"/-->
     <rule ref="category/java/design.xml/SimplifyConditional"/>
 
-    <!-- This rule does not do anything useful: -->
-    <!-- rule ref="category/java/design.xml/SingularField">
+    <rule ref="category/java/design.xml/SingularField">
         <properties>
             <property name="ignoredAnnotations"
-                      value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|
-                             lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|lombok.EqualsAndHashCode|
-                             lombok.experimental.Delegate" />
-            <property name="checkInnerClasses" value="true" />
-            <property name="disallowNotAssignment" value="true" />
+                      value="java.lang.Deprecated,javafx.fxml.FXML,lombok.Getter,lombok.Setter,lombok.experimental.Delegate"/>
         </properties>
-    </rule -->
-
+    </rule>
     <rule ref="category/java/design.xml/SwitchDensity">
         <properties>
-            <property name="minimum" value="10.0"/>
+            <property name="minimum" value="10"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/TooManyFields">
@@ -181,13 +164,9 @@
 
     <rule ref="category/java/design.xml/UselessOverridingMethod">
         <properties>
-            <property name="ignoreAnnotations" value="false"/>
+            <property name="ignoreAnnotations" value="true"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/UseObjectForClearerAPI"/>
-    <rule ref="category/java/design.xml/UseUtilityClass">
-        <properties>
-            <property name="ignoredAnnotations" value="lombok.experimental.UtilityClass"/>
-        </properties>
-    </rule>
+    <rule ref="category/java/design.xml/UseUtilityClass"/>
 </ruleset>

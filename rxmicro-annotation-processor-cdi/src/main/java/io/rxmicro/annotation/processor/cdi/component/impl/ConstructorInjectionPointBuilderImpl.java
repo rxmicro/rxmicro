@@ -69,7 +69,7 @@ public final class ConstructorInjectionPointBuilderImpl extends AbstractInjectio
                 INJECT_ANNOTATIONS.stream().anyMatch(a -> f.getAnnotation(a) != null));
         validate(constructors, fields, methods);
         return constructors.get(0).getParameters().stream()
-                .map(p -> build(beanTypeElement, p))
+                .map(this::build)
                 .collect(toList());
     }
 

@@ -49,7 +49,7 @@ For specific guidelines regarding contributions, please see [CONTRIBUTING.md](.g
 
 ## Check Lists
 
-See [CHECK_LISTS.md](.github/CHECK_LISTS.md).
+See [CHECK_LISTS.md](CHECK_LISTS.md).
 
 ## Code Quality
 

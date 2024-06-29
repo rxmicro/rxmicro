@@ -38,13 +38,13 @@ final class JsonStringValueReader {
         while (iterator.next()) {
             final char ch = iterator.getCurrent();
             if (ch == '"') {
-                if (iterator.getPrevious() != '\\') {
+                if (iterator.getPrevious() == '\\') {
+                    sb.append(ch);
+                } else {
                     if (withQuote) {
                         sb.append('"');
                     }
                     return sb.toString();
-                } else {
-                    sb.append(ch);
                 }
             } else if (ch == '\\') {
                 if (iterator.getPrevious() == '\\') {

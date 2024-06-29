@@ -62,7 +62,7 @@ public final class ModelExceptionErrorResponseCustomBuilder extends BaseProcesso
             );
             // Add Request-Id header if not defined!
             if (resourceDefinition.withRequestIdResponseHeader() &&
-                    headers.stream().noneMatch(f -> f.getName().equalsIgnoreCase(REQUEST_ID))) {
+                    headers.stream().noneMatch(f -> REQUEST_ID.equalsIgnoreCase(f.getName()))) {
                 responseBuilder.setHeaders(
                         Stream.concat(
                                 Stream.of(buildRequestIdHeaderDocumentedModelField(true)),

@@ -42,10 +42,10 @@ public final class AnyPathFragmentRequestMappingRule extends AbstractRequestMapp
     public boolean match(final HttpRequest request) {
         if (hasHttpBody() != request.isContentPresent()) {
             return false;
-        } else if (!getMethod().equals(request.getMethod())) {
-            return false;
-        } else {
+        } else if (getMethod().equals(request.getMethod())) {
             return urlPathMatchTemplate.match(request);
+        } else {
+            return false;
         }
     }
 }

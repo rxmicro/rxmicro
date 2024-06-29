@@ -156,8 +156,6 @@ public final class TypeValidators {
     }
 
     public static void validateModuleDeclaration(final ModuleElement ownerModule,
-                                                 final Element owner,
-                                                 final String validPrefix,
                                                  final TypeElement typeElement,
                                                  final boolean validateAllParents) {
         if (ownerModule.isUnnamed()) {
@@ -165,14 +163,6 @@ public final class TypeValidators {
         }
         TypeElement currentTypeElement = typeElement;
         while (true) {
-            /*if (currentTypeElement.getEnclosedElements().stream().anyMatch(e -> e instanceof VariableElement)) {
-                final ModuleElement resultModule = getElements().getModuleOf(currentTypeElement);
-                if (resultModule == null || !ownerModule.getQualifiedName().equals(resultModule.getQualifiedName())) {
-                    throw new InterruptProcessingException(owner,
-                            "?Model class '?' must be declared at '?' module",
-                            validPrefix, currentTypeElement.getQualifiedName(), ownerModule.getQualifiedName());
-                }
-            }*/
             final TypeMirror superClass = currentTypeElement.getSuperclass();
             if (superClassIsObject(superClass) || !validateAllParents) {
                 break;

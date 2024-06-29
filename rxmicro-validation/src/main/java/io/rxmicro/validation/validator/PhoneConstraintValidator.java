@@ -56,11 +56,9 @@ public class PhoneConstraintValidator implements ConstraintValidator<String> {
     public void validateNonNull(final String actual,
                                 final ModelType modelType,
                                 final String modelName) {
-        if (!actual.isEmpty()) {
-            final String validValue = allowsSpaces ? actual.trim() : actual;
-            validatePlusChar(validValue, modelType, modelName, withoutPlus);
-            validateDigitsOnly(validValue, modelType, modelName);
-        }
+        final String validValue = allowsSpaces ? actual.trim() : actual;
+        validatePlusChar(validValue, modelType, modelName, withoutPlus);
+        validateDigitsOnly(validValue, modelType, modelName);
     }
 
     private void validatePlusChar(final CharSequence phone,

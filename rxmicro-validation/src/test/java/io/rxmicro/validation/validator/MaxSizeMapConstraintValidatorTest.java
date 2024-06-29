@@ -50,7 +50,7 @@ final class MaxSizeMapConstraintValidatorTest extends AbstractNullableConstraint
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(Map.of(1, 2), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(Map.of(1, 2), PARAMETER, FIELD_NAME));
     }
 
     @Test
@@ -58,9 +58,9 @@ final class MaxSizeMapConstraintValidatorTest extends AbstractNullableConstraint
     void Should_throw_ConstraintViolationException() {
         final Map<Integer, Integer> map = Map.of(1, 2, 3, 4, 5, 6, 7, 8);
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(map, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(map, PARAMETER, FIELD_NAME));
         assertEquals(
-                format("Invalid parameter \"value\": Expected 3 max supported object property(ies) (inclusive), " +
+                format("Invalid parameter \"fieldName\": Expected 3 max supported object property(ies) (inclusive), " +
                         "but actual is 4. (object: ?)!", map),
                 exception.getMessage()
         );

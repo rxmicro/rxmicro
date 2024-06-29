@@ -32,7 +32,7 @@ import java.util.Optional;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Config.getDefaultNameSpace;
-import static io.rxmicro.config.detail.DefaultConfigValueBuilder.putDefaultConfigValue;
+import static io.rxmicro.config.detail.DefaultConfigValueBuildHelper.putDefaultConfigValue;
 import static io.rxmicro.reflection.Reflections.getFieldValue;
 import static io.rxmicro.test.local.util.Inners.getOuterClass;
 import static io.rxmicro.test.local.util.Inners.isInnerClass;
@@ -117,14 +117,13 @@ public final class ConfigResolver {
             }
         } else {
             final String name = configValue.name();
-            if (name.indexOf('.') != -1) {
+            if (name.indexOf('.') == -1) {
+                return format("?.?", getDefaultNameSpace(configValue.configClass()), name);
+            } else {
                 throw new InvalidTestConfigException(
-                        "Redundant namespace for config property: '?'. " +
-                                "Add redundant namespace or remove configClass!",
+                        "Redundant namespace for config property: '?'. Add redundant namespace or remove configClass!",
                         name
                 );
-            } else {
-                return format("?.?", getDefaultNameSpace(configValue.configClass()), name);
             }
         }
     }

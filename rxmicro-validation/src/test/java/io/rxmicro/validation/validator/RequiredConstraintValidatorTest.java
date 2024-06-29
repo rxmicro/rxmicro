@@ -24,6 +24,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import static io.rxmicro.validation.validator.Constants.FIELD_NAME;
+import static io.rxmicro.validation.validator.Constants.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,23 +36,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class RequiredConstraintValidatorTest extends AbstractConstraintValidatorTest {
+final class RequiredConstraintValidatorTest {
 
     private final RequiredConstraintValidator validator = new RequiredConstraintValidator();
 
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(new Object(), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(new Object(), PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(null, PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(null, PARAMETER, FIELD_NAME));
         assertEquals(
-                "Parameter \"value\" is required!",
+                "Parameter \"fieldName\" is required!",
                 exception.getMessage()
         );
     }

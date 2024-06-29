@@ -286,7 +286,7 @@ public enum RxMicroModule {
      * @return the enum constant of the {@link RxMicroModule} type
      */
     public static Optional<RxMicroModule> of(final String moduleFullName) {
-        for (final RxMicroModule rxMicroModule : RxMicroModule.values()) {
+        for (final RxMicroModule rxMicroModule : values()) {
             if (rxMicroModule.name.equals(moduleFullName)) {
                 return Optional.of(rxMicroModule);
             }
@@ -311,7 +311,7 @@ public enum RxMicroModule {
      * @return {@code true} if the provided package name is RxMicro package
      */
     public static boolean isRxMicroPackage(final String packageName) {
-        return Arrays.stream(RxMicroModule.values()).anyMatch(module ->
+        return Arrays.stream(values()).anyMatch(module ->
                 module.getRootPackage().equals(packageName) ||
                         packageName.startsWith(module.getRootPackage() + ".")
         );

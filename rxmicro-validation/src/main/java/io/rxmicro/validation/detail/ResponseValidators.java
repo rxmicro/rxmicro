@@ -21,8 +21,8 @@ import io.rxmicro.validation.local.ValidationOptions;
 
 import java.util.List;
 
-import static io.rxmicro.validation.local.ConstraintViolationReportManager.completeValidation;
-import static io.rxmicro.validation.local.ConstraintViolationReportManager.startValidation;
+import static io.rxmicro.validation.local.ConstraintViolationReportHelper.completeValidation;
+import static io.rxmicro.validation.local.ConstraintViolationReportHelper.startValidation;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.

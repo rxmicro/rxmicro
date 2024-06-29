@@ -76,7 +76,7 @@ public final class NettyRestServerConfig extends Config {
     private boolean closeOnHttpRequestContentExpectationFailed = true;
 
     public NettyRestServerConfig() {
-        super(NettyRestServerConfig.getDefaultNameSpace(NettyRestServerConfig.class));
+        super(getDefaultNameSpace(NettyRestServerConfig.class));
     }
 
     /**

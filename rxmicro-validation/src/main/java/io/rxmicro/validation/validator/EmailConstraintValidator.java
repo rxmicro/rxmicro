@@ -95,11 +95,13 @@ public final class EmailConstraintValidator implements ConstraintValidator<Strin
                 validatePrefixAndDomain(actual, modelType, modelName, lastIndex, i);
                 atSignDelimiterFound = true;
                 break;
-            } else if (!ALLOWED_PREFIX_CHARACTERS.contains(ch)) {
+            } else if (ALLOWED_PREFIX_CHARACTERS.contains(ch)) {
+                if (ch == '.' || ch == '-' || ch == '_' || ch == '\'' || ch == '+') {
+                    validateDelimiters(actual, modelType, modelName, i, ch);
+                }
+            } else {
                 final String details = format("Unsupported prefix character: '?'. ?", ch, EMAIL_PREFIX_RULE);
                 reportViolation(modelType, modelName, details);
-            } else if (ch == '.' || ch == '-' || ch == '_' || ch == '\'' || ch == '+') {
-                validateDelimiters(actual, modelType, modelName, i, ch);
             }
         }
         if (!atSignDelimiterFound) {

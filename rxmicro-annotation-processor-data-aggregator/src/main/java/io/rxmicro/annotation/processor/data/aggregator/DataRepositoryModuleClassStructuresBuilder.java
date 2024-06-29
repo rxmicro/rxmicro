@@ -56,15 +56,15 @@ public final class DataRepositoryModuleClassStructuresBuilder
                                                               final RoundEnvironment roundEnv) {
         final Set<? extends ClassStructure> allClassStructures =
                 super.buildClassStructures(environmentContext, annotations, roundEnv);
-        if (!allClassStructures.isEmpty()) {
+        if (allClassStructures.isEmpty()) {
+            return Set.of();
+        } else {
             return Stream
                     .concat(
                             allClassStructures.stream(),
                             Stream.of(new RepositoryFactoryClassStructure(environmentContext, allClassStructures))
                     )
                     .collect(toSet());
-        } else {
-            return Set.of();
         }
     }
 }

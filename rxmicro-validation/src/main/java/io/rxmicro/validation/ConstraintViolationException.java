@@ -27,6 +27,8 @@ import io.rxmicro.common.util.Formats;
  */
 public final class ConstraintViolationException extends RxMicroException {
 
+    private static final long serialVersionUID = 6396614041051775943L;
+
     /**
      * Creates a validation error with error message.
      *

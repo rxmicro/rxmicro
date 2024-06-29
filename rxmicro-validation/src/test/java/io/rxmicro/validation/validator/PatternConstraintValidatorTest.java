@@ -50,16 +50,16 @@ final class PatternConstraintValidatorTest extends AbstractNullableConstraintVal
     void Should_process_parameter_as_a_valid_one() {
         final PatternConstraintValidator validator =
                 new PatternConstraintValidator("http", Set.of(Pattern.Flag.CASE_INSENSITIVE));
-        assertDoesNotThrow(() -> validator.validate("http", PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate("http", PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate("ftp", PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("ftp", PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": " +
+                "Invalid parameter \"fieldName\": " +
                         "Expected that 'value' matches the pattern: /http/, where 'value' is 'ftp'!",
                 exception.getMessage()
         );

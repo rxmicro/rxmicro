@@ -92,10 +92,10 @@ public final class JsonWriter {
             final Object value = jsonArray.get(i);
             builder.tab(indent);
             addValue(builder, indent, value);
-            if (i != jsonArray.size() - 1) {
-                builder.valueSeparator();
-            } else {
+            if (i == jsonArray.size() - 1) {
                 builder.newLine();
+            } else {
+                builder.valueSeparator();
             }
         }
         builder.tab(indent - 1).endArray();

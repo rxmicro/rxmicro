@@ -52,16 +52,16 @@ class ExistingFilePathConstraintValidatorTest extends AbstractNullableConstraint
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(testFile, PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(testFile, PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException_if_file_not_found() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(tempDir.resolve("/notFound.txt"), PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(tempDir.resolve("/notFound.txt"), PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"value\": File not found: '/notFound.txt'!",
+                "Invalid parameter \"fieldName\": File not found: '/notFound.txt'!",
                 exception.getMessage()
         );
     }
@@ -70,9 +70,9 @@ class ExistingFilePathConstraintValidatorTest extends AbstractNullableConstraint
     @Order(13)
     void Should_throw_ConstraintViolationException_if_not_a_file() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(tempDir.resolve(testDir), PARAMETER, "value"));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(tempDir.resolve(testDir), PARAMETER, FIELD_NAME));
         assertEquals(
-                format("Invalid parameter \"value\": Not a file: '?'!", testDir.toAbsolutePath()),
+                format("Invalid parameter \"fieldName\": Not a file: '?'!", testDir.toAbsolutePath()),
                 exception.getMessage()
         );
     }

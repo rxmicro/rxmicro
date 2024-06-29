@@ -198,16 +198,19 @@ public abstract class Config {
      * @return the provided value.
      */
     protected final <T> T ensureValid(final T value) {
-        return ensureValidProperty(PropertyNameAutoResolver.resolve(), value);
+        return ensureValidProperty(PropertyNameAutoResolvers.resolve(), value);
     }
 
-    static final class PropertyNameAutoResolver {
+    static final class PropertyNameAutoResolvers {
 
         static final int SETTER_PREFIX_LENGTH = "set".length();
 
         static String resolve() {
             final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
             return unCapitalize(stackTrace[3].getMethodName().substring(SETTER_PREFIX_LENGTH));
+        }
+
+        private PropertyNameAutoResolvers() {
         }
     }
 }

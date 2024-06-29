@@ -49,9 +49,7 @@ public final class DateTimeOfLoggingEventBiConsumer extends AbstractBiConsumer {
     public DateTimeOfLoggingEventBiConsumer(final BiConsumerArguments arguments) {
         super(arguments);
         final List<String> options = arguments.getOptions();
-        this.pattern = !options.isEmpty() ?
-                Optional.of(options.get(0)).filter(v -> !v.isEmpty()).orElse(DEFAULT_PATTERN) :
-                DEFAULT_PATTERN;
+        this.pattern = options.isEmpty() ? DEFAULT_PATTERN : Optional.of(options.get(0)).filter(v -> !v.isEmpty()).orElse(DEFAULT_PATTERN);
         try {
             this.dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
         } catch (final IllegalArgumentException ex) {
