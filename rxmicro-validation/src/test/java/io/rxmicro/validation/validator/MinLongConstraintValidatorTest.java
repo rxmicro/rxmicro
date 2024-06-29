@@ -28,7 +28,7 @@ import org.junit.jupiter.api.TestMethodOrder;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class MinLongConstraintValidatorTest extends AbstractConstraintValidatorTest<Long> {
+final class MinLongConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<Long> {
 
     @Override
     ConstraintValidator<Long> instantiate() {

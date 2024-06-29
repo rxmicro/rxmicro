@@ -23,10 +23,11 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element may be optional, i.e. {@code empty string} BUT must be not {@code null}!
@@ -44,8 +45,8 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * @since 0.7
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @SelfDocumented
 public @interface AllowEmptyString {
 

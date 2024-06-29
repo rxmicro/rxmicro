@@ -16,6 +16,8 @@
 
 package io.rxmicro.rest.model;
 
+import io.rxmicro.model.ModelType;
+
 import java.util.Locale;
 
 /**
@@ -24,7 +26,7 @@ import java.util.Locale;
  * @author nedis
  * @since 0.1
  */
-public enum HttpModelType {
+public enum HttpModelType implements ModelType {
 
     /**
      * HTTP body or query parameter.

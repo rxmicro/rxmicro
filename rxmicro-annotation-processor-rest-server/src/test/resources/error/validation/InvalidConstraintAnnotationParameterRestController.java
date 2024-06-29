@@ -20,10 +20,10 @@ import io.rxmicro.rest.method.GET;
 import io.rxmicro.validation.constraint.Enumeration;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
-import io.rxmicro.validation.constraint.MaxNumber;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.Pattern;
 import io.rxmicro.validation.constraint.SubEnum;
 
@@ -108,72 +108,72 @@ final class Request {
     @MaxInt(Long.MAX_VALUE)
     Integer maxInteger1;
 
-    @MinNumber("hello")
-    @MaxNumber("hello")
+    @Min("hello")
+    @Max("hello")
     BigInteger bigInteger2;
 
-    @MinNumber("hello")
-    @MaxNumber("hello")
+    @Min("hello")
+    @Max("hello")
     Byte minByte2;
 
-    @MinNumber("-9999999999999999999")
-    @MaxNumber("-9999999999999999999")
+    @Min("-9999999999999999999")
+    @Max("-9999999999999999999")
     Byte minByte3;
 
-    @MinNumber("9999999999999999999")
-    @MaxNumber("9999999999999999999")
+    @Min("9999999999999999999")
+    @Max("9999999999999999999")
     Byte maxByte3;
 
-    @MinNumber("hello")
-    @MaxNumber("hello")
+    @Min("hello")
+    @Max("hello")
     Short minShort2;
 
-    @MinNumber("-9999999999999999999")
-    @MaxNumber("-9999999999999999999")
+    @Min("-9999999999999999999")
+    @Max("-9999999999999999999")
     Short minShort3;
 
-    @MinNumber("9999999999999999999")
-    @MaxNumber("9999999999999999999")
+    @Min("9999999999999999999")
+    @Max("9999999999999999999")
     Short maxShort3;
 
-    @MinNumber("hello")
-    @MaxNumber("hello")
+    @Min("hello")
+    @Max("hello")
     Integer minInteger2;
 
-    @MinNumber("-9999999999999999999")
-    @MaxNumber("-9999999999999999999")
+    @Min("-9999999999999999999")
+    @Max("-9999999999999999999")
     Integer minInteger3;
 
-    @MinNumber("9999999999999999999")
-    @MaxNumber("9999999999999999999")
+    @Min("9999999999999999999")
+    @Max("9999999999999999999")
     Integer maxInteger3;
 
-    @MinNumber("hello")
-    @MaxNumber("hello")
+    @Min("hello")
+    @Max("hello")
     Long minLong2;
 
-    @MinNumber("-9999999999999999999")
-    @MaxNumber("-9999999999999999999")
+    @Min("-9999999999999999999")
+    @Max("-9999999999999999999")
     Long minLong3;
 
-    @MinNumber("9999999999999999999")
-    @MaxNumber("9999999999999999999")
+    @Min("9999999999999999999")
+    @Max("9999999999999999999")
     Long maxLong3;
 
-    @MinNumber("hello")
-    @MaxNumber("hello")
+    @Min("hello")
+    @Max("hello")
     BigDecimal bigDecimal2;
 
-    @MinNumber("hello")
-    @MaxNumber("hello")
+    @Min("hello")
+    @Max("hello")
     Float minFloat2;
 
-    @MinNumber("4.9E-324")
-    @MaxNumber("4.9E-324")
+    @Min("4.9E-324")
+    @Max("4.9E-324")
     Float minFloat3;
 
-    @MinNumber("1.8E308")
-    @MaxNumber("1.8E308")
+    @Min("1.8E308")
+    @Max("1.8E308")
     Float maxFloat3;
 
 }

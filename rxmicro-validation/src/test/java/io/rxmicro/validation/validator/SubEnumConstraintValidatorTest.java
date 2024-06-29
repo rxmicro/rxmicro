@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-final class SubEnumConstraintValidatorTest extends AbstractConstraintValidatorTest<TimeUnit> {
+final class SubEnumConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<TimeUnit> {
 
     @Override
     ConstraintValidator<TimeUnit> instantiate() {
@@ -70,10 +69,10 @@ final class SubEnumConstraintValidatorTest extends AbstractConstraintValidatorTe
     @ParameterizedTest
     @EnumSource(TimeUnit.class)
     @Order(13)
-    void Should_throw_ValidationException_if_include_and_exclude_are_missing(final TimeUnit timeUnit) {
+    void Should_throw_ConstraintViolationException_if_include_and_exclude_are_missing(final TimeUnit timeUnit) {
         final SubEnumConstraintValidator<TimeUnit> validator = new SubEnumConstraintValidator<>(TimeUnit.class, List.of(), List.of());
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(timeUnit, PARAMETER, "value"));
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(timeUnit, PARAMETER, "value"));
         assertEquals(
                 format("Invalid parameter \"value\": Expected a value from the set [], but actual is '?'!", timeUnit),
                 exception.getMessage()

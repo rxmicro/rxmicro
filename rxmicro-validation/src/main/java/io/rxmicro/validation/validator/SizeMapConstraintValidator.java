@@ -16,11 +16,12 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
 import java.util.Map;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Size} constraint.
@@ -44,13 +45,13 @@ public class SizeMapConstraintValidator extends AbstractContainerConstraintValid
 
     @Override
     public void validateNonNull(final Map<?, ?> map,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final int actual = map.size();
         if (actual != expectedSize) {
-            throw new ValidationException(
+            reportViolation(
                     "Invalid ? \"?\": Expected ? object property(ies), but actual is ?. (object: ?)!",
-                    httpModelType, modelName, expectedSize, actual, map
+                    modelType, modelName, expectedSize, actual, map
             );
         }
     }

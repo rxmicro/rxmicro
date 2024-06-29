@@ -30,10 +30,10 @@ import java.math.BigInteger;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class MinBigIntegerNumberConstraintValidatorTest extends AbstractConstraintValidatorTest<BigInteger> {
+final class MinBigIntegerConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<BigInteger> {
 
     @Override
     ConstraintValidator<BigInteger> instantiate() {
-        return new MinBigIntegerNumberConstraintValidator("3", true);
+        return new MinBigIntegerConstraintValidator("3", true);
     }
 }

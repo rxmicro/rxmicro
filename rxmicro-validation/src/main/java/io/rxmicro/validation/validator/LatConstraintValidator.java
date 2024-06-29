@@ -18,6 +18,7 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.validation.base.AbstractCompositionConstraintValidator;
 import io.rxmicro.validation.base.LocationAccuracy;
+import io.rxmicro.validation.constraint.Lat;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -40,8 +41,8 @@ public final class LatConstraintValidator extends AbstractCompositionConstraintV
      */
     public LatConstraintValidator(final LocationAccuracy locationAccuracy) {
         super(List.of(
-                new MinBigDecimalNumberConstraintValidator("-90", true),
-                new MaxBigDecimalNumberConstraintValidator("90", true),
+                new MinBigDecimalConstraintValidator(Lat.MIN_LAT_VALUE.toPlainString(), true),
+                new MaxBigDecimalConstraintValidator(Lat.MAX_LAT_VALUE.toPlainString(), true),
                 new NumericConstraintValidator(-1, locationAccuracy.getCoordinateScale(), EXACT)
         ));
     }

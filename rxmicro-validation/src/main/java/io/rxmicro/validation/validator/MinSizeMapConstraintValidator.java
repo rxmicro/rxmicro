@@ -16,13 +16,13 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
 import java.util.Map;
 
-import static io.rxmicro.validation.internal.ConstraintValidators.validateMinValue;
+import static io.rxmicro.validation.internal.ValidatorHelper.validateMinValue;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.MinSize} constraint.
@@ -41,7 +41,7 @@ public class MinSizeMapConstraintValidator extends AbstractContainerConstraintVa
     /**
      * Creates the default instance of {@link MinSizeMapConstraintValidator} with the specified parameters.
      *
-     * @param minValue the supported min value.
+     * @param minValue  the supported min value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MinSizeMapConstraintValidator(final int minValue,
@@ -52,11 +52,11 @@ public class MinSizeMapConstraintValidator extends AbstractContainerConstraintVa
 
     @Override
     public void validateNonNull(final Map<?, ?> map,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final int actual = map.size();
         validateMinValue(
-                minValue, inclusive, actual, httpModelType, modelName,
+                minValue, inclusive, actual, modelType, modelName,
                 "Invalid ? \"?\": Expected ? min supported object property(ies) (inclusive), " +
                         "but actual is ?. (object: " + map + ")!",
                 "Invalid ? \"?\": Expected ? min supported object property(ies) (exclusive), " +

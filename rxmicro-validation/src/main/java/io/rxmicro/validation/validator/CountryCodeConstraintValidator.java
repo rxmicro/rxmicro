@@ -17,7 +17,7 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.common.ImpossibleException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractCompositionConstraintValidator;
 import io.rxmicro.validation.constraint.CountryCode;
@@ -53,16 +53,14 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
      */
     public CountryCodeConstraintValidator(final CountryCode.Format format) {
         this.constraintValidator = ofNullable(CLASS_MAP.get(format))
-                .orElseThrow(() -> {
-                    throw new ImpossibleException("Unsupported format: ?", format);
-                });
+                .orElseThrow(() -> new ImpossibleException("Unsupported format: ?", format));
     }
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
-        constraintValidator.validate(actual, httpModelType, modelName);
+        constraintValidator.validate(actual, modelType, modelName);
     }
 
     /**

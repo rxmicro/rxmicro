@@ -101,7 +101,7 @@ public final class Formats {
      */
     public static String format(final String messageTemplate,
                                 final Object... args) {
-        if (args.length == 0) {
+        if (args == null || args.length == 0) {
             return formatWithoutArguments(messageTemplate);
         } else {
             return formatWithArguments(messageTemplate, args);

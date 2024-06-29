@@ -74,9 +74,20 @@
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-validation</artifactId>
+            <version>0.12-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-tool-common</artifactId>
             <version>0.12-SNAPSHOT</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-validation</artifactId>
+            <version>0.12-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

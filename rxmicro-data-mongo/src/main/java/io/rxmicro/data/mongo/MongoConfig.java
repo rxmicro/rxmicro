@@ -16,8 +16,14 @@
 
 package io.rxmicro.data.mongo;
 
+import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
+import io.rxmicro.validation.constraint.HostName;
+import io.rxmicro.validation.constraint.Nullable;
+import io.rxmicro.validation.constraint.Port;
+
+import java.util.Optional;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -41,11 +47,6 @@ import static io.rxmicro.config.Networks.validatePort;
 public final class MongoConfig extends Config {
 
     /**
-     * Default Mongo host.
-     */
-    public static final String DEFAULT_HOST = "localhost";
-
-    /**
      * Default Mongo port.
      */
     public static final int DEFAULT_PORT = 27_017;
@@ -55,11 +56,18 @@ public final class MongoConfig extends Config {
      */
     public static final String DEFAULT_DB = "db";
 
-    private String host = DEFAULT_HOST;
+    @HostName
+    private String host = CommonConstants.LOCALHOST;
 
-    private int port = DEFAULT_PORT;
+    @Nullable
+    @Port
+    private Integer port = DEFAULT_PORT;
 
     private String database = DEFAULT_DB;
+
+    public MongoConfig(final String namespace) {
+        super(namespace);
+    }
 
     /**
      * Sets the server host name.
@@ -69,19 +77,19 @@ public final class MongoConfig extends Config {
      */
     @BuilderMethod
     public MongoConfig setHost(final String host) {
-        this.host = require(host);
+        this.host = ensureValid(host);
         return this;
     }
 
     /**
      * Sets the server port.
      *
-     * @param port the server port
+     * @param port the server port or {@code null} if default port should be applied.
      * @return the reference to this {@link MongoConfig} instance
      */
     @BuilderMethod
-    public MongoConfig setPort(final int port) {
-        this.port = validatePort(port);
+    public MongoConfig setPort(final Integer port) {
+        this.port = ensureValid(port);
         return this;
     }
 
@@ -102,7 +110,7 @@ public final class MongoConfig extends Config {
      */
     @BuilderMethod
     public MongoConfig setDatabase(final String database) {
-        this.database = require(database);
+        this.database = ensureValid(database);
         return this;
     }
 
@@ -112,7 +120,7 @@ public final class MongoConfig extends Config {
      * @return the connection string built from schema, host and port parameters
      */
     public String getConnectionString() {
-        return format("mongodb://?:?", host, port);
+        return format("mongodb://?", host, Optional.ofNullable(port).map(p -> ":" + p).orElse(""));
     }
 
     @Override

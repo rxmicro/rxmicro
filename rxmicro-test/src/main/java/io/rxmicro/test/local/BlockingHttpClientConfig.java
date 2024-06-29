@@ -26,6 +26,7 @@ import io.rxmicro.rest.client.RestClientConfig;
 import java.time.Duration;
 
 import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
+import static io.rxmicro.common.CommonConstants.LOCALHOST;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
 import static io.rxmicro.http.ProtocolSchema.HTTP;
@@ -37,8 +38,6 @@ import static io.rxmicro.http.ProtocolSchema.HTTP;
 @SuppressWarnings("UnusedReturnValue")
 @SingletonConfigClass
 public final class BlockingHttpClientConfig extends RestClientConfig {
-
-    private static final int DEFAULT_HTTP_PORT = 8080;
 
     private String baseUrlPath = EMPTY_STRING;
 
@@ -53,9 +52,7 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
     }
 
     public BlockingHttpClientConfig() {
-        setSchema(HTTP);
-        setHost("localhost");
-        setPort(DEFAULT_HTTP_PORT);
+        super(BlockingHttpClientConfig.getDefaultNameSpace(BlockingHttpClientConfig.class), HTTP, LOCALHOST, 8080);
     }
 
     public String getBaseUrlPath() {
@@ -64,7 +61,7 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
 
     @BuilderMethod
     public BlockingHttpClientConfig setBaseUrlPath(final String baseUrlPath) {
-        this.baseUrlPath = baseUrlPath;
+        this.baseUrlPath = ensureValid(baseUrlPath);
         return this;
     }
 
@@ -74,13 +71,13 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
 
     @BuilderMethod
     public BlockingHttpClientConfig setBaseUrlPosition(final BaseUrlPath.Position baseUrlPosition) {
-        this.baseUrlPosition = baseUrlPosition;
+        this.baseUrlPosition = ensureValid(baseUrlPosition);
         return this;
     }
 
     @BuilderMethod
     public BlockingHttpClientConfig setVersionStrategy(final Version.Strategy versionStrategy) {
-        this.versionStrategy = versionStrategy;
+        this.versionStrategy = ensureValid(versionStrategy);
         return this;
     }
 
@@ -90,7 +87,7 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
 
     @BuilderMethod
     public BlockingHttpClientConfig setVersionValue(final String versionValue) {
-        this.versionValue = versionValue;
+        this.versionValue = ensureValid(versionValue);
         return this;
     }
 
@@ -120,7 +117,7 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
     }
 
     @Override
-    public BlockingHttpClientConfig setPort(final int port) {
+    public BlockingHttpClientConfig setPort(final Integer port) {
         return (BlockingHttpClientConfig) super.setPort(port);
     }
 

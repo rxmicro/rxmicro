@@ -16,16 +16,16 @@
 
 package io.rxmicro.validation.base;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
+import io.rxmicro.validation.ConstraintViolationException;
 
-import static io.rxmicro.validation.internal.ConstraintValidators.validateMinValue;
+import static io.rxmicro.validation.internal.ValidatorHelper.validateMinValue;
 
 /**
  * Base validator class for minimum constraints.
  *
- * @author nedis
  * @param <T> the type to validate
+ * @author nedis
  * @since 0.1
  */
 public abstract class AbstractMinConstraintValidator<T extends Comparable<T>> {
@@ -43,7 +43,7 @@ public abstract class AbstractMinConstraintValidator<T extends Comparable<T>> {
     /**
      * Creates an instance of the base validator class for minimum constraint.
      *
-     * @param minValue the minimum supported value
+     * @param minValue  the minimum supported value
      * @param inclusive specifies whether the specified minimum is inclusive or not.
      */
     protected AbstractMinConstraintValidator(final T minValue,
@@ -58,16 +58,16 @@ public abstract class AbstractMinConstraintValidator<T extends Comparable<T>> {
      * <p>
      * The state of the {@code actual} must not be altered.
      *
-     * @param actual        the actual value to validate
-     * @param httpModelType the http model type
-     * @param modelName     the parameter or header name
-     * @throws ValidationException if actual does not pass the constraint
+     * @param actual    the actual value to validate
+     * @param modelType the http model type
+     * @param modelName the parameter or header name
+     * @throws ConstraintViolationException if actual does not pass the constraint
      */
     public final void validateNonNull(final T actual,
-                                      final HttpModelType httpModelType,
+                                      final ModelType modelType,
                                       final String modelName) {
         validateMinValue(
-                minValue, inclusive, actual, httpModelType, modelName,
+                minValue, inclusive, actual, modelType, modelName,
                 "Invalid ? \"?\": Expected that value >= ?, but actual is ?!",
                 "Invalid ? \"?\": Expected that value > ?, but actual is ?!"
         );

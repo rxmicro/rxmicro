@@ -18,10 +18,11 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.validator.MaxBigDecimalNumberConstraintValidator;
-import io.rxmicro.validation.validator.MaxBigIntegerNumberConstraintValidator;
+import io.rxmicro.validation.validator.MaxBigDecimalConstraintValidator;
+import io.rxmicro.validation.validator.MaxBigIntegerConstraintValidator;
 import io.rxmicro.validation.validator.MaxByteConstraintValidator;
 import io.rxmicro.validation.validator.MaxDoubleConstraintValidator;
+import io.rxmicro.validation.validator.MaxDurationConstraintValidator;
 import io.rxmicro.validation.validator.MaxFloatConstraintValidator;
 import io.rxmicro.validation.validator.MaxIntConstraintValidator;
 import io.rxmicro.validation.validator.MaxLongConstraintValidator;
@@ -32,11 +33,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Duration;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must be a number whose value must be lower or
@@ -46,19 +49,20 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * @see MaxInt
  * @see MaxDouble
  * @see Numeric
- * @see MaxBigDecimalNumberConstraintValidator
- * @see MaxBigIntegerNumberConstraintValidator
+ * @see MaxBigDecimalConstraintValidator
+ * @see MaxBigIntegerConstraintValidator
  * @see MaxByteConstraintValidator
  * @see MaxShortConstraintValidator
  * @see MaxIntConstraintValidator
  * @see MaxLongConstraintValidator
  * @see MaxFloatConstraintValidator
  * @see MaxDoubleConstraintValidator
+ * @see MaxDurationConstraintValidator
  * @since 0.1
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = {
                 BigDecimal.class,
@@ -68,24 +72,26 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
                 Integer.class,
                 Long.class,
                 Float.class,
-                Double.class
+                Double.class,
+                Duration.class
         },
         validatorClass = {
-                MaxBigDecimalNumberConstraintValidator.class,
-                MaxBigIntegerNumberConstraintValidator.class,
+                MaxBigDecimalConstraintValidator.class,
+                MaxBigIntegerConstraintValidator.class,
                 MaxByteConstraintValidator.class,
                 MaxShortConstraintValidator.class,
                 MaxIntConstraintValidator.class,
                 MaxLongConstraintValidator.class,
                 MaxFloatConstraintValidator.class,
-                MaxDoubleConstraintValidator.class
+                MaxDoubleConstraintValidator.class,
+                MaxDurationConstraintValidator.class
         }
 )
 @ConstraintParametersOrder({
         "value",
         "inclusive"
 })
-public @interface MaxNumber {
+public @interface Max {
 
     /**
      * Allows disabling the validation rule if this rule is inherited from super class.
@@ -109,8 +115,8 @@ public @interface MaxNumber {
      * Specifies whether the specified maximum is inclusive or exclusive.
      * By default, it is inclusive.
      *
-     * @return  {@code true} if the value must be lower or equal to the specified maximum,
-     *          {@code false} if the value must be lower
+     * @return {@code true} if the value must be lower or equal to the specified maximum,
+     * {@code false} if the value must be lower
      */
     boolean inclusive() default true;
 }

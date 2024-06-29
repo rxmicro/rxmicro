@@ -16,16 +16,16 @@
 
 package io.rxmicro.validation.base;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
+import io.rxmicro.validation.ConstraintViolationException;
 
-import static io.rxmicro.validation.internal.ConstraintValidators.validateMaxValue;
+import static io.rxmicro.validation.internal.ValidatorHelper.validateMaxValue;
 
 /**
  * Base validator class for maximum constraints.
  *
- * @author nedis
  * @param <T> the type to validate
+ * @author nedis
  * @since 0.1
  */
 public abstract class AbstractMaxConstraintValidator<T extends Comparable<T>> {
@@ -43,7 +43,7 @@ public abstract class AbstractMaxConstraintValidator<T extends Comparable<T>> {
     /**
      * Creates an instance of the base validator class for maximum constraint.
      *
-     * @param maxValue the maximum supported value
+     * @param maxValue  the maximum supported value
      * @param inclusive specifies whether the specified maximum is inclusive or not.
      */
     protected AbstractMaxConstraintValidator(final T maxValue,
@@ -58,16 +58,16 @@ public abstract class AbstractMaxConstraintValidator<T extends Comparable<T>> {
      * <p>
      * The state of the {@code actual} must not be altered.
      *
-     * @param actual        the actual value to validate
-     * @param httpModelType the http model type
-     * @param modelName     the parameter or header name
-     * @throws ValidationException if actual does not pass the constraint
+     * @param actual    the actual value to validate
+     * @param modelType the http model type
+     * @param modelName the parameter or header name
+     * @throws ConstraintViolationException if actual does not pass the constraint
      */
     public final void validateNonNull(final T actual,
-                                      final HttpModelType httpModelType,
+                                      final ModelType modelType,
                                       final String modelName) {
         validateMaxValue(
-                maxValue, inclusive, actual, httpModelType, modelName,
+                maxValue, inclusive, actual, modelType, modelName,
                 "Invalid ? \"?\": Expected that value <= ?, but actual is ?!",
                 "Invalid ? \"?\": Expected that value < ?, but actual is ?!"
         );

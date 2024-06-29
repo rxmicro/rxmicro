@@ -16,16 +16,15 @@
 
 package io.rxmicro.validation;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 
 import java.util.Map;
 
 /**
  * Defines the logic to validate a given constraint for a given object type.
  *
- * @author nedis
  * @param <T> the type to validate
+ * @author nedis
  * @see DisableValidation
  * @since 0.1
  */
@@ -37,13 +36,13 @@ public interface ConstraintValidator<T> {
      * <p>
      * The state of the {@code actual} must not be altered.
      *
-     * @param actual        the actual value to validate
-     * @param httpModelType the http model type
-     * @param modelName     the parameter or header name
-     * @throws ValidationException if actual does not pass the constraint
+     * @param actual    the actual value to validate
+     * @param modelType the model type
+     * @param modelName the parameter or header name
+     * @throws ConstraintViolationException if actual does not pass the constraint
      */
     void validateNonNull(T actual,
-                         HttpModelType httpModelType,
+                         ModelType modelType,
                          String modelName);
 
     /**
@@ -52,16 +51,16 @@ public interface ConstraintValidator<T> {
      * <p>
      * The state of the {@code actual} must not be altered.
      *
-     * @param actual        the actual value to validate
-     * @param httpModelType the http model type
-     * @param modelName     the parameter or header name
-     * @throws ValidationException if actual does not pass the constraint
+     * @param actual    the actual value to validate
+     * @param modelType the http model type
+     * @param modelName the parameter or header name
+     * @throws ConstraintViolationException if actual does not pass the constraint
      */
     default void validate(final T actual,
-                          final HttpModelType httpModelType,
+                          final ModelType modelType,
                           final String modelName) {
         if (actual != null) {
-            validateNonNull(actual, httpModelType, modelName);
+            validateNonNull(actual, modelType, modelName);
         }
     }
 
@@ -72,7 +71,7 @@ public interface ConstraintValidator<T> {
      * The state of the {@code model} must not be altered.
      *
      * @param model the root model to validate
-     * @throws ValidationException if value does not pass the constraint
+     * @throws ConstraintViolationException if value does not pass the constraint
      */
     default void validate(final T model) {
         validate(model, null, null);
@@ -85,19 +84,19 @@ public interface ConstraintValidator<T> {
      * The state of the {@code iterable} must not be altered.
      *
      * <p>
-     * If the {@code iterable} is {@code null} validator does not throw {@link ValidationException}.
+     * If the {@code iterable} is {@code null} validator does not throw {@link ConstraintViolationException}.
      *
-     * @param iterable      the iterable to validate
-     * @param httpModelType the http model type
-     * @param modelName     the parameter or header name
-     * @throws ValidationException if value does not pass the constraint
+     * @param iterable  the iterable to validate
+     * @param modelType the http model type
+     * @param modelName the parameter or header name
+     * @throws ConstraintViolationException if value does not pass the constraint
      */
     default void validateIterable(final Iterable<T> iterable,
-                                  final HttpModelType httpModelType,
+                                  final ModelType modelType,
                                   final String modelName) {
         if (iterable != null) {
             for (final T actual : iterable) {
-                validate(actual, httpModelType, modelName);
+                validate(actual, modelType, modelName);
             }
         }
     }
@@ -109,10 +108,10 @@ public interface ConstraintValidator<T> {
      * The state of the {@code value} must not be altered.
      *
      * <p>
-     * If the {@code iterable} is {@code null} validator does not throw {@link ValidationException}.
+     * If the {@code iterable} is {@code null} validator does not throw {@link ConstraintViolationException}.
      *
      * @param iterable the iterable to validate
-     * @throws ValidationException if value does not pass the constraint
+     * @throws ConstraintViolationException if value does not pass the constraint
      */
     default void validateIterable(final Iterable<T> iterable) {
         validateIterable(iterable, null, null);
@@ -124,16 +123,16 @@ public interface ConstraintValidator<T> {
      * <p>
      * The state of the {@code map} must not be altered.
      *
-     * @param map          the map with values to validate
-     * @param httpModelType the http model type
-     * @param modelName     the parameter or header name
-     * @throws ValidationException if value does not pass the constraint
+     * @param map       the map with values to validate
+     * @param modelType the http model type
+     * @param modelName the parameter or header name
+     * @throws ConstraintViolationException if value does not pass the constraint
      */
     default void validateMapValues(final Map<String, T> map,
-                                   final HttpModelType httpModelType,
+                                   final ModelType modelType,
                                    final String modelName) {
         if (map != null) {
-            validateIterable(map.values(), httpModelType, modelName);
+            validateIterable(map.values(), modelType, modelName);
         }
     }
 
@@ -143,8 +142,8 @@ public interface ConstraintValidator<T> {
      * <p>
      * The state of the {@code map} must not be altered.
      *
-     * @param map          the map with values to validate
-     * @throws ValidationException if value does not pass the constraint
+     * @param map the map with values to validate
+     * @throws ConstraintViolationException if value does not pass the constraint
      */
     default void validateMapValues(final Map<String, T> map) {
         validateMapValues(map, null, null);

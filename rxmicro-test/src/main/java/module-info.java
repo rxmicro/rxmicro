@@ -51,6 +51,7 @@ module rxmicro.test {
     requires transitive rxmicro.rest.server;
     requires transitive rxmicro.rest.client;
     requires transitive rxmicro.cdi;
+    requires rxmicro.validation;
 
     requires java.net.http;
     requires org.mongodb.driver.reactivestreams;

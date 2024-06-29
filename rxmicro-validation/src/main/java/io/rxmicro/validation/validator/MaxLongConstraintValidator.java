@@ -18,13 +18,14 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
+import io.rxmicro.validation.constraint.Max;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MaxInt} and the {@link io.rxmicro.validation.constraint.MaxNumber} constraints.
+ * Validator for the {@link io.rxmicro.validation.constraint.MaxInt} and the {@link Max} constraints.
  *
  * @author nedis
  * @see io.rxmicro.validation.constraint.MaxInt
- * @see io.rxmicro.validation.constraint.MaxNumber
+ * @see Max
  * @since 0.1
  */
 public class MaxLongConstraintValidator extends AbstractMaxConstraintValidator<Long>
@@ -33,7 +34,7 @@ public class MaxLongConstraintValidator extends AbstractMaxConstraintValidator<L
     /**
      * Creates the default instance of {@link MaxLongConstraintValidator} with the specified parameters.
      *
-     * @param maxValue the supported max value.
+     * @param maxValue  the supported max value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MaxLongConstraintValidator(final long maxValue,
@@ -44,7 +45,7 @@ public class MaxLongConstraintValidator extends AbstractMaxConstraintValidator<L
     /**
      * Creates the default instance of {@link MaxLongConstraintValidator} with the specified parameters.
      *
-     * @param maxValue the supported max value.
+     * @param maxValue  the supported max value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MaxLongConstraintValidator(final String maxValue,

@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import io.rxmicro.validation.constraint.Numeric;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -31,7 +31,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static io.rxmicro.validation.constraint.Numeric.ValidationType.EXACT;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class NumericConstraintValidatorTest extends AbstractConstraintValidatorTest<BigDecimal> {
+final class NumericConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<BigDecimal> {
 
     private static final String VALUE = "value";
 
@@ -96,10 +95,10 @@ final class NumericConstraintValidatorTest extends AbstractConstraintValidatorTe
             "-1;    2;   100000;    MAX_SUPPORTED"
     })
     @Order(13)
-    void Should_not_throw_ValidationException(final int expectedPrecision,
-                                              final int expectedScale,
-                                              final String value,
-                                              final Numeric.ValidationType validationType) {
+    void Should_not_throw_ConstraintViolationException(final int expectedPrecision,
+                                                       final int expectedScale,
+                                                       final String value,
+                                                       final Numeric.ValidationType validationType) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(expectedPrecision, expectedScale, validationType);
         assertDoesNotThrow(() -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
     }
@@ -144,14 +143,14 @@ final class NumericConstraintValidatorTest extends AbstractConstraintValidatorTe
             "3;    -1;   12345;     Max supported precision = 3, but actual is 5!;   MAX_SUPPORTED"
     })
     @Order(14)
-    void Should_throw_ValidationException(final int expectedPrecision,
-                                          final int expectedScale,
-                                          final String value,
-                                          final String details,
-                                          final Numeric.ValidationType validationType) {
+    void Should_throw_ConstraintViolationException(final int expectedPrecision,
+                                                   final int expectedScale,
+                                                   final String value,
+                                                   final String details,
+                                                   final Numeric.ValidationType validationType) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(expectedPrecision, expectedScale, validationType);
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
         assertEquals(
                 "Invalid parameter \"value\": " + details,
                 exception.getMessage()

@@ -16,9 +16,10 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Length} constraint.
@@ -42,13 +43,13 @@ public class LengthConstraintValidator implements ConstraintValidator<String> {
 
     @Override
     public void validateNonNull(final String value,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final int actual = value.length();
         if (expectedLength != actual) {
-            throw new ValidationException(
+            reportViolation(
                     "Invalid ? \"?\": Expected ? characters, but actual is ?!",
-                    httpModelType, modelName, expectedLength, actual
+                    modelType, modelName, expectedLength, actual
             );
         }
     }

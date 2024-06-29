@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.base;
 
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.util.List;
@@ -24,8 +24,8 @@ import java.util.List;
 /**
  * Base composition constraint validator.
  *
- * @author nedis
  * @param <T> the type to validate
+ * @author nedis
  * @since 0.1
  */
 public abstract class AbstractCompositionConstraintValidator<T> implements ConstraintValidator<T> {
@@ -43,10 +43,10 @@ public abstract class AbstractCompositionConstraintValidator<T> implements Const
 
     @Override
     public final void validateNonNull(final T actual,
-                                      final HttpModelType httpModelType,
+                                      final ModelType modelType,
                                       final String modelName) {
         for (final ConstraintValidator<T> validator : validators) {
-            validator.validate(actual, httpModelType, modelName);
+            validator.validate(actual, modelType, modelName);
         }
     }
 }

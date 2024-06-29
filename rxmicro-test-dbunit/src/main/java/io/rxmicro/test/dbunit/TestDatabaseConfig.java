@@ -16,18 +16,15 @@
 
 package io.rxmicro.test.dbunit;
 
+import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.meta.BuilderMethod;
-import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.Configs;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.test.local.model.BaseTestConfig;
+import io.rxmicro.validation.constraint.HostName;
+import io.rxmicro.validation.constraint.Nullable;
+import io.rxmicro.validation.constraint.Port;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.config.Networks.validatePort;
 import static io.rxmicro.test.dbunit.DatabaseType.POSTGRES;
 
 /**
@@ -39,33 +36,32 @@ import static io.rxmicro.test.dbunit.DatabaseType.POSTGRES;
 @SingletonConfigClass
 public final class TestDatabaseConfig extends BaseTestConfig implements Cloneable {
 
-    /**
-     * The default host name.
-     */
-    public static final String DEFAULT_HOST = "localhost";
-
-    /**
-     * The unspecified port constant.
-     */
-    public static final int PORT_NOT_SPECIFIED = -1;
-
     private static final ThreadLocal<TestDatabaseConfig> CURRENT_TEST_DATABASE_CONFIG = new ThreadLocal<>();
 
     private DatabaseType type = POSTGRES;
 
+    @Nullable
     private String jdbcDriver;
 
-    private String host = DEFAULT_HOST;
+    @HostName
+    private String host = CommonConstants.LOCALHOST;
 
-    private int port = PORT_NOT_SPECIFIED;
+    @Nullable
+    @Port
+    private Integer port;
 
     private String database;
 
+    @Nullable
     private String schema;
 
     private String user;
 
     private CharSequence password;
+
+    public TestDatabaseConfig() {
+        super(TestDatabaseConfig.getDefaultNameSpace(TestDatabaseConfig.class));
+    }
 
     /**
      * Returns the current instance of the {@link TestDatabaseConfig} class that used by the DBUnit to work with test database.
@@ -111,7 +107,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      */
     @BuilderMethod
     public TestDatabaseConfig setJdbcDriver(final String jdbcDriver) {
-        this.jdbcDriver = require(jdbcDriver, "Required 'jdbcDriver' property can't be null! Provide a valid jdbc driver class name!");
+        this.jdbcDriver = ensureValid(jdbcDriver);
         return this;
     }
 
@@ -121,7 +117,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      * @return the {@link DatabaseType} that defines the standard JDBC settings for each supported database.
      */
     public DatabaseType getType() {
-        return require(type, "Required 'type' property is null! Set database type!");
+        return type;
     }
 
 
@@ -133,7 +129,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      */
     @BuilderMethod
     public TestDatabaseConfig setType(final DatabaseType type) {
-        this.type = require(type, "Required 'type' property can't be null! Provide a valid database type!");
+        this.type = ensureValid(type);
         return this;
     }
 
@@ -144,7 +140,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      * @see java.sql.DriverManager
      */
     public String getJdbcUrl() {
-        if (port == PORT_NOT_SPECIFIED) {
+        if (port == null) {
             return getType().getJdbcUrl(getHost(), getDatabase());
         } else {
             return getType().getJdbcUrl(getHost(), port, getDatabase());
@@ -163,10 +159,10 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
     @BuilderMethod
     public TestDatabaseConfig setJdbcUrl(final String jdbcUrl) {
         final TestDatabaseConfig config = DatabaseType.parseJdbcUrl(jdbcUrl);
-        this.type = config.type;
-        this.host = config.host;
-        this.port = config.port;
-        this.database = config.database;
+        this.type = ensureValidProperty("type", config.type);
+        this.host = ensureValidProperty("host", config.host);
+        this.port = ensureValidProperty("port", config.port);
+        this.database = ensureValidProperty("database", config.database);
         return this;
     }
 
@@ -190,7 +186,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      * @return the database host name or IP address.
      */
     public String getHost() {
-        return require(host, "Required 'host' property is null! Provide a valid database host!");
+        return host;
     }
 
     /**
@@ -201,19 +197,19 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      */
     @BuilderMethod
     public TestDatabaseConfig setHost(final String host) {
-        this.host = require(host, "Required 'host' property can't be null! Provide a valid database host!");
+        this.host = ensureValid(host);
         return this;
     }
 
     /**
      * Sets the custom database port.
      *
-     * @param port the custom database port.
+     * @param port the custom database port or {@code null} if default value should be applied.
      * @return the reference to this  {@link TestDatabaseConfig} instance
      */
     @BuilderMethod
-    public TestDatabaseConfig setPort(final int port) {
-        this.port = validatePort(port);
+    public TestDatabaseConfig setPort(final Integer port) {
+        this.port = ensureValid(port);
         return this;
     }
 
@@ -223,7 +219,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      * @return the database name.
      */
     public String getDatabase() {
-        return require(database, "Required 'database' property is null! Provide a valid database name!");
+        return database;
     }
 
     /**
@@ -234,7 +230,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      */
     @BuilderMethod
     public TestDatabaseConfig setDatabase(final String database) {
-        this.database = require(database, "Required 'database' property can't be null! Provide a valid database name!");
+        this.database = ensureValid(database);
         return this;
     }
 
@@ -253,7 +249,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      * @return the configured database schema.
      */
     public String getSchema() {
-        return require(schema, "Optional 'schema' property is null! Provide a valid schema name!");
+        return schema;
     }
 
     /**
@@ -264,7 +260,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      */
     @BuilderMethod
     public TestDatabaseConfig setSchema(final String schema) {
-        this.schema = require(schema, "Required 'schema' property can't be null! Provide a valid schema name!");
+        this.schema = ensureValid(schema);
         return this;
     }
 
@@ -274,7 +270,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      * @return the database user.
      */
     public String getUser() {
-        return require(user, "Required 'username' property is null! Provide a valid database username!");
+        return user;
     }
 
     /**
@@ -285,7 +281,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      */
     @BuilderMethod
     public TestDatabaseConfig setUser(final String user) {
-        this.user = require(user, "Required 'username' property can't be null! Provide a valid database username!");
+        this.user = ensureValid(user);
         return this;
     }
 
@@ -295,7 +291,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      * @return the user password.
      */
     public CharSequence getPassword() {
-        return require(password, "Required 'password' property is null! Provide a valid database password!");
+        return password;
     }
 
     /**
@@ -306,8 +302,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
      */
     @BuilderMethod
     public TestDatabaseConfig setPassword(final CharSequence password) {
-        require(password, "Required 'password' property can't be null! Provide a valid database password!");
-        this.password = password;
+        this.password = ensureValid(password);
         return this;
     }
 
@@ -318,26 +313,6 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
         } catch (final CloneNotSupportedException ex) {
             // this shouldn't happen, since we are Cloneable
             throw new InternalError(ex);
-        }
-    }
-
-    @Override
-    protected void validate(final String namespace) {
-        final List<String> properties = new ArrayList<>();
-        if (user == null) {
-            properties.add(format("?.user", namespace));
-        }
-        if (password == null) {
-            properties.add(format("?.password", namespace));
-        }
-        if (database == null) {
-            properties.add(format("?.database", namespace));
-        }
-        if (!properties.isEmpty()) {
-            throw new ConfigException(
-                    "Can't create instance of '?' class for '?' namespace, because required property(ies) is(are) missing: ?!",
-                    getClass().getName(), namespace, properties
-            );
         }
     }
 

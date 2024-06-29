@@ -16,8 +16,9 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the required and not empty string values.
@@ -32,11 +33,11 @@ public class RequiredAndNotEmptyStringConstraintValidator extends RequiredConstr
 
     @Override
     public void validate(final Object actual,
-                         final HttpModelType httpModelType,
+                         final ModelType modelType,
                          final String modelName) {
-        super.validate(actual, httpModelType, modelName);
-        if (((String) actual).length() == 0) {
-            throw new ValidationException("Invalid ? \"?\": Empty string is not valid value!", httpModelType, modelName);
+        super.validate(actual, modelType, modelName);
+        if (((String) actual).isEmpty()) {
+            reportViolation("Invalid ? \"?\": Empty string is not valid value!", modelType, modelName);
         }
     }
 }

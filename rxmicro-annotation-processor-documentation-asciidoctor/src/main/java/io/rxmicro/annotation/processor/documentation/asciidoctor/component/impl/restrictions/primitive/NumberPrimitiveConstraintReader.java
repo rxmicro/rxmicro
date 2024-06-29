@@ -24,10 +24,10 @@ import io.rxmicro.validation.constraint.Lat;
 import io.rxmicro.validation.constraint.Lng;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
-import io.rxmicro.validation.constraint.MaxNumber;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.Numeric;
 
 import java.math.BigDecimal;
@@ -86,11 +86,11 @@ public final class NumberPrimitiveConstraintReader extends ConstraintReader {
             },
 
             (annotated, restrictions, readMores, descriptionBuilder) -> {
-                final MinNumber minNumber = annotated.getAnnotation(MinNumber.class);
-                if (minNumber != null && !minNumber.off()) {
-                    restrictions.add(format("minimum: ?", formatNumber(minNumber.value())));
-                    restrictions.add(format("exclusiveMinimum: " + (!minNumber.inclusive())));
-                    getReadMore(MinNumber.class).ifPresent(readMores::add);
+                final Min min = annotated.getAnnotation(Min.class);
+                if (min != null && !min.off()) {
+                    restrictions.add(format("minimum: ?", formatNumber(min.value())));
+                    restrictions.add(format("exclusiveMinimum: " + (!min.inclusive())));
+                    getReadMore(Min.class).ifPresent(readMores::add);
                 }
             },
 
@@ -113,11 +113,11 @@ public final class NumberPrimitiveConstraintReader extends ConstraintReader {
             },
 
             (annotated, restrictions, readMores, descriptionBuilder) -> {
-                final MaxNumber maxNumber = annotated.getAnnotation(MaxNumber.class);
-                if (maxNumber != null && !maxNumber.off()) {
-                    restrictions.add(format("maximum: ?", formatNumber(maxNumber.value())));
-                    restrictions.add(format("exclusiveMaximum: " + (!maxNumber.inclusive())));
-                    getReadMore(MaxNumber.class).ifPresent(readMores::add);
+                final Max max = annotated.getAnnotation(Max.class);
+                if (max != null && !max.off()) {
+                    restrictions.add(format("maximum: ?", formatNumber(max.value())));
+                    restrictions.add(format("exclusiveMaximum: " + (!max.inclusive())));
+                    getReadMore(Max.class).ifPresent(readMores::add);
                 }
             },
 

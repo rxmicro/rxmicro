@@ -16,31 +16,18 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.rest.model.HttpModelType;
-import io.rxmicro.validation.ConstraintValidator;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import io.rxmicro.model.ModelType;
 
 /**
  * @author nedis
- *
- * @since 0.1
+ * @since 0.12
  */
-abstract class AbstractConstraintValidatorTest<T> {
+abstract class AbstractConstraintValidatorTest {
 
-    static final HttpModelType TYPE = HttpModelType.PARAMETER;
-
-    static final String FIELD_NAME = "fieldName";
-
-    final ConstraintValidator<T> validator = instantiate();
-
-    abstract ConstraintValidator<T> instantiate();
-
-    @Test
-    @Order(1)
-    void Should_process_null_value_as_valid_argument() {
-        assertDoesNotThrow(() -> validator.validate(null, TYPE, FIELD_NAME));
-    }
+    static final ModelType PARAMETER = new ModelType() {
+        @Override
+        public String toString() {
+            return "parameter";
+        }
+    };
 }

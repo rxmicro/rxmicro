@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import io.rxmicro.validation.constraint.IP;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -32,7 +32,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SuppressWarnings("PMD.AvoidUsingHardCodedIP")
-final class IPConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
+final class IPConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
@@ -54,7 +53,7 @@ final class IPConstraintValidatorTest extends AbstractConstraintValidatorTest<St
     @Test
     @Order(10)
     void Should_ignore_validation_for_empty_string() {
-        assertDoesNotThrow(() -> validator.validate("", TYPE, FIELD_NAME));
+        assertDoesNotThrow(() -> validator.validate("", PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -95,9 +94,9 @@ final class IPConstraintValidatorTest extends AbstractConstraintValidatorTest<St
             "ff"
     })
     @Order(13)
-    void Should_throw_ValidationException_if_parameter_if_not_ip_address(final String ip) {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(ip, PARAMETER, "ip"));
+    void Should_throw_ConstraintViolationException_if_parameter_if_not_ip_address(final String ip) {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(ip, PARAMETER, "ip"));
         assertEquals(
                 format("Invalid parameter \"ip\": Expected IPv4 or IPv6, but actual is '?'!", ip),
                 exception.getMessage()
@@ -111,9 +110,9 @@ final class IPConstraintValidatorTest extends AbstractConstraintValidatorTest<St
             "0.0.0.0.0"
     })
     @Order(14)
-    void Should_throw_ValidationException_if_IP_V4_does_not_contain_3_dots(final String ip) {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(ip, PARAMETER, "ip"));
+    void Should_throw_ConstraintViolationException_if_IP_V4_does_not_contain_3_dots(final String ip) {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(ip, PARAMETER, "ip"));
         assertEquals(
                 format("Invalid parameter \"ip\": Expected 4 numbers divided by '.', but actual is '?'!", ip),
                 exception.getMessage()
@@ -128,10 +127,10 @@ final class IPConstraintValidatorTest extends AbstractConstraintValidatorTest<St
             "gg.2.3.4,      gg",
     })
     @Order(15)
-    void Should_throw_ValidationException_if_IP_V4_decimal_number_out_of_range(final String ip,
-                                                                               final String invalidNumber) {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(ip, PARAMETER, "ip"));
+    void Should_throw_ConstraintViolationException_if_IP_V4_decimal_number_out_of_range(final String ip,
+                                                                                        final String invalidNumber) {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(ip, PARAMETER, "ip"));
         assertEquals(
                 format("Invalid parameter \"ip\": Expected a number between 0 and 255, but actual is '?' (IP = '?')!", invalidNumber, ip),
                 exception.getMessage()
@@ -145,10 +144,10 @@ final class IPConstraintValidatorTest extends AbstractConstraintValidatorTest<St
             "2001:0db8:11a3:tttt:1f34:8a2e:07a0:765d,   tttt"
     })
     @Order(16)
-    void Should_throw_ValidationException_if_IP_V6_decimal_number_out_of_range(final String ip,
-                                                                               final String invalidNumber) {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(ip, PARAMETER, "ip"));
+    void Should_throw_ConstraintViolationException_if_IP_V6_decimal_number_out_of_range(final String ip,
+                                                                                        final String invalidNumber) {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(ip, PARAMETER, "ip"));
         assertEquals(
                 format("Invalid parameter \"ip\": Expected a number between 0 and ffff, but actual is '?' (IP = '?')!", invalidNumber, ip),
                 exception.getMessage()

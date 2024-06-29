@@ -16,9 +16,10 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Lowercase} constraint.
@@ -31,14 +32,14 @@ public class LowercaseConstraintValidator implements ConstraintValidator<String>
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         for (int i = 0; i < actual.length(); i++) {
             final char ch = actual.charAt(i);
             if (Character.isLetter(ch) && !Character.isLowerCase(ch)) {
-                throw new ValidationException(
+                reportViolation(
                         "Invalid ? \"?\": Expected a lowercase string, but actual is '?'!",
-                        httpModelType, modelName, actual
+                        modelType, modelName, actual
                 );
             }
         }

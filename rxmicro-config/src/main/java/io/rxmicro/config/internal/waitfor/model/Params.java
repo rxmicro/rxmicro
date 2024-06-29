@@ -16,7 +16,12 @@
 
 package io.rxmicro.config.internal.waitfor.model;
 
+import io.rxmicro.validation.constraint.Enumeration;
+import io.rxmicro.validation.constraint.Min;
+
 import java.time.Duration;
+
+import static io.rxmicro.config.WaitFor.WAIT_FOR_TCP_SOCKET_TYPE_NAME;
 
 /**
  * @author nedis
@@ -24,8 +29,12 @@ import java.time.Duration;
  */
 public final class Params {
 
+    public static final String DESTINATION = "<destination>";
+
+    @Enumeration(WAIT_FOR_TCP_SOCKET_TYPE_NAME)
     private final String type;
 
+    @Min("PT0.1S")
     private final Duration timeout;
 
     private final String destination;

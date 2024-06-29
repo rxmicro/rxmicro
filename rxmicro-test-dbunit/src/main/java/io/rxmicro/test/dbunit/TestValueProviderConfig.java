@@ -19,6 +19,7 @@ package io.rxmicro.test.dbunit;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.test.local.model.BaseTestConfig;
+import io.rxmicro.validation.constraint.Min;
 
 import java.time.Duration;
 
@@ -36,7 +37,12 @@ public final class TestValueProviderConfig extends BaseTestConfig {
      */
     public static final Duration DEFAULT_NOW_INSTANT_GENERATION_DISCRETE_STEP = Duration.ofSeconds(5);
 
+    @Min("PT0S")
     private Duration nowInstantGenerationDiscreteStep = DEFAULT_NOW_INSTANT_GENERATION_DISCRETE_STEP;
+
+    public TestValueProviderConfig() {
+        super(TestValueProviderConfig.getDefaultNameSpace(TestValueProviderConfig.class));
+    }
 
     /**
      * Returns the duration of the now instant generation discrete step.
@@ -55,7 +61,7 @@ public final class TestValueProviderConfig extends BaseTestConfig {
      */
     @BuilderMethod
     public TestValueProviderConfig setNowInstantGenerationDiscreteStep(final Duration nowInstantGenerationDiscreteStep) {
-        this.nowInstantGenerationDiscreteStep = nowInstantGenerationDiscreteStep;
+        this.nowInstantGenerationDiscreteStep = ensureValid(nowInstantGenerationDiscreteStep);
         return this;
     }
 

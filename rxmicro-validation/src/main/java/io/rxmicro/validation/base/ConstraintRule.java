@@ -37,6 +37,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface ConstraintRule {
 
     /**
+     * A name of mandatory parameter for any constraint annotation.
+     * <p>This parameter allows disabling the validation rule if this rule is inherited from super class.
+     */
+    String OFF = "off";
+
+    /**
      * Returns all supported types, which can be validated by constraint annotation.
      *
      * @return all supported types, which can be validated by constraint annotation

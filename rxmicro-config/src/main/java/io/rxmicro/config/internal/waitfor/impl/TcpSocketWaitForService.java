@@ -22,13 +22,18 @@ import io.rxmicro.config.internal.waitfor.WaitForService;
 import io.rxmicro.config.internal.waitfor.model.Params;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
+import io.rxmicro.validation.validator.HostNameConstraintValidator;
+import io.rxmicro.validation.validator.PortConstraintValidator;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.config.Networks.validatePort;
+import static io.rxmicro.config.internal.model.ConfigModelType.COMMAND_LINE_ARGUMENT;
+import static io.rxmicro.config.internal.validator.ConfigValidationCustomizer.collectAllViolationsAndTranslateIntoConfigException;
+import static io.rxmicro.config.internal.waitfor.model.Params.DESTINATION;
+import static io.rxmicro.validation.detail.StatelessValidators.getStatelessValidator;
 
 /**
  * @author nedis
@@ -40,9 +45,7 @@ public final class TcpSocketWaitForService implements WaitForService {
 
     private static final int DEFAULT_SLEEP_DURATION_IN_MILLIS = 500;
 
-    private final String host;
-
-    private final int port;
+    private final SocketData socketData;
 
     private final long timeoutInNanos;
 
@@ -50,25 +53,28 @@ public final class TcpSocketWaitForService implements WaitForService {
 
     public TcpSocketWaitForService(final Params params) {
         this.params = params;
-        final Object[] data = parse(params.getDestination());
-        this.host = (String) data[0];
-        this.port = (Integer) data[1];
+        this.socketData = validateSocketData(parse(params.getDestination()));
         this.timeoutInNanos = params.getTimeout().toNanos();
     }
 
-    private Object[] parse(final String destination) {
+    private SocketData parse(final String destination) {
         final String[] data = destination.split(":");
         if (data.length != 2) {
             throw new ConfigException("Invalid destination. Expected '${host}:${port}', but actual is '?'", destination);
         }
         try {
-            return new Object[]{
-                    data[0],
-                    validatePort(Integer.parseInt(data[1]))
-            };
+            return new SocketData(data[0], Integer.parseInt(data[1]));
         } catch (final NumberFormatException ignored) {
             throw new ConfigException("Invalid port value. Expected an integer value, but actual is '?'", data[1]);
         }
+    }
+
+    private SocketData validateSocketData(final SocketData socketData) {
+        return collectAllViolationsAndTranslateIntoConfigException(() -> {
+            new HostNameConstraintValidator(true).validate(socketData.host, COMMAND_LINE_ARGUMENT, DESTINATION);
+            getStatelessValidator(PortConstraintValidator.class).validate(socketData.port, COMMAND_LINE_ARGUMENT, DESTINATION);
+            return socketData;
+        });
     }
 
     @Override
@@ -80,7 +86,7 @@ public final class TcpSocketWaitForService implements WaitForService {
         final long start = System.nanoTime();
         do {
             LOGGER.trace("Connecting to '?' ...", params.getDestination());
-            try (Socket ignored = new Socket(host, port)) {
+            try (Socket ignored = new Socket(this.socketData.host, this.socketData.port)) {
                 LOGGER.debug("tcp socket is available: ?", params.getDestination());
                 return;
             } catch (final IOException ex) {
@@ -99,5 +105,16 @@ public final class TcpSocketWaitForService implements WaitForService {
             }
         } while (System.nanoTime() - start < timeoutInNanos);
         throw new ServiceYetNotAvailableException("tcp socket '?' is not available yet!", params.getDestination());
+    }
+
+    private static final class SocketData {
+        private final String host;
+
+        private final int port;
+
+        private SocketData(final String host, final int port) {
+            this.host = host;
+            this.port = port;
+        }
     }
 }

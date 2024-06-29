@@ -22,6 +22,7 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 import io.rxmicro.config.SingletonConfigClass;
+import io.rxmicro.validation.constraint.MinInt;
 
 import static io.netty.handler.codec.http.HttpObjectDecoder.DEFAULT_INITIAL_BUFFER_SIZE;
 import static io.netty.handler.codec.http.HttpObjectDecoder.DEFAULT_MAX_CHUNK_SIZE;
@@ -53,21 +54,30 @@ public final class NettyRestServerConfig extends Config {
      */
     public static final int DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES = 64 * 1024;
 
+    @MinInt(1)
     private int maxHttpRequestInitialLineLength = DEFAULT_MAX_INITIAL_LINE_LENGTH;
 
+    @MinInt(1)
     private int maxHttpRequestHeaderSize = DEFAULT_MAX_HEADER_SIZE;
 
+    @MinInt(1)
     private int maxHttpRequestChunkSize = DEFAULT_MAX_CHUNK_SIZE;
 
     private boolean validateHttpRequestHeaders;
 
+    @MinInt(1)
     private int initialHttpRequestBufferSize = DEFAULT_INITIAL_BUFFER_SIZE;
 
     private boolean allowDuplicateHttpRequestContentLengths;
 
+    @MinInt(1)
     private int maxHttpRequestContentLength = DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES;
 
     private boolean closeOnHttpRequestContentExpectationFailed = true;
+
+    public NettyRestServerConfig() {
+        super(NettyRestServerConfig.getDefaultNameSpace(NettyRestServerConfig.class));
+    }
 
     /**
      * See {@link HttpServerCodec}.
@@ -86,7 +96,7 @@ public final class NettyRestServerConfig extends Config {
      */
     @BuilderMethod
     public NettyRestServerConfig setMaxHttpRequestInitialLineLength(final int maxHttpRequestInitialLineLength) {
-        this.maxHttpRequestInitialLineLength = maxHttpRequestInitialLineLength;
+        this.maxHttpRequestInitialLineLength = ensureValid(maxHttpRequestInitialLineLength);
         return this;
     }
 
@@ -107,7 +117,7 @@ public final class NettyRestServerConfig extends Config {
      */
     @BuilderMethod
     public NettyRestServerConfig setMaxHttpRequestHeaderSize(final int maxHttpRequestHeaderSize) {
-        this.maxHttpRequestHeaderSize = maxHttpRequestHeaderSize;
+        this.maxHttpRequestHeaderSize = ensureValid(maxHttpRequestHeaderSize);
         return this;
     }
 
@@ -128,7 +138,7 @@ public final class NettyRestServerConfig extends Config {
      */
     @BuilderMethod
     public NettyRestServerConfig setMaxHttpRequestChunkSize(final int maxHttpRequestChunkSize) {
-        this.maxHttpRequestChunkSize = maxHttpRequestChunkSize;
+        this.maxHttpRequestChunkSize = ensureValid(maxHttpRequestChunkSize);
         return this;
     }
 
@@ -149,7 +159,7 @@ public final class NettyRestServerConfig extends Config {
      */
     @BuilderMethod
     public NettyRestServerConfig setValidateHttpRequestHeaders(final boolean validateHttpRequestHeaders) {
-        this.validateHttpRequestHeaders = validateHttpRequestHeaders;
+        this.validateHttpRequestHeaders = ensureValid(validateHttpRequestHeaders);
         return this;
     }
 
@@ -170,7 +180,7 @@ public final class NettyRestServerConfig extends Config {
      */
     @BuilderMethod
     public NettyRestServerConfig setInitialHttpRequestBufferSize(final int initialHttpRequestBufferSize) {
-        this.initialHttpRequestBufferSize = initialHttpRequestBufferSize;
+        this.initialHttpRequestBufferSize = ensureValid(initialHttpRequestBufferSize);
         return this;
     }
 
@@ -212,7 +222,7 @@ public final class NettyRestServerConfig extends Config {
      */
     @BuilderMethod
     public NettyRestServerConfig setMaxHttpRequestContentLength(final int maxHttpRequestContentLength) {
-        this.maxHttpRequestContentLength = maxHttpRequestContentLength;
+        this.maxHttpRequestContentLength = ensureValid(maxHttpRequestContentLength);
         return this;
     }
 

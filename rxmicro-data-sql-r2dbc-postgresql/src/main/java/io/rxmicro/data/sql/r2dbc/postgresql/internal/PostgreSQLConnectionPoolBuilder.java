@@ -29,6 +29,7 @@ import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.runtime.AutoRelease;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -109,16 +110,17 @@ public final class PostgreSQLConnectionPoolBuilder {
 
     private ConnectionPool createConnectionPool(final PostgreSQLConfig postgreSQLConfig,
                                                 final ConnectionFactory connectionFactory) {
+        final Duration noTimeout = Duration.ofMillis(-1);
         final ConnectionPoolConfiguration.Builder builder = ConnectionPoolConfiguration.builder(connectionFactory)
                 .name("rxmicro-postgresql-connection-pool")
                 .acquireRetry(postgreSQLConfig.getAcquireRetry())
                 .initialSize(postgreSQLConfig.getInitialSize())
                 .maxSize(postgreSQLConfig.getMaxSize())
                 .validationQuery(postgreSQLConfig.getValidationQuery())
-                .maxAcquireTime(postgreSQLConfig.getMaxAcquireTime())
-                .maxCreateConnectionTime(postgreSQLConfig.getMaxCreateConnectionTime())
                 .maxIdleTime(postgreSQLConfig.getMaxIdleTime())
-                .maxLifeTime(postgreSQLConfig.getMaxLifeTime());
+                .maxCreateConnectionTime(Optional.ofNullable(postgreSQLConfig.getMaxCreateConnectionTime()).orElse(noTimeout))
+                .maxAcquireTime(Optional.ofNullable(postgreSQLConfig.getMaxAcquireTime()).orElse(noTimeout))
+                .maxLifeTime(Optional.ofNullable(postgreSQLConfig.getMaxLifeTime()).orElse(noTimeout));
         final ConnectionPool connectionPool = buildConnectionPool(builder);
         postgreSQLConnectionPool = new PostgreSQLConnectionPool(this, postgreSQLConfig, connectionPool);
         return connectionPool;

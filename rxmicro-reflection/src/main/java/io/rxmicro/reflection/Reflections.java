@@ -26,7 +26,6 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiPredicate;
@@ -36,7 +35,6 @@ import static io.rxmicro.common.CommonConstants.EMPTY_STRING;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Formats.format;
 import static java.lang.reflect.Modifier.isFinal;
-import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Collections.unmodifiableList;
 import static java.util.stream.Collectors.joining;
@@ -610,6 +608,53 @@ public final class Reflections {
                                       final String methodName,
                                       final Object... args) {
         final Class<?>[] parameterTypes = Arrays.stream(args).map(Object::getClass).toArray(Class[]::new);
+        return invokeMethod(instance, methodName, parameterTypes, args);
+    }
+
+    /**
+     * Invokes the method by name.
+     *
+     * @param instance       the specified instance
+     * @param methodName     the specified method name
+     * @param parameterTypes the argument types
+     * @param args           the arguments for the method
+     * @return the method result
+     * @throws CheckedWrapperException
+     *         <ul>
+     *     <li>
+     *         if this {@code Method} object is enforcing Java language access control and the underlying method is inaccessible, or
+     *     </li>
+     *     <li>
+     *         if the underlying method throws an exception.
+     *     </li>
+     * </ul>
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws IllegalArgumentException
+     *         <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
+     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if the specified object is not an instance of the class or interface declaring the underlying
+     *          field (or a subclass or implementor thereof), or
+     *      </li>
+     * </ul>
+     * @throws NullPointerException         if any parameter is null
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @see Method#canAccess(Object)
+     * @see Method#setAccessible(boolean)
+     * @see Method#invoke(Object, Object...)
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    public static Object invokeMethod(final Object instance,
+                                      final String methodName,
+                                      final Class[] parameterTypes,
+                                      final Object[] args) {
         final Method method = findMethod(instance.getClass(), methodName, parameterTypes);
         final Object validInstance = isStatic(method.getModifiers()) ? null : instance;
         if (!method.canAccess(instance)) {
@@ -659,8 +704,10 @@ public final class Reflections {
                                       final Object... args) {
         try {
             return method.invoke(instance, args);
-        } catch (final IllegalAccessException | InvocationTargetException ex) {
+        } catch (final IllegalAccessException ex) {
             throw new CheckedWrapperException(ex);
+        } catch (final InvocationTargetException ex) {
+            throw new CheckedWrapperException((Exception) ex.getTargetException());
         }
     }
 
@@ -860,11 +907,7 @@ public final class Reflections {
     public static <T> T instantiate(final String targetClassName,
                                     final boolean setAccessibleIfRequired,
                                     final Object... constructorArgs) {
-        try {
-            return (T) instantiate(Class.forName(targetClassName), setAccessibleIfRequired, constructorArgs);
-        } catch (final ClassNotFoundException ex) {
-            throw new CheckedWrapperException(ex, "Class ? not found", targetClassName);
-        }
+        return (T) instantiate(classForName(targetClassName), setAccessibleIfRequired, constructorArgs);
     }
 
     /**
@@ -920,11 +963,7 @@ public final class Reflections {
                                     final boolean setAccessibleIfRequired,
                                     final Class<?>[] argTypes,
                                     final Object... constructorArgs) {
-        try {
-            return (T) instantiate(Class.forName(targetClassName), setAccessibleIfRequired, argTypes, constructorArgs);
-        } catch (final ClassNotFoundException ex) {
-            throw new CheckedWrapperException(ex, "Class ? not found", targetClassName);
-        }
+        return (T) instantiate(classForName(targetClassName), setAccessibleIfRequired, argTypes, constructorArgs);
     }
 
     /**
@@ -1071,10 +1110,34 @@ public final class Reflections {
             throw new CheckedWrapperException(ex, "Can't instantiate ? class: ?", targetClass.getName(), ex.getMessage());
         } catch (final InvocationTargetException ex) {
             throw new CheckedWrapperException(
-                    ex,
+                    (Exception) ex.getTargetException(),
                     "Can't instantiate ? class, because constructor throws an exception with message: ?",
                     targetClass.getName(), ex.getTargetException().getMessage()
             );
+        }
+    }
+
+    /**
+     * Returns the {@code Class} object associated with the class or interface with the given string name.  Invoking this method is
+     * equivalent to:
+     * <p>{@code Class.forName(className, true, currentLoader)}
+     * <p>
+     * where {@code currentLoader} denotes the defining class loader of
+     * the current class.
+     *
+     * @param className the fully qualified name of the desired class.
+     * @return the {@code Class} object for the class with the
+     * specified name.
+     * @throws LinkageError                if the linkage fails
+     * @throws ExceptionInInitializerError if the initialization provoked
+     *                                     by this method fails
+     * @throws CheckedWrapperException     if the class cannot be located
+     */
+    public static Class<?> classForName(final String className) {
+        try {
+            return Class.forName(className);
+        } catch (final ClassNotFoundException ex) {
+            throw new CheckedWrapperException(ex, "Class ? not found", className);
         }
     }
 
@@ -1129,28 +1192,6 @@ public final class Reflections {
     }
 
     /**
-     * Finds the public setters for the specified class.
-     *
-     * @param classInstance the specified class
-     * @return the public setters for the specified class.
-     */
-    public static List<Method> findPublicSetters(final Class<?> classInstance) {
-        final Set<String> methodNames = new HashSet<>();
-        final List<Method> methods = new ArrayList<>();
-        Class<?> current = classInstance;
-        while (current != null && current != Object.class) {
-            for (final Method method : current.getDeclaredMethods()) {
-                if (isPublicSetter(method) &&
-                        methodNames.add(method.getName() + method.getParameterTypes()[0].getName())) {
-                    methods.add(method);
-                }
-            }
-            current = current.getSuperclass();
-        }
-        return methods;
-    }
-
-    /**
      * Copies all not static field values from the {@code source} to the {@code destination} using provided {@code predicate} with
      * {@link Field} instance and previous value of this field from destination instance.
      *
@@ -1177,12 +1218,6 @@ public final class Reflections {
                 }
             }
         }
-    }
-
-    private static boolean isPublicSetter(final Method method) {
-        return method.getName().startsWith("set") &&
-                isPublic(method.getModifiers()) &&
-                method.getParameterCount() == 1;
     }
 
     private static boolean isValidInstance(final Member member,

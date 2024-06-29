@@ -22,21 +22,33 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated array element may be optional, i.e. {@code null}.
+ * <p><b>Required/Optional concept</b>
+ * <p>Usually, most fields in a model must be required ones. That is why, {@code RxMicro} framework introduces {@link Nullable}
+ * (and {@link NullableArrayItem}) annotations instead of {@code @Required} one, i.e. if a field is not annotated by {@link Nullable}
+ * (and {@link NullableArrayItem}), the {@code RxMicro} framework adds one of the following validators automatically:
+ * <ul>
+ *     <li>{@link io.rxmicro.validation.validator.RequiredConstraintValidator}</li>
+ *     <li>{@link io.rxmicro.validation.validator.RequiredAndNotEmptyStringConstraintValidator}</li>
+ *     <li>{@link io.rxmicro.validation.validator.RequiredListConstraintValidator}</li>
+ *     <li>{@link io.rxmicro.validation.validator.RequiredSetConstraintValidator}</li>
+ *     <li>{@link io.rxmicro.validation.validator.RequiredMapConstraintValidator}</li>
+ * </ul>
  *
  * @author nedis
  * @see Nullable
  * @since 0.1
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @SelfDocumented
 public @interface NullableArrayItem {
 
@@ -46,7 +58,7 @@ public @interface NullableArrayItem {
      * <p>
      * By default, disable is off.
      *
-     * @return  {@code true} if the validation must be disabled.
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 }

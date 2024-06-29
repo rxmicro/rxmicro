@@ -16,11 +16,13 @@
 
 package io.rxmicro.validation.detail;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
-import io.rxmicro.validation.UnexpectedResponseException;
+import io.rxmicro.validation.local.ValidationOptions;
 
 import java.util.List;
+
+import static io.rxmicro.validation.local.ConstraintViolationReportManager.completeValidation;
+import static io.rxmicro.validation.local.ConstraintViolationReportManager.startValidation;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.
@@ -31,6 +33,14 @@ import java.util.List;
  */
 public final class ResponseValidators {
 
+    private static final String UNEXPECTED_RESPONSE_EXCEPTION_CLASS_NAME = "io.rxmicro.http.error.UnexpectedResponseException";
+
+    private static final ValidationOptions VALIDATION_OPTIONS = new ValidationOptions()
+            .setTranslateConstraintViolationExceptionTo(UNEXPECTED_RESPONSE_EXCEPTION_CLASS_NAME);
+
+    private ResponseValidators() {
+    }
+
     public static <T> void validateResponse(final boolean shouldValidationBeActivated,
                                             final ConstraintValidator<T> validator,
                                             final T response) {
@@ -41,10 +51,11 @@ public final class ResponseValidators {
 
     public static <T> void validateResponse(final ConstraintValidator<T> validator,
                                             final T response) {
+        startValidation(VALIDATION_OPTIONS);
         try {
             validator.validate(response);
-        } catch (final ValidationException ex) {
-            throw new UnexpectedResponseException("Response is invalid: ?", ex.getMessage());
+        } finally {
+            completeValidation();
         }
     }
 
@@ -58,10 +69,11 @@ public final class ResponseValidators {
 
     public static <T> void validateResponse(final ConstraintValidator<T> validator,
                                             final List<T> response) {
+        startValidation(VALIDATION_OPTIONS);
         try {
             validator.validateIterable(response);
-        } catch (final ValidationException ex) {
-            throw new UnexpectedResponseException("Response is invalid: ?", ex.getMessage());
+        } finally {
+            completeValidation();
         }
     }
 
@@ -77,8 +89,5 @@ public final class ResponseValidators {
         if (response != null) {
             validateResponse(validator, response);
         }
-    }
-
-    private ResponseValidators() {
     }
 }

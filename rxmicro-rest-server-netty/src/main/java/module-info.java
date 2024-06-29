@@ -65,6 +65,7 @@ module rxmicro.rest.server.netty {
     requires transitive io.netty.handler;
     // For sun.misc.Unsafe
     requires jdk.unsupported;
+    requires rxmicro.validation;
 
     exports io.rxmicro.rest.server.netty;
 

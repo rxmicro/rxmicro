@@ -18,6 +18,7 @@ package io.rxmicro.config.internal;
 
 import io.rxmicro.config.Config;
 import io.rxmicro.config.ConfigSource;
+import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.config.internal.component.ConfigPropertiesBuilder;
 import io.rxmicro.config.internal.model.ConfigProperties;
 
@@ -44,7 +45,12 @@ public final class EnvironmentConfigLoader {
     public Config getEnvironmentConfig(final String namespace,
                                        final Class<? extends Config> configClass,
                                        final Map<String, String> commandLineArgs) {
-        final Config config = instantiate(configClass);
+        final Config config;
+        if (configClass.isAnnotationPresent(SingletonConfigClass.class)) {
+            config = instantiate(configClass);
+        } else {
+            config = instantiate(configClass, false, namespace);
+        }
         if (!configSources.isEmpty()) {
             resolveEnvironmentVariables(namespace, config, commandLineArgs);
         }

@@ -55,5 +55,8 @@ final class ConfigsUsingMapIntegrationTest extends AbstractConfigsIntegrationTes
      */
     public static final class TestConfig extends AsMapConfig {
 
+        public TestConfig(final String namespace) {
+            super(namespace);
+        }
     }
 }

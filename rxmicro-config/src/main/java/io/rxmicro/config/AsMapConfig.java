@@ -32,7 +32,6 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
  * @author nedis
  * @since 0.7
  */
-@SuppressWarnings("NullableProblems")
 public class AsMapConfig extends Config implements Map<String, Object> {
 
     private Map<String, Object> map;
@@ -40,8 +39,8 @@ public class AsMapConfig extends Config implements Map<String, Object> {
     /**
      * This is basic class designed for extension only.
      */
-    protected AsMapConfig() {
-        // This is basic class designed for extension only.
+    protected AsMapConfig(final String namespace) {
+        super(namespace);
     }
 
     /**

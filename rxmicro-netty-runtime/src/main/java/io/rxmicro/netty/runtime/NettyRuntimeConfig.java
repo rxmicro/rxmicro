@@ -19,9 +19,11 @@ package io.rxmicro.netty.runtime;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 import io.rxmicro.config.ConfigException;
+import io.rxmicro.config.Configs;
 import io.rxmicro.config.SingletonConfigClass;
+import io.rxmicro.validation.constraint.MaxInt;
+import io.rxmicro.validation.constraint.MinInt;
 
-import static io.rxmicro.common.util.Requires.require;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
@@ -71,21 +73,33 @@ public final class NettyRuntimeConfig extends Config {
 
     private boolean shareWorkerThreads;
 
+    @MinInt(1)
+    @MaxInt(MAX_POSSIBLE_WORKER_THREAD_COUNT)
     private int acceptorThreadCount = DEFAULT_ACCEPTOR_THREAD_COUNT;
 
     private String acceptorThreadNameCategory = DEFAULT_ACCEPTOR_THREAD_NAME_CATEGORY;
 
+    @MinInt(MIN_PRIORITY)
+    @MaxInt(MAX_PRIORITY)
     private int acceptorThreadPriority = DEFAULT_ACCEPTOR_THREAD_PRIORITY;
 
     private boolean workerThreadDaemon = true;
 
+    @MinInt(1)
+    @MaxInt(MAX_POSSIBLE_WORKER_THREAD_COUNT)
     private int workerThreadCount = DEFAULT_WORKER_THREAD_COUNT;
 
     private String workerThreadNameCategory = DEFAULT_WORKER_THREAD_NAME_CATEGORY;
 
+    @MinInt(MIN_PRIORITY)
+    @MaxInt(MAX_PRIORITY)
     private int workerThreadPriority = DEFAULT_WORKER_THREAD_PRIORITY;
 
     private NettyChannelIdType channelIdType = PredefinedNettyChannelIdType.SHORT;
+
+    public NettyRuntimeConfig() {
+        super(Config.getDefaultNameSpace(NettyRuntimeConfig.class));
+    }
 
     /**
      * Returns {@code true} if worker threads must be shared between rest server, rest client and data repository handlers.
@@ -129,8 +143,7 @@ public final class NettyRuntimeConfig extends Config {
      */
     @BuilderMethod
     public NettyRuntimeConfig setAcceptorThreadCount(final int acceptorThreadCount) {
-        validateThreadCount(acceptorThreadCount);
-        this.acceptorThreadCount = acceptorThreadCount;
+        this.acceptorThreadCount = ensureValid(acceptorThreadCount);
         return this;
     }
 
@@ -151,7 +164,7 @@ public final class NettyRuntimeConfig extends Config {
      */
     @BuilderMethod
     public NettyRuntimeConfig setAcceptorThreadNameCategory(final String acceptorThreadNameCategory) {
-        this.acceptorThreadNameCategory = require(acceptorThreadNameCategory);
+        this.acceptorThreadNameCategory = ensureValid(acceptorThreadNameCategory);
         return this;
     }
 
@@ -173,8 +186,7 @@ public final class NettyRuntimeConfig extends Config {
      */
     @BuilderMethod
     public NettyRuntimeConfig setAcceptorThreadPriority(final int acceptorThreadPriority) {
-        validateThreadPriority(acceptorThreadPriority);
-        this.acceptorThreadPriority = acceptorThreadPriority;
+        this.acceptorThreadPriority = ensureValid(acceptorThreadPriority);
         return this;
     }
 
@@ -217,8 +229,7 @@ public final class NettyRuntimeConfig extends Config {
      */
     @BuilderMethod
     public NettyRuntimeConfig setWorkerThreadCount(final int workerThreadCount) {
-        validateThreadCount(workerThreadCount);
-        this.workerThreadCount = workerThreadCount;
+        this.workerThreadCount = ensureValid(workerThreadCount);
         return this;
     }
 
@@ -239,7 +250,7 @@ public final class NettyRuntimeConfig extends Config {
      */
     @BuilderMethod
     public NettyRuntimeConfig setWorkerThreadNameCategory(final String workerThreadNameCategory) {
-        this.workerThreadNameCategory = require(workerThreadNameCategory);
+        this.workerThreadNameCategory = ensureValid(workerThreadNameCategory);
         return this;
     }
 
@@ -261,8 +272,7 @@ public final class NettyRuntimeConfig extends Config {
      */
     @BuilderMethod
     public NettyRuntimeConfig setWorkerThreadPriority(final int workerThreadPriority) {
-        validateThreadPriority(workerThreadPriority);
-        this.workerThreadPriority = workerThreadPriority;
+        this.workerThreadPriority = ensureValid(workerThreadPriority);
         return this;
     }
 
@@ -283,26 +293,8 @@ public final class NettyRuntimeConfig extends Config {
      */
     @BuilderMethod
     public NettyRuntimeConfig setChannelIdType(final NettyChannelIdType channelIdType) {
-        this.channelIdType = require(channelIdType);
+        this.channelIdType = ensureValid(channelIdType);
         return this;
-    }
-
-    private void validateThreadCount(final int workerThreadCount) {
-        if (workerThreadCount <= 0 || workerThreadCount > MAX_POSSIBLE_WORKER_THREAD_COUNT) {
-            throw new ConfigException(
-                    "Invalid thread count. Expected a value between ? and ?, but actual is ?",
-                    1, MAX_POSSIBLE_WORKER_THREAD_COUNT, workerThreadCount
-            );
-        }
-    }
-
-    private void validateThreadPriority(final int workerThreadPriority) {
-        if (workerThreadPriority < MIN_PRIORITY || workerThreadPriority > MAX_PRIORITY) {
-            throw new ConfigException(
-                    "Invalid thread priority value. Expected a value between ? and ?, but actual is ?",
-                    MIN_PRIORITY, MAX_PRIORITY, workerThreadPriority
-            );
-        }
     }
 
     @Override

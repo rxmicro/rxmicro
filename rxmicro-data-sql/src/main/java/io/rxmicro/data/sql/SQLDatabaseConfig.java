@@ -16,13 +16,16 @@
 
 package io.rxmicro.data.sql;
 
+import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
-import io.rxmicro.config.ConfigException;
+import io.rxmicro.validation.constraint.HostName;
+import io.rxmicro.validation.constraint.MaxInt;
+import io.rxmicro.validation.constraint.MinInt;
+import io.rxmicro.validation.constraint.Nullable;
+import io.rxmicro.validation.constraint.Port;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -41,16 +44,12 @@ import static io.rxmicro.config.Secrets.hideSecretInfo;
 @SuppressWarnings("UnusedReturnValue")
 public class SQLDatabaseConfig extends Config {
 
-    /**
-     * Default SQL database server host.
-     */
-    public static final String DEFAULT_HOST = "localhost";
+    @HostName
+    private String host = CommonConstants.LOCALHOST;
 
-    private Map<String, String> options;
-
-    private String host;
-
-    private int port = -1;
+    @Nullable
+    @Port
+    private Integer port;
 
     private String user;
 
@@ -58,13 +57,25 @@ public class SQLDatabaseConfig extends Config {
 
     private String database;
 
+    @Nullable
     private Duration connectTimeout;
+
+    @Nullable
+    private Map<String, String> options;
 
     /**
      * Creates an SQL config instance with default settings.
      */
-    public SQLDatabaseConfig() {
-        host = DEFAULT_HOST;
+    public SQLDatabaseConfig(final String namespace) {
+        super(namespace);
+    }
+
+    /**
+     * For setting properties from child classes ignoring validation, i.e. ignoring correspond {@link #ensureValid(Object)} invocations.
+     */
+    protected SQLDatabaseConfig(final String namespace, final Integer port) {
+        super(namespace);
+        this.port = port;
     }
 
     /**
@@ -84,7 +95,7 @@ public class SQLDatabaseConfig extends Config {
      */
     @BuilderMethod
     public SQLDatabaseConfig setHost(final String host) {
-        this.host = require(host);
+        this.host = ensureValid(host);
         return this;
     }
 
@@ -93,19 +104,19 @@ public class SQLDatabaseConfig extends Config {
      *
      * @return the server port
      */
-    public int getPort() {
+    public Integer getPort() {
         return port;
     }
 
     /**
      * Sets the server port.
      *
-     * @param port the server port
+     * @param port the server port or {@code null} if default port should be applied.
      * @return the reference to this {@link SQLDatabaseConfig} instance
      */
     @BuilderMethod
-    public SQLDatabaseConfig setPort(final int port) {
-        this.port = validatePort(port);
+    public SQLDatabaseConfig setPort(final Integer port) {
+        this.port = ensureValid(port);
         return this;
     }
 
@@ -126,7 +137,7 @@ public class SQLDatabaseConfig extends Config {
      */
     @BuilderMethod
     public SQLDatabaseConfig setUser(final String user) {
-        this.user = require(user);
+        this.user = ensureValid(user);
         return this;
     }
 
@@ -147,7 +158,7 @@ public class SQLDatabaseConfig extends Config {
      */
     @BuilderMethod
     public SQLDatabaseConfig setPassword(final CharSequence password) {
-        this.password = require(password);
+        this.password = ensureValid(password);
         return this;
     }
 
@@ -168,7 +179,7 @@ public class SQLDatabaseConfig extends Config {
      */
     @BuilderMethod
     public SQLDatabaseConfig setDatabase(final String database) {
-        this.database = require(database);
+        this.database = ensureValid(database);
         return this;
     }
 
@@ -180,7 +191,7 @@ public class SQLDatabaseConfig extends Config {
      */
     @BuilderMethod
     public SQLDatabaseConfig setOptions(final Map<String, String> options) {
-        this.options = require(options);
+        this.options = options;
         return this;
     }
 
@@ -210,7 +221,7 @@ public class SQLDatabaseConfig extends Config {
      */
     @BuilderMethod
     public SQLDatabaseConfig setConnectTimeout(final Duration connectTimeout) {
-        this.connectTimeout = require(connectTimeout);
+        this.connectTimeout = ensureValid(connectTimeout);
         return this;
     }
 
@@ -220,30 +231,7 @@ public class SQLDatabaseConfig extends Config {
      * @return the connection string built from schema, host, port and database parameters
      */
     public String getConnectionString() {
-        return format("sql://?:?/?", host, port, database);
-    }
-
-    @Override
-    protected void validate(final String namespace) {
-        final List<String> properties = new ArrayList<>();
-        if (port == -1) {
-            properties.add(format("?.port", namespace));
-        }
-        if (user == null) {
-            properties.add(format("?.user", namespace));
-        }
-        if (password == null) {
-            properties.add(format("?.password", namespace));
-        }
-        if (database == null) {
-            properties.add(format("?.database", namespace));
-        }
-        if (!properties.isEmpty()) {
-            throw new ConfigException(
-                    "Can't create instance of '?' class for '?' namespace, because required property(ies) is(are) missing: ?!",
-                    getClass().getName(), namespace, properties
-            );
-        }
+        return format("sql://?/?", host, Optional.ofNullable(port).map(p -> ":" + p).orElse(""), database);
     }
 
     @Override

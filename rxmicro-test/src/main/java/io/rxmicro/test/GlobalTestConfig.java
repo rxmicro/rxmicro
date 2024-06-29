@@ -19,6 +19,7 @@ package io.rxmicro.test;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.test.local.model.BaseTestConfig;
+import io.rxmicro.validation.constraint.Min;
 
 import java.time.Duration;
 import java.util.TimeZone;
@@ -42,9 +43,14 @@ public final class GlobalTestConfig extends BaseTestConfig {
      */
     public static final TimeZone DEFAULT_TIMESTAMP_TIME_ZONE = TimeZone.getTimeZone("UTC");
 
+    @Min(value = "PT0S", inclusive = false)
     private Duration defaultInstantCompareDelta = DEFAULT_INSTANT_COMPARE_DELTA_VALUE;
 
     private TimeZone timestampTimeZone = DEFAULT_TIMESTAMP_TIME_ZONE;
+
+    public GlobalTestConfig() {
+        super(GlobalTestConfig.getDefaultNameSpace(GlobalTestConfig.class));
+    }
 
     /**
      * Returns the delta that used to compare two instance of {@link java.time.Instant} type.
@@ -63,7 +69,7 @@ public final class GlobalTestConfig extends BaseTestConfig {
      */
     @BuilderMethod
     public GlobalTestConfig setDefaultInstantCompareDelta(final Duration defaultInstantCompareDelta) {
-        this.defaultInstantCompareDelta = defaultInstantCompareDelta;
+        this.defaultInstantCompareDelta = ensureValid(defaultInstantCompareDelta);
         return this;
     }
 
@@ -84,7 +90,7 @@ public final class GlobalTestConfig extends BaseTestConfig {
      */
     @BuilderMethod
     public GlobalTestConfig setTimestampTimeZone(final TimeZone timestampTimeZone) {
-        this.timestampTimeZone = timestampTimeZone;
+        this.timestampTimeZone = ensureValid(timestampTimeZone);
         return this;
     }
 

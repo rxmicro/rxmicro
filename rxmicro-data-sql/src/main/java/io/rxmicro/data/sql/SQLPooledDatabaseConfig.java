@@ -17,11 +17,14 @@
 package io.rxmicro.data.sql;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.validation.constraint.MaxInt;
+import io.rxmicro.validation.constraint.Min;
+import io.rxmicro.validation.constraint.MinInt;
+import io.rxmicro.validation.constraint.Nullable;
 
 import java.time.Duration;
 import java.util.Map;
 
-import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
 
 /**
@@ -33,11 +36,6 @@ import static io.rxmicro.config.Secrets.hideSecretInfo;
  */
 @SuppressWarnings("UnusedReturnValue")
 public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
-
-    /**
-     * Constant indicating that timeout should not apply.
-     */
-    public static final Duration NO_TIMEOUT = Duration.ofMillis(-1);
 
     /**
      * Default acquire retry.
@@ -55,6 +53,12 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
     public static final int DEFAULT_MAX_POOL_SIZE = 5;
 
     /**
+     * It is just assumption that this value can be interpreted as max possible pool size. If you have argument to update
+     * this value, feel free to do it.
+     */
+    public static final int MAX_POSSIBLE_POOL_SIZE = 250;
+
+    /**
      * Default max idle duration.
      */
     public static final Duration DEFAULT_MAX_IDLE_DURATION = Duration.ofMinutes(30);
@@ -64,34 +68,44 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      */
     public static final String DEFAULT_VALIDATION_QUERY = "SELECT 2+2";
 
-    private int acquireRetry;
+    @MinInt(1)
+    private int acquireRetry = DEFAULT_ACQUIRE_RETRY;
 
-    private int initialSize;
+    @MinInt(1)
+    private int initialSize = DEFAULT_INIT_POOL_SIZE;
 
-    private int maxSize;
+    @MaxInt(MAX_POSSIBLE_POOL_SIZE)
+    private int maxSize = DEFAULT_MAX_POOL_SIZE;
 
-    private String validationQuery;
+    private String validationQuery = DEFAULT_VALIDATION_QUERY;
 
-    private Duration maxIdleTime;
+    @Min("PT0S")
+    private Duration maxIdleTime = DEFAULT_MAX_IDLE_DURATION;
 
+    @Nullable
+    @Min("PT0S")
     private Duration maxCreateConnectionTime;
 
+    @Nullable
+    @Min("PT0S")
     private Duration maxAcquireTime;
 
+    @Nullable
+    @Min("PT0S")
     private Duration maxLifeTime;
 
     /**
      * Creates a pooled SQL config instance with default settings.
      */
-    public SQLPooledDatabaseConfig() {
-        this.acquireRetry = DEFAULT_ACQUIRE_RETRY;
-        this.initialSize = DEFAULT_INIT_POOL_SIZE;
-        this.maxSize = DEFAULT_MAX_POOL_SIZE;
-        this.validationQuery = DEFAULT_VALIDATION_QUERY;
-        this.maxIdleTime = DEFAULT_MAX_IDLE_DURATION;
-        this.maxCreateConnectionTime = NO_TIMEOUT;
-        this.maxAcquireTime = NO_TIMEOUT;
-        this.maxLifeTime = NO_TIMEOUT;
+    public SQLPooledDatabaseConfig(final String namespace) {
+        super(namespace);
+    }
+
+    /**
+     * For setting properties from child classes ignoring validation, i.e. ignoring correspond {@link #ensureValid(Object)} invocations.
+     */
+    protected SQLPooledDatabaseConfig(final String namespace, final Integer port) {
+        super(namespace, port);
     }
 
     /**
@@ -117,7 +131,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      */
     @BuilderMethod
     public SQLPooledDatabaseConfig setAcquireRetry(final int acquireRetry) {
-        this.acquireRetry = acquireRetry;
+        this.acquireRetry = ensureValid(acquireRetry);
         return this;
     }
 
@@ -144,7 +158,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      */
     @BuilderMethod
     public SQLPooledDatabaseConfig setInitialSize(final int initialSize) {
-        this.initialSize = initialSize;
+        this.initialSize = ensureValid(initialSize);
         if (initialSize > this.maxSize) {
             this.maxSize = initialSize;
         }
@@ -174,7 +188,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxSize(final int maxSize) {
-        this.maxSize = maxSize;
+        this.maxSize = ensureValid(maxSize);
         if (this.initialSize > maxSize) {
             this.initialSize = maxSize;
         }
@@ -202,7 +216,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      */
     @BuilderMethod
     public SQLPooledDatabaseConfig setValidationQuery(final String validationQuery) {
-        this.validationQuery = require(validationQuery);
+        this.validationQuery = ensureValid(validationQuery);
         return this;
     }
 
@@ -223,7 +237,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxIdleTime(final Duration maxIdleTime) {
-        this.maxIdleTime = require(maxIdleTime);
+        this.maxIdleTime = ensureValid(maxIdleTime);
         return this;
     }
 
@@ -244,7 +258,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxCreateConnectionTime(final Duration maxCreateConnectionTime) {
-        this.maxCreateConnectionTime = require(maxCreateConnectionTime);
+        this.maxCreateConnectionTime = ensureValid(maxCreateConnectionTime);
         return this;
     }
 
@@ -265,7 +279,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxAcquireTime(final Duration maxAcquireTime) {
-        this.maxAcquireTime = require(maxAcquireTime);
+        this.maxAcquireTime = ensureValid(maxAcquireTime);
         return this;
     }
 
@@ -286,7 +300,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxLifeTime(final Duration maxLifeTime) {
-        this.maxLifeTime = require(maxLifeTime);
+        this.maxLifeTime = ensureValid(maxLifeTime);
         return this;
     }
 
@@ -296,7 +310,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
     }
 
     @Override
-    public SQLPooledDatabaseConfig setPort(final int port) {
+    public SQLPooledDatabaseConfig setPort(final Integer port) {
         return (SQLPooledDatabaseConfig) super.setPort(port);
     }
 

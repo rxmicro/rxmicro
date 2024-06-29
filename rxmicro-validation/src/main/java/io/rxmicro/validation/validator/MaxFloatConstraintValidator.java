@@ -18,14 +18,15 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
+import io.rxmicro.validation.constraint.Max;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MaxDouble} and the {@link io.rxmicro.validation.constraint.MaxNumber}
+ * Validator for the {@link io.rxmicro.validation.constraint.MaxDouble} and the {@link Max}
  * constraints.
  *
  * @author nedis
  * @see io.rxmicro.validation.constraint.MaxDouble
- * @see io.rxmicro.validation.constraint.MaxNumber
+ * @see Max
  * @since 0.1
  */
 public class MaxFloatConstraintValidator extends AbstractMaxConstraintValidator<Float>
@@ -43,7 +44,7 @@ public class MaxFloatConstraintValidator extends AbstractMaxConstraintValidator<
     /**
      * Creates the default instance of {@link MaxFloatConstraintValidator} with the specified parameters.
      *
-     * @param maxValue the supported max value.
+     * @param maxValue  the supported max value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MaxFloatConstraintValidator(final String maxValue,

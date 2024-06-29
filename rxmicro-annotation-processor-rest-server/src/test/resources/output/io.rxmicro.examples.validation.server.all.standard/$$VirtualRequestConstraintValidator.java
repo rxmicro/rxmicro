@@ -25,8 +25,8 @@ import io.rxmicro.validation.validator.LatinAlphabetOnlyConstraintValidator;
 import io.rxmicro.validation.validator.LengthConstraintValidator;
 import io.rxmicro.validation.validator.LngConstraintValidator;
 import io.rxmicro.validation.validator.LowercaseConstraintValidator;
-import io.rxmicro.validation.validator.MaxBigDecimalNumberConstraintValidator;
-import io.rxmicro.validation.validator.MaxBigIntegerNumberConstraintValidator;
+import io.rxmicro.validation.validator.MaxBigDecimalConstraintValidator;
+import io.rxmicro.validation.validator.MaxBigIntegerConstraintValidator;
 import io.rxmicro.validation.validator.MaxByteConstraintValidator;
 import io.rxmicro.validation.validator.MaxDoubleConstraintValidator;
 import io.rxmicro.validation.validator.MaxFloatConstraintValidator;
@@ -37,8 +37,8 @@ import io.rxmicro.validation.validator.MaxShortConstraintValidator;
 import io.rxmicro.validation.validator.MaxSizeListConstraintValidator;
 import io.rxmicro.validation.validator.MaxSizeMapConstraintValidator;
 import io.rxmicro.validation.validator.MaxSizeSetConstraintValidator;
-import io.rxmicro.validation.validator.MinBigDecimalNumberConstraintValidator;
-import io.rxmicro.validation.validator.MinBigIntegerNumberConstraintValidator;
+import io.rxmicro.validation.validator.MinBigDecimalConstraintValidator;
+import io.rxmicro.validation.validator.MinBigIntegerConstraintValidator;
 import io.rxmicro.validation.validator.MinByteConstraintValidator;
 import io.rxmicro.validation.validator.MinDoubleConstraintValidator;
 import io.rxmicro.validation.validator.MinFloatConstraintValidator;
@@ -185,11 +185,11 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final MinLongConstraintValidator longParameterMinNumberMinLongConstraintValidator =
             new MinLongConstraintValidator("3", true);
 
-    private final MaxBigIntegerNumberConstraintValidator bigIntParameterMaxNumberMaxBigIntegerNumberConstraintValidator =
-            new MaxBigIntegerNumberConstraintValidator("10", true);
+    private final MaxBigIntegerConstraintValidator bigIntParameterMaxNumberMaxBigIntegerConstraintValidator =
+            new MaxBigIntegerConstraintValidator("10", true);
 
-    private final MinBigIntegerNumberConstraintValidator bigIntParameterMinNumberMinBigIntegerNumberConstraintValidator =
-            new MinBigIntegerNumberConstraintValidator("3", true);
+    private final MinBigIntegerConstraintValidator bigIntParameterMinNumberMinBigIntegerConstraintValidator =
+            new MinBigIntegerConstraintValidator("3", true);
 
     private final MaxFloatConstraintValidator floatParameterMaxDoubleMaxFloatConstraintValidator =
             new MaxFloatConstraintValidator(10.9);
@@ -221,11 +221,11 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final LngConstraintValidator decimalParameterLngLngConstraintValidator =
             new LngConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
-    private final MaxBigDecimalNumberConstraintValidator decimalParameterMaxNumberMaxBigDecimalNumberConstraintValidator =
-            new MaxBigDecimalNumberConstraintValidator("10.9", true);
+    private final MaxBigDecimalConstraintValidator decimalParameterMaxNumberMaxBigDecimalConstraintValidator =
+            new MaxBigDecimalConstraintValidator("10.9", true);
 
-    private final MinBigDecimalNumberConstraintValidator decimalParameterMinNumberMinBigDecimalNumberConstraintValidator =
-            new MinBigDecimalNumberConstraintValidator("3.1", true);
+    private final MinBigDecimalConstraintValidator decimalParameterMinNumberMinBigDecimalConstraintValidator =
+            new MinBigDecimalConstraintValidator("3.1", true);
 
     private final NumericConstraintValidator decimalParameterNumericNumericConstraintValidator =
             new NumericConstraintValidator(2, 5, ValidationType.EXACT);
@@ -401,14 +401,14 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final LngConstraintValidator decimalsLngLngConstraintValidator =
             new LngConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
-    private final MaxBigDecimalNumberConstraintValidator decimalsMaxNumberMaxBigDecimalNumberConstraintValidator =
-            new MaxBigDecimalNumberConstraintValidator("10.9", true);
+    private final MaxBigDecimalConstraintValidator decimalsMaxNumberMaxBigDecimalConstraintValidator =
+            new MaxBigDecimalConstraintValidator("10.9", true);
 
     private final MaxSizeListConstraintValidator decimalsMaxSizeMaxSizeListConstraintValidator =
             new MaxSizeListConstraintValidator(50, true);
 
-    private final MinBigDecimalNumberConstraintValidator decimalsMinNumberMinBigDecimalNumberConstraintValidator =
-            new MinBigDecimalNumberConstraintValidator("3.1", true);
+    private final MinBigDecimalConstraintValidator decimalsMinNumberMinBigDecimalConstraintValidator =
+            new MinBigDecimalConstraintValidator("3.1", true);
 
     private final MinSizeListConstraintValidator decimalsMinSizeMinSizeListConstraintValidator =
             new MinSizeListConstraintValidator(2, true);
@@ -419,14 +419,14 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final SizeListConstraintValidator decimalsSizeSizeListConstraintValidator =
             new SizeListConstraintValidator(12);
 
-    private final MaxBigIntegerNumberConstraintValidator bigIntegersMaxNumberMaxBigIntegerNumberConstraintValidator =
-            new MaxBigIntegerNumberConstraintValidator("10", true);
+    private final MaxBigIntegerConstraintValidator bigIntegersMaxNumberMaxBigIntegerConstraintValidator =
+            new MaxBigIntegerConstraintValidator("10", true);
 
     private final MaxSizeListConstraintValidator bigIntegersMaxSizeMaxSizeListConstraintValidator =
             new MaxSizeListConstraintValidator(50, true);
 
-    private final MinBigIntegerNumberConstraintValidator bigIntegersMinNumberMinBigIntegerNumberConstraintValidator =
-            new MinBigIntegerNumberConstraintValidator("3", true);
+    private final MinBigIntegerConstraintValidator bigIntegersMinNumberMinBigIntegerConstraintValidator =
+            new MinBigIntegerConstraintValidator("3", true);
 
     private final MinSizeListConstraintValidator bigIntegersMinSizeMinSizeListConstraintValidator =
             new MinSizeListConstraintValidator(2, true);
@@ -629,14 +629,14 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final LngConstraintValidator decimalSetLngLngConstraintValidator =
             new LngConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
-    private final MaxBigDecimalNumberConstraintValidator decimalSetMaxNumberMaxBigDecimalNumberConstraintValidator =
-            new MaxBigDecimalNumberConstraintValidator("10.9", true);
+    private final MaxBigDecimalConstraintValidator decimalSetMaxNumberMaxBigDecimalConstraintValidator =
+            new MaxBigDecimalConstraintValidator("10.9", true);
 
     private final MaxSizeSetConstraintValidator decimalSetMaxSizeMaxSizeSetConstraintValidator =
             new MaxSizeSetConstraintValidator(50, true);
 
-    private final MinBigDecimalNumberConstraintValidator decimalSetMinNumberMinBigDecimalNumberConstraintValidator =
-            new MinBigDecimalNumberConstraintValidator("3.1", true);
+    private final MinBigDecimalConstraintValidator decimalSetMinNumberMinBigDecimalConstraintValidator =
+            new MinBigDecimalConstraintValidator("3.1", true);
 
     private final MinSizeSetConstraintValidator decimalSetMinSizeMinSizeSetConstraintValidator =
             new MinSizeSetConstraintValidator(2, true);
@@ -647,14 +647,14 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final SizeSetConstraintValidator decimalSetSizeSizeSetConstraintValidator =
             new SizeSetConstraintValidator(12);
 
-    private final MaxBigIntegerNumberConstraintValidator bigIntegerSetMaxNumberMaxBigIntegerNumberConstraintValidator =
-            new MaxBigIntegerNumberConstraintValidator("10", true);
+    private final MaxBigIntegerConstraintValidator bigIntegerSetMaxNumberMaxBigIntegerConstraintValidator =
+            new MaxBigIntegerConstraintValidator("10", true);
 
     private final MaxSizeSetConstraintValidator bigIntegerSetMaxSizeMaxSizeSetConstraintValidator =
             new MaxSizeSetConstraintValidator(50, true);
 
-    private final MinBigIntegerNumberConstraintValidator bigIntegerSetMinNumberMinBigIntegerNumberConstraintValidator =
-            new MinBigIntegerNumberConstraintValidator("3", true);
+    private final MinBigIntegerConstraintValidator bigIntegerSetMinNumberMinBigIntegerConstraintValidator =
+            new MinBigIntegerConstraintValidator("3", true);
 
     private final MinSizeSetConstraintValidator bigIntegerSetMinSizeMinSizeSetConstraintValidator =
             new MinSizeSetConstraintValidator(2, true);
@@ -857,14 +857,14 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final LngConstraintValidator decimalMapLngLngConstraintValidator =
             new LngConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
-    private final MaxBigDecimalNumberConstraintValidator decimalMapMaxNumberMaxBigDecimalNumberConstraintValidator =
-            new MaxBigDecimalNumberConstraintValidator("10.9", true);
+    private final MaxBigDecimalConstraintValidator decimalMapMaxNumberMaxBigDecimalConstraintValidator =
+            new MaxBigDecimalConstraintValidator("10.9", true);
 
     private final MaxSizeMapConstraintValidator decimalMapMaxSizeMaxSizeMapConstraintValidator =
             new MaxSizeMapConstraintValidator(50, true);
 
-    private final MinBigDecimalNumberConstraintValidator decimalMapMinNumberMinBigDecimalNumberConstraintValidator =
-            new MinBigDecimalNumberConstraintValidator("3.1", true);
+    private final MinBigDecimalConstraintValidator decimalMapMinNumberMinBigDecimalConstraintValidator =
+            new MinBigDecimalConstraintValidator("3.1", true);
 
     private final MinSizeMapConstraintValidator decimalMapMinSizeMinSizeMapConstraintValidator =
             new MinSizeMapConstraintValidator(2, true);
@@ -875,14 +875,14 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final SizeMapConstraintValidator decimalMapSizeSizeMapConstraintValidator =
             new SizeMapConstraintValidator(12);
 
-    private final MaxBigIntegerNumberConstraintValidator bigIntegerMapMaxNumberMaxBigIntegerNumberConstraintValidator =
-            new MaxBigIntegerNumberConstraintValidator("10", true);
+    private final MaxBigIntegerConstraintValidator bigIntegerMapMaxNumberMaxBigIntegerConstraintValidator =
+            new MaxBigIntegerConstraintValidator("10", true);
 
     private final MaxSizeMapConstraintValidator bigIntegerMapMaxSizeMaxSizeMapConstraintValidator =
             new MaxSizeMapConstraintValidator(50, true);
 
-    private final MinBigIntegerNumberConstraintValidator bigIntegerMapMinNumberMinBigIntegerNumberConstraintValidator =
-            new MinBigIntegerNumberConstraintValidator("3", true);
+    private final MinBigIntegerConstraintValidator bigIntegerMapMinNumberMinBigIntegerConstraintValidator =
+            new MinBigIntegerConstraintValidator("3", true);
 
     private final MinSizeMapConstraintValidator bigIntegerMapMinSizeMinSizeMapConstraintValidator =
             new MinSizeMapConstraintValidator(2, true);
@@ -1075,8 +1075,8 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
         longParameterMinNumberMinLongConstraintValidator.validate(model.longParameter, HttpModelType.PARAMETER, "longParameter");
 
         requiredConstraintValidator.validate(model.bigIntParameter, HttpModelType.PARAMETER, "bigIntParameter");
-        bigIntParameterMaxNumberMaxBigIntegerNumberConstraintValidator.validate(model.bigIntParameter, HttpModelType.PARAMETER, "bigIntParameter");
-        bigIntParameterMinNumberMinBigIntegerNumberConstraintValidator.validate(model.bigIntParameter, HttpModelType.PARAMETER, "bigIntParameter");
+        bigIntParameterMaxNumberMaxBigIntegerConstraintValidator.validate(model.bigIntParameter, HttpModelType.PARAMETER, "bigIntParameter");
+        bigIntParameterMinNumberMinBigIntegerConstraintValidator.validate(model.bigIntParameter, HttpModelType.PARAMETER, "bigIntParameter");
 
         requiredConstraintValidator.validate(model.floatParameter, HttpModelType.PARAMETER, "floatParameter");
         floatParameterMaxDoubleMaxFloatConstraintValidator.validate(model.floatParameter, HttpModelType.PARAMETER, "floatParameter");
@@ -1093,8 +1093,8 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
         requiredConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
         decimalParameterLatLatConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
         decimalParameterLngLngConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
-        decimalParameterMaxNumberMaxBigDecimalNumberConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
-        decimalParameterMinNumberMinBigDecimalNumberConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
+        decimalParameterMaxNumberMaxBigDecimalConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
+        decimalParameterMinNumberMinBigDecimalConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
         decimalParameterNumericNumericConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
 
         requiredConstraintValidator.validate(model.charParameter, HttpModelType.PARAMETER, "charParameter");
@@ -1209,9 +1209,9 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
         requiredConstraintValidator.validateIterable(model.decimals, HttpModelType.PARAMETER, "decimals");
         decimalsLatLatConstraintValidator.validateIterable(model.decimals, HttpModelType.PARAMETER, "decimals");
         decimalsLngLngConstraintValidator.validateIterable(model.decimals, HttpModelType.PARAMETER, "decimals");
-        decimalsMaxNumberMaxBigDecimalNumberConstraintValidator.validateIterable(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsMaxNumberMaxBigDecimalConstraintValidator.validateIterable(model.decimals, HttpModelType.PARAMETER, "decimals");
         decimalsMaxSizeMaxSizeListConstraintValidator.validate(model.decimals, HttpModelType.PARAMETER, "decimals");
-        decimalsMinNumberMinBigDecimalNumberConstraintValidator.validateIterable(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsMinNumberMinBigDecimalConstraintValidator.validateIterable(model.decimals, HttpModelType.PARAMETER, "decimals");
         decimalsMinSizeMinSizeListConstraintValidator.validate(model.decimals, HttpModelType.PARAMETER, "decimals");
         decimalsNumericNumericConstraintValidator.validateIterable(model.decimals, HttpModelType.PARAMETER, "decimals");
         decimalsSizeSizeListConstraintValidator.validate(model.decimals, HttpModelType.PARAMETER, "decimals");
@@ -1219,9 +1219,9 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
 
         requiredListConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
         requiredConstraintValidator.validateIterable(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
-        bigIntegersMaxNumberMaxBigIntegerNumberConstraintValidator.validateIterable(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
+        bigIntegersMaxNumberMaxBigIntegerConstraintValidator.validateIterable(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
         bigIntegersMaxSizeMaxSizeListConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
-        bigIntegersMinNumberMinBigIntegerNumberConstraintValidator.validateIterable(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
+        bigIntegersMinNumberMinBigIntegerConstraintValidator.validateIterable(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
         bigIntegersMinSizeMinSizeListConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
         bigIntegersSizeSizeListConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
         uniqueItemsListConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
@@ -1342,18 +1342,18 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
         requiredConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
         decimalSetLatLatConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
         decimalSetLngLngConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
-        decimalSetMaxNumberMaxBigDecimalNumberConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetMaxNumberMaxBigDecimalConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
         decimalSetMaxSizeMaxSizeSetConstraintValidator.validate(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
-        decimalSetMinNumberMinBigDecimalNumberConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetMinNumberMinBigDecimalConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
         decimalSetMinSizeMinSizeSetConstraintValidator.validate(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
         decimalSetNumericNumericConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
         decimalSetSizeSizeSetConstraintValidator.validate(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
 
         requiredSetConstraintValidator.validate(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
         requiredConstraintValidator.validateIterable(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
-        bigIntegerSetMaxNumberMaxBigIntegerNumberConstraintValidator.validateIterable(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
+        bigIntegerSetMaxNumberMaxBigIntegerConstraintValidator.validateIterable(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
         bigIntegerSetMaxSizeMaxSizeSetConstraintValidator.validate(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
-        bigIntegerSetMinNumberMinBigIntegerNumberConstraintValidator.validateIterable(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
+        bigIntegerSetMinNumberMinBigIntegerConstraintValidator.validateIterable(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
         bigIntegerSetMinSizeMinSizeSetConstraintValidator.validate(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
         bigIntegerSetSizeSizeSetConstraintValidator.validate(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
 
@@ -1470,18 +1470,18 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
         requiredConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
         decimalMapLatLatConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
         decimalMapLngLngConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
-        decimalMapMaxNumberMaxBigDecimalNumberConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapMaxNumberMaxBigDecimalConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
         decimalMapMaxSizeMaxSizeMapConstraintValidator.validate(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
-        decimalMapMinNumberMinBigDecimalNumberConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapMinNumberMinBigDecimalConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
         decimalMapMinSizeMinSizeMapConstraintValidator.validate(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
         decimalMapNumericNumericConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
         decimalMapSizeSizeMapConstraintValidator.validate(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
 
         requiredMapConstraintValidator.validate(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
         requiredConstraintValidator.validateMapValues(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
-        bigIntegerMapMaxNumberMaxBigIntegerNumberConstraintValidator.validateMapValues(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
+        bigIntegerMapMaxNumberMaxBigIntegerConstraintValidator.validateMapValues(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
         bigIntegerMapMaxSizeMaxSizeMapConstraintValidator.validate(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
-        bigIntegerMapMinNumberMinBigIntegerNumberConstraintValidator.validateMapValues(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
+        bigIntegerMapMinNumberMinBigIntegerConstraintValidator.validateMapValues(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
         bigIntegerMapMinSizeMinSizeMapConstraintValidator.validate(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
         bigIntegerMapSizeSizeMapConstraintValidator.validate(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
 

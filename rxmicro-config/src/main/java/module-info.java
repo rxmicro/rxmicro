@@ -62,6 +62,7 @@ module rxmicro.config {
     requires transitive rxmicro.logger;
     requires transitive rxmicro.reflection;
     requires transitive rxmicro.resource;
+    requires rxmicro.validation;
 
     exports io.rxmicro.config;
     exports io.rxmicro.config.detail;

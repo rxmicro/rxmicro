@@ -17,6 +17,7 @@
 package io.rxmicro.config;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.validation.constraint.Nullable;
 
 import static io.rxmicro.common.util.Requires.require;
 
@@ -36,7 +37,12 @@ public final class SecretsConfig extends Config {
 
     private String regex = ";";
 
+    @Nullable
     private String values;
+
+    public SecretsConfig(final String namespace) {
+        super(namespace);
+    }
 
     /**
      * Returns the regex for values delimiter that used at {@link String#split(String)} method.
@@ -55,7 +61,7 @@ public final class SecretsConfig extends Config {
      */
     @BuilderMethod
     public SecretsConfig setRegex(final String regex) {
-        this.regex = require(regex);
+        this.regex = ensureValid(regex);
         return this;
     }
 
@@ -76,7 +82,7 @@ public final class SecretsConfig extends Config {
      */
     @BuilderMethod
     public SecretsConfig setValues(final String values) {
-        this.values = require(values);
+        this.values = ensureValid(values);
         return this;
     }
 

@@ -18,13 +18,14 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMinConstraintValidator;
+import io.rxmicro.validation.constraint.Min;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MinInt} and the {@link io.rxmicro.validation.constraint.MinNumber} constraints.
+ * Validator for the {@link io.rxmicro.validation.constraint.MinInt} and the {@link Min} constraints.
  *
  * @author nedis
  * @see io.rxmicro.validation.constraint.MinInt
- * @see io.rxmicro.validation.constraint.MinNumber
+ * @see Min
  * @since 0.1
  */
 public class MinLongConstraintValidator extends AbstractMinConstraintValidator<Long>
@@ -33,7 +34,7 @@ public class MinLongConstraintValidator extends AbstractMinConstraintValidator<L
     /**
      * Creates the default instance of {@link MinLongConstraintValidator} with the specified parameters.
      *
-     * @param minValue the supported min value.
+     * @param minValue  the supported min value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MinLongConstraintValidator(final long minValue,
@@ -44,7 +45,7 @@ public class MinLongConstraintValidator extends AbstractMinConstraintValidator<L
     /**
      * Creates the default instance of {@link MinLongConstraintValidator} with the specified parameters.
      *
-     * @param minValue the supported min value.
+     * @param minValue  the supported min value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MinLongConstraintValidator(final String minValue,

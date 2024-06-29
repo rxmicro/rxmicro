@@ -17,6 +17,7 @@
 package io.rxmicro.config;
 
 import io.rxmicro.config.internal.EnvironmentConfigLoader;
+import io.rxmicro.config.internal.validator.ConfigValidationCustomizer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ import static io.rxmicro.config.ConfigSource.JAVA_SYSTEM_PROPERTIES;
 import static io.rxmicro.config.ConfigSource.RXMICRO_CLASS_PATH_RESOURCE;
 import static io.rxmicro.config.ConfigSource.SEPARATE_CLASS_PATH_RESOURCE;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
+import static io.rxmicro.config.internal.validator.ConfigValidationCustomizer.collectAllViolationsAndTranslateIntoConfigException;
 import static io.rxmicro.config.internal.waitfor.component.WaitForUtils.withoutWaitForArguments;
 import static java.util.Arrays.asList;
 import static java.util.Map.entry;
@@ -116,11 +118,11 @@ public final class Configs {
                     configClass.getName(), getDefaultNameSpace(configClass), namespace, SingletonConfigClass.class.getSimpleName()
             ));
         }
-        return (T) instance.storage.computeIfAbsent(namespace, n -> {
+        return (T) instance.storage.computeIfAbsent(namespace, n -> collectAllViolationsAndTranslateIntoConfigException(() -> {
             final Config config = instance.loader.getEnvironmentConfig(namespace, configClass, instance.commandLineArgs);
-            config.validate(namespace);
+            config.validateUsingCustomRules();
             return config;
-        });
+        }));
     }
 
     private Map<String, String> commandLineArgsToMap(final List<String> commandLineArgs) {

@@ -52,6 +52,7 @@ module rxmicro.data.sql {
     requires transitive org.reactivestreams;
     requires static reactor.core;
     requires static io.reactivex.rxjava3;
+    requires rxmicro.validation;
 
     exports io.rxmicro.data.sql;
     exports io.rxmicro.data.sql.operation;

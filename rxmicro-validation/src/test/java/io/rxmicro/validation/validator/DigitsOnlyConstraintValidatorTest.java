@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class DigitsOnlyConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
+final class DigitsOnlyConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
@@ -46,7 +45,7 @@ final class DigitsOnlyConstraintValidatorTest extends AbstractConstraintValidato
     @Test
     @Order(10)
     void Should_ignore_validation_for_empty_string() {
-        assertDoesNotThrow(() -> validator.validate("", TYPE, FIELD_NAME));
+        assertDoesNotThrow(() -> validator.validate("", PARAMETER, FIELD_NAME));
     }
 
     @Test
@@ -57,9 +56,9 @@ final class DigitsOnlyConstraintValidatorTest extends AbstractConstraintValidato
 
     @Test
     @Order(12)
-    void Should_throw_ValidationException_if_parameter_contains_not_digit_char() {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate("1O", PARAMETER, "value"));
+    void Should_throw_ConstraintViolationException_if_parameter_contains_not_digit_char() {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("1O", PARAMETER, "value"));
         assertEquals(
                 "Invalid parameter \"value\": " +
                         "Expected a string with digits only, but actual value contains invalid character: 'O' (0x4f)!",

@@ -18,9 +18,11 @@ package io.rxmicro.rest.server;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
-import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
+import io.rxmicro.validation.constraint.MaxInt;
+import io.rxmicro.validation.constraint.Min;
+import io.rxmicro.validation.constraint.MinInt;
 
 import java.time.Duration;
 import java.util.LinkedHashSet;
@@ -29,7 +31,10 @@ import java.util.Set;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.http.HttpStatuses.MAX_SUPPORTED_HTTP_STATUS;
+import static io.rxmicro.http.HttpStatuses.MIN_SUPPORTED_HTTP_STATUS;
 import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorProvider.DEFAULT_96_BIT;
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Allows configuring a REST server options.
@@ -62,10 +67,14 @@ public class RestServerConfig extends Config {
      */
     public static final Duration DEFAULT_REQUEST_ID_GENERATOR_INIT_TIMEOUT = Duration.ofMillis(3_000);
 
+    @MinInt(MIN_SUPPORTED_HTTP_STATUS)
+    @MaxInt(MAX_SUPPORTED_HTTP_STATUS)
     private int handlerNotFoundErrorStatusCode = DEFAULT_HANDLER_NOT_FOUND_ERROR_STATUS_CODE;
 
     private String handlerNotFoundErrorMessage = "Handler not found";
 
+    @MinInt(MIN_SUPPORTED_HTTP_STATUS)
+    @MaxInt(MAX_SUPPORTED_HTTP_STATUS)
     private int corsNotAllowedErrorStatusCode = DEFAULT_CORS_NOT_ALLOWED_ERROR_STATUS_CODE;
 
     private String corsNotAllowedErrorMessage = "CORS not allowed";
@@ -97,10 +106,15 @@ public class RestServerConfig extends Config {
 
     private boolean enableAdditionalValidations;
 
+    @Min("PT03")
     private Duration requestIdGeneratorInitTimeout = DEFAULT_REQUEST_ID_GENERATOR_INIT_TIMEOUT;
 
     // Read more: https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/
     private List<String> forwardedHeaderNames = List.of("Forwarded", "X-Forwarded-For", "X-Real-IP");
+
+    public RestServerConfig() {
+        super(Config.getDefaultNameSpace(RestServerConfig.class));
+    }
 
     /**
      * Configures REST server for development environment.
@@ -140,7 +154,7 @@ public class RestServerConfig extends Config {
      */
     @BuilderMethod
     public RestServerConfig setHandlerNotFoundErrorStatusCode(final int handlerNotFoundErrorStatusCode) {
-        this.handlerNotFoundErrorStatusCode = handlerNotFoundErrorStatusCode;
+        this.handlerNotFoundErrorStatusCode = ensureValid(handlerNotFoundErrorStatusCode);
         return this;
     }
 
@@ -161,7 +175,7 @@ public class RestServerConfig extends Config {
      */
     @BuilderMethod
     public RestServerConfig setHandlerNotFoundErrorMessage(final String handlerNotFoundErrorMessage) {
-        this.handlerNotFoundErrorMessage = require(handlerNotFoundErrorMessage);
+        this.handlerNotFoundErrorMessage = ensureValid(handlerNotFoundErrorMessage);
         return this;
     }
 
@@ -182,7 +196,7 @@ public class RestServerConfig extends Config {
      */
     @BuilderMethod
     public RestServerConfig setCorsNotAllowedErrorStatusCode(final int corsNotAllowedErrorStatusCode) {
-        this.corsNotAllowedErrorStatusCode = corsNotAllowedErrorStatusCode;
+        this.corsNotAllowedErrorStatusCode = ensureValid(corsNotAllowedErrorStatusCode);
         return this;
     }
 
@@ -203,7 +217,7 @@ public class RestServerConfig extends Config {
      */
     @BuilderMethod
     public RestServerConfig setCorsNotAllowedErrorMessage(final String corsNotAllowedErrorMessage) {
-        this.corsNotAllowedErrorMessage = require(corsNotAllowedErrorMessage);
+        this.corsNotAllowedErrorMessage = ensureValid(corsNotAllowedErrorMessage);
         return this;
     }
 
@@ -293,7 +307,7 @@ public class RestServerConfig extends Config {
      */
     @BuilderMethod
     public RestServerConfig setStaticResponseHeaders(final Set<StaticResponseHeader> staticResponseHeaders) {
-        this.staticResponseHeaders = require(staticResponseHeaders);
+        this.staticResponseHeaders = ensureValid(staticResponseHeaders);
         return this;
     }
 
@@ -326,7 +340,7 @@ public class RestServerConfig extends Config {
      */
     @BuilderMethod
     public RestServerConfig setRequestIdGeneratorProvider(final RequestIdGeneratorProvider requestIdGeneratorProvider) {
-        this.requestIdGeneratorProvider = require(requestIdGeneratorProvider);
+        this.requestIdGeneratorProvider = ensureValid(requestIdGeneratorProvider);
         return this;
     }
 
@@ -359,7 +373,7 @@ public class RestServerConfig extends Config {
      */
     @BuilderMethod
     public RestServerConfig setRequestIdGeneratorInitTimeout(final Duration requestIdGeneratorInitTimeout) {
-        this.requestIdGeneratorInitTimeout = requestIdGeneratorInitTimeout;
+        this.requestIdGeneratorInitTimeout = ensureValid(requestIdGeneratorInitTimeout);
         return this;
     }
 
@@ -402,7 +416,7 @@ public class RestServerConfig extends Config {
     @BuilderMethod
     public RestServerConfig setDisableLoggerMessagesForHttpHealthChecks(
             final boolean disableLoggerMessagesForHttpHealthChecks) {
-        this.disableLoggerMessagesForHttpHealthChecks = disableLoggerMessagesForHttpHealthChecks;
+        this.disableLoggerMessagesForHttpHealthChecks = ensureValid(disableLoggerMessagesForHttpHealthChecks);
         return this;
     }
 
@@ -507,7 +521,7 @@ public class RestServerConfig extends Config {
      */
     @BuilderMethod
     public RestServerConfig setHealthCheckToolAddresses(final Set<String> healthCheckToolAddresses) {
-        this.healthCheckToolAddresses = unmodifiableOrderedSet(healthCheckToolAddresses);
+        this.healthCheckToolAddresses = ensureValid(unmodifiableOrderedSet(healthCheckToolAddresses));
         return this;
     }
 
@@ -520,7 +534,7 @@ public class RestServerConfig extends Config {
      * <p>
      * Read more:
      * <a href="https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/">
-     *     https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/
+     * https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/
      * </a>
      *
      * @return the header names that must be used to get real user IP address if an HTTP reverse proxy is used.
@@ -538,7 +552,7 @@ public class RestServerConfig extends Config {
      * <p>
      * Read more:
      * <a href="https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/">
-     *     https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/
+     * https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/
      * </a>
      *
      * @param forwardedHeaderNames the header names.
@@ -551,12 +565,10 @@ public class RestServerConfig extends Config {
     }
 
     @Override
-    protected void validate(final String namespace) {
+    protected void validateUsingCustomRules() {
         if (!disableLoggerMessagesForHttpHealthChecks && !healthCheckToolAddresses.isEmpty()) {
-            throw new ConfigException(
-                    "'healthCheckToolAddresses' parameter for ? namespace must be empty, " +
-                            "because 'disableLoggerMessagesForHttpHealthChecks' is 'false'! Remove redundant parameter!"
-            );
+            reportViolation("'healthCheckToolAddresses' parameter for ? namespace must be empty, " +
+                    "because 'disableLoggerMessagesForHttpHealthChecks' is 'false'! Remove redundant parameter!");
         }
     }
 

@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 /**
@@ -30,8 +30,8 @@ public class SkypeConstraintValidator implements ConstraintValidator<String> {
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
-        // do nothing. It seems that skype name can contains any symbols
+        // do nothing. It seems that skype name can contain any symbols
     }
 }

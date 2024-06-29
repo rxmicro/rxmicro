@@ -34,6 +34,7 @@ import static io.rxmicro.config.WaitFor.WAIT_FOR_TCP_SOCKET_TYPE_NAME;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_TIMEOUT;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_TIMEOUT_DEFAULT_VALUE_IN_SECONDS;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_TYPE_PARAM_NAME;
+import static io.rxmicro.config.internal.waitfor.model.Params.DESTINATION;
 import static java.util.Map.entry;
 
 /**
@@ -42,17 +43,14 @@ import static java.util.Map.entry;
  */
 public final class WaitForParamsBuilder {
 
-    static final String DESTINATION = "destination";
-
     public static List<Params> buildWaitForParams(final List<String> paramsList) {
         final List<Map<String, String>> groupedParams = buildGroupedParams(paramsList);
         return groupedParams.stream()
                 .map(paramsMap -> new Params(
                         paramsMap.getOrDefault(WAIT_FOR_TYPE_PARAM_NAME, WAIT_FOR_TCP_SOCKET_TYPE_NAME),
                         getTimeout(paramsMap),
-                        Optional.ofNullable(paramsMap.get(DESTINATION)).orElseThrow(() -> {
-                            throw new ConfigException("Expected destination. For example: java Main.class wait-for localhost:8080");
-                        })
+                        Optional.ofNullable(paramsMap.get(DESTINATION))
+                                .orElseThrow(() -> new ConfigException("Expected ?. For example: java Main.class wait-for localhost:8080", DESTINATION))
                 ))
                 .collect(Collectors.toList());
     }

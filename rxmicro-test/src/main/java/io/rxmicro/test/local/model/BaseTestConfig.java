@@ -24,7 +24,7 @@ import io.rxmicro.config.Config;
  */
 public class BaseTestConfig extends Config {
 
-    protected BaseTestConfig() {
-        // This is basic class designed for extension only.
+    protected BaseTestConfig(final String namespace) {
+        super(namespace);
     }
 }

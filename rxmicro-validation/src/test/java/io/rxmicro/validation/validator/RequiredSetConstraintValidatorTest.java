@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -26,7 +26,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Set;
 
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class RequiredSetConstraintValidatorTest {
+final class RequiredSetConstraintValidatorTest extends AbstractConstraintValidatorTest {
 
     private final RequiredSetConstraintValidator validator = new RequiredSetConstraintValidator();
 
@@ -49,9 +48,9 @@ final class RequiredSetConstraintValidatorTest {
 
     @Test
     @Order(12)
-    void Should_throw_ValidationException() {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(Set.of(), PARAMETER, "value"));
+    void Should_throw_ConstraintViolationException() {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(Set.of(), PARAMETER, "value"));
         assertEquals(
                 "Parameter \"value\" is required!",
                 exception.getMessage()

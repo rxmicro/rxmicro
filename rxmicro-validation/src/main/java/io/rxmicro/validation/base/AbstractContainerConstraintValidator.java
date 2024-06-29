@@ -16,21 +16,21 @@
 
 package io.rxmicro.validation.base;
 
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 /**
  * Base validator class for container constraints.
  *
- * @author nedis
  * @param <T> the type to validate
+ * @author nedis
  * @since 0.1
  */
 public abstract class AbstractContainerConstraintValidator<T> implements ConstraintValidator<T> {
 
     @Override
     public final void validateIterable(final Iterable<T> iterable,
-                                       final HttpModelType httpModelType,
+                                       final ModelType modelType,
                                        final String modelName) {
         throw new UnsupportedOperationException("Use 'validate' instead!");
     }

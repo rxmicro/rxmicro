@@ -57,6 +57,7 @@ module rxmicro.netty.runtime {
 
     requires static io.netty.transport.classes.epoll;
     requires static io.netty.transport.classes.kqueue;
+    requires rxmicro.validation;
 
     exports io.rxmicro.netty.runtime;
 

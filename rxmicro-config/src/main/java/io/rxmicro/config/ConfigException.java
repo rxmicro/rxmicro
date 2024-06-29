@@ -35,6 +35,18 @@ public final class ConfigException extends RxMicroException {
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
+     * @param message the error message
+     */
+    public ConfigException(final String message) {
+        super(message);
+    }
+
+    /**
+     * Default constructor to build {@link ConfigException} instance.
+     *
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
      * @param message the error message template
      * @param args the message template arguments
      */

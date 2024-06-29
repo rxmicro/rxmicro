@@ -18,14 +18,15 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMinConstraintValidator;
+import io.rxmicro.validation.constraint.Min;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MinDouble} and the {@link io.rxmicro.validation.constraint.MinNumber}
+ * Validator for the {@link io.rxmicro.validation.constraint.MinDouble} and the {@link Min}
  * constraints.
  *
  * @author nedis
  * @see io.rxmicro.validation.constraint.MinDouble
- * @see io.rxmicro.validation.constraint.MinNumber
+ * @see Min
  * @since 0.1
  */
 public class MinDoubleConstraintValidator extends AbstractMinConstraintValidator<Double>
@@ -43,7 +44,7 @@ public class MinDoubleConstraintValidator extends AbstractMinConstraintValidator
     /**
      * Creates the default instance of {@link MinDoubleConstraintValidator} with the specified parameters.
      *
-     * @param minValue the supported min value.
+     * @param minValue  the supported min value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MinDoubleConstraintValidator(final String minValue,

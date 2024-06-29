@@ -137,12 +137,13 @@ public final class AnnotationValidators {
                     annotationElement.asType()
             );
         }
-        if (retention.value() != RetentionPolicy.CLASS) {
+        final RetentionPolicy runtime = RetentionPolicy.RUNTIME;
+        if (retention.value() != runtime) {
             throw new InterruptProcessingException(
                     annotationElement,
                     "Invalid retention policy for '?' annotation type. " +
-                            "Set 'RetentionPolicy.SOURCE' as retention policy for the custom qualifier annotation!",
-                    annotationElement.asType()
+                            "Set '?' as retention policy for the custom qualifier annotation!",
+                    annotationElement.asType(), runtime
             );
         }
     }

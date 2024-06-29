@@ -45,7 +45,7 @@
  * @since 0.1
  */
 module rxmicro.validation {
-    requires transitive rxmicro.rest;
+    requires transitive rxmicro.model;
 
     exports io.rxmicro.validation;
     exports io.rxmicro.validation.base;
@@ -53,4 +53,7 @@ module rxmicro.validation {
     exports io.rxmicro.validation.validator;
 
     exports io.rxmicro.validation.detail;
+
+    exports io.rxmicro.validation.local to
+            rxmicro.config;
 }

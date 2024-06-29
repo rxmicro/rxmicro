@@ -26,10 +26,11 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must be a valid phone number.
@@ -42,8 +43,8 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * @since 0.1
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
         validatorClass = PhoneConstraintValidator.class
@@ -65,7 +66,7 @@ public @interface Phone {
      * <p>
      * By default, disable is off.
      *
-     * @return  {@code true} if the validation must be disabled.
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 

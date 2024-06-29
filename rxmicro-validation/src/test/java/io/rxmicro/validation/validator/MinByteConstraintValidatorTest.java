@@ -28,7 +28,7 @@ import org.junit.jupiter.api.TestMethodOrder;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class MinByteConstraintValidatorTest extends AbstractConstraintValidatorTest<Byte> {
+final class MinByteConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<Byte> {
 
     @Override
     ConstraintValidator<Byte> instantiate() {

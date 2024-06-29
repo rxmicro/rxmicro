@@ -41,9 +41,8 @@ public final class ResourceLoaderFactory {
 
     public static <R> R loadResource(final String resourcePath,
                                      final Class<? extends ResourceConverter<R>> converterClass) {
-        return loadOptionalResource(resourcePath, converterClass).orElseThrow(() -> {
-            throw new ResourceException("Resource '?' not found", resourcePath);
-        });
+        return loadOptionalResource(resourcePath, converterClass)
+                .orElseThrow(() -> new ResourceException("Resource '?' not found", resourcePath));
     }
 
     private ResourceLoaderFactory() {

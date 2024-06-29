@@ -17,14 +17,14 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.common.ImpossibleException;
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractDateTimeEqualsConstraintValidator;
 import io.rxmicro.validation.constraint.TruncatedTime;
 
 import java.time.Instant;
 
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 import static io.rxmicro.validation.constraint.TruncatedTime.Truncated.HOURS;
 import static io.rxmicro.validation.constraint.TruncatedTime.Truncated.MILLIS;
 import static io.rxmicro.validation.constraint.TruncatedTime.Truncated.MINUTES;
@@ -56,24 +56,24 @@ public class TruncatedTimeInstantConstraintValidator extends AbstractDateTimeEqu
 
     @Override
     public void validateNonNull(final Instant actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final long instantMillis = actual.toEpochMilli();
         if (truncated == MILLIS) {
             if (!isTruncatedToMillis(instantMillis)) {
-                throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "milli seconds", actual);
+                reportViolation(ERROR_MESSAGE_TEMPLATE, modelType, modelName, "milli seconds", actual);
             }
         } else if (truncated == SECONDS) {
             if (!isTruncatedToSeconds(instantMillis)) {
-                throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "seconds", actual);
+                reportViolation(ERROR_MESSAGE_TEMPLATE, modelType, modelName, "seconds", actual);
             }
         } else if (truncated == MINUTES) {
             if (!isTruncatedToMinutes(instantMillis)) {
-                throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "minutes", actual);
+                reportViolation(ERROR_MESSAGE_TEMPLATE, modelType, modelName, "minutes", actual);
             }
         } else if (truncated == HOURS) {
             if (!isTruncatedToHour(instantMillis)) {
-                throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "hours", actual);
+                reportViolation(ERROR_MESSAGE_TEMPLATE, modelType, modelName, "hours", actual);
             }
         } else {
             throw new ImpossibleException("Unsupported truncated: ?", truncated);

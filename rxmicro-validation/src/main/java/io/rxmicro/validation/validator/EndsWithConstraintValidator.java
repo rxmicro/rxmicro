@@ -16,9 +16,10 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.EndsWith} constraint.
@@ -42,12 +43,12 @@ public final class EndsWithConstraintValidator implements ConstraintValidator<St
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         if (!actual.endsWith(suffix)) {
-            throw new ValidationException(
+            reportViolation(
                     "Invalid ? \"?\": Expected that value ends with '?' suffix, but actual is '?'!",
-                    httpModelType, modelName, suffix, actual
+                    modelType, modelName, suffix, actual
             );
         }
     }

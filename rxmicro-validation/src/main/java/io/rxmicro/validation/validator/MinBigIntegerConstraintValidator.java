@@ -18,27 +18,28 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMinConstraintValidator;
+import io.rxmicro.validation.constraint.Min;
 
 import java.math.BigInteger;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MinNumber} constraint.
+ * Validator for the {@link Min} constraint.
  *
  * @author nedis
- * @see io.rxmicro.validation.constraint.MinNumber
+ * @see Min
  * @since 0.1
  */
-public class MinBigIntegerNumberConstraintValidator extends AbstractMinConstraintValidator<BigInteger>
+public class MinBigIntegerConstraintValidator extends AbstractMinConstraintValidator<BigInteger>
         implements ConstraintValidator<BigInteger> {
 
     /**
-     * Creates the default instance of {@link MinBigIntegerNumberConstraintValidator} with the specified parameters.
+     * Creates the default instance of {@link MinBigIntegerConstraintValidator} with the specified parameters.
      *
-     * @param minValue the supported min value.
+     * @param minValue  the supported min value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
-    public MinBigIntegerNumberConstraintValidator(final String minValue,
-                                                  final boolean inclusive) {
+    public MinBigIntegerConstraintValidator(final String minValue,
+                                            final boolean inclusive) {
         super(new BigInteger(minValue), inclusive);
     }
 }

@@ -89,7 +89,7 @@ final class JdkHttpClientSimpleIntegrationTest {
         WIRE_MOCK_SERVER.stop();
     }
 
-    private final RestClientConfig restClientConfig = new RestClientConfig()
+    private final RestClientConfig restClientConfig = new RestClientConfig("rest-client")
             .setPort(HTTP_PORT);
 
     private final JdkHttpClient jdkHttpClient = new JdkHttpClient(

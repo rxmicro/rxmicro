@@ -83,6 +83,10 @@ final class ConfigsUsingJavaBeansIntegrationTest extends AbstractConfigsIntegrat
 
         private String commandLineArguments;
 
+        public TestConfig(final String namespace) {
+            super(namespace);
+        }
+
         public String getDefaultConfigValues() {
             return defaultConfigValues;
         }

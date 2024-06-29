@@ -22,10 +22,10 @@ import io.rxmicro.validation.constraint.Lat;
 import io.rxmicro.validation.constraint.Lng;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
-import io.rxmicro.validation.constraint.MaxNumber;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.constraint.Min;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -94,10 +94,10 @@ public final class JsonNumberAttributesReader {
             },
 
             (modelField, builder) -> {
-                final MinNumber minNumber = modelField.getAnnotation(MinNumber.class);
-                if (minNumber != null && !minNumber.off()) {
-                    builder.put(MINIMUM, new BigDecimal(removeUnderscoresIfPresent(minNumber.value())));
-                    builder.put(EXCLUSIVE_MINIMUM, !minNumber.inclusive());
+                final Min min = modelField.getAnnotation(Min.class);
+                if (min != null && !min.off()) {
+                    builder.put(MINIMUM, new BigDecimal(removeUnderscoresIfPresent(min.value())));
+                    builder.put(EXCLUSIVE_MINIMUM, !min.inclusive());
                 }
             },
 
@@ -118,10 +118,10 @@ public final class JsonNumberAttributesReader {
             },
 
             (modelField, builder) -> {
-                final MaxNumber maxNumber = modelField.getAnnotation(MaxNumber.class);
-                if (maxNumber != null && !maxNumber.off()) {
-                    builder.put(MAXIMUM, new BigDecimal(removeUnderscoresIfPresent(maxNumber.value())));
-                    builder.put(EXCLUSIVE_MAXIMUM, !maxNumber.inclusive());
+                final Max max = modelField.getAnnotation(Max.class);
+                if (max != null && !max.off()) {
+                    builder.put(MAXIMUM, new BigDecimal(removeUnderscoresIfPresent(max.value())));
+                    builder.put(EXCLUSIVE_MAXIMUM, !max.inclusive());
                 }
             }
     );

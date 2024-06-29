@@ -16,11 +16,12 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.util.Set;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the required set constraint.
@@ -33,17 +34,17 @@ public class RequiredSetConstraintValidator implements ConstraintValidator<Set<?
 
     @Override
     public void validate(final Set<?> actual,
-                         final HttpModelType httpModelType,
+                         final ModelType modelType,
                          final String modelName) {
         if (actual == null || actual.isEmpty()) {
-            throw new ValidationException("? \"?\" is required!", httpModelType, modelName);
+            reportViolation("? \"?\" is required!", modelType, modelName);
         }
     }
 
     @Override
     public void validateNonNull(final Set<?> actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
-        validate(actual, httpModelType, modelName);
+        validate(actual, modelType, modelName);
     }
 }

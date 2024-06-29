@@ -30,16 +30,16 @@ import static io.rxmicro.test.dbunit.local.DatabaseConnectionFactory.getCashedCo
 public final class ExceptionReThrowers {
 
     public static CheckedWrapperException convertToCheckedWrapperException(final DatabaseConnection databaseConnection,
-                                                                           final Throwable throwable) {
-        if (throwable instanceof SQLException) {
+                                                                           final Exception exception) {
+        if (exception instanceof SQLException) {
             final String jdbcUrl = getCashedConnectionSetting(databaseConnection);
             return new CheckedWrapperException(
-                    throwable,
+                    exception,
                     "DB error using 'DatabaseConnection#?' connection with '?' jdbc url detected: ?",
-                    System.identityHashCode(databaseConnection), jdbcUrl, throwable.getMessage()
+                    System.identityHashCode(databaseConnection), jdbcUrl, exception.getMessage()
             );
         } else {
-            return new CheckedWrapperException(throwable);
+            return new CheckedWrapperException(exception);
         }
     }
 

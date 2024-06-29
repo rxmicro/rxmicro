@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import io.rxmicro.validation.constraint.Pattern;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -28,7 +28,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Set;
 
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -39,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class PatternConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
+final class PatternConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
@@ -56,9 +55,9 @@ final class PatternConstraintValidatorTest extends AbstractConstraintValidatorTe
 
     @Test
     @Order(12)
-    void Should_throw_ValidationException() {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate("ftp", PARAMETER, "value"));
+    void Should_throw_ConstraintViolationException() {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("ftp", PARAMETER, "value"));
         assertEquals(
                 "Invalid parameter \"value\": " +
                         "Expected that 'value' matches the pattern: /http/, where 'value' is 'ftp'!",

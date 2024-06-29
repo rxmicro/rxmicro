@@ -18,10 +18,11 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.validator.MinBigDecimalNumberConstraintValidator;
-import io.rxmicro.validation.validator.MinBigIntegerNumberConstraintValidator;
+import io.rxmicro.validation.validator.MinBigDecimalConstraintValidator;
+import io.rxmicro.validation.validator.MinBigIntegerConstraintValidator;
 import io.rxmicro.validation.validator.MinByteConstraintValidator;
 import io.rxmicro.validation.validator.MinDoubleConstraintValidator;
+import io.rxmicro.validation.validator.MinDurationConstraintValidator;
 import io.rxmicro.validation.validator.MinFloatConstraintValidator;
 import io.rxmicro.validation.validator.MinIntConstraintValidator;
 import io.rxmicro.validation.validator.MinLongConstraintValidator;
@@ -32,11 +33,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Duration;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must be a number whose value must be higher or
@@ -46,19 +49,20 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * @see MinInt
  * @see MinDouble
  * @see Numeric
- * @see MinBigDecimalNumberConstraintValidator
- * @see MinBigIntegerNumberConstraintValidator
+ * @see MinBigDecimalConstraintValidator
+ * @see MinBigIntegerConstraintValidator
  * @see MinByteConstraintValidator
  * @see MinShortConstraintValidator
  * @see MinIntConstraintValidator
  * @see MinLongConstraintValidator
  * @see MinFloatConstraintValidator
  * @see MinDoubleConstraintValidator
+ * @see MinDurationConstraintValidator
  * @since 0.1
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = {
                 BigDecimal.class,
@@ -68,24 +72,26 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
                 Integer.class,
                 Long.class,
                 Float.class,
-                Double.class
+                Double.class,
+                Duration.class
         },
         validatorClass = {
-                MinBigDecimalNumberConstraintValidator.class,
-                MinBigIntegerNumberConstraintValidator.class,
+                MinBigDecimalConstraintValidator.class,
+                MinBigIntegerConstraintValidator.class,
                 MinByteConstraintValidator.class,
                 MinShortConstraintValidator.class,
                 MinIntConstraintValidator.class,
                 MinLongConstraintValidator.class,
                 MinFloatConstraintValidator.class,
-                MinDoubleConstraintValidator.class
+                MinDoubleConstraintValidator.class,
+                MinDurationConstraintValidator.class
         }
 )
 @ConstraintParametersOrder({
         "value",
         "inclusive"
 })
-public @interface MinNumber {
+public @interface Min {
 
     /**
      * Allows disabling the validation rule if this rule is inherited from super class.
@@ -93,7 +99,7 @@ public @interface MinNumber {
      * <p>
      * By default, disable is off.
      *
-     * @return  {@code true} if the validation must be disabled.
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
@@ -109,8 +115,8 @@ public @interface MinNumber {
      * Specifies whether the specified minimum is inclusive or exclusive.
      * By default, it is inclusive.
      *
-     * @return  {@code true} if the value must be lower or equal to the specified maximum,
-     *          {@code false} if the value must be lower
+     * @return {@code true} if the value must be lower or equal to the specified maximum,
+     * {@code false} if the value must be lower
      */
     boolean inclusive() default true;
 }

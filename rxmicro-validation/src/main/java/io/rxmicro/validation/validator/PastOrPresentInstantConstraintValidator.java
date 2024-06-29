@@ -16,12 +16,13 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractDateTimeEqualsConstraintValidator;
 
 import java.time.Instant;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.PastOrPresent} constraint.
@@ -35,13 +36,13 @@ public class PastOrPresentInstantConstraintValidator extends AbstractDateTimeEqu
 
     @Override
     public void validateNonNull(final Instant actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final Instant expected = Instant.now();
         if (isNotEqualsAfterTruncation(expected.toEpochMilli(), actual.toEpochMilli()) && actual.compareTo(expected) > 0) {
-            throw new ValidationException(
+            reportViolation(
                     "Invalid ? \"?\": Expected a past or present instant, but actual is '?' (now is '?')!",
-                    httpModelType, modelName, actual, expected
+                    modelType, modelName, actual, expected
             );
         }
     }

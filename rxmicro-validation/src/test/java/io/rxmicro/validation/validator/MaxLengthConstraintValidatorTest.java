@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -27,7 +27,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class MaxLengthConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
+final class MaxLengthConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
@@ -58,12 +57,12 @@ final class MaxLengthConstraintValidatorTest extends AbstractConstraintValidator
             "abcdefghijklmnop;      true;   Expected that 'string length' <= 10, where 'string length' is '16'!"
     })
     @Order(12)
-    void Should_throw_ValidationException(final String value,
-                                          final boolean inclusive,
-                                          final String details) {
+    void Should_throw_ConstraintViolationException(final String value,
+                                                   final boolean inclusive,
+                                                   final String details) {
         final MaxLengthConstraintValidator validator = new MaxLengthConstraintValidator(10, inclusive);
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(value, PARAMETER, "value"));
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(value, PARAMETER, "value"));
         assertEquals(
                 "Invalid parameter \"value\": " + details,
                 exception.getMessage()

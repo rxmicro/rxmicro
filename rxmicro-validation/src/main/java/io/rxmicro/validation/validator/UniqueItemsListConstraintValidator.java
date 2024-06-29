@@ -16,13 +16,14 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.UniqueItems} constraint.
@@ -35,13 +36,13 @@ public class UniqueItemsListConstraintValidator extends AbstractContainerConstra
 
     @Override
     public void validateNonNull(final List<?> actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final Set<?> set = new HashSet<>(actual);
         if (set.size() != actual.size()) {
-            throw new ValidationException(
+            reportViolation(
                     "Invalid ? \"?\": Expected unique array items, but actual is ?!",
-                    httpModelType, modelName, actual
+                    modelType, modelName, actual
             );
         }
     }

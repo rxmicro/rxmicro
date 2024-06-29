@@ -114,7 +114,7 @@ public final class ConstraintAnnotationExtractorImpl extends BaseProcessorCompon
                                          final Map<? extends ExecutableElement,
                                                  ? extends AnnotationValue> elementValues) {
         try {
-            return (boolean) getAnnotationValue(elementValues, "off");
+            return (boolean) getAnnotationValue(elementValues, ConstraintRule.OFF);
         } catch (final InternalErrorException ignored) {
             throw new InterruptProcessingException(
                     annotationMirror.getAnnotationType().asElement(),

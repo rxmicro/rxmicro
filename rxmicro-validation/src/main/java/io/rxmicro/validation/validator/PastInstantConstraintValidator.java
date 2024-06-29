@@ -16,11 +16,12 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.time.Instant;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Past} constraint.
@@ -33,13 +34,13 @@ public class PastInstantConstraintValidator implements ConstraintValidator<Insta
 
     @Override
     public void validateNonNull(final Instant actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final Instant now = Instant.now();
         if (actual.compareTo(now) >= 0) {
-            throw new ValidationException(
+            reportViolation(
                     "Invalid ? \"?\": Expected a past instant, but actual is '?' (now is '?')!",
-                    httpModelType, modelName, actual, now
+                    modelType, modelName, actual, now
             );
         }
     }

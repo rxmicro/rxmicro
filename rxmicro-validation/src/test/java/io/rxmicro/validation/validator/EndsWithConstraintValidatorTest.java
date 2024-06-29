@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class EndsWithConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
+final class EndsWithConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
@@ -51,9 +50,9 @@ final class EndsWithConstraintValidatorTest extends AbstractConstraintValidatorT
 
     @Test
     @Order(12)
-    void Should_throw_ValidationException() {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate("test.css", PARAMETER, "value"));
+    void Should_throw_ConstraintViolationException() {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("test.css", PARAMETER, "value"));
         assertEquals(
                 "Invalid parameter \"value\": Expected that value ends with '.java' suffix, but actual is 'test.css'!",
                 exception.getMessage()

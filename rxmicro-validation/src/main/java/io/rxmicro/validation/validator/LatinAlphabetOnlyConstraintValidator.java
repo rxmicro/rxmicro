@@ -16,12 +16,13 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.LatinAlphabetOnly} constraint.
@@ -39,8 +40,8 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
      *
      * @param allowsUppercase allows uppercase letters
      * @param allowsLowercase allows lowercase letters
-     * @param allowsDigits allows digits
-     * @param punctuations the string that contains supported punctuation characters
+     * @param allowsDigits    allows digits
+     * @param punctuations    the string that contains supported punctuation characters
      */
     public LatinAlphabetOnlyConstraintValidator(final boolean allowsUppercase,
                                                 final boolean allowsLowercase,
@@ -53,15 +54,15 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         for (int i = 0; i < actual.length(); i++) {
             final char ch = actual.charAt(i);
             if (!alphabet.contains(ch)) {
-                throw new ValidationException("Invalid ? \"?\": " +
-                        "Expected a string which contains the following characters only [[?]], " +
-                        "but actual value contains invalid character: '?' (0x?)!",
-                        httpModelType, modelName, alphabetToString(), ch, Integer.toHexString(ch));
+                reportViolation("Invalid ? \"?\": " +
+                                "Expected a string which contains the following characters only [[?]], " +
+                                "but actual value contains invalid character: '?' (0x?)!",
+                        modelType, modelName, alphabetToString(), ch, Integer.toHexString(ch));
             }
         }
     }
@@ -92,6 +93,9 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
      */
     private static final class LatinAlphabetHelper {
 
+        private LatinAlphabetHelper() {
+        }
+
         static Set<Character> buildLatinAlphabet(final boolean allowsUppercase,
                                                  final boolean allowsLowercase,
                                                  final boolean allowsDigits,
@@ -113,9 +117,6 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
                 }
             }
             return builder.toString().chars().mapToObj(ch -> (char) ch).collect(Collectors.toSet());
-        }
-
-        private LatinAlphabetHelper() {
         }
     }
 }

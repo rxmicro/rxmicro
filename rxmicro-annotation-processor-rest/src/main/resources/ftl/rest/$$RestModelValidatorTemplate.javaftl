@@ -24,7 +24,7 @@ public final class ${JAVA_MODEL_CLASS.modelValidatorImplSimpleClassName} impleme
     </#list>
     @Override
     public void validateNonNull(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
-                                final HttpModelType httpModelType,
+                                final ModelType httpModelType,
                                 final String name) {
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#if HAS_PARENT>

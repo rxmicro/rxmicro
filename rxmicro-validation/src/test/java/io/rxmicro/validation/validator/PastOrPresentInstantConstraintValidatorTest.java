@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -29,7 +29,6 @@ import java.time.Duration;
 import java.time.Instant;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -41,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 // CPD-OFF Read more: https://pmd.github.io/pmd-6.13.0/pmd_userdocs_cpd.html#suppression
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class PastOrPresentInstantConstraintValidatorTest extends AbstractConstraintValidatorTest<Instant> {
+final class PastOrPresentInstantConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<Instant> {
 
     @Override
     ConstraintValidator<Instant> instantiate() {
@@ -56,8 +55,8 @@ final class PastOrPresentInstantConstraintValidatorTest extends AbstractConstrai
 
     @Test
     @Order(12)
-    void Should_throw_ValidationException() {
-        final ValidationException exception = assertThrows(ValidationException.class, () ->
+    void Should_throw_ConstraintViolationException() {
+        final ConstraintViolationException exception = assertThrows(ConstraintViolationException.class, () ->
                 validator.validate(Instant.now().plus(Duration.ofMinutes(1)), PARAMETER, "value"));
         {
             final String requiredFragment = "Invalid parameter \"value\": Expected a past or present instant, but actual is ";

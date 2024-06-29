@@ -16,13 +16,13 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
 import java.util.Map;
 
-import static io.rxmicro.validation.internal.ConstraintValidators.validateMaxValue;
+import static io.rxmicro.validation.internal.ValidatorHelper.validateMaxValue;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.MaxSize} constraint.
@@ -41,7 +41,7 @@ public class MaxSizeMapConstraintValidator extends AbstractContainerConstraintVa
     /**
      * Creates the default instance of {@link MaxSizeMapConstraintValidator} with the specified parameters.
      *
-     * @param maxValue the supported max value.
+     * @param maxValue  the supported max value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MaxSizeMapConstraintValidator(final int maxValue,
@@ -52,11 +52,11 @@ public class MaxSizeMapConstraintValidator extends AbstractContainerConstraintVa
 
     @Override
     public void validateNonNull(final Map<?, ?> map,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final int actual = map.size();
         validateMaxValue(
-                maxValue, inclusive, actual, httpModelType, modelName,
+                maxValue, inclusive, actual, modelType, modelName,
                 "Invalid ? \"?\": Expected ? max supported object property(ies) (inclusive), " +
                         "but actual is ?. (object: " + map + ")!",
                 "Invalid ? \"?\": Expected ? max supported object property(ies) (exclusive), " +

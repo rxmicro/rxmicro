@@ -35,12 +35,12 @@ import io.rxmicro.validation.constraint.Lowercase;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
 import io.rxmicro.validation.constraint.MaxLength;
-import io.rxmicro.validation.constraint.MaxNumber;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MaxSize;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
 import io.rxmicro.validation.constraint.MinLength;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.MinSize;
 import io.rxmicro.validation.constraint.NullableArrayItem;
 import io.rxmicro.validation.constraint.Numeric;
@@ -97,8 +97,8 @@ public final class ValidatedRequest {
 
     @Lat
     @Lng
-    @MaxNumber("10")
-    @MinNumber("0")
+    @Max("10")
+    @Min("0")
     @Numeric(scale = 2)
     BigDecimal validBigDecimal;
 
@@ -107,8 +107,8 @@ public final class ValidatedRequest {
 
     @Lat(off = true)
     @Lng(off = true)
-    @MaxNumber(value = "10", off = true)
-    @MinNumber(value = "0", off = true)
+    @Max(value = "10", off = true)
+    @Min(value = "0", off = true)
     @Numeric(scale = 2, off = true)
     BigDecimal inValidBigDecimal;
 

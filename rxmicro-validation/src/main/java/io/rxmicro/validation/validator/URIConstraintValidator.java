@@ -16,11 +16,12 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.net.URISyntaxException;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.URI} constraint.
@@ -33,17 +34,17 @@ public class URIConstraintValidator implements ConstraintValidator<String> {
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         try {
             new java.net.URI(actual);
         } catch (final URISyntaxException ex) {
             // The RxMicro team supposes that business logic code does not use not recommended @AllowEmptyString annotation,
             // so empty string for URI value is unlikely
-            if (actual.length() > 0) {
-                throw new ValidationException(
+            if (!actual.isEmpty()) {
+                reportViolation(
                         "Invalid ? \"?\": Expected a valid URL, but actual is '?'. Error message is '?'!",
-                        httpModelType, modelName, actual, ex.getMessage()
+                        modelType, modelName, actual, ex.getMessage()
                 );
             }
         }

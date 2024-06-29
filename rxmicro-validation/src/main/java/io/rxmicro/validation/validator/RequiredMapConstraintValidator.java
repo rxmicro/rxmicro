@@ -16,11 +16,12 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.util.Map;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the required map constraint.
@@ -33,17 +34,17 @@ public class RequiredMapConstraintValidator implements ConstraintValidator<Map<?
 
     @Override
     public void validate(final Map<?, ?> map,
-                         final HttpModelType httpModelType,
+                         final ModelType modelType,
                          final String modelName) {
         if (map == null || map.isEmpty()) {
-            throw new ValidationException("? \"?\" is required!", httpModelType, modelName);
+            reportViolation("? \"?\" is required!", modelType, modelName);
         }
     }
 
     @Override
     public void validateNonNull(final Map<?, ?> actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
-        validate(actual, httpModelType, modelName);
+        validate(actual, modelType, modelName);
     }
 }

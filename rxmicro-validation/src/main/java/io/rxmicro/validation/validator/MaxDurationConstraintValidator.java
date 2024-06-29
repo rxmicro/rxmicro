@@ -17,28 +17,30 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.validation.ConstraintValidator;
-import io.rxmicro.validation.base.AbstractMinConstraintValidator;
+import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
+import io.rxmicro.validation.constraint.Max;
+import io.rxmicro.validation.internal.ValidatorHelper;
 
-import java.math.BigDecimal;
+import java.time.Duration;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MinNumber} constraint.
+ * Validator for the {@link Max} constraint.
  *
  * @author nedis
- * @see io.rxmicro.validation.constraint.MinNumber
- * @since 0.1
+ * @see Max
+ * @since 0.12
  */
-public class MinBigDecimalNumberConstraintValidator extends AbstractMinConstraintValidator<BigDecimal>
-        implements ConstraintValidator<BigDecimal> {
+public class MaxDurationConstraintValidator extends AbstractMaxConstraintValidator<Duration>
+        implements ConstraintValidator<Duration> {
 
     /**
-     * Creates the default instance of {@link MinBigDecimalNumberConstraintValidator} with the specified parameters.
+     * Creates the default instance of {@link MaxDurationConstraintValidator} with the specified parameters.
      *
-     * @param minValue the supported min value.
+     * @param maxValue  the supported max value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
-    public MinBigDecimalNumberConstraintValidator(final String minValue,
-                                                  final boolean inclusive) {
-        super(new BigDecimal(minValue), inclusive);
+    public MaxDurationConstraintValidator(final String maxValue,
+                                          final boolean inclusive) {
+        super(ValidatorHelper.parseDuration(maxValue), inclusive);
     }
 }

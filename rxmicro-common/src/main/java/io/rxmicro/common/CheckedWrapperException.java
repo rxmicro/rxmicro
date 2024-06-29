@@ -39,10 +39,10 @@ public final class CheckedWrapperException extends RxMicroException {
      * @param message the error message template
      * @param args the error message template arguments
      */
-    public CheckedWrapperException(final Throwable cause,
+    public CheckedWrapperException(final Exception cause,
                                    final String message,
                                    final Object... args) {
-        super(cause, message, args);
+        super(ensureCheckedException(cause), message, args);
     }
 
     /**
@@ -50,17 +50,24 @@ public final class CheckedWrapperException extends RxMicroException {
      *
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
      */
-    public CheckedWrapperException(final Throwable cause) {
-        super(cause);
+    public CheckedWrapperException(final Exception cause) {
+        super(ensureCheckedException(cause));
+    }
+
+    private static Exception ensureCheckedException(final Exception cause) {
+        if (cause instanceof RuntimeException) {
+            throw (RuntimeException) cause;
+        }
+        return cause;
     }
 
     /**
-     * Returns {@code true} if current instance contains a cause one of the specified throwable class.
+     * Returns {@code true} if current instance contains a cause one of the specified exception class.
      *
-     * @param throwableClass the specified throwable class
-     * @return {@code true} if current instance contains a cause one of the specified throwable class
+     * @param exceptionClass the specified exception class
+     * @return {@code true} if current instance contains a cause one of the specified exception class
      */
-    public boolean isCause(final Class<? extends Throwable> throwableClass) {
-        return throwableClass.isAssignableFrom(getCause().getClass());
+    public boolean isCause(final Class<? extends Exception> exceptionClass) {
+        return exceptionClass.isAssignableFrom(getCause().getClass());
     }
 }

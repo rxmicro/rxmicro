@@ -17,23 +17,26 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.validation.ConstraintValidator;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
-import java.math.BigInteger;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * @author nedis
- * @since 0.7
+ * @since 0.12
  */
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class MaxBigIntegerNumberConstraintValidatorTest extends AbstractConstraintValidatorTest<BigInteger> {
+abstract class AbstractNullableConstraintValidatorTest<T> extends AbstractConstraintValidatorTest {
 
-    @Override
-    ConstraintValidator<BigInteger> instantiate() {
-        return new MaxBigIntegerNumberConstraintValidator("10", true);
+    static final String FIELD_NAME = "fieldName";
+
+    final ConstraintValidator<T> validator = instantiate();
+
+    abstract ConstraintValidator<T> instantiate();
+
+    @Test
+    @Order(1)
+    void Should_process_null_value_as_valid_argument() {
+        assertDoesNotThrow(() -> validator.validate(null, PARAMETER, FIELD_NAME));
     }
 }

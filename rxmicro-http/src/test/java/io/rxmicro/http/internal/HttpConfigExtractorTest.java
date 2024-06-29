@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class HttpConfigExtractorTest {
 
-    private final HttpConfig config = new HttpConfig() {
+    private final HttpConfig config = new HttpConfig("http") {
 
     };
 

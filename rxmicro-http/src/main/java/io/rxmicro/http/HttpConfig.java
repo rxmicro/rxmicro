@@ -16,13 +16,14 @@
 
 package io.rxmicro.http;
 
+import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 import io.rxmicro.http.internal.HttpConfigExtractor;
+import io.rxmicro.validation.constraint.HostName;
+import io.rxmicro.validation.constraint.Port;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.config.Networks.validatePort;
 
 /**
  * Allows configuring common HTTP options.
@@ -33,17 +34,32 @@ import static io.rxmicro.config.Networks.validatePort;
 @SuppressWarnings("UnusedReturnValue")
 public class HttpConfig extends Config {
 
-    private ProtocolSchema schema;
+    private ProtocolSchema schema = ProtocolSchema.HTTP;
 
-    private String host;
+    @HostName
+    private String host = CommonConstants.LOCALHOST;
 
-    private int port;
+    @Port
+    private Integer port = ProtocolSchema.HTTP.getPort();
 
     /**
      * This is basic class designed for extension only.
      */
-    protected HttpConfig() {
-        // This is basic class designed for extension only.
+    protected HttpConfig(final String namespace) {
+        super(namespace);
+    }
+
+    /**
+     * For setting properties from child classes ignoring validation, i.e. ignoring correspond {@link #ensureValid(Object)} invocations.
+     */
+    protected HttpConfig(final String namespace,
+                         final ProtocolSchema schema,
+                         final String host,
+                         final Integer port) {
+        super(namespace);
+        this.schema = schema;
+        this.host = host;
+        this.port = port;
     }
 
     /**
@@ -63,7 +79,7 @@ public class HttpConfig extends Config {
      */
     @BuilderMethod
     public HttpConfig setSchema(final ProtocolSchema schema) {
-        this.schema = require(schema);
+        this.schema = ensureValid(schema);
         return this;
     }
 
@@ -84,7 +100,7 @@ public class HttpConfig extends Config {
      */
     @BuilderMethod
     public HttpConfig setHost(final String host) {
-        this.host = require(host);
+        this.host = ensureValid(host);
         return this;
     }
 
@@ -93,7 +109,7 @@ public class HttpConfig extends Config {
      *
      * @return the server port
      */
-    public int getPort() {
+    public Integer getPort() {
         return port;
     }
 
@@ -104,8 +120,8 @@ public class HttpConfig extends Config {
      * @return the reference to this {@link HttpConfig} instance
      */
     @BuilderMethod
-    public HttpConfig setPort(final int port) {
-        this.port = validatePort(port);
+    public HttpConfig setPort(final Integer port) {
+        this.port = ensureValid(port);
         return this;
     }
 

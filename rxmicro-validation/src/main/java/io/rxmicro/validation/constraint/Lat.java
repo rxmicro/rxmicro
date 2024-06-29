@@ -27,10 +27,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.math.BigDecimal;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must be a valid latitude coordinate.
@@ -38,7 +39,7 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * <p>
  * Read more:
  * <a href="https://en.wikipedia.org/wiki/Geographic_coordinate_system">
- *     https://en.wikipedia.org/wiki/Geographic_coordinate_system
+ * https://en.wikipedia.org/wiki/Geographic_coordinate_system
  * </a>
  *
  * @author nedis
@@ -47,8 +48,8 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * @since 0.1
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = BigDecimal.class,
         validatorClass = LatConstraintValidator.class
@@ -59,6 +60,16 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
         link = "https://en.wikipedia.org/wiki/Latitude"
 )
 public @interface Lat {
+
+    /**
+     * Min allowed value (inclusive).
+     */
+    BigDecimal MIN_LAT_VALUE = new BigDecimal("-90");
+
+    /**
+     * Max allowed value (inclusive).
+     */
+    BigDecimal MAX_LAT_VALUE = new BigDecimal("90");
 
     /**
      * Allows disabling the validation rule if this rule is inherited from super class.

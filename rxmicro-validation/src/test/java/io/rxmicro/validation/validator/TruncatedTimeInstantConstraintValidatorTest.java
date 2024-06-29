@@ -17,8 +17,8 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.common.ImpossibleException;
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import io.rxmicro.validation.constraint.TruncatedTime;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -32,7 +32,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.time.Instant;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -45,7 +44,7 @@ import static org.mockito.Mockito.mock;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class TruncatedTimeInstantConstraintValidatorTest extends AbstractConstraintValidatorTest<Instant> {
+final class TruncatedTimeInstantConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<Instant> {
 
     @Override
     ConstraintValidator<Instant> instantiate() {
@@ -83,12 +82,12 @@ final class TruncatedTimeInstantConstraintValidatorTest extends AbstractConstrai
             "HOURS;     2020-01-15T00:00:00.123Z;   Expected a time without hours, but actual is '2020-01-15T00:00:00.123Z'!"
     })
     @Order(12)
-    void Should_throw_ValidationException(final TruncatedTime.Truncated truncated,
-                                          final String value,
-                                          final String details) {
+    void Should_throw_ConstraintViolationException(final TruncatedTime.Truncated truncated,
+                                                   final String value,
+                                                   final String details) {
         final TruncatedTimeInstantConstraintValidator validator = new TruncatedTimeInstantConstraintValidator(truncated);
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(Instant.parse(value), PARAMETER, "value"));
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(Instant.parse(value), PARAMETER, "value"));
         assertEquals(
                 "Invalid parameter \"value\": " + details,
                 exception.getMessage()

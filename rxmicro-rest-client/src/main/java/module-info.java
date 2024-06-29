@@ -50,6 +50,7 @@ import io.rxmicro.rest.client.detail.HttpClientFactory;
 module rxmicro.rest.client {
     requires transitive rxmicro.rest;
     requires transitive rxmicro.logger;
+    requires rxmicro.validation;
 
     exports io.rxmicro.rest.client;
 

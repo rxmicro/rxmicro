@@ -114,7 +114,7 @@ final class NettyHttpClientLoggerIntegrationTest {
         when(loggerImplProvider.getLogger(any(Class.class))).thenReturn(logger);
         setLoggerImplFactory(loggerImplProvider);
 
-        final RestClientConfig restClientConfig = new RestClientConfig()
+        final RestClientConfig restClientConfig = new RestClientConfig("rest-client")
                 .setPort(HTTP_PORT)
                 .setRequestTimeout(Duration.ZERO)
                 .setConnectTimeout(Duration.ZERO);

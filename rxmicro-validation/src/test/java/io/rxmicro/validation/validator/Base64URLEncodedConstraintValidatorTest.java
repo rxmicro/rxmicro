@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import io.rxmicro.validation.constraint.Base64URLEncoded;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -26,7 +26,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class Base64URLEncodedConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
+final class Base64URLEncodedConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
@@ -47,7 +46,7 @@ final class Base64URLEncodedConstraintValidatorTest extends AbstractConstraintVa
     @Test
     @Order(10)
     void Should_ignore_validation_for_empty_string() {
-        assertDoesNotThrow(() -> validator.validate("", TYPE, FIELD_NAME));
+        assertDoesNotThrow(() -> validator.validate("", PARAMETER, FIELD_NAME));
     }
 
     @Test
@@ -73,9 +72,9 @@ final class Base64URLEncodedConstraintValidatorTest extends AbstractConstraintVa
 
     @Test
     @Order(13)
-    void Should_throw_ValidationException_if_parameter_contains_invalid_character() {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate("A*B", PARAMETER, "value"));
+    void Should_throw_ConstraintViolationException_if_parameter_contains_invalid_character() {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("A*B", PARAMETER, "value"));
         assertEquals(
                 "Invalid parameter \"value\": " +
                         "Expected a valid Base64 string, i.e. string which contains the following characters only " +

@@ -16,11 +16,12 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
 import java.util.Set;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Size} constraint.
@@ -44,13 +45,13 @@ public class SizeSetConstraintValidator extends AbstractContainerConstraintValid
 
     @Override
     public void validateNonNull(final Set<?> value,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final int actual = value.size();
         if (actual != expectedSize) {
-            throw new ValidationException(
+            reportViolation(
                     "Invalid ? \"?\": Expected array length = ?, but actual is ?. (array: ?)!",
-                    httpModelType, modelName, expectedSize, actual, value
+                    modelType, modelName, expectedSize, actual, value
             );
         }
     }

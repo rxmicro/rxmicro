@@ -53,6 +53,7 @@ module rxmicro.data.mongo {
     requires transitive org.mongodb.driver.reactivestreams;
     requires transitive org.mongodb.driver.core;
     requires transitive org.reactivestreams;
+    requires rxmicro.validation;
 
     exports io.rxmicro.data.mongo;
     exports io.rxmicro.data.mongo.operation;

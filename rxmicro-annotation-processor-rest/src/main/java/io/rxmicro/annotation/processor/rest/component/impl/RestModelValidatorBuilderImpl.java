@@ -32,8 +32,9 @@ import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelConstraintAnnotation;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassStructure;
 import io.rxmicro.validation.base.ConstraintParametersOrder;
-import io.rxmicro.validation.constraint.MaxNumber;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.base.ConstraintRule;
+import io.rxmicro.validation.constraint.Max;
+import io.rxmicro.validation.constraint.Min;
 
 import java.util.HashSet;
 import java.util.List;
@@ -180,7 +181,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                                                      final ModelConstraintAnnotation annotation) {
         final List<String> parameterOrder = annotation.getParameterOrder();
         final Map<String, String> map = annotation.getElementValues().entrySet().stream()
-                .filter(e -> !"off".equals(e.getKey().getSimpleName().toString()))
+                .filter(e -> !ConstraintRule.OFF.equals(e.getKey().getSimpleName().toString()))
                 .collect(toMap(
                         e -> e.getKey().getSimpleName().toString(),
                         e -> convertAnnotationValue(builder, restModelField, annotation, e)
@@ -228,8 +229,8 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                 restModelField.getFieldElement(), builder.getClassHeaderBuilder(),
                 entry.getValue().getValue()
         );
-        if (MinNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName()) ||
-                MaxNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
+        if (Min.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName()) ||
+                Max.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             return removeUnderscoresIfPresent(result);
         } else {
             return result;

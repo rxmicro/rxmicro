@@ -17,8 +17,8 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.common.ImpossibleException;
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import io.rxmicro.validation.constraint.CountryCode;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -30,7 +30,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,7 +43,7 @@ import static org.mockito.Mockito.mock;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-final class CountryCodeConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
+final class CountryCodeConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
@@ -64,9 +63,9 @@ final class CountryCodeConstraintValidatorTest extends AbstractConstraintValidat
             "co                       ;Expected an uppercase string, but actual is 'co'!"
     })
     @Order(12)
-    void Should_throw_ValidationException_if_parameter_is_invalid_ISO_3166_1_ALPHA_2_one(final String country,
-                                                                                         final String details) {
-        final ValidationException exception = assertThrows(ValidationException.class, () ->
+    void Should_throw_ConstraintViolationException_if_parameter_is_invalid_ISO_3166_1_ALPHA_2_one(final String country,
+                                                                                                  final String details) {
+        final ConstraintViolationException exception = assertThrows(ConstraintViolationException.class, () ->
                 validator.validate(country == null ? "" : country, PARAMETER, "country"));
         assertEquals(
                 "Invalid parameter \"country\": " + details,
@@ -88,10 +87,10 @@ final class CountryCodeConstraintValidatorTest extends AbstractConstraintValidat
             "com                      ;Expected an uppercase string, but actual is 'com'!"
     })
     @Order(14)
-    void Should_throw_ValidationException_if_parameter_is_invalid_ISO_3166_1_ALPHA_3_one(final String country,
-                                                                                         final String details) {
+    void Should_throw_ConstraintViolationException_if_parameter_is_invalid_ISO_3166_1_ALPHA_3_one(final String country,
+                                                                                                  final String details) {
         final CountryCodeConstraintValidator validator = new CountryCodeConstraintValidator(CountryCode.Format.ISO_3166_1_ALPHA_3);
-        final ValidationException exception = assertThrows(ValidationException.class, () ->
+        final ConstraintViolationException exception = assertThrows(ConstraintViolationException.class, () ->
                 validator.validate(country == null ? "" : country, PARAMETER, "country"));
         assertEquals(
                 "Invalid parameter \"country\": " + details,
@@ -113,10 +112,10 @@ final class CountryCodeConstraintValidatorTest extends AbstractConstraintValidat
             "com                      ;Expected a string with digits only, but actual value contains invalid character: 'c' (0x63)!"
     })
     @Order(16)
-    void Should_throw_ValidationException_if_parameter_is_invalid_ISO_3166_1_NUMERIC_one(final String country,
-                                                                                         final String details) {
+    void Should_throw_ConstraintViolationException_if_parameter_is_invalid_ISO_3166_1_NUMERIC_one(final String country,
+                                                                                                  final String details) {
         final CountryCodeConstraintValidator validator = new CountryCodeConstraintValidator(CountryCode.Format.ISO_3166_1_NUMERIC);
-        final ValidationException exception = assertThrows(ValidationException.class, () ->
+        final ConstraintViolationException exception = assertThrows(ConstraintViolationException.class, () ->
                 validator.validate(country == null ? "" : country, PARAMETER, "country"));
         assertEquals(
                 "Invalid parameter \"country\": " + details,

@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -30,7 +30,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class SizeSetConstraintValidatorTest extends AbstractConstraintValidatorTest<Set<?>> {
+final class SizeSetConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<Set<?>> {
 
     @Override
     ConstraintValidator<Set<?>> instantiate() {
@@ -61,10 +60,10 @@ final class SizeSetConstraintValidatorTest extends AbstractConstraintValidatorTe
             "1,2,3,4"
     })
     @Order(12)
-    void Should_throw_ValidationException(final String value) {
+    void Should_throw_ConstraintViolationException(final String value) {
         final Set<String> list = value.isEmpty() ? Set.of() : Set.of(value.split(","));
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(list, PARAMETER, "value"));
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(list, PARAMETER, "value"));
         assertEquals(
                 format("Invalid parameter \"value\": Expected array length = 3, but actual is ?. (array: ?)!", list.size(), list),
                 exception.getMessage()

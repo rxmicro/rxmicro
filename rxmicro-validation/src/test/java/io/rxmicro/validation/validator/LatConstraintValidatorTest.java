@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import io.rxmicro.validation.base.LocationAccuracy;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -31,7 +31,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.math.BigDecimal;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class LatConstraintValidatorTest extends AbstractConstraintValidatorTest<BigDecimal> {
+final class LatConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<BigDecimal> {
 
     @Override
     ConstraintValidator<BigDecimal> instantiate() {
@@ -68,10 +67,10 @@ final class LatConstraintValidatorTest extends AbstractConstraintValidatorTest<B
             "45.123456;     Expected scale = 5, but actual is 6!"
     })
     @Order(12)
-    void Should_throw_ValidationException(final String value,
-                                          final String details) {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(new BigDecimal(value), PARAMETER, "lat"));
+    void Should_throw_ConstraintViolationException(final String value,
+                                                   final String details) {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(new BigDecimal(value), PARAMETER, "lat"));
         assertEquals(
                 format("Invalid parameter \"lat\": ?", details),
                 exception.getMessage()

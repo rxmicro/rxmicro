@@ -20,6 +20,7 @@ import io.rxmicro.data.sql.SQLPooledDatabaseConfig;
 
 import java.time.Duration;
 import java.util.Map;
+import java.util.Optional;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
@@ -49,13 +50,13 @@ public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
     /**
      * Creates a Postgre SQL config instance with default settings.
      */
-    public PostgreSQLConfig() {
-        setPort(DEFAULT_POSTGRESQL_PORT);
+    public PostgreSQLConfig(final String namespace) {
+        super(namespace, DEFAULT_POSTGRESQL_PORT);
     }
 
     @Override
     public String getConnectionString() {
-        return format("r2dbc:postgresql://?:?/?", getHost(), getPort(), getDatabase());
+        return format("r2dbc:postgresql://?/?", getHost(), Optional.ofNullable(getPort()).map(p -> ":" + p).orElse(""), getDatabase());
     }
 
     @Override
@@ -104,7 +105,7 @@ public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
     }
 
     @Override
-    public PostgreSQLConfig setPort(final int port) {
+    public PostgreSQLConfig setPort(final Integer port) {
         return (PostgreSQLConfig) super.setPort(port);
     }
 

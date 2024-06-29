@@ -46,6 +46,7 @@ module rxmicro.test.dbunit {
 
     requires transitive dbunit;
     requires java.sql;
+    requires rxmicro.validation;
 
     exports io.rxmicro.test.dbunit;
 

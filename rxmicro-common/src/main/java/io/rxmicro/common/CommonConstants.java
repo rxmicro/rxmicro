@@ -31,6 +31,12 @@ public final class CommonConstants {
     public static final String EMPTY_STRING = "";
 
     /**
+     * Represents a hostname that refers to the current computer used to access it.
+     * <p>Read more here: <a href="https://en.wikipedia.org/wiki/Localhost">What is localhost?</a>
+     */
+    public static final String LOCALHOST = "localhost";
+
+    /**
      * The reference to the {@link Module} object of the {@code rxmicro.common} module.
      */
     public static final Module RX_MICRO_COMMON_MODULE = CommonConstants.class.getModule();

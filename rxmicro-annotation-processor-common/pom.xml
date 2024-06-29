@@ -119,6 +119,11 @@
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-rest</artifactId>
+            <version>0.12-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-validation</artifactId>
             <version>0.12-SNAPSHOT</version>
         </dependency>

@@ -55,7 +55,7 @@ public abstract class AbstractDateTimeEqualsConstraintValidator {
      * Returns {@code true} if values are not equals after truncation.
      *
      * @param expectedDirtyTimeInMillis expected time in millis without truncation
-     * @param actualClearTimeInMillis actual time in millis after truncation
+     * @param actualClearTimeInMillis   actual time in millis after truncation
      * @return {@code true} if values are not equals after truncation
      */
     protected boolean isNotEqualsAfterTruncation(final long expectedDirtyTimeInMillis,

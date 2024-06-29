@@ -18,6 +18,8 @@ package io.rxmicro.rest.client;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.ProtocolSchema;
+import io.rxmicro.validation.constraint.Min;
+import io.rxmicro.validation.constraint.Nullable;
 
 import java.time.Duration;
 
@@ -35,11 +37,6 @@ import static io.rxmicro.http.ProtocolSchema.HTTP;
 public class RestClientConfig extends HttpClientConnectionPoolConfig {
 
     /**
-     * Default HTTP port.
-     */
-    public static final int DEFAULT_HTTP_PORT = 80;
-
-    /**
      * Default connect timeout.
      */
     public static final Duration DEFAULT_CONNECT_TIMEOUT = Duration.ofSeconds(3);
@@ -49,26 +46,34 @@ public class RestClientConfig extends HttpClientConnectionPoolConfig {
      */
     public static final Duration DEFAULT_REQUEST_TIMEOUT = Duration.ofSeconds(7);
 
+    @Nullable
     private String accessKey;
 
-    private boolean followRedirects;
+    private boolean followRedirects = true;
 
     private boolean enableAdditionalValidations;
 
-    private Duration connectTimeout;
+    @Min("PT0S")
+    private Duration connectTimeout = DEFAULT_CONNECT_TIMEOUT;
 
-    private Duration requestTimeout;
+    @Min("PT0S")
+    private Duration requestTimeout = DEFAULT_REQUEST_TIMEOUT;
 
     /**
      * Creates a rest client config instance with default settings.
      */
-    public RestClientConfig() {
-        super.setSchema(HTTP);
-        super.setHost("localhost");
-        super.setPort(DEFAULT_HTTP_PORT);
-        this.followRedirects = true;
-        this.connectTimeout = DEFAULT_CONNECT_TIMEOUT;
-        this.requestTimeout = DEFAULT_REQUEST_TIMEOUT;
+    public RestClientConfig(final String namespace) {
+        super(namespace);
+    }
+
+    /**
+     * For setting properties from child classes ignoring validation, i.e. ignoring correspond {@link #ensureValid(Object)} invocations.
+     */
+    protected RestClientConfig(final String namespace,
+                               final ProtocolSchema schema,
+                               final String host,
+                               final Integer port) {
+        super(namespace, schema, host, port);
     }
 
     /**
@@ -88,7 +93,7 @@ public class RestClientConfig extends HttpClientConnectionPoolConfig {
      */
     @BuilderMethod
     public RestClientConfig setAccessKey(final String accessKey) {
-        this.accessKey = require(accessKey);
+        this.accessKey = ensureValid(accessKey);
         return this;
     }
 
@@ -133,7 +138,7 @@ public class RestClientConfig extends HttpClientConnectionPoolConfig {
      */
     @BuilderMethod
     public RestClientConfig setConnectTimeout(final Duration connectTimeout) {
-        this.connectTimeout = connectTimeout;
+        this.connectTimeout = ensureValid(connectTimeout);
         return this;
     }
 
@@ -157,7 +162,7 @@ public class RestClientConfig extends HttpClientConnectionPoolConfig {
      */
     @BuilderMethod
     public RestClientConfig setRequestTimeout(final Duration requestTimeout) {
-        this.requestTimeout = require(requestTimeout);
+        this.requestTimeout = ensureValid(requestTimeout);
         return this;
     }
 
@@ -194,7 +199,7 @@ public class RestClientConfig extends HttpClientConnectionPoolConfig {
     }
 
     @Override
-    public RestClientConfig setPort(final int port) {
+    public RestClientConfig setPort(final Integer port) {
         return (RestClientConfig) super.setPort(port);
     }
 
@@ -214,7 +219,7 @@ public class RestClientConfig extends HttpClientConnectionPoolConfig {
     }
 
     @Override
-    public RestClientConfig setPendingAcquireMaxCount(final int pendingAcquireMaxCount) {
+    public RestClientConfig setPendingAcquireMaxCount(final Integer pendingAcquireMaxCount) {
         return (RestClientConfig) super.setPendingAcquireMaxCount(pendingAcquireMaxCount);
     }
 

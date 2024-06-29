@@ -16,9 +16,10 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.URLEncoded} constraint.
@@ -33,16 +34,16 @@ public class URLEncodedConstraintValidator implements ConstraintValidator<String
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         for (int i = 0; i < actual.length(); i++) {
             final char ch = actual.charAt(i);
             if (ch > MAX_ASCII_CODE) {
-                throw new ValidationException(
+                reportViolation(
                         "Invalid ? \"?\": Expected a URL encoded string, " +
                                 "where all characters are between 0x00 and 0x7F (ASCII), but actual is '?'. " +
                                 "Invalid character is '?' (0x?)!",
-                        httpModelType, modelName, actual, ch, Integer.toHexString(ch)
+                        modelType, modelName, actual, ch, Integer.toHexString(ch)
                 );
             }
         }

@@ -16,9 +16,6 @@
 
 package io.rxmicro.resource;
 
-import io.rxmicro.resource.model.ResourceException;
-
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -66,21 +63,6 @@ public final class Paths {
             normalizedPath = System.getProperty("user.dir") + normalizedPath.substring(1);
         }
         return Path.of(normalizedPath).toAbsolutePath();
-    }
-
-    /**
-     * Validates the provided {@link Path} instance.
-     *
-     * @param path the provided {@link Path} instance.
-     * @throws ResourceException if the provided {@link Path} instance not found or is not directory.
-     */
-    public static void validateDirectory(final Path path) {
-        if (!Files.exists(path)) {
-            throw new ResourceException("Directory not found: '?'!", path.toAbsolutePath());
-        }
-        if (!Files.isDirectory(path)) {
-            throw new ResourceException("'?' path is not a directory!", path.toAbsolutePath());
-        }
     }
 
     private Paths() {

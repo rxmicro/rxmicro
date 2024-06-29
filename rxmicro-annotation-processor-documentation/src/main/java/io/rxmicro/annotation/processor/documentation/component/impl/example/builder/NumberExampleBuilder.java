@@ -26,10 +26,10 @@ import io.rxmicro.validation.constraint.Lat;
 import io.rxmicro.validation.constraint.Lng;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
-import io.rxmicro.validation.constraint.MaxNumber;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.Numeric;
 
 import java.math.BigDecimal;
@@ -80,7 +80,7 @@ public final class NumberExampleBuilder implements TypeExampleBuilder {
                     .filter(a -> !a.off())
                     .map(maxInt -> new JsonNumber(String.valueOf(maxInt.value()))),
 
-            restModelField -> Optional.ofNullable(restModelField.getAnnotation(MaxNumber.class))
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Max.class))
                     .filter(a -> !a.off())
                     .map(maxNumber -> new JsonNumber(removeUnderscoresIfPresent(maxNumber.value()))),
 
@@ -92,7 +92,7 @@ public final class NumberExampleBuilder implements TypeExampleBuilder {
                     .filter(a -> !a.off())
                     .map(minInt -> new JsonNumber(String.valueOf(minInt.value()))),
 
-            restModelField -> Optional.ofNullable(restModelField.getAnnotation(MinNumber.class))
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Min.class))
                     .filter(a -> !a.off())
                     .map(minNumber -> new JsonNumber(removeUnderscoresIfPresent(minNumber.value()))),
 

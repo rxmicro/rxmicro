@@ -38,12 +38,12 @@ import io.rxmicro.validation.constraint.Lowercase;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
 import io.rxmicro.validation.constraint.MaxLength;
-import io.rxmicro.validation.constraint.MaxNumber;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MaxSize;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
 import io.rxmicro.validation.constraint.MinLength;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.MinSize;
 import io.rxmicro.validation.constraint.Nullable;
 import io.rxmicro.validation.constraint.NullableArrayItem;
@@ -118,10 +118,10 @@ abstract class Abstract {
     @MaxInt(15)
     private Byte maxIntByte;
 
-    @MinNumber("5")
+    @Min("5")
     private Byte minNumberByte;
 
-    @MaxNumber("15")
+    @Max("15")
     private Byte maxNumberByte;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -137,10 +137,10 @@ abstract class Abstract {
     @MaxInt(15_000)
     private Short maxIntShort;
 
-    @MinNumber("5_000")
+    @Min("5_000")
     private Short minNumberShort;
 
-    @MaxNumber("15_000")
+    @Max("15_000")
     private Short maxNumberShort;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -156,10 +156,10 @@ abstract class Abstract {
     @MaxInt(2_000_000_000)
     private Integer maxIntInteger;
 
-    @MinNumber("500_000_000")
+    @Min("500_000_000")
     private Integer minNumberInteger;
 
-    @MaxNumber("2_000_000_000")
+    @Max("2_000_000_000")
     private Integer maxNumberInteger;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -175,10 +175,10 @@ abstract class Abstract {
     @MaxInt(2_000_000_000_000L)
     private Long maxIntLong;
 
-    @MinNumber("500_000_000_000")
+    @Min("500_000_000_000")
     private Long minNumberLong;
 
-    @MaxNumber("2_000_000_000_000")
+    @Max("2_000_000_000_000")
     private Long maxNumberLong;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -188,10 +188,10 @@ abstract class Abstract {
     @Example("700_000_000_000_000_000_000")
     private BigInteger exampleBigInteger;
 
-    @MinNumber("500_000_000_000_000_000_000")
+    @Min("500_000_000_000_000_000_000")
     private BigInteger minNumberBigInteger;
 
-    @MaxNumber("2_000_000_000_000_000_000_000")
+    @Max("2_000_000_000_000_000_000_000")
     private BigInteger maxNumberBigInteger;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -207,10 +207,10 @@ abstract class Abstract {
     @MaxDouble(6.78)
     private Float maxIntFloat;
 
-    @MinNumber("1.1")
+    @Min("1.1")
     private Float minNumberFloat;
 
-    @MaxNumber("6.78")
+    @Max("6.78")
     private Float maxNumberFloat;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -226,10 +226,10 @@ abstract class Abstract {
     @MaxDouble(6.7815926535)
     private Double maxIntDouble;
 
-    @MinNumber("1.1234567890")
+    @Min("1.1234567890")
     private Double minNumberDouble;
 
-    @MaxNumber("6.7815926535")
+    @Max("6.7815926535")
     private Double maxNumberDouble;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -239,10 +239,10 @@ abstract class Abstract {
     @Example("2.9876543210987654321098765432109876543210")
     private BigDecimal exampleBigDecimal;
 
-    @MinNumber("1.1234567890123456789012345678901234567890")
+    @Min("1.1234567890123456789012345678901234567890")
     private BigDecimal minNumberBigDecimal;
 
-    @MaxNumber("6.7815926535897932384626433832795028841971")
+    @Max("6.7815926535897932384626433832795028841971")
     private BigDecimal maxNumberBigDecimal;
 
     @Numeric(scale = 5, precision = 2)

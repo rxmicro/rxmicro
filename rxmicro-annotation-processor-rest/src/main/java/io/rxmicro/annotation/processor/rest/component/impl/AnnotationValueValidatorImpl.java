@@ -28,10 +28,10 @@ import io.rxmicro.annotation.processor.rest.model.validator.ModelConstraintAnnot
 import io.rxmicro.validation.constraint.Enumeration;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
-import io.rxmicro.validation.constraint.MaxNumber;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.Pattern;
 import io.rxmicro.validation.constraint.SubEnum;
 
@@ -82,8 +82,8 @@ public final class AnnotationValueValidatorImpl extends BaseProcessorComponent
         } else if (MaxInt.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName()) ||
                 MinInt.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             validateMinMaxInt(modelConstraintAnnotation, restModelField);
-        } else if (MaxNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName()) ||
-                MinNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
+        } else if (Max.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName()) ||
+                Min.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             validateMinMaxNumber(modelConstraintAnnotation, restModelField);
         } else if (Pattern.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             validateRegExpSyntax(restModelField);
@@ -117,12 +117,12 @@ public final class AnnotationValueValidatorImpl extends BaseProcessorComponent
                                       final RestModelField restModelField) {
         final String value;
         final Class<? extends Annotation> annotation;
-        if (MaxNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
-            value = restModelField.getAnnotation(MaxNumber.class).value();
-            annotation = MaxNumber.class;
+        if (Max.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
+            value = restModelField.getAnnotation(Max.class).value();
+            annotation = Max.class;
         } else {
-            value = restModelField.getAnnotation(MinNumber.class).value();
-            annotation = MinNumber.class;
+            value = restModelField.getAnnotation(Min.class).value();
+            annotation = Min.class;
         }
         if (Byte.class.getName().equals(restModelField.getFieldClass().toString())) {
             numberValidators.validateByte(restModelField, value, annotation);

@@ -18,6 +18,10 @@ package io.rxmicro.rest.client;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpConfig;
+import io.rxmicro.http.ProtocolSchema;
+import io.rxmicro.validation.constraint.Min;
+import io.rxmicro.validation.constraint.MinInt;
+import io.rxmicro.validation.constraint.Nullable;
 
 import java.time.Duration;
 import java.util.Optional;
@@ -55,31 +59,43 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      */
     public static final LeasingStrategy DEFAULT_POOL_LEASING_STRATEGY = LeasingStrategy.FIFO;
 
-    private static final int PENDING_ACQUIRE_MAX_COUNT_NOT_SPECIFIED = -2;
+    @Min("PT0S")
+    private Duration evictionInterval = EVICT_IN_BACKGROUND_DISABLED;
 
-    private Duration evictionInterval;
+    @MinInt(1)
+    private int maxConnections = DEFAULT_POOL_MAX_CONNECTIONS;
 
-    private int maxConnections;
+    @Nullable
+    @MinInt(1)
+    private Integer pendingAcquireMaxCount;
 
-    private int pendingAcquireMaxCount;
+    private Duration pendingAcquireTimeout = DEFAULT_POOL_ACQUIRE_TIMEOUT;
 
-    private Duration pendingAcquireTimeout;
-
+    @Nullable
+    @Min("PT0S")
     private Duration maxIdleTime;
 
+    @Nullable
+    @Min("PT0S")
     private Duration maxLifeTime;
 
-    private LeasingStrategy leasingStrategy;
+    private LeasingStrategy leasingStrategy = DEFAULT_POOL_LEASING_STRATEGY;
 
     /**
      * This is basic class designed for extension only.
      */
-    protected HttpClientConnectionPoolConfig() {
-        this.evictionInterval = EVICT_IN_BACKGROUND_DISABLED;
-        this.maxConnections = DEFAULT_POOL_MAX_CONNECTIONS;
-        this.pendingAcquireMaxCount = PENDING_ACQUIRE_MAX_COUNT_NOT_SPECIFIED;
-        this.pendingAcquireTimeout = DEFAULT_POOL_ACQUIRE_TIMEOUT;
-        this.leasingStrategy = DEFAULT_POOL_LEASING_STRATEGY;
+    protected HttpClientConnectionPoolConfig(final String namespace) {
+        super(namespace);
+    }
+
+    /**
+     * For setting properties from child classes ignoring validation, i.e. ignoring correspond {@link #ensureValid(Object)} invocations.
+     */
+    protected HttpClientConnectionPoolConfig(final String namespace,
+                                             final ProtocolSchema schema,
+                                             final String host,
+                                             final Integer port) {
+        super(namespace, schema, host, port);
     }
 
     /**
@@ -104,7 +120,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      */
     @BuilderMethod
     public HttpClientConnectionPoolConfig setEvictionInterval(final Duration evictionInterval) {
-        this.evictionInterval = require(evictionInterval);
+        this.evictionInterval = ensureValid(evictionInterval);
         return this;
     }
 
@@ -127,10 +143,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      */
     @BuilderMethod
     public HttpClientConnectionPoolConfig setMaxConnections(final int maxConnections) {
-        if (maxConnections <= 0) {
-            throw new IllegalArgumentException("Max Connections value must be strictly positive");
-        }
-        this.maxConnections = maxConnections;
+        this.maxConnections = ensureValid(maxConnections);
         return this;
     }
 
@@ -142,7 +155,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      *         a pending queue.
      */
     public OptionalInt getPendingAcquireMaxCount() {
-        if (pendingAcquireMaxCount == PENDING_ACQUIRE_MAX_COUNT_NOT_SPECIFIED) {
+        if (pendingAcquireMaxCount == null) {
             return OptionalInt.empty();
         } else {
             return OptionalInt.of(pendingAcquireMaxCount);
@@ -152,7 +165,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
     /**
      * Set the options to use for configuring connection provider the maximum number of registered requests for acquire to keep in
      * a pending queue.
-     * When invoked with -1 the pending queue will not have upper limit.
+     * When invoked with {@code null} the pending queue will not have upper limit.
      * Default to {@code 2 * max connections}.
      *
      * @param pendingAcquireMaxCount the maximum number of registered requests for acquire to keep in a pending queue
@@ -160,11 +173,8 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * @throws IllegalArgumentException if pendingAcquireMaxCount is negative
      */
     @BuilderMethod
-    public HttpClientConnectionPoolConfig setPendingAcquireMaxCount(final int pendingAcquireMaxCount) {
-        if (pendingAcquireMaxCount != -1 && pendingAcquireMaxCount <= 0) {
-            throw new IllegalArgumentException("Pending acquire max count must be strictly positive");
-        }
-        this.pendingAcquireMaxCount = pendingAcquireMaxCount;
+    public HttpClientConnectionPoolConfig setPendingAcquireMaxCount(final Integer pendingAcquireMaxCount) {
+        this.pendingAcquireMaxCount = ensureValid(pendingAcquireMaxCount);
         return this;
     }
 
@@ -188,7 +198,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      */
     @BuilderMethod
     public HttpClientConnectionPoolConfig setPendingAcquireTimeout(final Duration pendingAcquireTimeout) {
-        this.pendingAcquireTimeout = require(pendingAcquireTimeout);
+        this.pendingAcquireTimeout = ensureValid(pendingAcquireTimeout);
         return this;
     }
 
@@ -210,7 +220,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      */
     @BuilderMethod
     public HttpClientConnectionPoolConfig setMaxIdleTime(final Duration maxIdleTime) {
-        this.maxIdleTime = require(maxIdleTime);
+        this.maxIdleTime = ensureValid(maxIdleTime);
         return this;
     }
 
@@ -232,7 +242,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      */
     @BuilderMethod
     public HttpClientConnectionPoolConfig setMaxLifeTime(final Duration maxLifeTime) {
-        this.maxLifeTime = require(maxLifeTime);
+        this.maxLifeTime = ensureValid(maxLifeTime);
         return this;
     }
 
@@ -254,7 +264,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      */
     @BuilderMethod
     public HttpClientConnectionPoolConfig setLeasingStrategy(final LeasingStrategy leasingStrategy) {
-        this.leasingStrategy = require(leasingStrategy);
+        this.leasingStrategy = ensureValid(leasingStrategy);
         return this;
     }
 

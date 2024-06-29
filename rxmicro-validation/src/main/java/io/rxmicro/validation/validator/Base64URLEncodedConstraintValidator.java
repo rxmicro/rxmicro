@@ -16,8 +16,7 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.constraint.Base64URLEncoded;
 
@@ -26,7 +25,8 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
+import static io.rxmicro.validation.internal.ValidatorHelper.getLatinLettersAndDigits;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Base64URLEncoded} constraint.
@@ -72,26 +72,26 @@ public class Base64URLEncodedConstraintValidator implements ConstraintValidator<
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         if (alphabet == Base64URLEncoded.Alphabet.BASE) {
-            validate(actual, httpModelType, modelName, ALPHABET_BASE);
+            validate(actual, modelType, modelName, ALPHABET_BASE);
         } else {
-            validate(actual, httpModelType, modelName, ALPHABET_URL);
+            validate(actual, modelType, modelName, ALPHABET_URL);
         }
     }
 
     private void validate(final CharSequence value,
-                          final HttpModelType httpModelType,
+                          final ModelType modelType,
                           final String modelName,
                           final Set<Character> alphabet) {
         for (int i = 0; i < value.length(); i++) {
             final char ch = value.charAt(i);
             if (!alphabet.contains(ch)) {
-                throw new ValidationException("Invalid ? \"?\": Expected a valid Base64 string, i.e. " +
-                        "string which contains the following characters only [?], " +
-                        "but actual value contains invalid character: '?' (0x?)!",
-                        httpModelType, modelName, new TreeSet<>(alphabet), ch, Integer.toHexString(ch)
+                reportViolation("Invalid ? \"?\": Expected a valid Base64 string, i.e. " +
+                                "string which contains the following characters only [?], " +
+                                "but actual value contains invalid character: '?' (0x?)!",
+                        modelType, modelName, new TreeSet<>(alphabet), ch, Integer.toHexString(ch)
                 );
             }
         }

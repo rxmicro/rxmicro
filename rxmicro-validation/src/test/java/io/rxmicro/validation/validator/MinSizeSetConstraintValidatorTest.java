@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -43,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 // CPD-OFF Read more: https://pmd.github.io/pmd-6.13.0/pmd_userdocs_cpd.html#suppression
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class MinSizeSetConstraintValidatorTest extends AbstractConstraintValidatorTest<Set<?>> {
+final class MinSizeSetConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<Set<?>> {
 
     @Override
     ConstraintValidator<Set<?>> instantiate() {
@@ -62,10 +61,10 @@ final class MinSizeSetConstraintValidatorTest extends AbstractConstraintValidato
             "1,2"
     })
     @Order(12)
-    void Should_throw_ValidationException(final String value) {
+    void Should_throw_ConstraintViolationException(final String value) {
         final Set<String> list = value.isEmpty() ? Set.of() : Set.of(value.split(","));
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(list, PARAMETER, "value"));
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(list, PARAMETER, "value"));
         assertEquals(
                 format("Invalid parameter \"value\": " +
                         "Expected that array length >= 3, but actual is ?. (array: ?)!", list.size(), list),

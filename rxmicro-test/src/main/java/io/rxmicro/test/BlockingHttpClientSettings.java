@@ -16,6 +16,7 @@
 
 package io.rxmicro.test;
 
+import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.model.Option;
 import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.rest.BaseUrlPath;
@@ -63,7 +64,7 @@ public @interface BlockingHttpClientSettings {
      *
      * @return the HTTP server host
      */
-    String host() default "localhost";
+    String host() default CommonConstants.LOCALHOST;
 
     /**
      * Returns the HTTP server port or -1, if port must detected automatically.

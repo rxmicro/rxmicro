@@ -16,9 +16,10 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.AssertFalse} constraint.
@@ -31,10 +32,10 @@ public class AssertFalseConstraintValidator implements ConstraintValidator<Boole
 
     @Override
     public void validateNonNull(final Boolean actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         if (actual) {
-            throw new ValidationException("Invalid ? \"?\": Expected 'false', but actual is 'true'!", httpModelType, modelName);
+            reportViolation("Invalid ? \"?\": Expected 'false', but actual is 'true'!", modelType, modelName);
         }
     }
 }

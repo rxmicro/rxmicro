@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.validation;
+package io.rxmicro.http.error;
 
 import io.rxmicro.common.util.Formats;
-import io.rxmicro.http.error.HttpErrorException;
 
 import static io.rxmicro.http.HttpStatuses.INTERNAL_SERVER_ERROR_500;
 

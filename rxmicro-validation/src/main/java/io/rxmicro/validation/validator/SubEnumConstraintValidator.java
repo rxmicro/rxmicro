@@ -16,8 +16,7 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.ParametrizedConstraintValidator;
 
@@ -25,11 +24,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
+
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.SubEnum} constraint.
  *
- * @author nedis
  * @param <T> the type to validate
+ * @author nedis
  * @see io.rxmicro.validation.constraint.SubEnum
  * @since 0.1
  */
@@ -42,8 +43,8 @@ public class SubEnumConstraintValidator<T extends Enum<T>> implements Constraint
      * Creates the default instance of {@link SubEnumConstraintValidator} with the specified parameters.
      *
      * @param enumClass enum class
-     * @param include include enum constants
-     * @param exclude exclude enum constants
+     * @param include   include enum constants
+     * @param exclude   exclude enum constants
      */
     public SubEnumConstraintValidator(final Class<T> enumClass,
                                       final List<String> include,
@@ -67,12 +68,12 @@ public class SubEnumConstraintValidator<T extends Enum<T>> implements Constraint
 
     @Override
     public void validateNonNull(final T actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         if (!allowed.contains(actual.name())) {
-            throw new ValidationException(
+            reportViolation(
                     "Invalid ? \"?\": Expected a value from the set ?, but actual is '?'!",
-                    httpModelType, modelName, allowed, actual
+                    modelType, modelName, allowed, actual
             );
         }
     }

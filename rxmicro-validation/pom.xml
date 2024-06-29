@@ -46,7 +46,7 @@
     <dependencies>
         <dependency>
             <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-rest</artifactId>
+            <artifactId>rxmicro-model</artifactId>
             <version>0.12-SNAPSHOT</version>
         </dependency>
     </dependencies>

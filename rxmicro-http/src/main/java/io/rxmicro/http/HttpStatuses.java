@@ -531,9 +531,9 @@ public final class HttpStatuses {
             entry(NETWORK_CONNECT_TIMEOUT_ERROR_599, "Network connect timeout error")
     );
 
-    private static final int MIN_SUPPORTED_HTTP_STATUS = 100;
+    public static final int MIN_SUPPORTED_HTTP_STATUS = 100;
 
-    private static final int MAX_SUPPORTED_HTTP_STATUS = 599;
+    public static final int MAX_SUPPORTED_HTTP_STATUS = 599;
 
     /**
      * Returns the short description for the specified status code.

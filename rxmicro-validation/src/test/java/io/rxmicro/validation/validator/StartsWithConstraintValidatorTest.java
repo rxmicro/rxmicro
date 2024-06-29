@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class StartsWithConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
+final class StartsWithConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
@@ -51,9 +50,9 @@ final class StartsWithConstraintValidatorTest extends AbstractConstraintValidato
 
     @Test
     @Order(12)
-    void Should_throw_ValidationException() {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate("http://rxmicro.io", PARAMETER, "value"));
+    void Should_throw_ConstraintViolationException() {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("http://rxmicro.io", PARAMETER, "value"));
         assertEquals(
                 "Invalid parameter \"value\": Expected that value starts with 'https://' prefix, but actual is 'http://rxmicro.io'!",
                 exception.getMessage()

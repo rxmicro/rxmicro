@@ -16,13 +16,13 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
 import java.util.List;
 
-import static io.rxmicro.validation.internal.ConstraintValidators.validateMinValue;
+import static io.rxmicro.validation.internal.ValidatorHelper.validateMinValue;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.MinSize} constraint.
@@ -41,7 +41,7 @@ public class MinSizeListConstraintValidator extends AbstractContainerConstraintV
     /**
      * Creates the default instance of {@link MinSizeListConstraintValidator} with the specified parameters.
      *
-     * @param minValue the supported min value.
+     * @param minValue  the supported min value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MinSizeListConstraintValidator(final int minValue,
@@ -53,11 +53,11 @@ public class MinSizeListConstraintValidator extends AbstractContainerConstraintV
 
     @Override
     public void validateNonNull(final List<?> values,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final int actual = values.size();
         validateMinValue(
-                minValue, inclusive, actual, httpModelType, modelName,
+                minValue, inclusive, actual, modelType, modelName,
                 "Invalid ? \"?\": Expected that array length >= ?, but actual is ?. (array: " + values + ")!",
                 "Invalid ? \"?\": Expected that array length > ?, but actual is ?. (array: " + values + ")!"
         );

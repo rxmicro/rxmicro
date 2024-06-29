@@ -27,10 +27,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.math.BigDecimal;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must be a valid longitude coordinate.
@@ -38,7 +39,7 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * <p>
  * Read more:
  * <a href="https://en.wikipedia.org/wiki/Geographic_coordinate_system">
- *     https://en.wikipedia.org/wiki/Geographic_coordinate_system
+ * https://en.wikipedia.org/wiki/Geographic_coordinate_system
  * </a>
  *
  * @author nedis
@@ -47,8 +48,8 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * @since 0.1
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = BigDecimal.class,
         validatorClass = LngConstraintValidator.class
@@ -61,12 +62,22 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
 public @interface Lng {
 
     /**
+     * Min allowed value (inclusive).
+     */
+    BigDecimal MIN_LNG_VALUE = new BigDecimal("-180");
+
+    /**
+     * Max allowed value (inclusive).
+     */
+    BigDecimal MAX_LNG_VALUE = new BigDecimal("180");
+
+    /**
      * Allows disabling the validation rule if this rule is inherited from super class.
      *
      * <p>
      * By default, disable is off.
      *
-     * @return  {@code true} if the validation must be disabled.
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 

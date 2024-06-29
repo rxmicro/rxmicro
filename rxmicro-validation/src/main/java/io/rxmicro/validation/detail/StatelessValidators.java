@@ -34,6 +34,13 @@ public final class StatelessValidators {
 
     private static final Map<Class<? extends ConstraintValidator<?>>, ConstraintValidator<?>> VALIDATOR_MAP = new HashMap<>();
 
+    private StatelessValidators() {
+    }
+
+    /**
+     * @implNote If the provided class is not a class of stateless validator(i.e. validator without any constructor arguments), then
+     * the {@link io.rxmicro.common.CheckedWrapperException} will be thrown.
+     */
     @SuppressWarnings("unchecked")
     public static <T extends ConstraintValidator<?>> T getStatelessValidator(final Class<T> constraintValidatorClass) {
         T constraintValidator = (T) VALIDATOR_MAP.get(constraintValidatorClass);
@@ -42,8 +49,5 @@ public final class StatelessValidators {
             VALIDATOR_MAP.put(constraintValidatorClass, constraintValidator);
         }
         return constraintValidator;
-    }
-
-    private StatelessValidators() {
     }
 }

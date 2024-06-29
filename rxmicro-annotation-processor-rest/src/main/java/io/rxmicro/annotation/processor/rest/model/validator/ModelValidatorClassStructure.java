@@ -23,6 +23,7 @@ import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.http.error.ValidationException;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.detail.StatelessValidators;
@@ -137,6 +138,7 @@ public final class ModelValidatorClassStructure extends ClassStructure
     public ClassHeader getClassHeader() {
         classHeaderBuilder.addImports(stdValidatorClassImports.toArray(EMPTY_STRING_ARRAY))
                 .addImports(
+                        ModelType.class,
                         HttpModelType.class,
                         ValidationException.class,
                         ConstraintValidator.class

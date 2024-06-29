@@ -17,10 +17,13 @@
 package io.rxmicro.rest.server;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.config.Config;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.resource.model.ResourceException;
+import io.rxmicro.validation.constraint.ExistingDirectory;
+import io.rxmicro.validation.constraint.Min;
 
 import java.nio.file.Path;
 import java.time.Duration;
@@ -28,7 +31,6 @@ import java.time.Duration;
 import static io.rxmicro.http.ProtocolSchema.HTTP;
 import static io.rxmicro.resource.Paths.CURRENT_DIRECTORY;
 import static io.rxmicro.resource.Paths.createPath;
-import static io.rxmicro.resource.Paths.validateDirectory;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
@@ -42,31 +44,23 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public final class HttpServerConfig extends HttpConfig {
 
     /**
-     * Default HTTP port.
-     */
-    public static final int DEFAULT_HTTP_PORT = 8080;
-
-    /**
      * Default file content cache duration.
      */
     public static final Duration DEFAULT_FILE_CONTENT_CACHE_DURATION = Duration.of(365, DAYS);
 
-    private boolean startTimeTrackerEnabled;
+    private boolean startTimeTrackerEnabled = true;
 
-    private Path rootDirectory;
+    @ExistingDirectory
+    private Path rootDirectory = createPath(CURRENT_DIRECTORY);
 
-    private Duration fileContentCacheDuration;
+    @Min("PT0S")
+    private Duration fileContentCacheDuration = DEFAULT_FILE_CONTENT_CACHE_DURATION;
 
     /**
      * Creates a HTTP server config instance with default settings.
      */
     public HttpServerConfig() {
-        super.setSchema(HTTP);
-        super.setHost("0.0.0.0");
-        super.setPort(DEFAULT_HTTP_PORT);
-        this.startTimeTrackerEnabled = true;
-        this.rootDirectory = createPath(CURRENT_DIRECTORY);
-        this.fileContentCacheDuration = DEFAULT_FILE_CONTENT_CACHE_DURATION;
+        super(Config.getDefaultNameSpace(HttpServerConfig.class), HTTP, "0.0.0.0", 8080);
     }
 
     /**
@@ -115,8 +109,7 @@ public final class HttpServerConfig extends HttpConfig {
     @BuilderMethod
     public HttpServerConfig setRootDirectory(final String rootDirectoryPath) {
         final Path path = createPath(rootDirectoryPath);
-        validateDirectory(path);
-        this.rootDirectory = path;
+        this.rootDirectory = ensureValid(path);
         return this;
     }
 
@@ -129,8 +122,7 @@ public final class HttpServerConfig extends HttpConfig {
      */
     @BuilderMethod
     public HttpServerConfig setRootDirectory(final Path rootDirectoryPath) {
-        validateDirectory(rootDirectoryPath);
-        this.rootDirectory = rootDirectoryPath;
+        this.rootDirectory = ensureValid(rootDirectoryPath);
         return this;
     }
 
@@ -151,7 +143,7 @@ public final class HttpServerConfig extends HttpConfig {
      */
     @BuilderMethod
     public HttpServerConfig setFileContentCacheDuration(final Duration fileContentCacheDuration) {
-        this.fileContentCacheDuration = fileContentCacheDuration;
+        this.fileContentCacheDuration = ensureValid(fileContentCacheDuration);
         return this;
     }
 
@@ -166,7 +158,7 @@ public final class HttpServerConfig extends HttpConfig {
     }
 
     @Override
-    public HttpServerConfig setPort(final int port) {
+    public HttpServerConfig setPort(final Integer port) {
         return (HttpServerConfig) super.setPort(port);
     }
 

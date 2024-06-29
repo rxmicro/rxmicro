@@ -18,9 +18,9 @@ package io.rxmicro.examples.documentation.asciidoctor.full.model;
 
 import io.rxmicro.examples.documentation.asciidoctor.full.model.nested.Nested;
 import io.rxmicro.validation.constraint.CountryCode;
-import io.rxmicro.validation.constraint.MaxNumber;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MaxSize;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.MinSize;
 import io.rxmicro.validation.constraint.NullableArrayItem;
 import io.rxmicro.validation.constraint.Numeric;
@@ -31,8 +31,8 @@ import java.util.List;
 public final class Response {
 
     @Numeric(scale = 2)
-    @MinNumber("0")
-    @MaxNumber("3000.00")
+    @Min("0")
+    @Max("3000.00")
     BigDecimal price;
 
     @CountryCode

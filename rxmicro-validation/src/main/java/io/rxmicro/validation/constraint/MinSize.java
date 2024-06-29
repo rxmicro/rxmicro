@@ -29,10 +29,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must have items whose count must be higher or
@@ -47,8 +48,8 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * @since 0.1
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = {
                 List.class,
@@ -73,7 +74,7 @@ public @interface MinSize {
      * <p>
      * By default, disable is off.
      *
-     * @return  {@code true} if the validation must be disabled.
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
@@ -88,8 +89,8 @@ public @interface MinSize {
      * Specifies whether the specified minimum is inclusive or exclusive.
      * By default, it is inclusive.
      *
-     * @return  {@code true} if the value must be lower or equal to the specified minimum,
-     *          {@code false} if the value must be lower
+     * @return {@code true} if the value must be lower or equal to the specified minimum,
+     * {@code false} if the value must be lower
      */
     boolean inclusive() default true;
 }

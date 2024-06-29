@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.local.component.validator;
 
+import io.rxmicro.common.CommonConstants;
 import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
 import io.rxmicro.test.local.BlockingHttpClientConfig;
@@ -60,16 +61,16 @@ public final class RestBasedMicroServiceTestValidator extends CommonTestValidato
 
     public void validate(final TestModel testModel,
                          final BlockingHttpClientConfig config) {
-        if (!"localhost".equals(config.getHost())) {
+        if (!CommonConstants.LOCALHOST.equals(config.getHost())) {
             throw new InvalidTestConfigException(
-                    "For REST based micro service tests HTTP server host must be 'localhost' only! Fix setting for ? test class!",
-                    testModel.getTestClass().getName()
+                    "For REST based micro service tests HTTP server host must be '?' only! Fix setting for ? test class!",
+                    CommonConstants.LOCALHOST, testModel.getTestClass().getName()
             );
         }
         if (config.getSchema() != ProtocolSchema.HTTP) {
             throw new InvalidTestConfigException(
-                    "For REST based micro service tests HTTP server supports the 'http' schema only! Fix setting for ? test class!",
-                    testModel.getTestClass().getName()
+                    "For REST based micro service tests HTTP server supports the '?' schema only! Fix setting for ? test class!",
+                    ProtocolSchema.HTTP, testModel.getTestClass().getName()
             );
         }
     }

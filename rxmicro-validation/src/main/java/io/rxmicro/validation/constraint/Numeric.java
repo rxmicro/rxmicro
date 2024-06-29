@@ -25,23 +25,24 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.math.BigDecimal;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must be a decimal within accepted range (scale and precision).
  *
  * @author nedis
- * @see MinNumber
- * @see MaxNumber
+ * @see Min
+ * @see Max
  * @see NumericConstraintValidator
  * @since 0.1
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = BigDecimal.class,
         validatorClass = NumericConstraintValidator.class
@@ -59,7 +60,7 @@ public @interface Numeric {
      * <p>
      * By default, disable is off.
      *
-     * @return  {@code true} if the validation must be disabled.
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
@@ -67,7 +68,7 @@ public @interface Numeric {
      * Returns the expected precision.
      *
      * @return the expected precision of fractional digits accepted for this number or
-     *         {@code -1} if validation of precision must be ignored
+     * {@code -1} if validation of precision must be ignored
      */
     int precision() default -1;
 
@@ -75,7 +76,7 @@ public @interface Numeric {
      * Returns the expected scale.
      *
      * @return the expected scale of fractional digits accepted for this number or
-     *          {@code -1} if validation of scale must be ignored
+     * {@code -1} if validation of scale must be ignored
      */
     int scale();
 

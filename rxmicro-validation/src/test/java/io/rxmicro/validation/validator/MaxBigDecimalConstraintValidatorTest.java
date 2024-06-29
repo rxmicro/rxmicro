@@ -16,8 +16,8 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -41,26 +41,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstraintValidatorTest<BigDecimal> {
+final class MaxBigDecimalConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<BigDecimal> {
 
     @Override
     ConstraintValidator<BigDecimal> instantiate() {
-        return new MinBigDecimalNumberConstraintValidator("10", true);
+        return new MaxBigDecimalConstraintValidator("10", true);
     }
 
     @ParameterizedTest
     @Order(11)
     @CsvSource({
-            "15.1,    10,    true",
-            "10,      10,    true",
-            "10.00,   10,    true",
-            "15.1,    10,    false"
+            "5.1,    10,    true",
+            "10,     10,    true",
+            "10.00,  10,    true",
+            "5.1,    10,    false"
     })
     void Should_process_parameter_as_a_valid_one(final String actual,
                                                  final String maxValue,
                                                  final boolean inclusive) {
-        assertDoesNotThrow(() -> new MinBigDecimalNumberConstraintValidator(maxValue, inclusive)
-                .validate(new BigDecimal(actual), TYPE, FIELD_NAME));
+        assertDoesNotThrow(() -> new MaxBigDecimalConstraintValidator(maxValue, inclusive)
+                .validate(new BigDecimal(actual), PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -71,38 +71,39 @@ final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstrain
             "10.00",
             "10.000"
     })
-    void Should_throw_ValidationException_when_numbers_equal_and_inclusive_is_false(final String actual) {
-        final ValidationException exception = assertThrows(ValidationException.class, () ->
-                new MinBigDecimalNumberConstraintValidator("10", false)
-                        .validate(new BigDecimal(actual), TYPE, FIELD_NAME)
+    void Should_throw_ConstraintViolationException_when_numbers_equal_and_inclusive_is_false(final String actual) {
+        final ConstraintViolationException exception = assertThrows(ConstraintViolationException.class, () ->
+                new MaxBigDecimalConstraintValidator("10", false)
+                        .validate(new BigDecimal(actual), PARAMETER, FIELD_NAME)
         );
         assertEquals(
-                format("Invalid parameter \"fieldName\": Expected that value > 10, but actual is ?!", actual),
-                exception.getMessage());
+                format("Invalid parameter \"fieldName\": Expected that value < 10, but actual is ?!", actual),
+                exception.getMessage()
+        );
     }
 
     @Test
     @Order(13)
-    void Should_throw_ValidationException_when_numbers_not_equal_inclusive_is_true() {
-        final ValidationException exception = assertThrows(ValidationException.class, () ->
-                new MinBigDecimalNumberConstraintValidator("10", true)
-                        .validate(new BigDecimal("5"), TYPE, FIELD_NAME)
+    void Should_throw_ConstraintViolationException_when_numbers_not_equal_inclusive_is_true() {
+        final ConstraintViolationException exception = assertThrows(ConstraintViolationException.class, () ->
+                new MaxBigDecimalConstraintValidator("10", true)
+                        .validate(new BigDecimal("20"), PARAMETER, FIELD_NAME)
         );
         assertEquals(
-                "Invalid parameter \"fieldName\": Expected that value >= 10, but actual is 5!",
+                "Invalid parameter \"fieldName\": Expected that value <= 10, but actual is 20!",
                 exception.getMessage()
         );
     }
 
     @Test
     @Order(14)
-    void Should_throw_ValidationException_when_numbers_not_equal_inclusive_is_false() {
-        final ValidationException exception = assertThrows(ValidationException.class, () ->
-                new MinBigDecimalNumberConstraintValidator("10", false)
-                        .validate(new BigDecimal("5"), TYPE, FIELD_NAME)
+    void Should_throw_ConstraintViolationException_when_numbers_not_equal_inclusive_is_false() {
+        final ConstraintViolationException exception = assertThrows(ConstraintViolationException.class, () ->
+                new MaxBigDecimalConstraintValidator("10", false)
+                        .validate(new BigDecimal("20"), PARAMETER, FIELD_NAME)
         );
         assertEquals(
-                "Invalid parameter \"fieldName\": Expected that value > 10, but actual is 5!",
+                "Invalid parameter \"fieldName\": Expected that value < 10, but actual is 20!",
                 exception.getMessage()
         );
     }

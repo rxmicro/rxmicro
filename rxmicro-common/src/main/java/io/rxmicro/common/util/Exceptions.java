@@ -48,7 +48,7 @@ public final class Exceptions {
         } else if (throwable instanceof Error) {
             throw (Error) throwable;
         } else {
-            throw new CheckedWrapperException(throwable);
+            throw new CheckedWrapperException((Exception) throwable);
         }
     }
 

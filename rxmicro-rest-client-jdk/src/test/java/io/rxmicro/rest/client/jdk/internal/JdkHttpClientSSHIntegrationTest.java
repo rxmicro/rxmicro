@@ -53,7 +53,7 @@ final class JdkHttpClientSSHIntegrationTest {
         new Configs.Builder().build();
     }
 
-    private final RestClientConfig restClientConfig = new RestClientConfig()
+    private final RestClientConfig restClientConfig = new RestClientConfig("rest-client")
             .setConnectionString("https://rxmicro.io");
 
     private final HttpClient httpClient = new JdkHttpClientFactory()

@@ -28,6 +28,7 @@ module rxmicro.annotation.processor.common {
     requires transitive rxmicro.json;
     requires transitive rxmicro.tool.common;
     requires transitive rxmicro.documentation;
+    requires transitive rxmicro.rest;
     requires transitive rxmicro.validation;
 
     requires transitive java.compiler;

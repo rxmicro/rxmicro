@@ -16,13 +16,13 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
 import java.util.Set;
 
-import static io.rxmicro.validation.internal.ConstraintValidators.validateMinValue;
+import static io.rxmicro.validation.internal.ValidatorHelper.validateMinValue;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.MinSize} constraint.
@@ -41,7 +41,7 @@ public class MinSizeSetConstraintValidator extends AbstractContainerConstraintVa
     /**
      * Creates the default instance of {@link MinSizeSetConstraintValidator} with the specified parameters.
      *
-     * @param minValue the supported min value.
+     * @param minValue  the supported min value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
     public MinSizeSetConstraintValidator(final int minValue,
@@ -53,11 +53,11 @@ public class MinSizeSetConstraintValidator extends AbstractContainerConstraintVa
 
     @Override
     public void validateNonNull(final Set<?> values,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final int actual = values.size();
         validateMinValue(
-                minValue, inclusive, actual, httpModelType, modelName,
+                minValue, inclusive, actual, modelType, modelName,
                 "Invalid ? \"?\": Expected that array length >= ?, but actual is ?. (array: " + values + ")!",
                 "Invalid ? \"?\": Expected that array length > ?, but actual is ?. (array: " + values + ")!"
         );

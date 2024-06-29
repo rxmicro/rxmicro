@@ -49,6 +49,7 @@ import io.rxmicro.http.local.test.HttpUnNamedModuleFixer;
  */
 module rxmicro.http {
     requires transitive rxmicro.runtime;
+    requires rxmicro.validation;
 
     exports io.rxmicro.http;
     exports io.rxmicro.http.error;

@@ -16,12 +16,13 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.constraint.Pattern;
 
 import java.util.Collection;
+
+import static io.rxmicro.validation.ConstraintViolations.reportViolation;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Pattern} constraint.
@@ -61,12 +62,12 @@ public class PatternConstraintValidator implements ConstraintValidator<String> {
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         if (!pattern.matcher(actual).matches()) {
-            throw new ValidationException(
+            reportViolation(
                     "Invalid ? \"?\": Expected that 'value' matches the pattern: /?/, where 'value' is '?'!",
-                    httpModelType, modelName, regexp, actual
+                    modelType, modelName, regexp, actual
             );
         }
     }

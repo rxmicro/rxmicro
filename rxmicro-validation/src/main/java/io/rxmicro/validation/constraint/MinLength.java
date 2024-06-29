@@ -24,10 +24,11 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must have a string length whose value must be higher or
@@ -40,8 +41,8 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * @since 0.1
  */
 @Documented
-@Retention(CLASS)
-@Target({FIELD, METHOD, PARAMETER})
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
         validatorClass = MinLengthConstraintValidator.class
@@ -58,7 +59,7 @@ public @interface MinLength {
      * <p>
      * By default, disable is off.
      *
-     * @return  {@code true} if the validation must be disabled.
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
@@ -73,8 +74,8 @@ public @interface MinLength {
      * Specifies whether the specified minimum is inclusive or exclusive.
      * By default, it is inclusive.
      *
-     * @return  {@code true} if the value must be lower or equal to the specified maximum,
-     *          {@code false} if the value must be lower
+     * @return {@code true} if the value must be lower or equal to the specified maximum,
+     * {@code false} if the value must be lower
      */
     boolean inclusive() default true;
 }

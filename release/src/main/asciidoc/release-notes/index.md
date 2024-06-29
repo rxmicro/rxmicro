@@ -4,6 +4,21 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 <!--- DON'T FORGET TO UPDATE DEPENDENCIES BEFORE RELEASING THE RX MICRO FRAMEWORK! --->
 
+## RxMicro v0.12
+
+* Change retention policy for constraints from `CLASS` to `RUNTIME`. So constraint annotations right now are available via reflection!
+* Enable `rxmicro.validation` module for validation of config instances.
+* Change behavior for `rxmicro.validation` module: if a value is invalid, then `ConstraintViolationException` or any other _(translated)_ will be thrown
+* Enable translation of `ConstraintViolationException` into other ones.
+* Rename constraints: `MinNumber` -> `Min`, `MaxNumber` -> `Max`
+* Add new constraints:
+  * `Port`
+  * `ExistingPath`
+  * `ExistingDirectory`
+  * `ExistingFile`
+  * `Min` & `Max` for `Duration` type.
+* Add constraints to std config classes.
+
 ## RxMicro v0.11
 
 * Add `ArgumentSupplier`

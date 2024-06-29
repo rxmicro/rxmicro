@@ -16,16 +16,16 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolations;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
-import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
+import static io.rxmicro.validation.internal.ValidatorHelper.getLatinLettersAndDigits;
 import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
@@ -71,17 +71,17 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
 
     @Override
     public final void validateNonNull(final String actual,
-                                      final HttpModelType httpModelType,
+                                      final ModelType modelType,
                                       final String modelName) {
         final int lastIndex = actual.length() - 1;
         if (lastIndex >= 0) {
             // If actual is not empty string
-            validateActual(actual, httpModelType, modelName, lastIndex);
+            validateActual(actual, modelType, modelName, lastIndex);
         }
     }
 
     private void validateActual(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName,
                                 final int lastIndex) {
         int lastPeriodIndex = -1;
@@ -89,50 +89,50 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
             final char ch = actual.charAt(i);
             if (!ALLOWED_CHARACTERS.contains(ch)) {
                 final String details = format("Unsupported ? character: '?'. ?", getName(), ch, getRule());
-                throwException(httpModelType, modelName, details);
+                reportViolation(modelType, modelName, details);
             } else if (ch == '.') {
                 lastPeriodIndex = i;
-                validateDelimiterCharacters(actual, httpModelType, modelName, lastIndex, i, ch);
+                validateDelimiterCharacters(actual, modelType, modelName, lastIndex, i, ch);
             } else if (ch == '-' || ch == '_') {
-                validateDelimiterCharacters(actual, httpModelType, modelName, lastIndex, i, ch);
+                validateDelimiterCharacters(actual, modelType, modelName, lastIndex, i, ch);
             }
         }
         if (lastPeriodIndex == -1) {
             final String message = format("? must contain at least two levels!", getName());
-            throwException(httpModelType, modelName, message);
+            reportViolation(modelType, modelName, message);
         } else if (lastIndex - lastPeriodIndex < 2) {
             final String message = format("The last portion of the ? must be at least two characters!", getName());
-            throwException(httpModelType, modelName, message);
+            reportViolation(modelType, modelName, message);
         }
     }
 
     private void validateDelimiterCharacters(final String actual,
-                                             final HttpModelType httpModelType,
+                                             final ModelType modelType,
                                              final String modelName,
                                              final int lastIndex,
                                              final int index,
                                              final char ch) {
         if (index == 0) {
-            throwException(httpModelType, modelName, format("? can't start with '?'!", getName(), ch));
+            reportViolation(modelType, modelName, format("? can't start with '?'!", getName(), ch));
         } else if (index == lastIndex) {
-            throwException(httpModelType, modelName, format("? can't end with '?'!", getName(), ch));
+            reportViolation(modelType, modelName, format("? can't end with '?'!", getName(), ch));
         } else {
             final char prev = actual.charAt(index - 1);
             if (prev == '.' || prev == '_' || prev == '-') {
-                throwException(httpModelType, modelName, format("? contains redundant character: '?'!", getName(), ch));
+                reportViolation(modelType, modelName, format("? contains redundant character: '?'!", getName(), ch));
             }
         }
     }
 
-    private void throwException(final HttpModelType httpModelType,
-                                final String modelName,
-                                final String details) {
+    private void reportViolation(final ModelType modelType,
+                                 final String modelName,
+                                 final String details) {
         final String errorMessage;
         if (errorWithDetails) {
-            errorMessage = format("Invalid ? \"?\": ?", httpModelType, modelName, capitalize(details));
+            errorMessage = format("Invalid ? \"?\": ?", modelType, modelName, capitalize(details));
         } else {
-            errorMessage = format("Invalid ? \"?\": Expected a valid ?!", httpModelType, modelName, getName());
+            errorMessage = format("Invalid ? \"?\": Expected a valid ?!", modelType, modelName, getName());
         }
-        throw new ValidationException(errorMessage);
+        ConstraintViolations.reportViolation(errorMessage);
     }
 }

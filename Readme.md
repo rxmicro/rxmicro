@@ -62,7 +62,7 @@ See [CHECK_LISTS.md](.github/CHECK_LISTS.md).
 
 Verify via `checkstyle`:
 
-```
+```shell
 mvn --fail-at-end -P checkstyle clean process-classes
 ```
 
@@ -74,7 +74,7 @@ If build failed find `reported by Checkstyle` phrase at the console output...
 
 Verify via `spotbugs`:
 
-```
+```shell
 mvn --fail-at-end -P spotbugs clean process-classes
 ```
 
@@ -87,13 +87,13 @@ If build failed find `Total bugs` phrase at the console output...
 
 Verify via `pmd`:
 
-```
+```shell
 mvn --fail-at-end -DskipTests -P pmd clean verify
 ```
 
 If build failed find `PMD Failure` or `CPD Failure` phrase(s) at the console output...
 
-```
+```shell
 mvn --fail-at-end -DskipTests -P pmd \
         -Dmaven-pmd-plugin.failOnViolation=false \
                 clean verify site site:stage
@@ -103,7 +103,7 @@ mvn --fail-at-end -DskipTests -P pmd \
 
 Verify via `spotbugs`, `pmd`, `checkstyle`:
 
-```
+```shell
 mvn --fail-at-end -P checkstyle,spotbugs,pmd clean process-classes
 ```
 
@@ -111,7 +111,7 @@ If build failed find `Total bugs`, `PMD Failure`, `reported by Checkstyle` phras
 
 ### Html reports 
 
-```
+```shell
 mvn --fail-at-end -DskipTests -P checkstyle,spotbugs,pmd \
         -Dcheckstyle-maven-plugin.failOnViolation=false \
         -Dspotbugs-maven-plugin.failOnError=false \

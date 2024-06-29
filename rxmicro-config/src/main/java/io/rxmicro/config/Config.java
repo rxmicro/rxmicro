@@ -16,9 +16,13 @@
 
 package io.rxmicro.config;
 
+import io.rxmicro.config.internal.validator.ConfigPropertyValidators;
+
 import java.util.List;
 
+import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.Strings.splitByCamelCase;
+import static io.rxmicro.common.util.Strings.unCapitalize;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -67,9 +71,9 @@ public abstract class Config {
      *
      * <p>
      * This name used by {@link ConfigSource#RXMICRO_CLASS_PATH_RESOURCE} or
-     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_HOME_DIR} or
-     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR} or
-     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_CURRENT_DIR}.
+     * {@link ConfigSource#RXMICRO_FILE_AT_THE_HOME_DIR} or
+     * {@link ConfigSource#RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR} or
+     * {@link ConfigSource#RXMICRO_FILE_AT_THE_CURRENT_DIR}.
      */
     public static final String RX_MICRO_CONFIG_FILE_NAME = "rxmicro";
 
@@ -108,7 +112,7 @@ public abstract class Config {
      *
      * <p>
      * This name used by {@link ConfigSource#SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR} or
-     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR}.
+     * {@link ConfigSource#RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR}.
      */
     public static final String RX_MICRO_CONFIG_DIRECTORY_NAME = ".rxmicro";
 
@@ -149,54 +153,60 @@ public abstract class Config {
         }
     }
 
-    /**
-     * Returns the default namespace for config instance.
-     *
-     * @return the default namespace for config instance
-     */
-    public String getNameSpace() {
-        return getDefaultNameSpace(getClass());
+    private final String namespace;
+
+    public Config(final String namespace) {
+        this.namespace = require(namespace);
     }
 
     /**
-     * Validates the config instance state after injection all properties.
+     * Returns the namespace for the current config instance.
      *
-     * <p>
-     * By default this implementation joins exceptions returned by {@link #getAllFoundConfigExceptions(String)} method and
-     * throws a single {@link ConfigException} instance with joined messages and suppressed stacktraces.
-     *
-     * <p>
-     * Note: If it is necessary to interrupt the launching of microservice as soon as possible,
-     * You must override {@link #validate(String)} method instead of {@link #getAllFoundConfigExceptions(String)} one!
-     *
-     * <p>
-     * Note: If it is necessary to view all detected config errors per config instance,
-     * You must override {@link #getAllFoundConfigExceptions(String)} method instead of {@link #validate(String)} one!
-     *
-     * @param namespace the config namespace
-     * @throws ConfigException if current config instance has invalid state
-     * @see #getAllFoundConfigExceptions(String)
+     * @return the namespace for the current config instance.
      */
-    protected void validate(final String namespace) {
-        final List<ConfigException> exceptions = getAllFoundConfigExceptions(namespace);
-        if (!exceptions.isEmpty()) {
-            final ConfigException exception = new ConfigException(
-                    "'?' config contains the following validation errors:\n?",
-                    namespace, exceptions.stream().map(Throwable::getMessage).collect(joining("\n"))
-            );
-            exceptions.forEach(exception::addSuppressed);
-            throw exception;
+    public final String getNameSpace() {
+        return namespace;
+    }
+
+    /**
+     * Validates the config instance state after injection all properties using some custom rules, i.e. rules that can't
+     * be described via {@code io.rxmicro.validation.constraint.*} constraints.
+     */
+    protected void validateUsingCustomRules() {
+        // child classes can add custom validation logic.
+    }
+
+    /**
+     * Ensures that the provided value is valid for the property represented by the provided name for the current config instance.
+     *
+     * @param propertyName the provided name for a property for the current config instance.
+     * @param value        the provided value.
+     * @param <T>          value type.
+     * @return the provided value.
+     */
+    protected final <T> T ensureValidProperty(final String propertyName, final T value) {
+        ConfigPropertyValidators.validateProperty(this, propertyName, value);
+        return value;
+    }
+
+    /**
+     * Ensures that the provided value is valid for the property calculated automatically using current stack trace for the current config instance.
+     *
+     * @param value the provided value.
+     * @param <T>   value type.
+     * @return the provided value.
+     */
+    protected final <T> T ensureValid(final T value) {
+        return ensureValidProperty(PropertyNameAutoResolver.resolve(), value);
+    }
+
+    static final class PropertyNameAutoResolver {
+
+        static final int SETTER_PREFIX_LENGTH = "set".length();
+
+        static String resolve() {
+            final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+            return unCapitalize(stackTrace[3].getMethodName().substring(SETTER_PREFIX_LENGTH));
         }
-    }
-
-    /**
-     * Returns the exception list that must be joined to the single {@link ConfigException} instance.
-     *
-     * @param namespace the config namespace
-     * @return the exception list that must be joined to the single {@link ConfigException} instance.
-     * @see #validate(String)
-     */
-    protected List<ConfigException> getAllFoundConfigExceptions(final String namespace) {
-        return List.of();
     }
 }

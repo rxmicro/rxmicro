@@ -28,7 +28,7 @@ public class WhatsAppConstraintValidator extends PhoneConstraintValidator {
     /**
      * Creates the default instance of {@link WhatsAppConstraintValidator} with the specified parameters.
      *
-     * @param withoutPlus value must be without plus or not
+     * @param withoutPlus  value must be without plus or not
      * @param allowsSpaces allows whitespaces or not
      */
     public WhatsAppConstraintValidator(final boolean withoutPlus,

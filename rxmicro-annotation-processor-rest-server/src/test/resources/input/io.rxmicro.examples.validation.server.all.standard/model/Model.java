@@ -34,12 +34,12 @@ import io.rxmicro.validation.constraint.Lowercase;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
 import io.rxmicro.validation.constraint.MaxLength;
-import io.rxmicro.validation.constraint.MaxNumber;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MaxSize;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
 import io.rxmicro.validation.constraint.MinLength;
-import io.rxmicro.validation.constraint.MinNumber;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.MinSize;
 import io.rxmicro.validation.constraint.Nullable;
 import io.rxmicro.validation.constraint.NullableArrayItem;
@@ -94,46 +94,46 @@ public final class Model {
 
     @MinInt(3)
     @MaxInt(10)
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     Byte byteParameter;
 
     @MinInt(3)
     @MaxInt(10)
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     Short shortParameter;
 
     @MinInt(3)
     @MaxInt(10)
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     Integer intParameter;
 
     @MinInt(3)
     @MaxInt(10)
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     Long longParameter;
 
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     BigInteger bigIntParameter;
 
     @MinDouble(3.1)
     @MaxDouble(10.9)
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     Float floatParameter;
 
     @MinDouble(3.1)
     @MaxDouble(10.9)
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     Double doubleParameter;
 
-    @MinNumber("3.1")
-    @MaxNumber("10.9")
+    @Min("3.1")
+    @Max("10.9")
     @Lat
     @Lng
     @Numeric(scale = 5, precision = 2)
@@ -247,8 +247,8 @@ public final class Model {
     @Size(12)
     @MinSize(2)
     @MaxSize(50)
-    @MinNumber("3.1")
-    @MaxNumber("10.9")
+    @Min("3.1")
+    @Max("10.9")
     @Lat
     @Lng
     @Numeric(scale = 5, precision = 2)
@@ -258,8 +258,8 @@ public final class Model {
     @Size(12)
     @MinSize(2)
     @MaxSize(50)
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     List<BigInteger> bigIntegers;
 
     @UniqueItems
@@ -370,8 +370,8 @@ public final class Model {
     @Size(12)
     @MinSize(2)
     @MaxSize(50)
-    @MinNumber("3.1")
-    @MaxNumber("10.9")
+    @Min("3.1")
+    @Max("10.9")
     @Lat
     @Lng
     @Numeric(scale = 5, precision = 2)
@@ -380,8 +380,8 @@ public final class Model {
     @Size(12)
     @MinSize(2)
     @MaxSize(50)
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     Set<BigInteger> bigIntegerSet;
 
     @Size(12)
@@ -489,8 +489,8 @@ public final class Model {
     @Size(12)
     @MinSize(2)
     @MaxSize(50)
-    @MinNumber("3.1")
-    @MaxNumber("10.9")
+    @Min("3.1")
+    @Max("10.9")
     @Lat
     @Lng
     @Numeric(scale = 5, precision = 2)
@@ -499,8 +499,8 @@ public final class Model {
     @Size(12)
     @MinSize(2)
     @MaxSize(50)
-    @MinNumber("3")
-    @MaxNumber("10")
+    @Min("3")
+    @Max("10")
     Map<String, BigInteger> bigIntegerMap;
 
     @Size(12)

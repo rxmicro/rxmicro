@@ -16,15 +16,15 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.model.ModelType;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.ConstraintViolations;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
+import static io.rxmicro.validation.internal.ValidatorHelper.getLatinLettersAndDigits;
 import static io.rxmicro.validation.validator.DomainNameConstraintValidator.DOMAIN_NAME_RULE;
 import static java.util.stream.Collectors.toUnmodifiableSet;
 
@@ -75,81 +75,81 @@ public final class EmailConstraintValidator implements ConstraintValidator<Strin
 
     @Override
     public void validateNonNull(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName) {
         final int lastIndex = actual.length() - 1;
         if (lastIndex >= 0) {
             // If actual is not empty string
-            validateActual(actual, httpModelType, modelName, lastIndex);
+            validateActual(actual, modelType, modelName, lastIndex);
         }
     }
 
     private void validateActual(final String actual,
-                                final HttpModelType httpModelType,
+                                final ModelType modelType,
                                 final String modelName,
                                 final int lastIndex) {
         boolean atSignDelimiterFound = false;
         for (int i = 0; i <= lastIndex; i++) {
             final char ch = actual.charAt(i);
             if (ch == '@') {
-                validatePrefixAndDomain(actual, httpModelType, modelName, lastIndex, i);
+                validatePrefixAndDomain(actual, modelType, modelName, lastIndex, i);
                 atSignDelimiterFound = true;
                 break;
             } else if (!ALLOWED_PREFIX_CHARACTERS.contains(ch)) {
                 final String details = format("Unsupported prefix character: '?'. ?", ch, EMAIL_PREFIX_RULE);
-                throwException(httpModelType, modelName, details);
+                reportViolation(modelType, modelName, details);
             } else if (ch == '.' || ch == '-' || ch == '_' || ch == '\'' || ch == '+') {
-                validateDelimiters(actual, httpModelType, modelName, i, ch);
+                validateDelimiters(actual, modelType, modelName, i, ch);
             }
         }
         if (!atSignDelimiterFound) {
-            throwException(httpModelType, modelName, "Missing '@'!");
+            reportViolation(modelType, modelName, "Missing '@'!");
         }
     }
 
     private void validatePrefixAndDomain(final String actual,
-                                         final HttpModelType httpModelType,
+                                         final ModelType modelType,
                                          final String modelName,
                                          final int lastIndex,
                                          final int index) {
         if (index == 0) {
-            throwException(httpModelType, modelName, "Missing prefix!");
+            reportViolation(modelType, modelName, "Missing prefix!");
         } else if (index == lastIndex) {
-            throwException(httpModelType, modelName, "Missing domain!");
+            reportViolation(modelType, modelName, "Missing domain!");
         } else {
             final char prev = actual.charAt(index - 1);
             if (prev == '.' || prev == '_' || prev == '-' || prev == '\'' || prev == '+') {
-                throwException(httpModelType, modelName, format("Prefix can't end with '?'!", prev));
+                reportViolation(modelType, modelName, format("Prefix can't end with '?'!", prev));
             } else {
-                domainNameConstraintValidator.validate(actual.substring(index + 1), httpModelType, modelName);
+                domainNameConstraintValidator.validate(actual.substring(index + 1), modelType, modelName);
             }
         }
     }
 
     private void validateDelimiters(final String actual,
-                                    final HttpModelType httpModelType,
+                                    final ModelType modelType,
                                     final String modelName,
                                     final int index,
                                     final char ch) {
         if (index == 0) {
-            throwException(httpModelType, modelName, format("Prefix can't start with '?'!", ch));
+            reportViolation(modelType, modelName, format("Prefix can't start with '?'!", ch));
         } else {
             final char prev = actual.charAt(index - 1);
             if (prev == '.' || prev == '-' || prev == '_' || prev == '\'' || prev == '+') {
-                throwException(httpModelType, modelName, format("Prefix contains redundant character: '?'!", ch));
+                reportViolation(modelType, modelName, format("Prefix contains redundant character: '?'!", ch));
             }
         }
     }
 
-    private void throwException(final HttpModelType httpModelType,
-                                final String modelName,
-                                final String details) {
+    private void reportViolation(final ModelType modelType,
+                                 final String modelName,
+                                 final String details) {
         final String errorMessage;
         if (errorWithDetails) {
-            errorMessage = format("Invalid ? \"?\": ?", httpModelType, modelName, details);
+            errorMessage = format("Invalid ? \"?\": ?", modelType, modelName, details);
         } else {
-            errorMessage = format("Invalid ? \"?\": Expected a valid email format!", httpModelType, modelName);
+            errorMessage = format("Invalid ? \"?\": Expected a valid email format!", modelType, modelName);
         }
-        throw new ValidationException(errorMessage);
+        ConstraintViolations.reportViolation(errorMessage);
     }
 }

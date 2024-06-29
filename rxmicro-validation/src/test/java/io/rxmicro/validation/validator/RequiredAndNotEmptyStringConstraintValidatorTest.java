@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.http.error.ValidationException;
+import io.rxmicro.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class RequiredAndNotEmptyStringConstraintValidatorTest {
+final class RequiredAndNotEmptyStringConstraintValidatorTest extends AbstractConstraintValidatorTest {
 
     private final RequiredAndNotEmptyStringConstraintValidator validator = new RequiredAndNotEmptyStringConstraintValidator();
 
@@ -47,9 +46,9 @@ final class RequiredAndNotEmptyStringConstraintValidatorTest {
 
     @Test
     @Order(12)
-    void Should_throw_ValidationException_if_parameter_is_null() {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(null, PARAMETER, "value"));
+    void Should_throw_ConstraintViolationException_if_parameter_is_null() {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(null, PARAMETER, "value"));
         assertEquals(
                 "Parameter \"value\" is required!",
                 exception.getMessage()
@@ -58,9 +57,9 @@ final class RequiredAndNotEmptyStringConstraintValidatorTest {
 
     @Test
     @Order(12)
-    void Should_throw_ValidationException_if_parameter_is_empty() {
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate("", PARAMETER, "value"));
+    void Should_throw_ConstraintViolationException_if_parameter_is_empty() {
+        final ConstraintViolationException exception =
+                assertThrows(ConstraintViolationException.class, () -> validator.validate("", PARAMETER, "value"));
         assertEquals(
                 "Invalid parameter \"value\": Empty string is not valid value!",
                 exception.getMessage()

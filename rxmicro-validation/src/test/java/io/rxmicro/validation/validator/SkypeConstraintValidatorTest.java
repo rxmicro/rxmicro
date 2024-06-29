@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class SkypeConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
+final class SkypeConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
@@ -42,6 +42,6 @@ final class SkypeConstraintValidatorTest extends AbstractConstraintValidatorTest
     @Test
     @Order(10)
     void Should_ignore_validation_for_empty_string() {
-        assertDoesNotThrow(() -> validator.validate("", TYPE, FIELD_NAME));
+        assertDoesNotThrow(() -> validator.validate("", PARAMETER, FIELD_NAME));
     }
 }
