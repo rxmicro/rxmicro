@@ -30,6 +30,7 @@ import static io.rxmicro.config.WaitFor.WAIT_FOR_COMMAND_LINE_ARG;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_DELIMITER;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_PARAM_PREFIX;
+import static io.rxmicro.config.internal.waitfor.model.Params.DESTINATION;
 import static java.lang.System.lineSeparator;
 
 /**
@@ -70,7 +71,7 @@ public final class WaitForParamsExtractor {
                 }
             }
             if (result.isEmpty()) {
-                throw new ConfigException("Expected destination. For example: java Main.class wait-for localhost:8080");
+                throw new ConfigException("Expected ?. For example: java Main.class wait-for localhost:8080", DESTINATION);
             }
             return true;
         }

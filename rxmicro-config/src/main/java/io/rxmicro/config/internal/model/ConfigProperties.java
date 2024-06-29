@@ -18,6 +18,7 @@ package io.rxmicro.config.internal.model;
 
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.ConfigSource;
+import io.rxmicro.config.internal.ExternalSourceProviderFactory;
 import io.rxmicro.logger.Logger;
 
 import java.nio.file.Path;
@@ -50,8 +51,6 @@ import static io.rxmicro.config.ConfigSource.SEPARATE_CLASS_PATH_RESOURCE;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_CURRENT_DIR;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_HOME_DIR;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
-import static io.rxmicro.config.internal.ExternalSourceProviderFactory.getCurrentDir;
-import static io.rxmicro.config.internal.ExternalSourceProviderFactory.getEnvironmentVariables;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
 import static io.rxmicro.resource.PropertiesResources.loadProperties;
 import static java.util.Locale.ENGLISH;
@@ -63,22 +62,22 @@ import static java.util.stream.Collectors.toList;
  */
 public abstract class ConfigProperties {
 
-    protected static final Map<String, String> SYSTEM_ENV = getEnvironmentVariables();
+    protected static final Supplier<Map<String, String>> SYSTEM_ENV_SUPPLIER =
+            ExternalSourceProviderFactory::getEnvironmentVariables;
 
-    protected static final Properties SYSTEM_PROPERTIES = System.getProperties();
+    protected static final Supplier<Properties> SYSTEM_PROPERTIES_SUPPLIER =
+            System::getProperties;
 
-    protected static final String USER_HOME = SYSTEM_PROPERTIES.getProperty(USER_HOME_PROPERTY);
+    protected static final Supplier<String> USER_HOME_PATH_SUPPLIER =
+            () -> System.getProperty(USER_HOME_PROPERTY);
 
-    protected static final String RX_MICRO_CONFIG_DIRECTORY = USER_HOME + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME;
+    protected static final Supplier<String> RX_MICRO_CONFIG_DIR_PATH_SUPPLIER =
+            () -> USER_HOME_PATH_SUPPLIER.get() + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME;
 
-    protected static final String CURRENT_DIR = getCurrentDir();
+    protected static final Supplier<String> CURRENT_DIR_PATH_SUPPLIER =
+            ExternalSourceProviderFactory::getCurrentDir;
 
     protected static final Map<String, Optional<Map<String, String>>> RESOURCE_CACHE = new WeakHashMap<>();
-
-    protected static final String ENVIRONMENT_VARIABLE_PREFIX =
-            Optional.ofNullable(SYSTEM_ENV.get(RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX))
-                    .map(v -> v.endsWith("_") ? v : v + '_')
-                    .orElse(EMPTY_STRING);
 
     protected final String namespace;
 
@@ -86,7 +85,13 @@ public abstract class ConfigProperties {
 
     public ConfigProperties(final String namespace) {
         this.namespace = namespace;
-        this.upperNamespace = ENVIRONMENT_VARIABLE_PREFIX + namespace.toUpperCase(ENGLISH).replace('-', '_');
+        this.upperNamespace = getEnvironmentVariablePrefix() + namespace.toUpperCase(ENGLISH).replace('-', '_');
+    }
+
+    private static String getEnvironmentVariablePrefix() {
+        return Optional.ofNullable(SYSTEM_ENV_SUPPLIER.get().get(RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX))
+                .map(v -> v.endsWith("_") ? v : v + '_')
+                .orElse(EMPTY_STRING);
     }
 
     protected abstract Logger getLogger();
@@ -113,17 +118,17 @@ public abstract class ConfigProperties {
             } else if (configSource == ENVIRONMENT_VARIABLES) {
                 loadFromEnvironmentVariables(debugMessageBuilder);
             } else if (configSource == RXMICRO_FILE_AT_THE_HOME_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME, RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(USER_HOME_PATH_SUPPLIER.get(), RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
             } else if (configSource == RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
-                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIRECTORY, RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIR_PATH_SUPPLIER.get(), RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
             } else if (configSource == RXMICRO_FILE_AT_THE_CURRENT_DIR) {
-                loadFromPropertiesFileIfExists(CURRENT_DIR, RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(CURRENT_DIR_PATH_SUPPLIER.get(), RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_HOME_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME, namespace, false, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(USER_HOME_PATH_SUPPLIER.get(), namespace, false, debugMessageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
-                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIRECTORY, namespace, false, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIR_PATH_SUPPLIER.get(), namespace, false, debugMessageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_CURRENT_DIR) {
-                loadFromPropertiesFileIfExists(CURRENT_DIR, namespace, false, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(CURRENT_DIR_PATH_SUPPLIER.get(), namespace, false, debugMessageBuilder);
             } else if (configSource == JAVA_SYSTEM_PROPERTIES) {
                 loadFromJavaSystemProperties(debugMessageBuilder);
             } else {
@@ -179,7 +184,7 @@ public abstract class ConfigProperties {
     }
 
     protected final void loadFromEnvironmentVariables(final DebugMessageBuilder debugMessageBuilder) {
-        loadFromMap(SYSTEM_ENV, "environment variables", debugMessageBuilder, true);
+        loadFromMap(SYSTEM_ENV_SUPPLIER.get(), "environment variables", debugMessageBuilder, true);
     }
 
     protected abstract void loadFromMap(Map<String, String> map,
@@ -213,10 +218,10 @@ public abstract class ConfigProperties {
 
         private int count;
 
-        protected DebugMessageBuilder(final String namespace,
-                                      final boolean debugEnabled,
-                                      final Set<ConfigSource> configSources,
-                                      final Map<String, String> commandLineArgs) {
+        DebugMessageBuilder(final String namespace,
+                            final boolean debugEnabled,
+                            final Set<ConfigSource> configSources,
+                            final Map<String, String> commandLineArgs) {
             this.configSources = configSources;
             this.commandLineArgs = commandLineArgs;
             this.debugEnabled = debugEnabled;
@@ -284,8 +289,8 @@ public abstract class ConfigProperties {
 
         private final Map<String, String> commandLineArgs;
 
-        protected ConfigSourceProvider(final Set<ConfigSource> configSources,
-                                       final Map<String, String> commandLineArgs) {
+        ConfigSourceProvider(final Set<ConfigSource> configSources,
+                             final Map<String, String> commandLineArgs) {
             this.configSources = configSources;
             this.commandLineArgs = commandLineArgs;
         }

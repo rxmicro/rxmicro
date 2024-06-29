@@ -16,6 +16,9 @@
 
 package io.rxmicro.validation.validator;
 
+import io.rxmicro.common.CommonConstants;
+import io.rxmicro.model.ModelType;
+
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.HostName} constraint.
  *
@@ -40,6 +43,15 @@ public final class HostNameConstraintValidator extends AbstractDomainOrHostNameC
      */
     public HostNameConstraintValidator(final boolean errorWithDetails) {
         super(errorWithDetails);
+    }
+
+    @Override
+    public void validateNonNull(final String actual,
+                                final ModelType modelType,
+                                final String modelName) {
+        if (!CommonConstants.LOCALHOST.equals(actual)) {
+            super.validateNonNull(actual, modelType, modelName);
+        }
     }
 
     @Override

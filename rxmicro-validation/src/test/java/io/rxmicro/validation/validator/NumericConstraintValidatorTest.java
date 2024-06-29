@@ -44,8 +44,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class NumericConstraintValidatorTest extends AbstractNullableConstraintValidatorTest<BigDecimal> {
 
-    private static final String VALUE = "value";
-
     @Override
     ConstraintValidator<BigDecimal> instantiate() {
         return new NumericConstraintValidator(-1, 2, EXACT);
@@ -54,7 +52,7 @@ final class NumericConstraintValidatorTest extends AbstractNullableConstraintVal
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(new BigDecimal("0.23"), PARAMETER, VALUE));
+        assertDoesNotThrow(() -> validator.validate(new BigDecimal("0.23"), PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -69,7 +67,7 @@ final class NumericConstraintValidatorTest extends AbstractNullableConstraintVal
     @Order(12)
     void Should_ignore_any_value(final String value) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(-1, -1, EXACT);
-        assertDoesNotThrow(() -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
+        assertDoesNotThrow(() -> validator.validate(new BigDecimal(value), PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -100,7 +98,7 @@ final class NumericConstraintValidatorTest extends AbstractNullableConstraintVal
                                                        final String value,
                                                        final Numeric.ValidationType validationType) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(expectedPrecision, expectedScale, validationType);
-        assertDoesNotThrow(() -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
+        assertDoesNotThrow(() -> validator.validate(new BigDecimal(value), PARAMETER, FIELD_NAME));
     }
 
     @ParameterizedTest
@@ -150,7 +148,7 @@ final class NumericConstraintValidatorTest extends AbstractNullableConstraintVal
                                                    final Numeric.ValidationType validationType) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(expectedPrecision, expectedScale, validationType);
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate(new BigDecimal(value), PARAMETER, VALUE));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate(new BigDecimal(value), PARAMETER, FIELD_NAME));
         assertEquals(
                 "Invalid parameter \"fieldName\": " + details,
                 exception.getMessage()
@@ -168,7 +166,7 @@ final class NumericConstraintValidatorTest extends AbstractNullableConstraintVal
                                                     final int expectedScale) {
         final NumericConstraintValidator validator = new NumericConstraintValidator(expectedPrecision, expectedScale, null);
         final UnsupportedOperationException exception =
-                assertThrows(UnsupportedOperationException.class, () -> validator.validate(BigDecimal.ZERO, PARAMETER, VALUE));
+                assertThrows(UnsupportedOperationException.class, () -> validator.validate(BigDecimal.ZERO, PARAMETER, FIELD_NAME));
         assertEquals("Validation type is unsupported: null", exception.getMessage());
     }
 }

@@ -54,7 +54,7 @@ final class MinLongConstraintValidatorTest extends AbstractNullableConstraintVal
         final ConstraintViolationException exception =
                 assertThrows(ConstraintViolationException.class, () -> validator.validate(1L, PARAMETER, FIELD_NAME));
         assertEquals(
-                "Invalid parameter \"fieldName\": Expected that value >= 3, but actual is 1!",
+                "Invalid parameter \"fieldName\": Expected that value >= 5, but actual is 1!",
                 exception.getMessage()
         );
     }

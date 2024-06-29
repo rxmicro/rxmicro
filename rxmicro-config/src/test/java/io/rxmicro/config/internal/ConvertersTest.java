@@ -97,28 +97,28 @@ final class ConvertersTest {
     @Test
     @Order(2)
     void Should_convert_to_interface_type_using_defined_enum_constant() {
-        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestEnum:VALUE");
+        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$DummyEnum:VALUE");
         assertSame(DummyEnum.VALUE, result);
     }
 
     @Test
     @Order(3)
     void Should_convert_to_interface_type_using_defined_interface_constant() {
-        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestInterface:VALUE");
+        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$DummyInterface:VALUE");
         assertSame(DummyInterface.VALUE, result);
     }
 
     @Test
     @Order(4)
     void Should_convert_to_interface_type_using_defined_class_constant() {
-        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestClass:VALUE");
+        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$DummyClass:VALUE");
         assertSame(DummyClass.VALUE, result);
     }
 
     @Test
     @Order(5)
     void Should_convert_to_interface_type_using_defined_annotation_constant() {
-        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestAnnotation:VALUE");
+        final Object result = convertToType(DummyInterface.class, "@io.rxmicro.config.internal.ConvertersTest$DummyAnnotation:VALUE");
         assertSame(DummyAnnotation.VALUE, result);
     }
 

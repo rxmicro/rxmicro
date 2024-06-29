@@ -20,5 +20,5 @@ package test;
  * @author nedis
  * @since 0.7.3
  */
-public interface TestInterface {
+public interface DummyInterface {
 }

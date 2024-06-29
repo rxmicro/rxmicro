@@ -54,7 +54,7 @@ final class RuntimeReflectionsTest {
         assertEquals(
                 "java.lang.IllegalAccessException: class io.rxmicro.runtime.detail.RuntimeReflections " +
                         "(in module rxmicro.runtime) " +
-                        "cannot access a member of class io.rxmicro.runtime.detail.RuntimeReflectionsTest$TestClass " +
+                        "cannot access a member of class io.rxmicro.runtime.detail.RuntimeReflectionsTest$DummyClass " +
                         "(in module rxmicro.runtime) " +
                         "with modifiers \"private\"",
                 exception.getMessage()
@@ -68,7 +68,7 @@ final class RuntimeReflectionsTest {
                 setFieldValue(new DummyClass(), "not_found", "test", null));
 
         assertEquals(
-                "Field 'io.rxmicro.runtime.detail.RuntimeReflectionsTest$TestClass.not_found' is not defined",
+                "Field 'io.rxmicro.runtime.detail.RuntimeReflectionsTest$DummyClass.not_found' is not defined",
                 exception.getMessage()
         );
     }
@@ -97,7 +97,7 @@ final class RuntimeReflectionsTest {
         assertEquals(
                 "java.lang.IllegalAccessException: class io.rxmicro.runtime.detail.RuntimeReflections " +
                         "(in module rxmicro.runtime) " +
-                        "cannot access a member of class io.rxmicro.runtime.detail.RuntimeReflectionsTest$TestClass " +
+                        "cannot access a member of class io.rxmicro.runtime.detail.RuntimeReflectionsTest$DummyClass " +
                         "(in module rxmicro.runtime) " +
                         "with modifiers \"private\"",
                 exception.getMessage()
@@ -113,7 +113,7 @@ final class RuntimeReflectionsTest {
                 getFieldValue(new DummyClass(), "not_found", fieldConsumer));
 
         assertEquals(
-                "Field 'io.rxmicro.runtime.detail.RuntimeReflectionsTest$TestClass.not_found' is not defined",
+                "Field 'io.rxmicro.runtime.detail.RuntimeReflectionsTest$DummyClass.not_found' is not defined",
                 exception.getMessage()
         );
     }
@@ -140,7 +140,7 @@ final class RuntimeReflectionsTest {
         assertEquals(
                 "java.lang.IllegalAccessException: class io.rxmicro.runtime.detail.RuntimeReflections " +
                         "(in module rxmicro.runtime) " +
-                        "cannot access a member of class io.rxmicro.runtime.detail.RuntimeReflectionsTest$TestClass " +
+                        "cannot access a member of class io.rxmicro.runtime.detail.RuntimeReflectionsTest$DummyClass " +
                         "(in module rxmicro.runtime) " +
                         "with modifiers \"private\"",
                 exception.getMessage()

@@ -49,7 +49,7 @@ public class Base64URLEncodedConstraintValidator implements ConstraintValidator<
     private static final String ALPHABET_BASE_SORTED_CHARACTERS = ALPHABET_BASE.stream()
             .sorted()
             .map(String::valueOf)
-            .collect(Collectors.joining(","));
+            .collect(Collectors.joining(", "));
 
     /**
      * It's the lookup table for {@code "URL and Filename safe Base64"} as specified in Table 2 of the {@code RFC 4648}, with the
@@ -64,7 +64,7 @@ public class Base64URLEncodedConstraintValidator implements ConstraintValidator<
     private static final String ALPHABET_URL_SORTED_CHARACTERS = ALPHABET_URL.stream()
             .sorted()
             .map(String::valueOf)
-            .collect(Collectors.joining(","));
+            .collect(Collectors.joining(", "));
 
     private final Base64URLEncoded.Alphabet alphabet;
 

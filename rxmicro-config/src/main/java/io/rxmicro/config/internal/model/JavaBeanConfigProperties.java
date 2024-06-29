@@ -121,7 +121,7 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
     protected void loadFromJavaSystemProperties(final DebugMessageBuilder debugMessageBuilder) {
         if (isRuntimeStrictModeEnabled()) {
             validateRedundantProperties(
-                    SYSTEM_PROPERTIES.entrySet().stream()
+                    SYSTEM_PROPERTIES_SUPPLIER.get().entrySet().stream()
                             .map(e -> entry(e.getKey().toString(), e.getValue().toString()))
                             .collect(toMap(Map.Entry::getKey, Map.Entry::getValue)),
                     "Java system properties",
@@ -130,7 +130,7 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
             );
         }
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
-        properties.forEach(p -> p.resolve(SYSTEM_PROPERTIES, true).ifPresent(resolvedEntries::add));
+        properties.forEach(p -> p.resolve(SYSTEM_PROPERTIES_SUPPLIER.get(), true).ifPresent(resolvedEntries::add));
         if (!resolvedEntries.isEmpty()) {
             debugMessageBuilder.addResolvedEntries(resolvedEntries);
             debugMessageBuilder.append("Discovered properties from Java system properties: ?", resolvedEntries);

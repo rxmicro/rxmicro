@@ -46,14 +46,9 @@ final class HostNameConstraintValidatorTest extends AbstractNullableConstraintVa
         return new HostNameConstraintValidator(true);
     }
 
-    @Test
-    @Order(10)
-    void Should_ignore_validation_for_empty_string() {
-        assertDoesNotThrow(() -> validator.validate("", PARAMETER, FIELD_NAME));
-    }
-
     @ParameterizedTest
     @ValueSource(strings = {
+            "localhost",
             "example.com",
             "example.me.org",
             "sub.example.me.org"

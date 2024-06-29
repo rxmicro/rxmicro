@@ -24,10 +24,13 @@ import io.rxmicro.common.InvalidStateException;
  */
 public abstract class AbstractDefaultConfigValueBuildHelper {
 
-    private static DefaultConfigValueStorage.Builder builder =
-            new DefaultConfigValueStorage.Builder();
+    private static volatile DefaultConfigValueStorage.Builder builder;
 
     private static volatile DefaultConfigValueStorage defaultConfigValueStorage;
+
+    static {
+        resetDefaultConfigValueStorage();
+    }
 
     public static DefaultConfigValueStorage.Builder getCurrentBuilder() {
         if (defaultConfigValueStorage != null) {
@@ -51,7 +54,9 @@ public abstract class AbstractDefaultConfigValueBuildHelper {
     }
 
     protected static void resetDefaultConfigValueStorage() {
-        defaultConfigValueStorage = null;
-        builder = new DefaultConfigValueStorage.Builder();
+        synchronized (AbstractDefaultConfigValueBuildHelper.class) {
+            defaultConfigValueStorage = null;
+            builder = new DefaultConfigValueStorage.Builder();
+        }
     }
 }

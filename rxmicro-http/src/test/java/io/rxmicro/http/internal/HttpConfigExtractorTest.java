@@ -66,7 +66,7 @@ final class HttpConfigExtractorTest {
             "ftp://localhost:8765;      Unsupported protocol schema: 'ftp'! Only following schemas are supported: [http, https]",
             "http://localhost:DEFAULT;  Invalid port value: expected a number, but actual is 'DEFAULT'!",
             "http://localhost:-1;       Invalid port value: -1 (Must be 0 < -1 < 65535)",
-            "http://localhost:65535;    Invalid port value: 65535 (Must be 0 < 65535 < 65535)",
+            "http://localhost:65536;    Invalid port value: 65535 (Must be 0 < 65535 < 65535)",
             "http://localhost:99999;    Invalid port value: 99999 (Must be 0 < 99999 < 65535)"
     })
     @Order(2)

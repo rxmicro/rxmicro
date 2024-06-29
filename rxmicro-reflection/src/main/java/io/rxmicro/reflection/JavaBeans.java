@@ -73,7 +73,7 @@ public final class JavaBeans {
         Class<?> current = classInstance;
         while (current != null && current != Object.class) {
             try {
-                localResult.add(classInstance.getDeclaredField(propertyName));
+                localResult.add(current.getDeclaredField(propertyName));
             } catch (final NoSuchFieldException ignore) {
                 // do nothing
             }

@@ -255,21 +255,33 @@ public final class Configs {
         /**
          * Enables config sources according to recommended order for docker or kubernetes environments.
          *
+         * <p><b>Recommendations:</b>
          * <p>
          * Recommended order for docker or kubernetes environments:
          * <ol>
          *     <li>Hardcoded config using annotations.</li>
-         *     <li>Config from file: {@code ~/.rxmicro/${name_space}.properties}</li>
          *     <li>Config from env variables.</li>
+         *     <li>Config from file: {@code ~/.rxmicro/${name_space}.properties}</li>
          * </ol>
+         * <p>Use env variables for storing:
+         * <ul>
+         *     <li>non-confidential data for a microservice;</li>
+         *     <li>default configuration parameters that will be overridden from another config source.</li>
+         * </ul>
+         * <p>Use {@code ~/.rxmicro/${name_space}.properties} file for storing:
+         * <ul>
+         *     <li>sensitive data such as a password, a token, or a key;</li>
+         *     <li>overridden configuration parameters that are defined via env variables.</li>
+         * </ul>
+         * <p>Based on best security practices, it is recommended to mount the {@code ~/.rxmicro/} directory using {@code tmpfs}
          *
          * @return the reference to this {@link Builder} instance
          */
         public Builder withContainerConfigSources() {
             withOrderedConfigSources(
                     DEFAULT_CONFIG_VALUES,
-                    SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR,
-                    ENVIRONMENT_VARIABLES
+                    ENVIRONMENT_VARIABLES,
+                    SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR
             );
             return this;
         }
@@ -311,12 +323,29 @@ public final class Configs {
         }
 
         /**
-         * Creates a new immutable instance of the {@link Configs} manager only if it not be created before.
+         * Creates a new immutable instance of the {@link Configs} manager only if it not being created before.
          */
         public void buildIfNotConfigured() {
             if (instance == null) {
                 build();
             }
+        }
+    }
+
+    /**
+     * Allows destroying the already configured {@link Configs} manager.
+     * <p>This class makes sense mainly for testing purposes.
+     *
+     * @author nedis
+     * @since 0.12
+     */
+    public static final class Destroyer {
+
+        /**
+         * Destroy the already configured {@link Configs} manager. Does nothing if the {@link Configs} manager is not configured yet.
+         */
+        public void destroy() {
+            instance = null;
         }
     }
 }

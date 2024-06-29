@@ -56,28 +56,28 @@ final class ToCustomTypeConverterTest {
     @ParameterizedTest
     @Order(2)
     @CsvSource(delimiter = ';', value = {
-            "@test.NotFoundEnum:ENUM_CONSTANT;          Can't convert '@test.NotFoundEnum:ENUM_CONSTANT' to 'java.lang.Runnable', " +
+            "@test.NotFoundEnum:ENUM_CONSTANT;           Can't convert '@test.NotFoundEnum:ENUM_CONSTANT' to 'java.lang.Runnable', " +
                     "because 'test.NotFoundEnum' class not defined!",
-            "@java.util.concurrent.TimeUnit:YEARS;      Can't convert '@java.util.concurrent.TimeUnit.YEARS' to 'java.lang.Runnable', " +
+            "@java.util.concurrent.TimeUnit:YEARS;       Can't convert '@java.util.concurrent.TimeUnit.YEARS' to 'java.lang.Runnable', " +
                     "because 'java.util.concurrent.TimeUnit' enum does not contain 'YEARS' enum constant!",
 
-            "@test.TestClass:NOT_STATIC;                Can't convert '@test.TestClass.NOT_STATIC' to 'java.lang.Runnable', " +
-                    "because 'NOT_STATIC' field declared at 'test.TestClass' class not static!",
-            "@test.TestClass:PRIVATE;                   Can't convert '@test.TestClass.PRIVATE' to 'java.lang.Runnable', " +
-                    "because 'PRIVATE' field declared at 'test.TestClass' class not public!",
-            "@test.TestClass:PROTECTED;                 Can't convert '@test.TestClass.PROTECTED' to 'java.lang.Runnable', " +
-                    "because 'PROTECTED' field declared at 'test.TestClass' class not public!",
-            "@test.TestClass:DEFAULT;                   Can't convert '@test.TestClass.DEFAULT' to 'java.lang.Runnable', " +
-                    "because 'DEFAULT' field declared at 'test.TestClass' class not public!",
-            "@test.TestClass:NOT_FINAL;                 Can't convert '@test.TestClass.NOT_FINAL' to 'java.lang.Runnable', " +
-                    "because 'NOT_FINAL' field declared at 'test.TestClass' class not final!",
+            "@test.DummyClass:NOT_STATIC;                Can't convert '@test.DummyClass.NOT_STATIC' to 'java.lang.Runnable', " +
+                    "because 'NOT_STATIC' field declared at 'test.DummyClass' class not static!",
+            "@test.DummyClass:PRIVATE;                   Can't convert '@test.DummyClass.PRIVATE' to 'java.lang.Runnable', " +
+                    "because 'PRIVATE' field declared at 'test.DummyClass' class not public!",
+            "@test.DummyClass:PROTECTED;                 Can't convert '@test.DummyClass.PROTECTED' to 'java.lang.Runnable', " +
+                    "because 'PROTECTED' field declared at 'test.DummyClass' class not public!",
+            "@test.DummyClass:DEFAULT;                   Can't convert '@test.DummyClass.DEFAULT' to 'java.lang.Runnable', " +
+                    "because 'DEFAULT' field declared at 'test.DummyClass' class not public!",
+            "@test.DummyClass:NOT_FINAL;                 Can't convert '@test.DummyClass.NOT_FINAL' to 'java.lang.Runnable', " +
+                    "because 'NOT_FINAL' field declared at 'test.DummyClass' class not final!",
 
-            "@test.TestClass:NOT_FOUND;                 Can't convert '@test.TestClass.NOT_FOUND' to 'java.lang.Runnable', " +
-                    "because 'test.TestClass' class does not contain 'NOT_FOUND' public static final field!",
-            "@test.TestInterface:NOT_FOUND;             Can't convert '@test.TestInterface.NOT_FOUND' to 'java.lang.Runnable', " +
-                    "because 'test.TestInterface' interface does not contain 'NOT_FOUND' public static final field!",
-            "@test.TestAnnotation:NOT_FOUND;            Can't convert '@test.TestAnnotation.NOT_FOUND' to 'java.lang.Runnable', " +
-                    "because 'test.TestAnnotation' annotation does not contain 'NOT_FOUND' public static final field!"
+            "@test.DummyClass:NOT_FOUND;                 Can't convert '@test.DummyClass.NOT_FOUND' to 'java.lang.Runnable', " +
+                    "because 'test.DummyClass' class does not contain 'NOT_FOUND' public static final field!",
+            "@test.DummyInterface:NOT_FOUND;             Can't convert '@test.DummyInterface.NOT_FOUND' to 'java.lang.Runnable', " +
+                    "because 'test.DummyInterface' interface does not contain 'NOT_FOUND' public static final field!",
+            "@test.DummyAnnotation:NOT_FOUND;            Can't convert '@test.DummyAnnotation.NOT_FOUND' to 'java.lang.Runnable', " +
+                    "because 'test.DummyAnnotation' annotation does not contain 'NOT_FOUND' public static final field!"
     })
     void Should_throw_ConfigException(final String value,
                                       final String expectedMessage) {

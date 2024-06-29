@@ -45,14 +45,14 @@ final class MaxFloatConstraintValidatorTest extends AbstractNullableConstraintVa
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate((float)8.0, PARAMETER, FIELD_NAME));
+        assertDoesNotThrow(() -> validator.validate((float) 8.0, PARAMETER, FIELD_NAME));
     }
 
     @Test
     @Order(12)
     void Should_throw_ConstraintViolationException() {
         final ConstraintViolationException exception =
-                assertThrows(ConstraintViolationException.class, () -> validator.validate((float)100.0, PARAMETER, FIELD_NAME));
+                assertThrows(ConstraintViolationException.class, () -> validator.validate((float) 100.0, PARAMETER, FIELD_NAME));
         assertEquals(
                 "Invalid parameter \"fieldName\": Expected that value <= 10.1, but actual is 100.0!",
                 exception.getMessage()

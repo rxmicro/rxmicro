@@ -202,9 +202,8 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                 if (argsBuilder.length() > 0) {
                     argsBuilder.append(", ");
                 }
-                argsBuilder.append(Optional.ofNullable(map.get(parameter)).orElseThrow(() -> {
-                    throw createInvalidConstraintParametersOrderError(annotation, format("'?' parameter not defined!", parameter));
-                }));
+                argsBuilder.append(Optional.ofNullable(map.get(parameter)).orElseThrow(() ->
+                        createInvalidConstraintParametersOrderError(annotation, format("'?' parameter not defined!", parameter))));
             }
             return argsBuilder.toString();
         }

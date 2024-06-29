@@ -102,7 +102,7 @@ public final class MapConfigProperties extends ConfigProperties {
     @Override
     protected void loadFromJavaSystemProperties(final DebugMessageBuilder debugMessageBuilder) {
         final String prefix = namespace + ".";
-        final Set<Map.Entry<String, String>> resolvedEntries = SYSTEM_PROPERTIES.entrySet()
+        final Set<Map.Entry<String, String>> resolvedEntries = SYSTEM_PROPERTIES_SUPPLIER.get().entrySet()
                 .stream()
                 .filter(e -> String.valueOf(e.getKey()).startsWith(prefix))
                 .map(e -> entry(String.valueOf(e.getKey()).substring(prefix.length()), String.valueOf(e.getValue())))

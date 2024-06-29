@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
@@ -80,20 +81,21 @@ final class TcpSocketWaitForServiceTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {
-            "-1",
-            "65535",
-            "99999"
+    @CsvSource(delimiter = ';', value = {
+            "-1;        Expected that value >= 0, but actual is -1!",
+            "65536;     Expected that value <= 65535, but actual is 65536!",
+            "99999;     Expected that value <= 65535, but actual is 99999!"
     })
     @Order(3)
-    void Should_throw_ConfigException_if_port_is_not_valid_number(final String port) {
+    void Should_throw_ConfigException_if_port_is_not_valid_number(final String port,
+                                                                  final String errorMessage) {
         final ConfigException exception = assertThrows(ConfigException.class, () ->
                 new TcpSocketWaitForService(new Params(
                         WAIT_FOR_TCP_SOCKET_TYPE_NAME,
                         Duration.ofSeconds(Long.parseLong(WAIT_FOR_TIMEOUT_DEFAULT_VALUE_IN_SECONDS)),
                         "localhost:" + port)));
         assertEquals(
-                format("Invalid port value: ? (Must be 0 < ? < 65535)", port, port),
+                format("Invalid command line argument \"<destination>\": ?", errorMessage),
                 exception.getMessage()
         );
     }

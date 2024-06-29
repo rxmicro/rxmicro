@@ -16,6 +16,10 @@
 
 package io.rxmicro.config;
 
+import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.validation.constraint.MaxInt;
+import io.rxmicro.validation.constraint.MinInt;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -24,6 +28,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import static io.rxmicro.common.util.Formats.format;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,59 +41,96 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ValidationTest {
 
-    private static final String TEST_FOR_VALIDATION_THREAD_PRIORITY = "test-for-validation.threadPriority";
+    private static final String DUMMY_VALIDATION = "dummy-validation";
+
+    private static final String DUMMY_VALIDATION_THREAD_PRIORITY = DUMMY_VALIDATION + ".threadPriority";
 
     @BeforeAll
-    static void beforeAll() {
+    static void prepareConfigs() {
         new Configs.Builder()
                 .withOrderedConfigSources(
-                        ConfigSource.DEFAULT_CONFIG_VALUES,
                         ConfigSource.JAVA_SYSTEM_PROPERTIES
                 )
                 .build();
     }
 
+    @AfterAll
+    static void destroyConfigs() {
+        new Configs.Destroyer()
+                .destroy();
+    }
+
     @Test
     @Order(1)
     void should_throw_ConfigException_because_tread_priority_less_then_min_allowed() {
-        System.setProperty(TEST_FOR_VALIDATION_THREAD_PRIORITY, "0");
+        System.setProperty(DUMMY_VALIDATION_THREAD_PRIORITY, "0");
 
         try {
-            final ConfigException exception = assertThrows(ConfigException.class, () -> Configs.getConfig(DummyConfig.class));
+            final ConfigException exception =
+                    assertThrows(ConfigException.class, () -> Configs.getConfig(DUMMY_VALIDATION, DummyValidationConfig.class));
 
             assertEquals(
-                    "'test-for-validation' config contains the following validation errors:\n" +
-                            "\tInvalid configuration parameter \"test-for-validation.threadPriority\": Expected that value >= 1, but actual is 0!",
+                    format(
+                            "Invalid configuration parameter \"?\": Expected that value >= 1, but actual is 0!",
+                            DUMMY_VALIDATION_THREAD_PRIORITY
+                    ),
                     exception.getMessage()
             );
         } finally {
-            System.clearProperty(TEST_FOR_VALIDATION_THREAD_PRIORITY);
+            System.clearProperty(DUMMY_VALIDATION_THREAD_PRIORITY);
         }
     }
 
     @Test
     @Order(2)
     void should_throw_ConfigException_because_tread_priority_more_then_max_allowed() {
-        System.setProperty(TEST_FOR_VALIDATION_THREAD_PRIORITY, "20");
+        System.setProperty(DUMMY_VALIDATION_THREAD_PRIORITY, "20");
 
         try {
-            final ConfigException exception = assertThrows(ConfigException.class, () -> Configs.getConfig(DummyConfig.class));
+            final ConfigException exception =
+                    assertThrows(ConfigException.class, () -> Configs.getConfig(DUMMY_VALIDATION, DummyValidationConfig.class));
 
             assertEquals(
-                    "'test-for-validation' config contains the following validation errors:\n" +
-                            "\tInvalid configuration parameter \"test-for-validation.threadPriority\": Expected that value <= 10, but actual is 20!",
+                    format(
+                            "Invalid configuration parameter \"?\": Expected that value <= 10, but actual is 20!",
+                            DUMMY_VALIDATION_THREAD_PRIORITY
+                    ),
                     exception.getMessage()
             );
         } finally {
-            System.clearProperty(TEST_FOR_VALIDATION_THREAD_PRIORITY);
+            System.clearProperty(DUMMY_VALIDATION_THREAD_PRIORITY);
         }
     }
 
     @Test
     @Order(Integer.MAX_VALUE)
     void should_not_throw_any_exception_because_properties_are_not_set() {
-        final DummyConfig config = assertDoesNotThrow(() -> Configs.getConfig(DummyConfig.class));
+        final DummyValidationConfig config =
+                assertDoesNotThrow(() -> Configs.getConfig(DUMMY_VALIDATION, DummyValidationConfig.class));
 
         assertEquals(Thread.NORM_PRIORITY, config.getThreadPriority());
+    }
+
+    @SingletonConfigClass
+    public static final class DummyValidationConfig extends Config {
+
+        @MinInt(Thread.MIN_PRIORITY)
+        @MaxInt(Thread.MAX_PRIORITY)
+        private Integer threadPriority = Thread.NORM_PRIORITY;
+
+        public DummyValidationConfig() {
+            super(DUMMY_VALIDATION);
+        }
+
+        public Integer getThreadPriority() {
+            return threadPriority;
+        }
+
+        @SuppressWarnings("unused") // Used via reflection by `Config*` classes
+        @BuilderMethod
+        public DummyValidationConfig setThreadPriority(final Integer threadPriority) {
+            this.threadPriority = ensureValid(threadPriority);
+            return this;
+        }
     }
 }

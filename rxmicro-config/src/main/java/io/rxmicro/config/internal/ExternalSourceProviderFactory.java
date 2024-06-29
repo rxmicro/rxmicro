@@ -29,9 +29,14 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class ExternalSourceProviderFactory {
 
-    private static Map<String, String> environmentVariables = System.getenv();
+    private static Map<String, String> environmentVariables;
 
-    private static String currentDir = ".";
+    private static String currentDir;
+
+    static {
+        resetEnvironmentVariables();
+        resetCurrentDir();
+    }
 
     public static Map<String, String> getEnvironmentVariables() {
         return environmentVariables;
@@ -41,12 +46,20 @@ public final class ExternalSourceProviderFactory {
         ExternalSourceProviderFactory.environmentVariables = unmodifiableMap(environmentVariables);
     }
 
+    public static void resetEnvironmentVariables() {
+        environmentVariables = System.getenv();
+    }
+
     public static String getCurrentDir() {
         return currentDir;
     }
 
     public static void setCurrentDir(final String currentDir) {
         ExternalSourceProviderFactory.currentDir = require(currentDir);
+    }
+
+    public static void resetCurrentDir() {
+        currentDir = ".";
     }
 
     private ExternalSourceProviderFactory() {

@@ -39,8 +39,8 @@ final class WaitForServiceFactoryTest {
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            "wait-for;                                      Expected destination. For example: java Main.class wait-for localhost:8080",
-            "wait-for --type=unsupported;                   Expected destination. For example: java Main.class wait-for localhost:8080",
+            "wait-for;                                      Expected <destination>. For example: java Main.class wait-for localhost:8080",
+            "wait-for --type=unsupported;                   Expected <destination>. For example: java Main.class wait-for localhost:8080",
             "wait-for --type=unsupported localhost:8080;    Unsupported type: 'unsupported'!",
             "WAIT_FOR localhost:8080;                       Invalid command line argument: 'WAIT_FOR'. Use 'wait-for' instead!",
 
