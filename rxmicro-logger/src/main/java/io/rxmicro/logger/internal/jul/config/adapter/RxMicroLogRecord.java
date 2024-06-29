@@ -192,7 +192,7 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
      * @author nedis
      * @since 0.7
      */
-    private static class StackFrameFilter implements Predicate<StackWalker.StackFrame> {
+    private static final class StackFrameFilter implements Predicate<StackWalker.StackFrame> {
 
         private static final Set<Class<?>> CLASSES = Set.of(
                 AbstractLogger.class,

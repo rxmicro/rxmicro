@@ -158,7 +158,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link String} value to which the specified key is mapped
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     public String getString(final String key) {
         return (String) getRequired(key);
@@ -170,7 +170,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link String} value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<String> getOptionalString(final String key) {
@@ -196,7 +196,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link Boolean} value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     public boolean getBoolean(final String key) {
         return (Boolean) getRequired(key);
@@ -208,7 +208,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Boolean} value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Boolean> getOptionalBoolean(final String key) {
@@ -234,7 +234,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link BigInteger} value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     public BigInteger getBigInteger(final String key) {
         return (BigInteger) getRequired(key);
@@ -246,7 +246,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link BigInteger} value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<BigInteger> getOptionalBigInteger(final String key) {
@@ -272,7 +272,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link Long} value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     public Long getLong(final String key) {
         return (Long) getRequired(key);
@@ -284,7 +284,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Long} value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Long> getOptionalLong(final String key) {
@@ -297,7 +297,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link Integer} value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     public Integer getInteger(final String key) {
         return ((Number) getRequired(key)).intValue();
@@ -309,7 +309,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Integer} value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Integer> getOptionalInteger(final String key) {
@@ -322,7 +322,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link Short} value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     public Short getShort(final String key) {
         return ((Number) getRequired(key)).shortValue();
@@ -334,7 +334,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Short} value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Short> getOptionalShort(final String key) {
@@ -360,7 +360,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link BigDecimal} value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     public BigDecimal getBigDecimal(final String key) {
         return (BigDecimal) getRequired(key);
@@ -372,7 +372,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link BigDecimal} value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<BigDecimal> getOptionalBigDecimal(final String key) {
@@ -385,7 +385,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link Double} value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     public Double getDouble(final String key) {
         return ((Number) getRequired(key)).doubleValue();
@@ -397,7 +397,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Double} value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Double> getOptionalDouble(final String key) {
@@ -410,7 +410,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link Float} value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     public Float getFloat(final String key) {
         return ((Number) getRequired(key)).floatValue();
@@ -422,7 +422,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Float} value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Float> getOptionalFloat(final String key) {
@@ -448,7 +448,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link Map}{@code <String, String>}  value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     @SuppressWarnings("unchecked")
     public Map<String, String> getMap(final String key) {
@@ -461,7 +461,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Map}{@code <String, String>}  value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     @SuppressWarnings("unchecked")
@@ -488,7 +488,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @param key the key whose associated value is to be returned
      * @return the {@link List}{@code <String>}  value to which the specified key is mapped.
      * @throws ClassCastException if the value is of an inappropriate type for this map.
-     * @throws ConfigException if the value is not found by the provided key.
+     * @throws ConfigException    if the value is not found by the provided key.
      */
     @SuppressWarnings("unchecked")
     public List<String> getList(final String key) {
@@ -501,7 +501,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link List}{@code <String>}  value to which the specified key is mapped, or
-     *         {@code null} if this map contains no mapping for the key
+     * {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     @SuppressWarnings("unchecked")

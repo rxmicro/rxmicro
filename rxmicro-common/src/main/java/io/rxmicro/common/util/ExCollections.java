@@ -93,7 +93,7 @@ public final class ExCollections {
      * Returns the short-lived unmodifiable {@link List} of the specified collection.
      *
      * @param collection the specified collection
-     * @param <E> the class of the objects in the collection
+     * @param <E>        the class of the objects in the collection
      * @return the short-lived unmodifiable {@link List} of the specified collection
      * @see List#of()
      * @see Collections#unmodifiableList(List)
@@ -165,7 +165,7 @@ public final class ExCollections {
      * Returns the short-lived unmodifiable ordered {@link Set} of the specified collection.
      *
      * @param collection the specified collection.
-     * @param <E> the class of the objects in the collection
+     * @param <E>        the class of the objects in the collection
      * @return the short-lived unmodifiable ordered {@link Set} of the specified collection.
      * @see Set#of()
      * @see Collections#unmodifiableSet(Set)
@@ -188,7 +188,7 @@ public final class ExCollections {
      * Returns the short-lived unmodifiable ordered {@link Set} of the specified elements.
      *
      * @param elements the specified elements
-     * @param <E> the class of the objects in the collection
+     * @param <E>      the class of the objects in the collection
      * @return the short-lived unmodifiable ordered {@link Set} of the specified elements.
      * @see Set#of()
      * @see Collections#unmodifiableSet(Set)
@@ -202,7 +202,7 @@ public final class ExCollections {
      * Joins the specified array of the {@link Set}s into one modifiable {@link Set}.
      *
      * @param items the specified array of the {@link Set}s
-     * @param <E> the class of the objects in the each {@link Set}
+     * @param <E>   the class of the objects in the each {@link Set}
      * @return the joined modifiable {@link Set}
      */
     @SafeVarargs
@@ -214,7 +214,7 @@ public final class ExCollections {
      * Joins the specified array of the {@link List}s into one modifiable {@link List}.
      *
      * @param items the specified array of the {@link List}s
-     * @param <E> the class of the objects in the each {@link List}
+     * @param <E>   the class of the objects in the each {@link List}
      * @return the joined modifiable {@link List}
      */
     @SafeVarargs
@@ -227,8 +227,8 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the mapping's key
-     * @param v1 the mapping's value
+     * @param k1  the mapping's key
+     * @param v1  the mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mapping
      * @throws NullPointerException if the key or the value is {@code null}
      * @see LinkedHashMap
@@ -245,13 +245,13 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the first mapping's key
-     * @param v1 the first mapping's value
-     * @param k2 the second mapping's key
-     * @param v2 the second mapping's value
+     * @param k1  the first mapping's key
+     * @param v1  the first mapping's value
+     * @param k2  the second mapping's key
+     * @param v2  the second mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if the keys are duplicates
-     * @throws NullPointerException if any key or value is {@code null}
+     * @throws NullPointerException     if any key or value is {@code null}
      * @see LinkedHashMap
      * @see Map#of(Object, Object, Object, Object)
      */
@@ -268,15 +268,15 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the first mapping's key
-     * @param v1 the first mapping's value
-     * @param k2 the second mapping's key
-     * @param v2 the second mapping's value
-     * @param k3 the third mapping's key
-     * @param v3 the third mapping's value
+     * @param k1  the first mapping's key
+     * @param v1  the first mapping's value
+     * @param k2  the second mapping's key
+     * @param v2  the second mapping's value
+     * @param k3  the third mapping's key
+     * @param v3  the third mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if there are any duplicate keys
-     * @throws NullPointerException if any key or value is {@code null}
+     * @throws NullPointerException     if any key or value is {@code null}
      * @see LinkedHashMap
      * @see Map#of(Object, Object, Object, Object, Object, Object)
      */
@@ -295,17 +295,17 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the first mapping's key
-     * @param v1 the first mapping's value
-     * @param k2 the second mapping's key
-     * @param v2 the second mapping's value
-     * @param k3 the third mapping's key
-     * @param v3 the third mapping's value
-     * @param k4 the fourth mapping's key
-     * @param v4 the fourth mapping's value
+     * @param k1  the first mapping's key
+     * @param v1  the first mapping's value
+     * @param k2  the second mapping's key
+     * @param v2  the second mapping's value
+     * @param k3  the third mapping's key
+     * @param v3  the third mapping's value
+     * @param k4  the fourth mapping's key
+     * @param v4  the fourth mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if there are any duplicate keys
-     * @throws NullPointerException if any key or value is {@code null}
+     * @throws NullPointerException     if any key or value is {@code null}
      * @see LinkedHashMap
      * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object)
      */
@@ -326,19 +326,19 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the first mapping's key
-     * @param v1 the first mapping's value
-     * @param k2 the second mapping's key
-     * @param v2 the second mapping's value
-     * @param k3 the third mapping's key
-     * @param v3 the third mapping's value
-     * @param k4 the fourth mapping's key
-     * @param v4 the fourth mapping's value
-     * @param k5 the fifth mapping's key
-     * @param v5 the fifth mapping's value
+     * @param k1  the first mapping's key
+     * @param v1  the first mapping's value
+     * @param k2  the second mapping's key
+     * @param v2  the second mapping's value
+     * @param k3  the third mapping's key
+     * @param v3  the third mapping's value
+     * @param k4  the fourth mapping's key
+     * @param v4  the fourth mapping's value
+     * @param k5  the fifth mapping's key
+     * @param v5  the fifth mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if there are any duplicate keys
-     * @throws NullPointerException if any key or value is {@code null}
+     * @throws NullPointerException     if any key or value is {@code null}
      * @see LinkedHashMap
      * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
@@ -361,21 +361,21 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the first mapping's key
-     * @param v1 the first mapping's value
-     * @param k2 the second mapping's key
-     * @param v2 the second mapping's value
-     * @param k3 the third mapping's key
-     * @param v3 the third mapping's value
-     * @param k4 the fourth mapping's key
-     * @param v4 the fourth mapping's value
-     * @param k5 the fifth mapping's key
-     * @param v5 the fifth mapping's value
-     * @param k6 the sixth mapping's key
-     * @param v6 the sixth mapping's value
+     * @param k1  the first mapping's key
+     * @param v1  the first mapping's value
+     * @param k2  the second mapping's key
+     * @param v2  the second mapping's value
+     * @param k3  the third mapping's key
+     * @param v3  the third mapping's value
+     * @param k4  the fourth mapping's key
+     * @param v4  the fourth mapping's value
+     * @param k5  the fifth mapping's key
+     * @param v5  the fifth mapping's value
+     * @param k6  the sixth mapping's key
+     * @param v6  the sixth mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if there are any duplicate keys
-     * @throws NullPointerException if any key or value is {@code null}
+     * @throws NullPointerException     if any key or value is {@code null}
      * @see LinkedHashMap
      * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
@@ -400,23 +400,23 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the first mapping's key
-     * @param v1 the first mapping's value
-     * @param k2 the second mapping's key
-     * @param v2 the second mapping's value
-     * @param k3 the third mapping's key
-     * @param v3 the third mapping's value
-     * @param k4 the fourth mapping's key
-     * @param v4 the fourth mapping's value
-     * @param k5 the fifth mapping's key
-     * @param v5 the fifth mapping's value
-     * @param k6 the sixth mapping's key
-     * @param v6 the sixth mapping's value
-     * @param k7 the seventh mapping's key
-     * @param v7 the seventh mapping's value
+     * @param k1  the first mapping's key
+     * @param v1  the first mapping's value
+     * @param k2  the second mapping's key
+     * @param v2  the second mapping's value
+     * @param k3  the third mapping's key
+     * @param v3  the third mapping's value
+     * @param k4  the fourth mapping's key
+     * @param v4  the fourth mapping's value
+     * @param k5  the fifth mapping's key
+     * @param v5  the fifth mapping's value
+     * @param k6  the sixth mapping's key
+     * @param v6  the sixth mapping's value
+     * @param k7  the seventh mapping's key
+     * @param v7  the seventh mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if there are any duplicate keys
-     * @throws NullPointerException if any key or value is {@code null}
+     * @throws NullPointerException     if any key or value is {@code null}
      * @see LinkedHashMap
      * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
@@ -443,25 +443,25 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the first mapping's key
-     * @param v1 the first mapping's value
-     * @param k2 the second mapping's key
-     * @param v2 the second mapping's value
-     * @param k3 the third mapping's key
-     * @param v3 the third mapping's value
-     * @param k4 the fourth mapping's key
-     * @param v4 the fourth mapping's value
-     * @param k5 the fifth mapping's key
-     * @param v5 the fifth mapping's value
-     * @param k6 the sixth mapping's key
-     * @param v6 the sixth mapping's value
-     * @param k7 the seventh mapping's key
-     * @param v7 the seventh mapping's value
-     * @param k8 the eighth mapping's key
-     * @param v8 the eighth mapping's value
+     * @param k1  the first mapping's key
+     * @param v1  the first mapping's value
+     * @param k2  the second mapping's key
+     * @param v2  the second mapping's value
+     * @param k3  the third mapping's key
+     * @param v3  the third mapping's value
+     * @param k4  the fourth mapping's key
+     * @param v4  the fourth mapping's value
+     * @param k5  the fifth mapping's key
+     * @param v5  the fifth mapping's value
+     * @param k6  the sixth mapping's key
+     * @param v6  the sixth mapping's value
+     * @param k7  the seventh mapping's key
+     * @param v7  the seventh mapping's value
+     * @param k8  the eighth mapping's key
+     * @param v8  the eighth mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if there are any duplicate keys
-     * @throws NullPointerException if any key or value is {@code null}
+     * @throws NullPointerException     if any key or value is {@code null}
      * @see LinkedHashMap
      * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
@@ -490,27 +490,27 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the first mapping's key
-     * @param v1 the first mapping's value
-     * @param k2 the second mapping's key
-     * @param v2 the second mapping's value
-     * @param k3 the third mapping's key
-     * @param v3 the third mapping's value
-     * @param k4 the fourth mapping's key
-     * @param v4 the fourth mapping's value
-     * @param k5 the fifth mapping's key
-     * @param v5 the fifth mapping's value
-     * @param k6 the sixth mapping's key
-     * @param v6 the sixth mapping's value
-     * @param k7 the seventh mapping's key
-     * @param v7 the seventh mapping's value
-     * @param k8 the eighth mapping's key
-     * @param v8 the eighth mapping's value
-     * @param k9 the ninth mapping's key
-     * @param v9 the ninth mapping's value
+     * @param k1  the first mapping's key
+     * @param v1  the first mapping's value
+     * @param k2  the second mapping's key
+     * @param v2  the second mapping's value
+     * @param k3  the third mapping's key
+     * @param v3  the third mapping's value
+     * @param k4  the fourth mapping's key
+     * @param v4  the fourth mapping's value
+     * @param k5  the fifth mapping's key
+     * @param v5  the fifth mapping's value
+     * @param k6  the sixth mapping's key
+     * @param v6  the sixth mapping's value
+     * @param k7  the seventh mapping's key
+     * @param v7  the seventh mapping's value
+     * @param k8  the eighth mapping's key
+     * @param v8  the eighth mapping's value
+     * @param k9  the ninth mapping's key
+     * @param v9  the ninth mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if there are any duplicate keys
-     * @throws NullPointerException if any key or value is {@code null}
+     * @throws NullPointerException     if any key or value is {@code null}
      * @see LinkedHashMap
      * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
@@ -541,29 +541,29 @@ public final class ExCollections {
      *
      * @param <K> the {@code Map}'s key type
      * @param <V> the {@code Map}'s value type
-     * @param k1 the first mapping's key
-     * @param v1 the first mapping's value
-     * @param k2 the second mapping's key
-     * @param v2 the second mapping's value
-     * @param k3 the third mapping's key
-     * @param v3 the third mapping's value
-     * @param k4 the fourth mapping's key
-     * @param v4 the fourth mapping's value
-     * @param k5 the fifth mapping's key
-     * @param v5 the fifth mapping's value
-     * @param k6 the sixth mapping's key
-     * @param v6 the sixth mapping's value
-     * @param k7 the seventh mapping's key
-     * @param v7 the seventh mapping's value
-     * @param k8 the eighth mapping's key
-     * @param v8 the eighth mapping's value
-     * @param k9 the ninth mapping's key
-     * @param v9 the ninth mapping's value
+     * @param k1  the first mapping's key
+     * @param v1  the first mapping's value
+     * @param k2  the second mapping's key
+     * @param v2  the second mapping's value
+     * @param k3  the third mapping's key
+     * @param v3  the third mapping's value
+     * @param k4  the fourth mapping's key
+     * @param v4  the fourth mapping's value
+     * @param k5  the fifth mapping's key
+     * @param v5  the fifth mapping's value
+     * @param k6  the sixth mapping's key
+     * @param v6  the sixth mapping's value
+     * @param k7  the seventh mapping's key
+     * @param v7  the seventh mapping's value
+     * @param k8  the eighth mapping's key
+     * @param v8  the eighth mapping's value
+     * @param k9  the ninth mapping's key
+     * @param v9  the ninth mapping's value
      * @param k10 the tenth mapping's key
      * @param v10 the tenth mapping's value
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if there are any duplicate keys
-     * @throws NullPointerException if any key or value is {@code null}
+     * @throws NullPointerException     if any key or value is {@code null}
      * @see LinkedHashMap
      * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
@@ -594,12 +594,12 @@ public final class ExCollections {
     /**
      * Returns the short-lived unmodifiable ordered {@link Map} containing keys and values extracted from the given entries.
      *
-     * @param <K> the {@code Map}'s key type
-     * @param <V> the {@code Map}'s value type
+     * @param <K>     the {@code Map}'s key type
+     * @param <V>     the {@code Map}'s value type
      * @param entries {@code Map.Entry}s containing the keys and values from which the map is populated
      * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
      * @throws IllegalArgumentException if there are any duplicate keys
-     * @throws NullPointerException if any entry, key, or value is {@code null}, or if the {@code entries} array is {@code null}
+     * @throws NullPointerException     if any entry, key, or value is {@code null}, or if the {@code entries} array is {@code null}
      * @see LinkedHashMap
      * @see Map#ofEntries(Map.Entry[])
      */

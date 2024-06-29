@@ -30,7 +30,7 @@ import java.util.Map;
  * <p>
  * Read more:
  * <a href="https://docs.rxmicro.io/latest/user-guide/rest-client.html#rest-client-partial-implementation-section">
- *     https://docs.rxmicro.io/latest/user-guide/rest-client.html#rest-client-partial-implementation-section
+ * https://docs.rxmicro.io/latest/user-guide/rest-client.html#rest-client-partial-implementation-section
  * </a>
  *
  * @author nedis
@@ -47,8 +47,8 @@ public abstract class AbstractRestClient {
     /**
      * Joins the path.
      *
-     * @param path          the path
-     * @param parameters    the path parameters
+     * @param path       the path
+     * @param parameters the path parameters
      * @return the joined path
      */
     protected final String joinPath(final String path,

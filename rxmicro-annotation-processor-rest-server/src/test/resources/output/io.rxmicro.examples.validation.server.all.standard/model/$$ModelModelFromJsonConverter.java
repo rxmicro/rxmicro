@@ -1,7 +1,9 @@
 package io.rxmicro.examples.validation.server.all.standard.model;
 
 import io.rxmicro.exchange.json.detail.ModelFromJsonConverter;
+import org.apache.maven.model.Model;
 
+import java.awt.Color;
 import java.util.Map;
 
 /**

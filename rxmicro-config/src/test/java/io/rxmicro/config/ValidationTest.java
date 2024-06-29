@@ -58,7 +58,7 @@ public class ValidationTest {
 
             assertEquals(
                     "'test-for-validation' config contains the following validation errors:\n" +
-                    "\tInvalid configuration parameter \"test-for-validation.threadPriority\": Expected that value >= 1, but actual is 0!",
+                            "\tInvalid configuration parameter \"test-for-validation.threadPriority\": Expected that value >= 1, but actual is 0!",
                     exception.getMessage()
             );
         } finally {
@@ -76,7 +76,7 @@ public class ValidationTest {
 
             assertEquals(
                     "'test-for-validation' config contains the following validation errors:\n" +
-                    "\tInvalid configuration parameter \"test-for-validation.threadPriority\": Expected that value <= 10, but actual is 20!",
+                            "\tInvalid configuration parameter \"test-for-validation.threadPriority\": Expected that value <= 10, but actual is 20!",
                     exception.getMessage()
             );
         } finally {

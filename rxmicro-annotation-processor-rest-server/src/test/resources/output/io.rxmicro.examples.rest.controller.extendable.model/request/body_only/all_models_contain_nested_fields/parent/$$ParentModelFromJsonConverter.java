@@ -3,6 +3,7 @@ package io.rxmicro.examples.rest.controller.extendable.model.request.body_only.a
 import io.rxmicro.examples.rest.controller.extendable.model.request.body_only.all_models_contain_nested_fields.grand.$$GrandParentModelFromJsonConverter;
 import io.rxmicro.examples.rest.controller.extendable.model.request.body_only.all_models_contain_nested_fields.parent.nested.$$NestedModelFromJsonConverter;
 import io.rxmicro.exchange.json.detail.ModelFromJsonConverter;
+import org.apache.maven.model.Parent;
 
 import java.util.Map;
 

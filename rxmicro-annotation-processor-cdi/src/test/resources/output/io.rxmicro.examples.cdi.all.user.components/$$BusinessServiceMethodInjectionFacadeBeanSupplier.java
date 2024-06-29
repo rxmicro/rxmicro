@@ -10,7 +10,6 @@ import io.rxmicro.examples.cdi.all.user.components.children.PrivateFactoryMethod
 import io.rxmicro.runtime.detail.ByTypeInstanceQualifier;
 
 import static io.rxmicro.cdi.detail.InternalBeanFactory.getBeansByType;
-import static io.rxmicro.cdi.detail.InternalBeanFactory.getOptionalBean;
 import static io.rxmicro.cdi.detail.InternalBeanFactory.getRequiredBean;
 
 /**

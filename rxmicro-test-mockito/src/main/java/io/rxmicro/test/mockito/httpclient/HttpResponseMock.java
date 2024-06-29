@@ -109,9 +109,9 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
          *
          * @param body the specified HTTP body
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified HTTP body is {@code null}
+         * @throws NullPointerException     if the specified HTTP body is {@code null}
          * @throws IllegalArgumentException if the specified HTTP body is instance of {@link Throwable}
-         * @throws InvalidStateException if {@code returnRequestBody} setting is enabled
+         * @throws InvalidStateException    if {@code returnRequestBody} setting is enabled
          */
         @BuilderMethod
         public Builder setBody(final Object body) {

@@ -29,7 +29,7 @@ import java.util.Base64;
  * <p>
  * This request id generator is useful if random generator can't be used.
  * Read more: <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/SecureRandom.html">
- *     https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/SecureRandom.html
+ * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/SecureRandom.html
  * </a>
  *
  * <p>
@@ -112,9 +112,9 @@ public final class Deterministic96BitsRequestIdGenerator implements RequestIdGen
      * The randomize mask is used to randomize incremental counter: {@code return (counter++ ^ randomizeMask)}
      *
      * @param deterministicValueProvider the deterministic value provider.
-     * @param checksumAlgorithm the checksum algorithm
-     * @param incrementValue the increment value for counter
-     * @param randomizeMask the randomize mask
+     * @param checksumAlgorithm          the checksum algorithm
+     * @param incrementValue             the increment value for counter
+     * @param randomizeMask              the randomize mask
      */
     public Deterministic96BitsRequestIdGenerator(final DeterministicValueProvider deterministicValueProvider,
                                                  final String checksumAlgorithm,

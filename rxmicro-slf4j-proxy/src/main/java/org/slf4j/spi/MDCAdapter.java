@@ -26,7 +26,7 @@ import java.util.Map;
  * <p>
  * Read more:
  * <a href="https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73">
- *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
+ * https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
  * </a>
  *
  * <p>
@@ -44,7 +44,7 @@ public interface MDCAdapter {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
      *
      * <p>
      * Put a context value (the <code>val</code> parameter) as identified with
@@ -63,7 +63,7 @@ public interface MDCAdapter {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
      *
      * <p>
      * Get the context identified by the <code>key</code> parameter.
@@ -77,7 +77,7 @@ public interface MDCAdapter {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
      *
      * <p>
      * Remove the the context identified by the <code>key</code> parameter.
@@ -94,7 +94,7 @@ public interface MDCAdapter {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
      *
      * <p>
      * Clear all entries in the MDC.
@@ -104,7 +104,7 @@ public interface MDCAdapter {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
      *
      * <p>
      * Return a copy of the current thread's context map, with keys and
@@ -117,7 +117,7 @@ public interface MDCAdapter {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.26/org/slf4j/spi/MDCAdapter.html</a>.
      *
      * <p>
      * Set the current thread's context map by first clearing any existing

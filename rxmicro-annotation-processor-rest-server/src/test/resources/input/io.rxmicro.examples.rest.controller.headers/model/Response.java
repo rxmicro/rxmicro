@@ -18,6 +18,7 @@ package io.rxmicro.examples.rest.controller.headers.model;
 
 import io.rxmicro.rest.Header;
 import io.rxmicro.rest.HeaderMappingStrategy;
+import org.junit.runner.Request;
 
 // tag::content[]
 // <1>

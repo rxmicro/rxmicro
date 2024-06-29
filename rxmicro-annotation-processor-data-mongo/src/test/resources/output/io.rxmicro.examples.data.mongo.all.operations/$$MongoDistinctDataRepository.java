@@ -52,7 +52,7 @@ public final class $$MongoDistinctDataRepository extends AbstractMongoRepository
     @Override
     public Mono<List<BigDecimal>> getAllUsedBalances1() {
         return Flux.from(collection
-                .distinct("balance", BigDecimal.class))
+                        .distinct("balance", BigDecimal.class))
                 .collectList();
     }
 
@@ -69,7 +69,7 @@ public final class $$MongoDistinctDataRepository extends AbstractMongoRepository
         // query = "{role: ?}
         final Document query = new Document("role", role);
         return Flowable.fromPublisher(collection
-                .distinct("email", query, String.class))
+                        .distinct("email", query, String.class))
                 .firstElement();
     }
 
@@ -82,7 +82,7 @@ public final class $$MongoDistinctDataRepository extends AbstractMongoRepository
     @Override
     public Single<List<BigDecimal>> getAllUsedBalances2() {
         return Flowable.fromPublisher(collection
-                .distinct("balance", BigDecimal.class))
+                        .distinct("balance", BigDecimal.class))
                 .collect(ArrayList::new, (l, e) -> l.add(e));
     }
 

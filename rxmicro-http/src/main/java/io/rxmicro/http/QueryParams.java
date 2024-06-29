@@ -49,7 +49,7 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing one query parameter.
      *
-     * @param name query parameter name
+     * @param name  query parameter name
      * @param value query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -63,9 +63,9 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing two query parameters.
      *
-     * @param name1 the first query parameter name
+     * @param name1  the first query parameter name
      * @param value1 the first query parameter value
-     * @param name2 the second query parameter name
+     * @param name2  the second query parameter name
      * @param value2 the second query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -79,11 +79,11 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing three query parameters.
      *
-     * @param name1 the first query parameter name
+     * @param name1  the first query parameter name
      * @param value1 the first query parameter value
-     * @param name2 the second query parameter name
+     * @param name2  the second query parameter name
      * @param value2 the second query parameter value
-     * @param name3 the third query parameter name
+     * @param name3  the third query parameter name
      * @param value3 the third query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -98,13 +98,13 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing four query parameters.
      *
-     * @param name1 the first query parameter name
+     * @param name1  the first query parameter name
      * @param value1 the first query parameter value
-     * @param name2 the second query parameter name
+     * @param name2  the second query parameter name
      * @param value2 the second query parameter value
-     * @param name3 the third query parameter name
+     * @param name3  the third query parameter name
      * @param value3 the third query parameter value
-     * @param name4 the fourth query parameter name
+     * @param name4  the fourth query parameter name
      * @param value4 the fourth query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -119,15 +119,15 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing five query parameters.
      *
-     * @param name1 the first query parameter name
+     * @param name1  the first query parameter name
      * @param value1 the first query parameter value
-     * @param name2 the second query parameter name
+     * @param name2  the second query parameter name
      * @param value2 the second query parameter value
-     * @param name3 the third query parameter name
+     * @param name3  the third query parameter name
      * @param value3 the third query parameter value
-     * @param name4 the fourth query parameter name
+     * @param name4  the fourth query parameter name
      * @param value4 the fourth query parameter value
-     * @param name5 the fifth query parameter name
+     * @param name5  the fifth query parameter name
      * @param value5 the fifth query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -143,17 +143,17 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing six query parameters.
      *
-     * @param name1 the first query parameter name
+     * @param name1  the first query parameter name
      * @param value1 the first query parameter value
-     * @param name2 the second query parameter name
+     * @param name2  the second query parameter name
      * @param value2 the second query parameter value
-     * @param name3 the third query parameter name
+     * @param name3  the third query parameter name
      * @param value3 the third query parameter value
-     * @param name4 the fourth query parameter name
+     * @param name4  the fourth query parameter name
      * @param value4 the fourth query parameter value
-     * @param name5 the fifth query parameter name
+     * @param name5  the fifth query parameter name
      * @param value5 the fifth query parameter value
-     * @param name6 the sixth query parameter name
+     * @param name6  the sixth query parameter name
      * @param value6 the sixth query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -170,19 +170,19 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing seven query parameters.
      *
-     * @param name1 the first query parameter name
+     * @param name1  the first query parameter name
      * @param value1 the first query parameter value
-     * @param name2 the second query parameter name
+     * @param name2  the second query parameter name
      * @param value2 the second query parameter value
-     * @param name3 the third query parameter name
+     * @param name3  the third query parameter name
      * @param value3 the third query parameter value
-     * @param name4 the fourth query parameter name
+     * @param name4  the fourth query parameter name
      * @param value4 the fourth query parameter value
-     * @param name5 the fifth query parameter name
+     * @param name5  the fifth query parameter name
      * @param value5 the fifth query parameter value
-     * @param name6 the sixth query parameter name
+     * @param name6  the sixth query parameter name
      * @param value6 the sixth query parameter value
-     * @param name7 the seventh query parameter name
+     * @param name7  the seventh query parameter name
      * @param value7 the seventh query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -200,21 +200,21 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing eight query parameters.
      *
-     * @param name1 the first query parameter name
+     * @param name1  the first query parameter name
      * @param value1 the first query parameter value
-     * @param name2 the second query parameter name
+     * @param name2  the second query parameter name
      * @param value2 the second query parameter value
-     * @param name3 the third query parameter name
+     * @param name3  the third query parameter name
      * @param value3 the third query parameter value
-     * @param name4 the fourth query parameter name
+     * @param name4  the fourth query parameter name
      * @param value4 the fourth query parameter value
-     * @param name5 the fifth query parameter name
+     * @param name5  the fifth query parameter name
      * @param value5 the fifth query parameter value
-     * @param name6 the sixth query parameter name
+     * @param name6  the sixth query parameter name
      * @param value6 the sixth query parameter value
-     * @param name7 the seventh query parameter name
+     * @param name7  the seventh query parameter name
      * @param value7 the seventh query parameter value
-     * @param name8 the eighth query parameter name
+     * @param name8  the eighth query parameter name
      * @param value8 the eighth query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -232,23 +232,23 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing nine query parameters.
      *
-     * @param name1 the first query parameter name
+     * @param name1  the first query parameter name
      * @param value1 the first query parameter value
-     * @param name2 the second query parameter name
+     * @param name2  the second query parameter name
      * @param value2 the second query parameter value
-     * @param name3 the third query parameter name
+     * @param name3  the third query parameter name
      * @param value3 the third query parameter value
-     * @param name4 the fourth query parameter name
+     * @param name4  the fourth query parameter name
      * @param value4 the fourth query parameter value
-     * @param name5 the fifth query parameter name
+     * @param name5  the fifth query parameter name
      * @param value5 the fifth query parameter value
-     * @param name6 the sixth query parameter name
+     * @param name6  the sixth query parameter name
      * @param value6 the sixth query parameter value
-     * @param name7 the seventh query parameter name
+     * @param name7  the seventh query parameter name
      * @param value7 the seventh query parameter value
-     * @param name8 the eighth query parameter name
+     * @param name8  the eighth query parameter name
      * @param value8 the eighth query parameter value
-     * @param name9 the ninth query parameter name
+     * @param name9  the ninth query parameter name
      * @param value9 the ninth query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -267,25 +267,25 @@ public interface QueryParams {
     /**
      * Returns HTTP query parameters instance containing ten query parameters.
      *
-     * @param name1 the first query parameter name
-     * @param value1 the first query parameter value
-     * @param name2 the second query parameter name
-     * @param value2 the second query parameter value
-     * @param name3 the third query parameter name
-     * @param value3 the third query parameter value
-     * @param name4 the fourth query parameter name
-     * @param value4 the fourth query parameter value
-     * @param name5 the fifth query parameter name
-     * @param value5 the fifth query parameter value
-     * @param name6 the sixth query parameter name
-     * @param value6 the sixth query parameter value
-     * @param name7 the seventh query parameter name
-     * @param value7 the seventh query parameter value
-     * @param name8 the eighth query parameter name
-     * @param value8 the eighth query parameter value
-     * @param name9 the ninth query parameter name
-     * @param value9 the ninth query parameter value
-     * @param name10 the tenth query parameter name
+     * @param name1   the first query parameter name
+     * @param value1  the first query parameter value
+     * @param name2   the second query parameter name
+     * @param value2  the second query parameter value
+     * @param name3   the third query parameter name
+     * @param value3  the third query parameter value
+     * @param name4   the fourth query parameter name
+     * @param value4  the fourth query parameter value
+     * @param name5   the fifth query parameter name
+     * @param value5  the fifth query parameter value
+     * @param name6   the sixth query parameter name
+     * @param value6  the sixth query parameter value
+     * @param name7   the seventh query parameter name
+     * @param value7  the seventh query parameter value
+     * @param name8   the eighth query parameter name
+     * @param value8  the eighth query parameter value
+     * @param name9   the ninth query parameter name
+     * @param value9  the ninth query parameter value
+     * @param name10  the tenth query parameter name
      * @param value10 the tenth query parameter value
      * @return the {@link QueryParams} containing the provided query parameters.
      * @throws NullPointerException if any query parameter name or value is {@code null}
@@ -336,7 +336,7 @@ public interface QueryParams {
     /**
      * Joins the URL path and HTTP query parameters.
      *
-     * @param path the URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path       the URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the query parameters
      * @return the URL path with joined query parameters
      */

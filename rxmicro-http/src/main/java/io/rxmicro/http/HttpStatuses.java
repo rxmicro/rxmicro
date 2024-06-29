@@ -443,6 +443,16 @@ public final class HttpStatuses {
      */
     public static final int NETWORK_CONNECT_TIMEOUT_ERROR_599 = 599;
 
+    /**
+     * Min allowed status value.
+     */
+    public static final int MIN_SUPPORTED_HTTP_STATUS = 100;
+
+    /**
+     * Max allowed status value.
+     */
+    public static final int MAX_SUPPORTED_HTTP_STATUS = 599;
+
     @SuppressWarnings("JavacQuirks")
     private static final Map<Integer, String> STATUES = Map.ofEntries(
             // ------------- Informational -------------
@@ -531,16 +541,12 @@ public final class HttpStatuses {
             entry(NETWORK_CONNECT_TIMEOUT_ERROR_599, "Network connect timeout error")
     );
 
-    public static final int MIN_SUPPORTED_HTTP_STATUS = 100;
-
-    public static final int MAX_SUPPORTED_HTTP_STATUS = 599;
-
     /**
      * Returns the short description for the specified status code.
      *
      * @param status the specified status code
      * @return the short description for the specified status code or
-     *          <code>`Unofficial code: ${statusCode}`</code> if the short description not defined
+     * <code>`Unofficial code: ${statusCode}`</code> if the short description not defined
      * @throws IllegalArgumentException if the specified status code is not in range [100-599]
      */
     public static String getErrorMessage(final int status) {

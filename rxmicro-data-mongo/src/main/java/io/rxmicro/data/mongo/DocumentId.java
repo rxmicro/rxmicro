@@ -30,7 +30,7 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * <p>
  * Read more:
  * <a href="https://docs.mongodb.com/manual/core/document/#field-names">
- *     https://docs.mongodb.com/manual/core/document/#field-names
+ * https://docs.mongodb.com/manual/core/document/#field-names
  * </a>
  *
  * @author nedis

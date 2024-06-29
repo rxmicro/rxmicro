@@ -28,8 +28,8 @@ import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateStr
  * The Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock using
  * <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
- * @author nedis
  * @param <T> the type of result for this {@link io.rxmicro.data.mongo.operation.Distinct} operation
+ * @author nedis
  * @see io.rxmicro.data.mongo.operation.Distinct
  * @see io.rxmicro.data.mongo.MongoRepository
  * @since 0.1
@@ -46,8 +46,8 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
     /**
      * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock.
      *
-     * @author nedis
      * @param <T> the type of result for this {@link io.rxmicro.data.mongo.operation.Distinct} operation
+     * @author nedis
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")
@@ -80,7 +80,7 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
          *
          * @param field the specified field
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified field is {@code null}
+         * @throws NullPointerException     if the specified field is {@code null}
          * @throws IllegalArgumentException if the specified field is blank
          */
         @BuilderMethod
@@ -123,8 +123,8 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
          *
          * @param query the specified query
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified query is {@code null}
-         * @throws IllegalArgumentException if the specified query is blank
+         * @throws NullPointerException             if the specified query is {@code null}
+         * @throws IllegalArgumentException         if the specified query is blank
          * @throws org.bson.json.JsonParseException if the specified query has invalid JSON structure
          */
         @BuilderMethod

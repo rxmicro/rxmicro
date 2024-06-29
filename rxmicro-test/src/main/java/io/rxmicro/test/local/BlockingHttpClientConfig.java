@@ -39,6 +39,11 @@ import static io.rxmicro.http.ProtocolSchema.HTTP;
 @SingletonConfigClass
 public final class BlockingHttpClientConfig extends RestClientConfig {
 
+    /**
+     * Default port.
+     */
+    public static final int DEFAULT_PORT = 8080;
+
     private String baseUrlPath = EMPTY_STRING;
 
     private BaseUrlPath.Position baseUrlPosition = BaseUrlPath.Position.AFTER_VERSION;
@@ -52,7 +57,7 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
     }
 
     public BlockingHttpClientConfig() {
-        super(BlockingHttpClientConfig.getDefaultNameSpace(BlockingHttpClientConfig.class), HTTP, LOCALHOST, 8080);
+        super(BlockingHttpClientConfig.getDefaultNameSpace(BlockingHttpClientConfig.class), HTTP, LOCALHOST, DEFAULT_PORT);
     }
 
     public String getBaseUrlPath() {

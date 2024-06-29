@@ -32,7 +32,7 @@ import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_CHAR;
  * <p>
  * Read more:
  * <a href="https://docs.rxmicro.io/latest/user-guide/data-postgresql.html#data-postgresql-section">
- *     https://docs.rxmicro.io/latest/user-guide/data-postgresql.html#data-postgresql-section
+ * https://docs.rxmicro.io/latest/user-guide/data-postgresql.html#data-postgresql-section
  * </a>
  *
  * @author nedis
@@ -49,7 +49,7 @@ public abstract class AbstractPostgreSQLRepository extends AbstractR2DBCReposito
      * Creates an instance of {@link AbstractPostgreSQLRepository} type.
      *
      * @param repositoryInterface the specified repository interface
-     * @param pool connection pool
+     * @param pool                connection pool
      */
     protected AbstractPostgreSQLRepository(final Class<?> repositoryInterface, final ConnectionPool pool) {
         super(repositoryInterface);

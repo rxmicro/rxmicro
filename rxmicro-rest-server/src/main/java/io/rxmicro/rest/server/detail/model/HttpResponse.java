@@ -38,7 +38,7 @@ import static io.rxmicro.http.HttpValues.listToString;
  * <p>
  * Read more:
  * <a href="https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-internals-basic-section">
- *     https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-internals-basic-section
+ * https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-internals-basic-section
  * </a>
  *
  * @author nedis
@@ -75,7 +75,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -89,7 +89,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -108,7 +108,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -127,7 +127,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -146,7 +146,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -174,7 +174,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -188,7 +188,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -207,7 +207,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -226,7 +226,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -245,7 +245,7 @@ public interface HttpResponse {
      * <p>
      * If {@code value} is {@code null} that noting will be added!
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
@@ -263,8 +263,8 @@ public interface HttpResponse {
      *
      * @param content the HTTP body as byte array
      * @return the reference to this  {@link HttpResponse} instance
-     * @see #sendFile(Path)
      * @throws io.rxmicro.common.InvalidStateException if this response used for sending file
+     * @see #sendFile(Path)
      */
     @BuilderMethod
     HttpResponse setContent(byte[] content);
@@ -274,8 +274,8 @@ public interface HttpResponse {
      *
      * @param content the HTTP body as {@code UTF8} string
      * @return the reference to this  {@link HttpResponse} instance
-     * @see #sendFile(Path)
      * @throws io.rxmicro.common.InvalidStateException if this response used for sending file
+     * @see #sendFile(Path)
      */
     @BuilderMethod
     default HttpResponse setContent(final String content) {
@@ -287,9 +287,9 @@ public interface HttpResponse {
      *
      * @param path the file path
      * @return the reference to this  {@link HttpResponse} instance
+     * @throws io.rxmicro.common.InvalidStateException if this response used for sending byte array
      * @see #setContent(byte[])
      * @see #setContent(String)
-     * @throws io.rxmicro.common.InvalidStateException if this response used for sending byte array
      */
     @BuilderMethod
     HttpResponse sendFile(Path path);

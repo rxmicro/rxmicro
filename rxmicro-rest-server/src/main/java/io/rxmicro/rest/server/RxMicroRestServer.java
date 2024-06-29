@@ -58,7 +58,7 @@ public final class RxMicroRestServer {
      * <p>
      * <i>Alias for {@link RxMicroRestServer#startRESTServer(Module, String)} method.</i>
      *
-     * @param module the current module
+     * @param module      the current module
      * @param rootPackage root package
      * @return the {@link ServerInstance} to manage the started HTTP server
      */
@@ -103,7 +103,7 @@ public final class RxMicroRestServer {
      * <p>
      * <i>Alias for {@link RxMicroRestServer#startRESTServer(Class, Class[])} method.</i>
      *
-     * @param restControllerClass a first instance of REST controller to start
+     * @param restControllerClass   a first instance of REST controller to start
      * @param restControllerClasses a REST controllers arrays to start
      * @return the {@link ServerInstance} to manage the started HTTP server
      */
@@ -118,7 +118,7 @@ public final class RxMicroRestServer {
      * <p>
      * <i>Alias for {@link RxMicroRestServer#startRestServer(Module, String)} method.</i>
      *
-     * @param module the current module
+     * @param module      the current module
      * @param rootPackage root package
      * @return the {@link ServerInstance} to manage the started HTTP server
      */
@@ -163,7 +163,7 @@ public final class RxMicroRestServer {
      * <p>
      * <i>Alias for {@link RxMicroRestServer#startRestServer(Class, Class[])} method.</i>
      *
-     * @param restControllerClass a first instance of REST controller to start
+     * @param restControllerClass   a first instance of REST controller to start
      * @param restControllerClasses a REST controllers arrays to start
      * @return the {@link ServerInstance} to manage the started HTTP server
      */
@@ -182,7 +182,7 @@ public final class RxMicroRestServer {
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
      * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}.
      *
-     * @param module the current module
+     * @param module      the current module
      * @param rootPackage root package
      */
     public static void startRestServerInteractive(final Module module,
@@ -233,7 +233,7 @@ public final class RxMicroRestServer {
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
      * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}.
      *
-     * @param restControllerClass a first instance of REST controller to start
+     * @param restControllerClass   a first instance of REST controller to start
      * @param restControllerClasses a REST controllers arrays to start
      */
     public static void startRestServerInteractive(final Class<?> restControllerClass,
@@ -301,7 +301,7 @@ public final class RxMicroRestServer {
      * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
      * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}.
      *
-     * @param restControllerClass a first instance of REST controller to start
+     * @param restControllerClass   a first instance of REST controller to start
      * @param restControllerClasses a REST controllers arrays to start
      */
     public static void startRESTServerInteractive(final Class<?> restControllerClass,

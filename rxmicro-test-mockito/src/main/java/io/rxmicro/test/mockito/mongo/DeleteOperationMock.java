@@ -85,8 +85,8 @@ public final class DeleteOperationMock extends AbstractDeleteOperationMock {
          *
          * @param filter the specified filter
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified filter is {@code null}
-         * @throws IllegalArgumentException if the specified filter is blank
+         * @throws NullPointerException             if the specified filter is {@code null}
+         * @throws IllegalArgumentException         if the specified filter is blank
          * @throws org.bson.json.JsonParseException if the specified filter has invalid JSON structure
          */
         @BuilderMethod

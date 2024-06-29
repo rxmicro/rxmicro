@@ -145,7 +145,7 @@ public final class JsonArray implements Iterable<Object> {
      *
      * @param item the new value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the new value is {@code null}.
+     * @throws NullPointerException          if the new value is {@code null}.
      * @throws UnsupportedOperationException if the current JSON array is not modifiable.
      */
     @BuilderMethod
@@ -159,7 +159,7 @@ public final class JsonArray implements Iterable<Object> {
      *
      * @param item the new value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the new value is {@code null}.
+     * @throws NullPointerException          if the new value is {@code null}.
      * @throws UnsupportedOperationException if the current JSON array is not modifiable.
      */
     @BuilderMethod
@@ -173,7 +173,7 @@ public final class JsonArray implements Iterable<Object> {
      *
      * @param item the new value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the new value is {@code null}.
+     * @throws NullPointerException          if the new value is {@code null}.
      * @throws UnsupportedOperationException if the current JSON array is not modifiable.
      */
     @BuilderMethod
@@ -187,7 +187,7 @@ public final class JsonArray implements Iterable<Object> {
      *
      * @param item the new value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the new value is {@code null}.
+     * @throws NullPointerException          if the new value is {@code null}.
      * @throws UnsupportedOperationException if the current JSON array is not modifiable.
      */
     @BuilderMethod
@@ -201,7 +201,7 @@ public final class JsonArray implements Iterable<Object> {
      *
      * @param item the new value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the new value is {@code null}.
+     * @throws NullPointerException          if the new value is {@code null}.
      * @throws UnsupportedOperationException if the current JSON array is not modifiable.
      */
     @BuilderMethod
@@ -215,7 +215,7 @@ public final class JsonArray implements Iterable<Object> {
      *
      * @param item the new value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the new value is {@code null}.
+     * @throws NullPointerException          if the new value is {@code null}.
      * @throws UnsupportedOperationException if the current JSON array is not modifiable.
      */
     @BuilderMethod
@@ -229,7 +229,7 @@ public final class JsonArray implements Iterable<Object> {
      *
      * @param item the new value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the new value is {@code null}.
+     * @throws NullPointerException          if the new value is {@code null}.
      * @throws UnsupportedOperationException if the current JSON array is not modifiable.
      */
     @BuilderMethod
@@ -243,7 +243,7 @@ public final class JsonArray implements Iterable<Object> {
      *
      * @param item the new value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the new value is {@code null}.
+     * @throws NullPointerException          if the new value is {@code null}.
      * @throws UnsupportedOperationException if the current JSON array is not modifiable.
      */
     @BuilderMethod

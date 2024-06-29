@@ -4,7 +4,6 @@ import io.rxmicro.data.RepositoryFactory;
 import io.rxmicro.examples.processor.mongo.$$MongoDataRepository;
 import io.rxmicro.examples.processor.mongo.DataRepository;
 
-import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
 import static io.rxmicro.data.mongo.detail.MongoRepositoryFactory.createMongoRepository;
 import static io.rxmicro.runtime.detail.ChildrenInitHelper.invokeAllStaticSections;
 

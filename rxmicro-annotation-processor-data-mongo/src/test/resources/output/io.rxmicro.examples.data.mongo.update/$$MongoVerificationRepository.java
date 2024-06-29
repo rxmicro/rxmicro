@@ -49,14 +49,14 @@ public final class $$MongoVerificationRepository extends AbstractMongoRepository
         // query = "{role: ?}
         final Document query = new Document("role", role);
         return Flux.from(collection
-                .distinct("balance", query, BigDecimal.class))
+                        .distinct("balance", query, BigDecimal.class))
                 .collectList();
     }
 
     @Override
     public Mono<List<BigDecimal>> findAllBalance() {
         return Flux.from(collection
-                .distinct("balance", BigDecimal.class))
+                        .distinct("balance", BigDecimal.class))
                 .collectList();
     }
 }

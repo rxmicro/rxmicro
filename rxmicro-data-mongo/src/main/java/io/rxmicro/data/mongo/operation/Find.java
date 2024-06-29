@@ -50,7 +50,7 @@ public @interface Find {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/">
-     *     https://docs.mongodb.com/manual/reference/operator/
+     * https://docs.mongodb.com/manual/reference/operator/
      * </a>
      *
      * @return the selection filter using query operators.
@@ -65,12 +65,12 @@ public @interface Find {
      *
      * <p>
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#projection">
-     *     https://docs.mongodb.com/manual/reference/method/db.collection.find/#projection
+     * https://docs.mongodb.com/manual/reference/method/db.collection.find/#projection
      * </a>
      *
      * <p>
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#projections">
-     *     https://docs.mongodb.com/manual/reference/method/db.collection.find/#projections
+     * https://docs.mongodb.com/manual/reference/method/db.collection.find/#projections
      * </a>
      *
      * @return the query projection
@@ -83,7 +83,7 @@ public @interface Find {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/method/cursor.hint/#cursor.hint">
-     *     https://docs.mongodb.com/manual/reference/method/cursor.hint/#cursor.hint
+     * https://docs.mongodb.com/manual/reference/method/cursor.hint/#cursor.hint
      * </a>
      *
      * @return the index to use for the find operation
@@ -96,7 +96,7 @@ public @interface Find {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#order-documents-in-the-result-set">
-     *     https://docs.mongodb.com/manual/reference/method/db.collection.find/#order-documents-in-the-result-set
+     * https://docs.mongodb.com/manual/reference/method/db.collection.find/#order-documents-in-the-result-set
      * </a>
      *
      * @return the sort expression
@@ -109,7 +109,7 @@ public @interface Find {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#limit-the-number-of-documents-to-return">
-     *     https://docs.mongodb.com/manual/reference/method/db.collection.find/#limit-the-number-of-documents-to-return
+     * https://docs.mongodb.com/manual/reference/method/db.collection.find/#limit-the-number-of-documents-to-return
      * </a>
      *
      * @return the limit of the result set
@@ -122,7 +122,7 @@ public @interface Find {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#set-the-starting-point-of-the-result-set">
-     *     https://docs.mongodb.com/manual/reference/method/db.collection.find/#set-the-starting-point-of-the-result-set
+     * https://docs.mongodb.com/manual/reference/method/db.collection.find/#set-the-starting-point-of-the-result-set
      * </a>
      *
      * @return the start point of the result set

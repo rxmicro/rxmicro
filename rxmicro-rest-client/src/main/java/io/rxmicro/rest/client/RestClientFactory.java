@@ -41,7 +41,7 @@ public abstract class RestClientFactory extends AbstractFactory {
     /**
      * Returns an instance of the REST client.
      *
-     * @param <T> the REST client type
+     * @param <T>                 the REST client type
      * @param restClientInterface the REST client interface
      * @return the instance of the REST client
      */

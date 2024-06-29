@@ -35,7 +35,7 @@ public final class ServiceYetNotAvailableException extends RxMicroException {
      * <i>(FYI: This constructor uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param message the error message template
-     * @param args the message template arguments
+     * @param args    the message template arguments
      */
     public ServiceYetNotAvailableException(final String message,
                                            final Object... args) {

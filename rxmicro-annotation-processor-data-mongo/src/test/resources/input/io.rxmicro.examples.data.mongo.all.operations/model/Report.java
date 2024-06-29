@@ -19,6 +19,7 @@ package io.rxmicro.examples.data.mongo.all.operations.model;
 import io.rxmicro.data.mongo.DocumentId;
 
 import java.math.BigDecimal;
+import javax.management.relation.Role;
 
 public final class Report {
 

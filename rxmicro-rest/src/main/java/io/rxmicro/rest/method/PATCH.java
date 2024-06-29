@@ -57,8 +57,8 @@ public @interface PATCH {
     /**
      * Informs how the request parameters must be transferred via HTTP protocol: in the start line or in the request body.
      *
-     * @return  {@code true} if HTTP body is used for transferring of http parameters,
-     *          {@code false} if parameters are transferred via HTTP query string
+     * @return {@code true} if HTTP body is used for transferring of http parameters,
+     * {@code false} if parameters are transferred via HTTP query string
      */
     boolean httpBody() default false;
 

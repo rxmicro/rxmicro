@@ -18,7 +18,6 @@ package io.rxmicro.data.mongo.internal;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-//import com.mongodb.connection.netty.NettyStreamFactoryFactory;
 import com.mongodb.reactivestreams.client.MongoClient;
 import io.rxmicro.data.mongo.MongoCodecsConfigurator;
 import io.rxmicro.data.mongo.MongoConfig;
@@ -29,7 +28,6 @@ import io.rxmicro.runtime.AutoRelease;
 import static com.mongodb.reactivestreams.client.MongoClients.create;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
-//import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.getEventLoopGroupFactory;
 import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
 
 /**

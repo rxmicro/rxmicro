@@ -60,8 +60,8 @@ public abstract class UnNamedModuleFixer {
      * Adds opens or exports instructions.
      *
      * @param currentModule the current module.
-     * @param consumer the action consumer.
-     * @param packageNames the package names.
+     * @param consumer      the action consumer.
+     * @param packageNames  the package names.
      */
     protected final void addOpensOrExports(final Module currentModule,
                                            final BiConsumer<Module, String> consumer,

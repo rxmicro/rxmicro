@@ -25,7 +25,7 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_char_parameter {
 
     @GET("/")
-    void test(final char parameter){
+    void test(final char parameter) {
 
     }
 }

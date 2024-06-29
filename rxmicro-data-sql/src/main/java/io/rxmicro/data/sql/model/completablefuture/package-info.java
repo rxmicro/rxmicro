@@ -20,8 +20,8 @@
  *
  * @author nedis
  * @see <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html">
- *          https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html
- *     </a>
+ * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html
+ * </a>
  * @since 0.4
  */
 package io.rxmicro.data.sql.model.completablefuture;

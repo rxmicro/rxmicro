@@ -24,7 +24,7 @@ final class $$EnvironmentCustomizer {
         currentModule.addExports("rxmicro.examples.cdi.multibinder", RX_MICRO_REFLECTION_MODULE);
     }
 
-    private static void openThePackagesWithModelClassesToReflectionModule(){
+    private static void openThePackagesWithModelClassesToReflectionModule() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
         currentModule.addOpens("io.rxmicro.examples.cdi.multibinder", RX_MICRO_REFLECTION_MODULE);
         currentModule.addOpens("io.rxmicro.examples.cdi.multibinder.impl", RX_MICRO_REFLECTION_MODULE);

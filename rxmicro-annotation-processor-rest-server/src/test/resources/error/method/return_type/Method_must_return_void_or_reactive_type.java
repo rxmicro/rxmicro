@@ -25,7 +25,7 @@ import io.rxmicro.rest.method.GET;
 public final class Method_must_return_void_or_reactive_type {
 
     @GET("/")
-    String test(){
+    String test() {
         return "";
     }
 }

@@ -49,7 +49,7 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing one header.
      *
-     * @param name the header name
+     * @param name  the header name
      * @param value the header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}
@@ -63,9 +63,9 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing two headers.
      *
-     * @param name1 the first header name
+     * @param name1  the first header name
      * @param value1 the first header value
-     * @param name2 the second header name
+     * @param name2  the second header name
      * @param value2 the second header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}
@@ -79,11 +79,11 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing three headers.
      *
-     * @param name1 the first header name
+     * @param name1  the first header name
      * @param value1 the first header value
-     * @param name2 the second header name
+     * @param name2  the second header name
      * @param value2 the second header value
-     * @param name3 the third header name
+     * @param name3  the third header name
      * @param value3 the third header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}
@@ -98,13 +98,13 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing four headers.
      *
-     * @param name1 the first header name
+     * @param name1  the first header name
      * @param value1 the first header value
-     * @param name2 the second header name
+     * @param name2  the second header name
      * @param value2 the second header value
-     * @param name3 the third header name
+     * @param name3  the third header name
      * @param value3 the third header value
-     * @param name4 the fourth header name
+     * @param name4  the fourth header name
      * @param value4 the fourth header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}
@@ -119,15 +119,15 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing five headers.
      *
-     * @param name1 the first header name
+     * @param name1  the first header name
      * @param value1 the first header value
-     * @param name2 the second header name
+     * @param name2  the second header name
      * @param value2 the second header value
-     * @param name3 the third header name
+     * @param name3  the third header name
      * @param value3 the third header value
-     * @param name4 the fourth header name
+     * @param name4  the fourth header name
      * @param value4 the fourth header value
-     * @param name5 the fifth header name
+     * @param name5  the fifth header name
      * @param value5 the fifth header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}
@@ -143,17 +143,17 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing six headers.
      *
-     * @param name1 the first header name
+     * @param name1  the first header name
      * @param value1 the first header value
-     * @param name2 the second header name
+     * @param name2  the second header name
      * @param value2 the second header value
-     * @param name3 the third header name
+     * @param name3  the third header name
      * @param value3 the third header value
-     * @param name4 the fourth header name
+     * @param name4  the fourth header name
      * @param value4 the fourth header value
-     * @param name5 the fifth header name
+     * @param name5  the fifth header name
      * @param value5 the fifth header value
-     * @param name6 the sixth header name
+     * @param name6  the sixth header name
      * @param value6 the sixth header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}
@@ -170,19 +170,19 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing seven headers.
      *
-     * @param name1 the first header name
+     * @param name1  the first header name
      * @param value1 the first header value
-     * @param name2 the second header name
+     * @param name2  the second header name
      * @param value2 the second header value
-     * @param name3 the third header name
+     * @param name3  the third header name
      * @param value3 the third header value
-     * @param name4 the fourth header name
+     * @param name4  the fourth header name
      * @param value4 the fourth header value
-     * @param name5 the fifth header name
+     * @param name5  the fifth header name
      * @param value5 the fifth header value
-     * @param name6 the sixth header name
+     * @param name6  the sixth header name
      * @param value6 the sixth header value
-     * @param name7 the seventh header name
+     * @param name7  the seventh header name
      * @param value7 the seventh header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}
@@ -200,21 +200,21 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing eight headers.
      *
-     * @param name1 the first header name
+     * @param name1  the first header name
      * @param value1 the first header value
-     * @param name2 the second header name
+     * @param name2  the second header name
      * @param value2 the second header value
-     * @param name3 the third header name
+     * @param name3  the third header name
      * @param value3 the third header value
-     * @param name4 the fourth header name
+     * @param name4  the fourth header name
      * @param value4 the fourth header value
-     * @param name5 the fifth header name
+     * @param name5  the fifth header name
      * @param value5 the fifth header value
-     * @param name6 the sixth header name
+     * @param name6  the sixth header name
      * @param value6 the sixth header value
-     * @param name7 the seventh header name
+     * @param name7  the seventh header name
      * @param value7 the seventh header value
-     * @param name8 the eighth header name
+     * @param name8  the eighth header name
      * @param value8 the eighth header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}
@@ -232,23 +232,23 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing nine headers.
      *
-     * @param name1 the first header name
+     * @param name1  the first header name
      * @param value1 the first header value
-     * @param name2 the second header name
+     * @param name2  the second header name
      * @param value2 the second header value
-     * @param name3 the third header name
+     * @param name3  the third header name
      * @param value3 the third header value
-     * @param name4 the fourth header name
+     * @param name4  the fourth header name
      * @param value4 the fourth header value
-     * @param name5 the fifth header name
+     * @param name5  the fifth header name
      * @param value5 the fifth header value
-     * @param name6 the sixth header name
+     * @param name6  the sixth header name
      * @param value6 the sixth header value
-     * @param name7 the seventh header name
+     * @param name7  the seventh header name
      * @param value7 the seventh header value
-     * @param name8 the eighth header name
+     * @param name8  the eighth header name
      * @param value8 the eighth header value
-     * @param name9 the ninth header name
+     * @param name9  the ninth header name
      * @param value9 the ninth header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}
@@ -267,25 +267,25 @@ public interface HttpHeaders {
     /**
      * Returns HTTP headers instance containing ten headers.
      *
-     * @param name1 the first header name
-     * @param value1 the first header value
-     * @param name2 the second header name
-     * @param value2 the second header value
-     * @param name3 the third header name
-     * @param value3 the third header value
-     * @param name4 the fourth header name
-     * @param value4 the fourth header value
-     * @param name5 the fifth header name
-     * @param value5 the fifth header value
-     * @param name6 the sixth header name
-     * @param value6 the sixth header value
-     * @param name7 the seventh header name
-     * @param value7 the seventh header value
-     * @param name8 the eighth header name
-     * @param value8 the eighth header value
-     * @param name9 the ninth header name
-     * @param value9 the ninth header value
-     * @param name10 the tenth header name
+     * @param name1   the first header name
+     * @param value1  the first header value
+     * @param name2   the second header name
+     * @param value2  the second header value
+     * @param name3   the third header name
+     * @param value3  the third header value
+     * @param name4   the fourth header name
+     * @param value4  the fourth header value
+     * @param name5   the fifth header name
+     * @param value5  the fifth header value
+     * @param name6   the sixth header name
+     * @param value6  the sixth header value
+     * @param name7   the seventh header name
+     * @param value7  the seventh header value
+     * @param name8   the eighth header name
+     * @param value8  the eighth header value
+     * @param name9   the ninth header name
+     * @param value9  the ninth header value
+     * @param name10  the tenth header name
      * @param value10 the tenth header value
      * @return the {@link HttpHeaders} containing the provided headers.
      * @throws NullPointerException if any header name or value is {@code null}

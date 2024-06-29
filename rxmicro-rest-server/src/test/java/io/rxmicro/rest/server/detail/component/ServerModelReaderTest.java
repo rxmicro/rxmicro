@@ -38,7 +38,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * @author nedis
- *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -68,7 +67,6 @@ final class ServerModelReaderTest {
 
     /**
      * @author nedis
-     *
      * @since 0.1
      */
     private static class QueryParamsProvider implements ArgumentsProvider {

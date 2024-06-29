@@ -28,22 +28,22 @@ import java.util.concurrent.CompletableFuture;
 public final class Method_cant_return_CompletableFuture_without_parametrization<T> {
 
     @GET("/1")
-    CompletableFuture test1(){
+    CompletableFuture test1() {
         return null;
     }
 
     @GET("/2")
-    CompletableFuture<?> test2(){
+    CompletableFuture<?> test2() {
         return null;
     }
 
     @GET("/3")
-    <E> CompletableFuture<E> test3(){
+    <E> CompletableFuture<E> test3() {
         return null;
     }
 
     @GET("/4")
-    CompletableFuture<T> test4(){
+    CompletableFuture<T> test4() {
         return null;
     }
 }

@@ -131,7 +131,7 @@ public final class Strings {
     /**
      * Splits the specified {@code source} by the provided {@code delimiter}.
      *
-     * @param source the specified string source
+     * @param source    the specified string source
      * @param delimiter the specified delimiter string
      * @return the token list
      * @see StringTokenizer
@@ -166,7 +166,7 @@ public final class Strings {
      * Replaces the unread characters by its readable codes.
      *
      * @param resultBuilder the result string builder
-     * @param original the original string
+     * @param original      the original string
      * @see StringBuilder
      */
     public static void escapeString(final StringBuilder resultBuilder,

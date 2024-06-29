@@ -2,6 +2,7 @@ package io.rxmicro.examples.validation.server.all.standard.model;
 
 import io.rxmicro.exchange.json.detail.ModelToJsonConverter;
 import io.rxmicro.json.JsonObjectBuilder;
+import org.apache.maven.model.Model;
 
 import java.util.Map;
 

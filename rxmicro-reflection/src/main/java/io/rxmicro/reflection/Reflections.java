@@ -21,6 +21,7 @@ import io.rxmicro.reflection.internal.FinalFieldUpdater;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
@@ -148,31 +149,32 @@ public final class Reflections {
      * Returns the field value.
      *
      * @param instances all possible instances
-     * @param field the specified field instance
+     * @param field     the specified field instance
      * @return the field value
-     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
-     *                                      field is inaccessible.
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
-     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if the specified object is not an instance of the class or interface declaring the underlying
-     *          field (or a subclass or implementor thereof), or
-     *      </li>
-     *      <li>
-     *          if the specified instances are invalid
-     *      </li>
-     * </ul>
-     * @throws NullPointerException         if any parameter is null
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @throws CheckedWrapperException     if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                     field is inaccessible.
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified object is not an instance of the class or interface declaring the underlying
+     *                                     field (or a subclass or implementor thereof), or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified instances are invalid
+     *                                     </li>
+     *                                     </ul>
+     * @throws NullPointerException        if any parameter is null
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Field#canAccess(Object)
      * @see Field#setAccessible(boolean)
      * @see Field#get(Object)
@@ -196,28 +198,29 @@ public final class Reflections {
      * Returns the field value.
      *
      * @param instance the specified instance
-     * @param field the specified field instance
+     * @param field    the specified field instance
      * @return the field value
-     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
-     *                                      field is inaccessible.
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
-     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if the specified object is not an instance of the class or interface declaring the underlying
-     *          field (or a subclass or implementor thereof).
-     *      </li>
-     * </ul>
-     * @throws NullPointerException         if any parameter is null
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @throws CheckedWrapperException     if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                     field is inaccessible.
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified object is not an instance of the class or interface declaring the underlying
+     *                                     field (or a subclass or implementor thereof).
+     *                                     </li>
+     *                                     </ul>
+     * @throws NullPointerException        if any parameter is null
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Field#canAccess(Object)
      * @see Field#setAccessible(boolean)
      * @see Field#get(Object)
@@ -238,37 +241,38 @@ public final class Reflections {
     /**
      * Returns the field value.
      *
-     * @param instance the specified instance
+     * @param instance      the specified instance
      * @param classInstance the class instance
-     * @param fieldName the field name
+     * @param fieldName     the field name
      * @return the field value
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if this {@code Field} object is enforcing Java language access control and the underlying field is inaccessible, or
-     *     </li>
-     *     <li>
-     *         if a field with the specified name is not found.
-     *     </li>
-     * </ul>
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
-     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if the specified object is not an instance of the class or interface declaring the underlying
-     *          field (or a subclass or implementor thereof).
-     *      </li>
-     * </ul>
-     * @throws NullPointerException         if any parameter is null
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if this {@code Field} object is enforcing Java language access control and the underlying field
+     *                                     is inaccessible, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if a field with the specified name is not found.
+     *                                     </li>
+     *                                     </ul>
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is non-
+     *                                     {@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified object is not an instance of the class or interface declaring the underlying
+     *                                     field (or a subclass or implementor thereof).
+     *                                     </li>
+     *                                     </ul>
+     * @throws NullPointerException        if any parameter is null
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Class#getDeclaredField(String)
      * @see Field#canAccess(Object)
      * @see Field#setAccessible(boolean)
@@ -284,36 +288,37 @@ public final class Reflections {
     /**
      * Returns the field value.
      *
-     * @param instance the specified instance. If requested field is static the specified instance can be {@link Class} instance.
+     * @param instance  the specified instance. If requested field is static the specified instance can be {@link Class} instance.
      * @param fieldName the field name
      * @return the field value
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if this {@code Field} object is enforcing Java language access control and the underlying field is inaccessible, or
-     *     </li>
-     *     <li>
-     *         if a field with the specified name is not found.
-     *     </li>
-     * </ul>
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
-     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if the specified object is not an instance of the class or interface declaring the underlying
-     *          field (or a subclass or implementor thereof).
-     *      </li>
-     * </ul>
-     * @throws NullPointerException         if any parameter is null
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if this {@code Field} object is enforcing Java language access control and the underlying field
+     *                                     is inaccessible, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if a field with the specified name is not found.
+     *                                     </li>
+     *                                     </ul>
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified object is not an instance of the class or interface declaring the underlying
+     *                                     field (or a subclass or implementor thereof).
+     *                                     </li>
+     *                                     </ul>
+     * @throws NullPointerException        if any parameter is null
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Class#getDeclaredField(String)
      * @see Field#canAccess(Object)
      * @see Field#setAccessible(boolean)
@@ -330,28 +335,28 @@ public final class Reflections {
      * Returns the declared field from instance or from any it parent.
      *
      * @param classInstance the specified class instance
-     * @param fieldName the specified field name
+     * @param fieldName     the specified field name
      * @return the declared field instance
-     * @throws CheckedWrapperException     if a field with the specified name is not found.
-     * @throws NullPointerException        if any parameter is null
-     * @throws SecurityException           If a security manager, <i>s</i>, is present and any of the following conditions is met:
-     *         <ul>
-     *      <li>
-     *          the caller's class loader is not the same as the
-     *          class loader of this class and invocation of
-     *          {@link SecurityManager#checkPermission
-     *          s.checkPermission} method with
-     *          {@code RuntimePermission("accessDeclaredMembers")}
-     *          denies access to the declared field
-     *      </li>
-     *      <li>
-     *          the caller's class loader is not the same as or an
-     *          ancestor of the class loader for the current class and
-     *          invocation of {@link SecurityManager#checkPackageAccess
-     *          s.checkPackageAccess()} denies access to the package
-     *          of this class
-     *      </li>
-     * </ul>
+     * @throws CheckedWrapperException if a field with the specified name is not found.
+     * @throws NullPointerException    if any parameter is null
+     * @throws SecurityException       If a security manager, <i>s</i>, is present and any of the following conditions is met:
+     *                                         <ul>
+     *                                      <li>
+     *                                          the caller's class loader is not the same as the
+     *                                          class loader of this class and invocation of
+     *                                          {@link SecurityManager#checkPermission
+     *                                          s.checkPermission} method with
+     *                                          {@code RuntimePermission("accessDeclaredMembers")}
+     *                                          denies access to the declared field
+     *                                      </li>
+     *                                      <li>
+     *                                          the caller's class loader is not the same as or an
+     *                                          ancestor of the class loader for the current class and
+     *                                          invocation of {@link SecurityManager#checkPackageAccess
+     *                                          s.checkPackageAccess()} denies access to the package
+     *                                          of this class
+     *                                      </li>
+     *                                 </ul>
      * @see Class#getDeclaredField(String)
      */
     public static Field getDeclaredField(final Class<?> classInstance,
@@ -362,31 +367,32 @@ public final class Reflections {
     /**
      * Sets the field value.
      *
-     * @param instance the specified instances
+     * @param instance  the specified instances
      * @param fieldName the specified field name
-     * @param value the new value to set
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or of type
-     *          that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if current field is final
-     *      </li>
-     *      <li>
-     *          if the specified instances are invalid
-     *      </li>
-     * </ul>
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws NullPointerException         if any parameter is null
-     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
-     *                                      field is either inaccessible or final.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @param value     the new value to set
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if current field is final
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified instances are invalid
+     *                                     </li>
+     *                                     </ul>
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws NullPointerException        if any parameter is null
+     * @throws CheckedWrapperException     if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                     field is either inaccessible or final.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Class#getDeclaredField(String)
      * @see Field#canAccess(Object)
      * @see Field#setAccessible(boolean)
@@ -406,30 +412,31 @@ public final class Reflections {
      * Sets the field value.
      *
      * @param instances the specified instances
-     * @param field the specified field instance
-     * @param value the new value to set
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or of type
-     *          that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if current field is final
-     *      </li>
-     *      <li>
-     *          if the specified instances are invalid
-     *      </li>
-     * </ul>
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws NullPointerException         if any parameter is null
-     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
-     *                                      field is either inaccessible or final.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @param field     the specified field instance
+     * @param value     the new value to set
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if current field is final
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified instances are invalid
+     *                                     </li>
+     *                                     </ul>
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws NullPointerException        if any parameter is null
+     * @throws CheckedWrapperException     if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                     field is either inaccessible or final.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Field#canAccess(Object)
      * @see Field#setAccessible(boolean)
      * @see Field#set(Object, Object)
@@ -455,27 +462,28 @@ public final class Reflections {
      * Sets the field value.
      *
      * @param instance the specified instance
-     * @param field the specified field instance
-     * @param value the new value to set
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or of type
-     *          that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if current field is final
-     *      </li>
-     * </ul>
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws NullPointerException         if any parameter is null
-     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
-     *                                      field is either inaccessible or final.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @param field    the specified field instance
+     * @param value    the new value to set
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if current field is final
+     *                                     </li>
+     *                                     </ul>
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws NullPointerException        if any parameter is null
+     * @throws CheckedWrapperException     if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                     field is either inaccessible or final.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Field#canAccess(Object)
      * @see Field#setAccessible(boolean)
      * @see Field#set(Object, Object)
@@ -505,36 +513,37 @@ public final class Reflections {
      * @param methodName the specified method name
      * @param args       the arguments for the method
      * @return the method result
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if this {@code Method} object is enforcing Java language access control and the underlying method is inaccessible, or
-     *     </li>
-     *     <li>
-     *         if the underlying method throws an exception.
-     *     </li>
-     * </ul>
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
-     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if the specified object is not an instance of the class or interface declaring the underlying
-     *          field (or a subclass or implementor thereof), or
-     *      </li>
-     *      <li>
-     *          if the specified instances are invalid
-     *      </li>
-     * </ul>
-     * @throws NullPointerException         if any parameter is null
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if this {@code Method} object is enforcing Java language access control and the underlying
+     *                                     method is inaccessible, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying method throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified object is not an instance of the class or interface declaring the underlying
+     *                                     field (or a subclass or implementor thereof), or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified instances are invalid
+     *                                     </li>
+     *                                     </ul>
+     * @throws NullPointerException        if any parameter is null
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Method#canAccess(Object)
      * @see Method#setAccessible(boolean)
      * @see Method#invoke(Object, Object...)
@@ -568,37 +577,38 @@ public final class Reflections {
     /**
      * Invokes the method by name.
      *
-     * @param instance  the specified instance
+     * @param instance   the specified instance
      * @param methodName the specified method name
      * @param args       the arguments for the method
      * @return the method result
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if this {@code Method} object is enforcing Java language access control and the underlying method is inaccessible, or
-     *     </li>
-     *     <li>
-     *         if the underlying method throws an exception.
-     *     </li>
-     * </ul>
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
-     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if the specified object is not an instance of the class or interface declaring the underlying
-     *          field (or a subclass or implementor thereof), or
-     *      </li>
-     * </ul>
-     * @throws NullPointerException         if any parameter is null
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if this {@code Method} object is enforcing Java language access control and the underlying
+     *                                     method is inaccessible, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying method throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified object is not an instance of the class or interface declaring the underlying
+     *                                     field (or a subclass or implementor thereof), or
+     *                                     </li>
+     *                                     </ul>
+     * @throws NullPointerException        if any parameter is null
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Method#canAccess(Object)
      * @see Method#setAccessible(boolean)
      * @see Method#invoke(Object, Object...)
@@ -619,33 +629,34 @@ public final class Reflections {
      * @param parameterTypes the argument types
      * @param args           the arguments for the method
      * @return the method result
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if this {@code Method} object is enforcing Java language access control and the underlying method is inaccessible, or
-     *     </li>
-     *     <li>
-     *         if the underlying method throws an exception.
-     *     </li>
-     * </ul>
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
-     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if the specified object is not an instance of the class or interface declaring the underlying
-     *          field (or a subclass or implementor thereof), or
-     *      </li>
-     * </ul>
-     * @throws NullPointerException         if any parameter is null
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if this {@code Method} object is enforcing Java language access control and the underlying
+     *                                     method is inaccessible, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying method throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified object is not an instance of the class or interface declaring the underlying
+     *                                     field (or a subclass or implementor thereof), or
+     *                                     </li>
+     *                                     </ul>
+     * @throws NullPointerException        if any parameter is null
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Method#canAccess(Object)
      * @see Method#setAccessible(boolean)
      * @see Method#invoke(Object, Object...)
@@ -670,33 +681,34 @@ public final class Reflections {
      * @param method   the specified method name
      * @param args     the arguments for the method
      * @return the method result
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if this {@code Method} object is enforcing Java language access control and the underlying method is inaccessible, or
-     *     </li>
-     *     <li>
-     *         if the underlying method throws an exception.
-     *     </li>
-     * </ul>
-     * @throws SecurityException            if the request is denied by the security manager
-     * @throws IllegalArgumentException
-     *         <ul>
-     *      <li>
-     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
-     *      </li>
-     *      <li>
-     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
-     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
-     *      </li>
-     *      <li>
-     *          if the specified object is not an instance of the class or interface declaring the underlying
-     *          field (or a subclass or implementor thereof), or
-     *      </li>
-     * </ul>
-     * @throws NullPointerException         if any parameter is null
-     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
-     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if this {@code Method} object is enforcing Java language access control and the underlying
+     *                                     method is inaccessible, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying method throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws SecurityException           if the request is denied by the security manager
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if this reflected object is a static member or constructor and the given {@code obj} is
+     *                                     non-{@code null}, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this reflected object is an instance method or field and the given {@code obj} is
+     *                                     {@code null} or of type that is not a subclass of the
+     *                                     {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *                                     </li>
+     *                                     <li>
+     *                                     if the specified object is not an instance of the class or interface declaring the underlying
+     *                                     field (or a subclass or implementor thereof), or
+     *                                     </li>
+     *                                     </ul>
+     * @throws NullPointerException        if any parameter is null
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     * @throws InaccessibleObjectException if access cannot be enabled
      * @see Method#invoke(Object, Object...)
      */
     public static Object invokeMethod(final Object instance,
@@ -715,42 +727,43 @@ public final class Reflections {
      * Creates an instance of the target class using provided constructor arguments.
      *
      * @param targetClass the target class
-     * @param <T> created type
+     * @param <T>         created type
      * @return an instance of the target class using provided constructor arguments.
-     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
-     *              an ancestor of the class loader for the current class and invocation of
-     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if the underlying constructor with the specified argument types is not defined or
-     *     </li>
-     *     <li>
-     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
-     *     </li>
-     *     <li>
-     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor throws an exception.
-     *     </li>
-     * </ul>
-     * @throws IllegalArgumentException
-     *         <ul>
-     *     <li>
-     *         if the number of actual and formal parameters differ
-     *     </li>
-     *     <li>
-     *         if an unwrapping conversion for primitive arguments fails
-     *     </li>
-     *     <li>
-     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
-     *         by a method invocation conversion;
-     *     </li>
-     *     <li>
-     *         if this constructor pertains to an enum type
-     *     </li>
-     * </ul>
+     * @throws SecurityException           If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *                                     an ancestor of the class loader for the current class and invocation of
+     *                                     {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package
+     *                                     of this class.
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if the underlying constructor with the specified argument types is not defined or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this {@code Constructor} object is enforcing Java language access control and the underlying
+     *                                     constructor is inaccessible.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the class that declares the underlying constructor represents an abstract class or interface
+     *                                     or annotation.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if the number of actual and formal parameters differ
+     *                                     </li>
+     *                                     <li>
+     *                                     if an unwrapping conversion for primitive arguments fails
+     *                                     </li>
+     *                                     <li>
+     *                                     if after possible unwrapping, a parameter value cannot be converted to the corresponding formal
+     *                                     parameter type by a method invocation conversion;
+     *                                     </li>
+     *                                     <li>
+     *                                     if this constructor pertains to an enum type
+     *                                     </li>
+     *                                     </ul>
      * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
      */
     public static <T> T instantiate(final Class<T> targetClass) {
@@ -760,44 +773,45 @@ public final class Reflections {
     /**
      * Creates an instance of the target class using provided constructor arguments.
      *
-     * @param targetClass the target class
+     * @param targetClass             the target class
      * @param setAccessibleIfRequired the flag that activates access to not public constructor.
-     * @param <T> created type
+     * @param <T>                     created type
      * @return an instance of the target class using provided constructor arguments.
-     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
-     *              an ancestor of the class loader for the current class and invocation of
-     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if the underlying constructor with the specified argument types is not defined or
-     *     </li>
-     *     <li>
-     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
-     *     </li>
-     *     <li>
-     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor throws an exception.
-     *     </li>
-     * </ul>
-     * @throws IllegalArgumentException
-     *         <ul>
-     *     <li>
-     *         if the number of actual and formal parameters differ
-     *     </li>
-     *     <li>
-     *         if an unwrapping conversion for primitive arguments fails
-     *     </li>
-     *     <li>
-     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
-     *         by a method invocation conversion;
-     *     </li>
-     *     <li>
-     *         if this constructor pertains to an enum type
-     *     </li>
-     * </ul>
+     * @throws SecurityException           If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *                                     an ancestor of the class loader for the current class and invocation of
+     *                                     {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package
+     *                                     of this class.
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if the underlying constructor with the specified argument types is not defined or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this {@code Constructor} object is enforcing Java language access control and the underlying
+     *                                     constructor is inaccessible.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the class that declares the underlying constructor represents an abstract class or interface
+     *                                     or annotation.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if the number of actual and formal parameters differ
+     *                                     </li>
+     *                                     <li>
+     *                                     if an unwrapping conversion for primitive arguments fails
+     *                                     </li>
+     *                                     <li>
+     *                                     if after possible unwrapping, a parameter value cannot be converted to the corresponding formal
+     *                                     parameter type by a method invocation conversion;
+     *                                     </li>
+     *                                     <li>
+     *                                     if this constructor pertains to an enum type
+     *                                     </li>
+     *                                     </ul>
      * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
      */
     public static <T> T instantiate(final Class<T> targetClass,
@@ -810,45 +824,47 @@ public final class Reflections {
      *
      * @param targetClassName the target class full name.
      * @param constructorArgs constructor argument values.
-     * @param <T> created type
+     * @param <T>             created type
      * @return an instance of the target class using provided constructor arguments.
-     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
-     *              an ancestor of the class loader for the current class and invocation of
-     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         If class not found by name.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor with the specified argument types is not defined or
-     *     </li>
-     *     <li>
-     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
-     *     </li>
-     *     <li>
-     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor throws an exception.
-     *     </li>
-     * </ul>
-     * @throws IllegalArgumentException
-     *         <ul>
-     *     <li>
-     *         if the number of actual and formal parameters differ
-     *     </li>
-     *     <li>
-     *         if an unwrapping conversion for primitive arguments fails
-     *     </li>
-     *     <li>
-     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
-     *         by a method invocation conversion;
-     *     </li>
-     *     <li>
-     *         if this constructor pertains to an enum type
-     *     </li>
-     * </ul>
+     * @throws SecurityException           If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *                                     an ancestor of the class loader for the current class and invocation of
+     *                                     {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package
+     *                                     of this class.
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     If class not found by name.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor with the specified argument types is not defined or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this {@code Constructor} object is enforcing Java language access control and the underlying
+     *                                     constructor is inaccessible.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the class that declares the underlying constructor represents an abstract class or interface
+     *                                     or annotation.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if the number of actual and formal parameters differ
+     *                                     </li>
+     *                                     <li>
+     *                                     if an unwrapping conversion for primitive arguments fails
+     *                                     </li>
+     *                                     <li>
+     *                                     if after possible unwrapping, a parameter value cannot be converted to the corresponding formal
+     *                                     parameter type
+     *                                     by a method invocation conversion;
+     *                                     </li>
+     *                                     <li>
+     *                                     if this constructor pertains to an enum type
+     *                                     </li>
+     *                                     </ul>
      * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
      */
     public static <T> T instantiate(final String targetClassName,
@@ -859,48 +875,50 @@ public final class Reflections {
     /**
      * Creates an instance of the target class using provided constructor arguments.
      *
-     * @param targetClassName the target class full name.
+     * @param targetClassName         the target class full name.
      * @param setAccessibleIfRequired the flag that activates access to not public constructor.
-     * @param constructorArgs constructor argument values.
-     * @param <T> created type
+     * @param constructorArgs         constructor argument values.
+     * @param <T>                     created type
      * @return an instance of the target class using provided constructor arguments.
-     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
-     *              an ancestor of the class loader for the current class and invocation of
-     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         If class not found by name.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor with the specified argument types is not defined or
-     *     </li>
-     *     <li>
-     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
-     *     </li>
-     *     <li>
-     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor throws an exception.
-     *     </li>
-     * </ul>
-     * @throws IllegalArgumentException
-     *         <ul>
-     *     <li>
-     *         if the number of actual and formal parameters differ
-     *     </li>
-     *     <li>
-     *         if an unwrapping conversion for primitive arguments fails
-     *     </li>
-     *     <li>
-     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
-     *         by a method invocation conversion;
-     *     </li>
-     *     <li>
-     *         if this constructor pertains to an enum type
-     *     </li>
-     * </ul>
+     * @throws SecurityException           If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *                                     an ancestor of the class loader for the current class and invocation of
+     *                                     {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package
+     *                                     of this class.
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     If class not found by name.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor with the specified argument types is not defined or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this {@code Constructor} object is enforcing Java language access control and the underlying
+     *                                     constructor is inaccessible.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the class that declares the underlying constructor represents an abstract class or interface
+     *                                     or annotation.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if the number of actual and formal parameters differ
+     *                                     </li>
+     *                                     <li>
+     *                                     if an unwrapping conversion for primitive arguments fails
+     *                                     </li>
+     *                                     <li>
+     *                                     if after possible unwrapping, a parameter value cannot be converted to the corresponding formal
+     *                                     parameter type
+     *                                     by a method invocation conversion;
+     *                                     </li>
+     *                                     <li>
+     *                                     if this constructor pertains to an enum type
+     *                                     </li>
+     *                                     </ul>
      * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
      */
     @SuppressWarnings("unchecked")
@@ -913,49 +931,50 @@ public final class Reflections {
     /**
      * Creates an instance of the target class using provided constructor arguments.
      *
-     * @param targetClassName the target class full name.
+     * @param targetClassName         the target class full name.
      * @param setAccessibleIfRequired the flag that activates access to not public constructor.
-     * @param argTypes array of constructor argument types.
-     * @param constructorArgs constructor argument values.
-     * @param <T> created type
+     * @param argTypes                array of constructor argument types.
+     * @param constructorArgs         constructor argument values.
+     * @param <T>                     created type
      * @return an instance of the target class using provided constructor arguments.
-     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
-     *              an ancestor of the class loader for the current class and invocation of
-     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         If class not found by name.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor with the specified argument types is not defined or
-     *     </li>
-     *     <li>
-     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
-     *     </li>
-     *     <li>
-     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor throws an exception.
-     *     </li>
-     * </ul>
-     * @throws IllegalArgumentException
-     *         <ul>
-     *     <li>
-     *         if the number of actual and formal parameters differ
-     *     </li>
-     *     <li>
-     *         if an unwrapping conversion for primitive arguments fails
-     *     </li>
-     *     <li>
-     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
-     *         by a method invocation conversion;
-     *     </li>
-     *     <li>
-     *         if this constructor pertains to an enum type
-     *     </li>
-     * </ul>
+     * @throws SecurityException           If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *                                     an ancestor of the class loader for the current class and invocation of
+     *                                     {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package
+     *                                     of this class.
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     If class not found by name.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor with the specified argument types is not defined or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this {@code Constructor} object is enforcing Java language access control and the underlying
+     *                                     constructor is inaccessible.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the class that declares the underlying constructor represents an abstract class or interface
+     *                                     or annotation.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if the number of actual and formal parameters differ
+     *                                     </li>
+     *                                     <li>
+     *                                     if an unwrapping conversion for primitive arguments fails
+     *                                     </li>
+     *                                     <li>
+     *                                     if after possible unwrapping, a parameter value cannot be converted to the corresponding formal
+     *                                     parameter type by a method invocation conversion;
+     *                                     </li>
+     *                                     <li>
+     *                                     if this constructor pertains to an enum type
+     *                                     </li>
+     *                                     </ul>
      * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
      */
     @SuppressWarnings("unchecked")
@@ -969,48 +988,49 @@ public final class Reflections {
     /**
      * Creates an instance of the target class using provided constructor arguments.
      *
-     * @param targetClass the target class
+     * @param targetClass             the target class
      * @param setAccessibleIfRequired the flag that activates access to not public constructor.
-     * @param constructorArgs constructor argument values.
-     * @param <T> created type
+     * @param constructorArgs         constructor argument values.
+     * @param <T>                     created type
      * @return an instance of the target class using provided constructor arguments.
-     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
-     *              an ancestor of the class loader for the current class and invocation of
-     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if the underlying constructor with the specified argument types is not defined or
-     *     </li>
-     *     <li>
-     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
-     *     </li>
-     *     <li>
-     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor throws an exception.
-     *     </li>
-     * </ul>
-     * @throws IllegalArgumentException
-     *         <ul>
-     *     <li>
-     *         if the number of actual and formal parameters differ
-     *     </li>
-     *     <li>
-     *         if an unwrapping conversion for primitive arguments fails
-     *     </li>
-     *     <li>
-     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
-     *         by a method invocation conversion;
-     *     </li>
-     *     <li>
-     *         if this constructor pertains to an enum type
-     *     </li>
-     *     <li>
-     *         if any constructor argument is {@code null}
-     *     </li>
-     * </ul>
+     * @throws SecurityException           If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *                                     an ancestor of the class loader for the current class and invocation of
+     *                                     {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package
+     *                                     of this class.
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if the underlying constructor with the specified argument types is not defined or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this {@code Constructor} object is enforcing Java language access control and the underlying
+     *                                     constructor is inaccessible.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the class that declares the underlying constructor represents an abstract class or interface
+     *                                     or annotation.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if the number of actual and formal parameters differ
+     *                                     </li>
+     *                                     <li>
+     *                                     if an unwrapping conversion for primitive arguments fails
+     *                                     </li>
+     *                                     <li>
+     *                                     if after possible unwrapping, a parameter value cannot be converted to the corresponding formal
+     *                                     parameter type by a method invocation conversion;
+     *                                     </li>
+     *                                     <li>
+     *                                     if this constructor pertains to an enum type
+     *                                     </li>
+     *                                     <li>
+     *                                     if any constructor argument is {@code null}
+     *                                     </li>
+     *                                     </ul>
      * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
      */
     public static <T> T instantiate(final Class<T> targetClass,
@@ -1035,46 +1055,47 @@ public final class Reflections {
     /**
      * Creates an instance of the target class using provided constructor arguments.
      *
-     * @param targetClass the target class
+     * @param targetClass             the target class
      * @param setAccessibleIfRequired the flag that activates access to not public constructor.
-     * @param argTypes array of constructor argument types.
-     * @param constructorArgs constructor argument values.
-     * @param <T> created type
+     * @param argTypes                array of constructor argument types.
+     * @param constructorArgs         constructor argument values.
+     * @param <T>                     created type
      * @return an instance of the target class using provided constructor arguments.
-     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
-     *              an ancestor of the class loader for the current class and invocation of
-     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
-     * @throws CheckedWrapperException
-     *         <ul>
-     *     <li>
-     *         if the underlying constructor with the specified argument types is not defined or
-     *     </li>
-     *     <li>
-     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
-     *     </li>
-     *     <li>
-     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor throws an exception.
-     *     </li>
-     * </ul>
-     * @throws IllegalArgumentException
-     *         <ul>
-     *     <li>
-     *         if the number of actual and formal parameters differ
-     *     </li>
-     *     <li>
-     *         if an unwrapping conversion for primitive arguments fails
-     *     </li>
-     *     <li>
-     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
-     *         by a method invocation conversion;
-     *     </li>
-     *     <li>
-     *         if this constructor pertains to an enum type
-     *     </li>
-     * </ul>
+     * @throws SecurityException           If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *                                     an ancestor of the class loader for the current class and invocation of
+     *                                     {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package
+     *                                     of this class.
+     * @throws CheckedWrapperException     <ul>
+     *                                     <li>
+     *                                     if the underlying constructor with the specified argument types is not defined or
+     *                                     </li>
+     *                                     <li>
+     *                                     if this {@code Constructor} object is enforcing Java language access control and the underlying
+     *                                     constructor is inaccessible.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the class that declares the underlying constructor represents an abstract class or interface
+     *                                     or annotation.
+     *                                     </li>
+     *                                     <li>
+     *                                     if the underlying constructor throws an exception.
+     *                                     </li>
+     *                                     </ul>
+     * @throws IllegalArgumentException    <ul>
+     *                                     <li>
+     *                                     if the number of actual and formal parameters differ
+     *                                     </li>
+     *                                     <li>
+     *                                     if an unwrapping conversion for primitive arguments fails
+     *                                     </li>
+     *                                     <li>
+     *                                     if after possible unwrapping, a parameter value cannot be converted to the corresponding formal
+     *                                     parameter type by a method invocation conversion;
+     *                                     </li>
+     *                                     <li>
+     *                                     if this constructor pertains to an enum type
+     *                                     </li>
+     *                                     </ul>
      * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
      */
     public static <T> T instantiate(final Class<T> targetClass,
@@ -1145,7 +1166,7 @@ public final class Reflections {
      * Returns the {@code methodNameCandidate} if the specified class contains the public method with name: {@code methodNameCandidate}.
      * Otherwise throws {@link CheckedWrapperException} exception.
      *
-     * @param clazz the specified class
+     * @param clazz               the specified class
      * @param methodNameCandidate the method name candidate
      * @return the {@code methodNameCandidate} if the specified class contains the public method with name: {@code methodNameCandidate}.
      * @throws CheckedWrapperException if the specified class does not contain the public method with name: {@code methodNameCandidate}.
@@ -1170,7 +1191,7 @@ public final class Reflections {
      * Returns the {@code fieldNameCandidate} if the specified class contains the public field with name: {@code fieldNameCandidate}.
      * Otherwise throws {@link CheckedWrapperException} exception.
      *
-     * @param clazz the specified class
+     * @param clazz              the specified class
      * @param fieldNameCandidate the field name candidate
      * @return the {@code fieldNameCandidate} if the specified class contains the public field with name: {@code fieldNameCandidate}.
      * @throws CheckedWrapperException if the specified class does not contain the public field with name: {@code fieldNameCandidate}.
@@ -1201,10 +1222,10 @@ public final class Reflections {
      * If the provided {@code predicate} returns {@code true} the previous value will be overridden using a new value from the
      * {@code source}, otherwise the copy operation for this field will be skipped.
      *
-     * @param source the source instance
+     * @param source      the source instance
      * @param destination the destination instance
-     * @param predicate the predicate with {@link Field} instance and previous value of this field from destination instance.
-     * @param <T> the instance type
+     * @param predicate   the predicate with {@link Field} instance and previous value of this field from destination instance.
+     * @param <T>         the instance type
      */
     public static <T> void copyAllFields(final T source,
                                          final T destination,

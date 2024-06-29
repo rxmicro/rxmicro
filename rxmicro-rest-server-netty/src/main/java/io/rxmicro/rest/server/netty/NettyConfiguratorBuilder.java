@@ -70,7 +70,7 @@ public final class NettyConfiguratorBuilder extends InternalNettyConfiguratorBui
      * @param <T>    option type
      * @return the reference to this {@link NettyConfiguratorBuilder} instance
      * @throws IllegalStateException if Netty configurator already built
-     * @throws NullPointerException if {@code option} or {@code value} is {@code null}
+     * @throws NullPointerException  if {@code option} or {@code value} is {@code null}
      * @see ChannelOption
      * @see java.util.Map
      */
@@ -90,7 +90,7 @@ public final class NettyConfiguratorBuilder extends InternalNettyConfiguratorBui
      * @param <T>    option type
      * @return the reference to this {@link NettyConfiguratorBuilder} instance
      * @throws IllegalStateException if Netty configurator already built
-     * @throws NullPointerException if {@code option} or {@code value} is {@code null}
+     * @throws NullPointerException  if {@code option} or {@code value} is {@code null}
      * @see ChannelOption
      * @see java.util.Map
      */
@@ -127,8 +127,8 @@ public final class NettyConfiguratorBuilder extends InternalNettyConfiguratorBui
      * @param name                   the name of the handler to append
      * @param channelHandlerSupplier the channel handler supplier
      * @return the reference to this {@link NettyConfiguratorBuilder} instance
-     * @throws IllegalStateException if Netty configurator already built
-     * @throws NullPointerException  if {@code name} or {@code channelHandlerSupplier} is {@code null}
+     * @throws IllegalStateException    if Netty configurator already built
+     * @throws NullPointerException     if {@code name} or {@code channelHandlerSupplier} is {@code null}
      * @throws IllegalArgumentException if there's an entry with the same name already in the pipeline
      * @see io.netty.channel.ChannelPipeline#addLast(String, ChannelHandler)
      */

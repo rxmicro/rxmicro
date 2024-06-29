@@ -39,7 +39,7 @@ public abstract class BeanFactory extends AbstractFactory {
     /**
      * Returns the instance of the requested bean.
      *
-     * @param <T> the bean type
+     * @param <T>       the bean type
      * @param beanClass the bean interface or class
      * @return the instance of the requested bean
      */

@@ -18,12 +18,12 @@ package error.validation;
 
 import io.rxmicro.rest.method.GET;
 import io.rxmicro.validation.constraint.Enumeration;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
-import io.rxmicro.validation.constraint.Max;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
-import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.Pattern;
 import io.rxmicro.validation.constraint.SubEnum;
 
@@ -32,7 +32,6 @@ import java.math.BigInteger;
 
 /**
  * @author nedis
- *
  */
 enum Color {
 
@@ -45,7 +44,6 @@ enum Color {
 
 /**
  * @author nedis
- *
  */
 final class InvalidConstraintAnnotationParameterRestController {
 
@@ -57,7 +55,6 @@ final class InvalidConstraintAnnotationParameterRestController {
 
 /**
  * @author nedis
- *
  */
 final class Request {
 

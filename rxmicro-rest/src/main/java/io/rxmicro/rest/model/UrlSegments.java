@@ -38,7 +38,7 @@ public final class UrlSegments {
      * Creates a new instance of {@link UrlSegments} with the URL template and path variables.
      *
      * @param urlTemplate the URL template
-     * @param variables the list of path variables
+     * @param variables   the list of path variables
      */
     public UrlSegments(final String urlTemplate,
                        final List<String> variables) {

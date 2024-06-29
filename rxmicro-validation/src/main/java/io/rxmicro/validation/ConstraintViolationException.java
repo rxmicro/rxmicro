@@ -57,7 +57,7 @@ public final class ConstraintViolationException extends RxMicroException {
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param message the error message template
-     * @param args the error message template argument
+     * @param args    the error message template argument
      */
     public ConstraintViolationException(final String message, final Object... args) {
         super(true, false, message, args);

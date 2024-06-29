@@ -20,8 +20,6 @@ import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 import io.rxmicro.validation.constraint.HostName;
-import io.rxmicro.validation.constraint.MaxInt;
-import io.rxmicro.validation.constraint.MinInt;
 import io.rxmicro.validation.constraint.Nullable;
 import io.rxmicro.validation.constraint.Port;
 
@@ -30,8 +28,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.config.Networks.validatePort;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
 
 /**

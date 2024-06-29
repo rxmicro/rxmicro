@@ -46,7 +46,7 @@ public enum TransactionType {
     /**
      * The transaction model for
      * <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html">
-     *     java.util.concurrent
+     * java.util.concurrent
      * </a>
      * reactive library.
      */

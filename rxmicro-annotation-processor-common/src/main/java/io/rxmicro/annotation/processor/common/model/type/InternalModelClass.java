@@ -24,8 +24,12 @@ public final class InternalModelClass extends ModelClass {
 
     private static final InternalModelClass INSTANCE = new InternalModelClass();
 
-    public static InternalModelClass create() {
+    public static InternalModelClass getInstance() {
         return INSTANCE;
+    }
+
+    private InternalModelClass() {
+
     }
 
     @Override

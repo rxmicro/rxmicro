@@ -72,12 +72,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code GET} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse get(final String path,
                                    final HttpHeaders headers) {
@@ -89,9 +89,9 @@ public interface BlockingHttpClient extends AutoRelease {
      *
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse get(final String path) {
         return send(GET, path, HttpHeaders.of());
@@ -100,13 +100,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code GET} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
-     * @param headers the custom HTTP request headers
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param headers    the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse get(final String path,
                                    final HttpHeaders headers,
@@ -117,12 +117,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code GET} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse get(final String path,
                                    final QueryParams parameters) {
@@ -134,12 +134,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code HEAD} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse head(final String path,
                                     final HttpHeaders headers) {
@@ -151,9 +151,9 @@ public interface BlockingHttpClient extends AutoRelease {
      *
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse head(final String path) {
         return send(HEAD, path, HttpHeaders.of());
@@ -162,13 +162,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code HEAD} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
-     * @param headers the custom HTTP request headers
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param headers    the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse head(final String path,
                                     final HttpHeaders headers,
@@ -179,12 +179,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code HEAD} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse head(final String path,
                                     final QueryParams parameters) {
@@ -196,12 +196,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code DELETE} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse delete(final String path,
                                       final HttpHeaders headers) {
@@ -213,9 +213,9 @@ public interface BlockingHttpClient extends AutoRelease {
      *
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse delete(final String path) {
         return send(DELETE, path, HttpHeaders.of());
@@ -224,13 +224,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code DELETE} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
-     * @param headers the custom HTTP request headers
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param headers    the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse delete(final String path,
                                       final HttpHeaders headers,
@@ -241,12 +241,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code DELETE} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse delete(final String path,
                                       final QueryParams parameters) {
@@ -258,12 +258,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code OPTIONS} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse options(final String path,
                                        final HttpHeaders headers) {
@@ -275,9 +275,9 @@ public interface BlockingHttpClient extends AutoRelease {
      *
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse options(final String path) {
         return send(OPTIONS, path, HttpHeaders.of());
@@ -286,13 +286,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code OPTIONS} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
-     * @param headers the custom HTTP request headers
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param headers    the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse options(final String path,
                                        final HttpHeaders headers,
@@ -303,12 +303,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code OPTIONS} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse options(final String path,
                                        final QueryParams parameters) {
@@ -320,12 +320,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
                                     final HttpHeaders headers) {
@@ -337,9 +337,9 @@ public interface BlockingHttpClient extends AutoRelease {
      *
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path) {
         return send(POST, path, HttpHeaders.of());
@@ -348,13 +348,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
-     * @param headers the custom HTTP request headers
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param headers    the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
                                     final HttpHeaders headers,
@@ -365,12 +365,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
                                     final QueryParams parameters) {
@@ -380,13 +380,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code POST} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
-     * @param body the HTTP request body
+     * @param body    the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
                                     final HttpHeaders headers,
@@ -400,9 +400,9 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
                                     final Object body) {
@@ -414,12 +414,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
                                    final HttpHeaders headers) {
@@ -431,9 +431,9 @@ public interface BlockingHttpClient extends AutoRelease {
      *
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path) {
         return send(PUT, path, HttpHeaders.of());
@@ -442,13 +442,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
-     * @param headers the custom HTTP request headers
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param headers    the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
                                    final HttpHeaders headers,
@@ -459,12 +459,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
                                    final QueryParams parameters) {
@@ -474,13 +474,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PUT} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
-     * @param body the HTTP request body
+     * @param body    the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
                                    final HttpHeaders headers,
@@ -494,9 +494,9 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
                                    final Object body) {
@@ -508,12 +508,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
                                      final HttpHeaders headers) {
@@ -525,9 +525,9 @@ public interface BlockingHttpClient extends AutoRelease {
      *
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path) {
         return send(PATCH, path, HttpHeaders.of());
@@ -536,13 +536,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
-     * @param headers the custom HTTP request headers
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param headers    the custom HTTP request headers
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
                                      final HttpHeaders headers,
@@ -553,12 +553,12 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path       the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
                                      final QueryParams parameters) {
@@ -568,13 +568,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the {@code PATCH} HTTP blocking request.
      *
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
-     * @param body the HTTP request body
+     * @param body    the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
                                      final HttpHeaders headers,
@@ -588,9 +588,9 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
                                      final Object body) {
@@ -602,13 +602,13 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the HTTP blocking request with the custom HTTP method.
      *
-     * @param method the custom HTTP method
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param method  the custom HTTP method
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     ClientHttpResponse send(String method,
                             String path,
@@ -618,11 +618,11 @@ public interface BlockingHttpClient extends AutoRelease {
      * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param path   the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse send(final String method,
                                     final String path) {
@@ -632,14 +632,14 @@ public interface BlockingHttpClient extends AutoRelease {
     /**
      * Invokes the HTTP blocking request with the custom HTTP method.
      *
-     * @param method the custom HTTP method
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param method  the custom HTTP method
+     * @param path    the relative URL path. If {@code path=null} then '/' URL value will be used.
      * @param headers the custom HTTP request headers
-     * @param body the HTTP request body
+     * @param body    the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     ClientHttpResponse send(String method,
                             String path,
@@ -650,12 +650,12 @@ public interface BlockingHttpClient extends AutoRelease {
      * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
-     * @param path the relative URL path. If {@code path=null} then '/' URL value will be used.
-     * @param body the HTTP request body
+     * @param path   the relative URL path. If {@code path=null} then '/' URL value will be used.
+     * @param body   the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
-     * @throws NullPointerException is any method parameter is {@code null}
+     * @throws NullPointerException       is any method parameter is {@code null}
      * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
-     * @throws IllegalArgumentException is any request parameter is invalid
+     * @throws IllegalArgumentException   is any request parameter is invalid
      */
     default ClientHttpResponse send(final String method,
                                     final String path,

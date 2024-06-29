@@ -24,7 +24,7 @@ package org.slf4j;
  * <p>
  * Read more:
  * <a href="https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73">
- *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
+ * https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
  * </a>
  *
  * <p>
@@ -38,7 +38,7 @@ package org.slf4j;
  *
  * @author nedis
  * @see <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html">
- *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html</a>
+ * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html</a>
  * @since 0.3
  */
 public interface ILoggerFactory {
@@ -46,7 +46,7 @@ public interface ILoggerFactory {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html</a>.
      *
      * <p>
      * Return an appropriate {@link Logger} instance as specified by the

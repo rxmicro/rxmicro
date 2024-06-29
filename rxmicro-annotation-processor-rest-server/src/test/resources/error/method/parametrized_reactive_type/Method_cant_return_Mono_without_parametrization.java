@@ -27,22 +27,22 @@ import reactor.core.publisher.Mono;
 public final class Method_cant_return_Mono_without_parametrization<T> {
 
     @GET("/1")
-    Mono test1(){
+    Mono test1() {
         return null;
     }
 
     @GET("/2")
-    Mono<?> test2(){
+    Mono<?> test2() {
         return null;
     }
 
     @GET("/3")
-    <E> Mono<E> test3(){
+    <E> Mono<E> test3() {
         return null;
     }
 
     @GET("/4")
-    Mono<T> test4(){
+    Mono<T> test4() {
         return null;
     }
 }

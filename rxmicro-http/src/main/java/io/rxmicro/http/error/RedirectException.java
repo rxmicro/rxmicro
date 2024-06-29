@@ -55,7 +55,7 @@ public abstract class RedirectException extends HttpErrorException {
      * <p>
      * This constructor uses {@link Formats#format(String, Object...)} method to format `Location` header
      *
-     * @param status the specified redirect status code
+     * @param status   the specified redirect status code
      * @param location the HTTP {@code Location} header value
      */
     RedirectException(final int status,
@@ -84,9 +84,9 @@ public abstract class RedirectException extends HttpErrorException {
      * <p>
      * This constructor uses {@link Formats#format(String, Object...)} method to format `Location` header
      *
-     * @param status the specified redirect status code
+     * @param status   the specified redirect status code
      * @param location the HTTP {@code Location} header value template
-     * @param args the HTTP {@code Location} header value template arguments
+     * @param args     the HTTP {@code Location} header value template arguments
      */
     RedirectException(final int status,
                       final String location,

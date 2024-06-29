@@ -1,7 +1,9 @@
 {
   "resources": {
     "includes": [
-      {"pattern": "\\QMETA-INF/services/io.r2dbc.postgresql.extension.Extension\\E"}
+      {
+        "pattern": "\\QMETA-INF/services/io.r2dbc.postgresql.extension.Extension\\E"
+      }
     ]
   },
   "bundles": []

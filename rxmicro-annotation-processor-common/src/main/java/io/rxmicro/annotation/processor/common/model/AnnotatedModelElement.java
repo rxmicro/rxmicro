@@ -128,8 +128,8 @@ public final class AnnotatedModelElement {
 
     public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
         return Stream.concat(
-                getters.stream(),
-                Stream.of(field))
+                        getters.stream(),
+                        Stream.of(field))
                 .flatMap(e -> Optional.ofNullable(e.getAnnotation(annotationClass)).stream())
                 .findFirst()
                 .orElse(null);
@@ -138,16 +138,16 @@ public final class AnnotatedModelElement {
     @SuppressWarnings("unchecked")
     public <A extends Annotation> A[] getAnnotationsByType(final Class<A> annotationType) {
         return Stream.concat(
-                getters.stream(),
-                Stream.of(field))
+                        getters.stream(),
+                        Stream.of(field))
                 .flatMap(e -> Arrays.stream(e.getAnnotationsByType(annotationType)))
                 .toArray(value -> (A[]) java.lang.reflect.Array.newInstance(annotationType, value));
     }
 
     public <T extends Annotation> Optional<Element> getElementAnnotatedBy(final Class<T> annotationClass) {
         return Stream.concat(
-                getters.stream(),
-                Stream.of(field).map(e -> (Element) e))
+                        getters.stream(),
+                        Stream.of(field).map(e -> (Element) e))
                 .filter(e -> e.getAnnotation(annotationClass) != null)
                 .findFirst();
     }
@@ -155,8 +155,8 @@ public final class AnnotatedModelElement {
     Optional<Element> getElementAnnotatedBy(final AnnotationMirror annotationMirror) {
         final String annotationClassName = annotationMirror.getAnnotationType().toString();
         return Stream.concat(
-                getters.stream(),
-                Stream.of(field).map(e -> (Element) e))
+                        getters.stream(),
+                        Stream.of(field).map(e -> (Element) e))
                 .filter(e -> e.getAnnotationMirrors().stream()
                         .anyMatch(m -> m.getAnnotationType().toString().equals(annotationClassName)))
                 .findFirst();

@@ -225,7 +225,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                            final int nestedLevel,
                                            final ModelFieldBuilderOptions options) {
         if (getSupportedTypesProvider().isModelInternalType(owner)) {
-            return InternalModelClass.create();
+            return InternalModelClass.getInstance();
         } else if (getSupportedTypesProvider().isModelPrimitive(type)) {
             return asEnumElement(type)
                     .map(e -> (ModelClass) new EnumModelClass(type))

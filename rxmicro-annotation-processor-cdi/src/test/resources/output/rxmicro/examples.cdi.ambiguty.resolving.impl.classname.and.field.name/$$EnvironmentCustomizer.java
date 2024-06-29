@@ -24,7 +24,7 @@ final class $$EnvironmentCustomizer {
         currentModule.addExports("rxmicro.examples.cdi.ambiguty.resolving.impl.classname.and.field.name", RX_MICRO_REFLECTION_MODULE);
     }
 
-    private static void openThePackagesWithModelClassesToReflectionModule(){
+    private static void openThePackagesWithModelClassesToReflectionModule() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
         currentModule.addOpens("io.rxmicro.examples.cdi.ambiguty.resolving.impl.classname.field.name", RX_MICRO_REFLECTION_MODULE);
         currentModule.addOpens("io.rxmicro.examples.cdi.ambiguty.resolving.impl.classname.field.name.impl", RX_MICRO_REFLECTION_MODULE);

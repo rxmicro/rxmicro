@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author nedis
- *
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

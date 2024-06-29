@@ -57,7 +57,7 @@ public @interface Distinct {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/">
-     *     https://docs.mongodb.com/manual/reference/operator/
+     * https://docs.mongodb.com/manual/reference/operator/
      * </a>
      *
      * @return the query that specifies the documents from which to retrieve the distinct values.

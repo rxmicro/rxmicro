@@ -60,7 +60,6 @@ import static org.mockito.Mockito.verifyNoInteractions;
 
 /**
  * @author nedis
- *
  * @since 0.2
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -210,7 +209,6 @@ final class AnnotationValueConverterImplTest extends AbstractRxMicroAnnotationPr
 
     /**
      * @author nedis
-     *
      * @since 0.2
      */
     @SuppressWarnings("PMD.AvoidBranchingStatementAsLastInLoop")

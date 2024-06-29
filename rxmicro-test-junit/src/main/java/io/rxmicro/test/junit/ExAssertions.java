@@ -45,8 +45,8 @@ public class ExAssertions extends Assertions {
      * via {@link GlobalTestConfig} config class.
      *
      * @param expected the expected instant
-     * @param actual the actual instant
-     * @param message the custom error message that should be used if assertion is failed
+     * @param actual   the actual instant
+     * @param message  the custom error message that should be used if assertion is failed
      * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
      * @see GlobalTestConfig#getDefaultInstantCompareDelta()
      */
@@ -60,8 +60,8 @@ public class ExAssertions extends Assertions {
      * Asserts that {@code expected} and {@code actual} are equal within the default {@code delta} configured
      * via {@link GlobalTestConfig} config class.
      *
-     * @param expected the expected instant
-     * @param actual the actual instant
+     * @param expected        the expected instant
+     * @param actual          the actual instant
      * @param messageSupplier the custom error message supplier that should be used if assertion is failed
      * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
      * @see GlobalTestConfig#getDefaultInstantCompareDelta()
@@ -77,7 +77,7 @@ public class ExAssertions extends Assertions {
      * via {@link GlobalTestConfig} config class.
      *
      * @param expected the expected instant
-     * @param actual the actual instant
+     * @param actual   the actual instant
      * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
      * @see GlobalTestConfig#getDefaultInstantCompareDelta()
      */
@@ -90,11 +90,11 @@ public class ExAssertions extends Assertions {
      * Asserts that {@code expected} and {@code actual} are equal within the given non-negative {@code delta}.
      *
      * @param expected the expected instant
-     * @param actual the actual instant
-     * @param delta the custom delta
-     * @param message the custom error message that should be used if assertion is failed.
+     * @param actual   the actual instant
+     * @param delta    the custom delta
+     * @param message  the custom error message that should be used if assertion is failed.
      * @throws IllegalArgumentException if delta is negative
-     * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
+     * @throws AssertionFailedError     if {@code expected} and {@code actual} are not equal
      */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
@@ -108,12 +108,12 @@ public class ExAssertions extends Assertions {
     /**
      * Asserts that {@code expected} and {@code actual} are equal within the given non-negative {@code delta}.
      *
-     * @param expected the expected instant
-     * @param actual the actual instant
-     * @param delta the custom delta
+     * @param expected        the expected instant
+     * @param actual          the actual instant
+     * @param delta           the custom delta
      * @param messageSupplier the custom error message supplier that should be used if assertion is failed.
      * @throws IllegalArgumentException if delta is negative
-     * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
+     * @throws AssertionFailedError     if {@code expected} and {@code actual} are not equal
      */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
@@ -128,10 +128,10 @@ public class ExAssertions extends Assertions {
      * Asserts that {@code expected} and {@code actual} are equal within the given non-negative {@code delta}.
      *
      * @param expected the expected instant
-     * @param actual the actual instant
-     * @param delta the custom delta
+     * @param actual   the actual instant
+     * @param delta    the custom delta
      * @throws IllegalArgumentException if delta is negative
-     * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
+     * @throws AssertionFailedError     if {@code expected} and {@code actual} are not equal
      */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
@@ -143,7 +143,7 @@ public class ExAssertions extends Assertions {
      * Asserts that the current {@link SystemOut} contain the required {@code message}.
      *
      * @param systemOut the current {@link SystemOut}
-     * @param message the required message
+     * @param message   the required message
      * @throws AssertionFailedError if the current {@link SystemOut} does not contain required message
      */
     public static void assertSystemOutContains(final SystemOut systemOut,
@@ -155,7 +155,7 @@ public class ExAssertions extends Assertions {
      * Asserts that the current {@code systemOut} contain the required {@code message}.
      *
      * @param systemOut the current system out
-     * @param message the required message
+     * @param message   the required message
      * @throws AssertionFailedError if the current {@code systemOut} does not contain required message
      */
     public static void assertSystemOutContains(final String systemOut,
@@ -170,7 +170,7 @@ public class ExAssertions extends Assertions {
      * Asserts that the current {@link SystemErr} contain the required {@code message}.
      *
      * @param systemErr the current {@link SystemErr}
-     * @param message the required message
+     * @param message   the required message
      * @throws AssertionFailedError if the current {@link SystemOut} does not contain required message
      */
     public static void assertSystemErrContains(final SystemErr systemErr,
@@ -182,7 +182,7 @@ public class ExAssertions extends Assertions {
      * Asserts that the current {@code systemOut} contain the required {@code message}.
      *
      * @param systemErr the current system out
-     * @param message the required message
+     * @param message   the required message
      * @throws AssertionFailedError if the current {@code systemOut} does not contain required message
      */
     public static void assertSystemErrContains(final String systemErr,

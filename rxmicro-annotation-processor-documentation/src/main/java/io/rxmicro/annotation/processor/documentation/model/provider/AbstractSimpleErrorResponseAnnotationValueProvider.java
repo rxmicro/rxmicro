@@ -50,14 +50,14 @@ abstract class AbstractSimpleErrorResponseAnnotationValueProvider implements Ann
     @Override
     public final String[] getAllValues() {
         return Stream.of(
-                Stream.of(annotation.description()),
-                Arrays.stream(annotation.paramNames()),
-                Arrays.stream(annotation.paramValueExamples()),
-                Arrays.stream(annotation.paramDescriptions()),
-                Arrays.stream(annotation.headerNames()),
-                Arrays.stream(annotation.headerValueExamples()),
-                Arrays.stream(annotation.headerDescriptions())
-        ).flatMap(identity())
+                        Stream.of(annotation.description()),
+                        Arrays.stream(annotation.paramNames()),
+                        Arrays.stream(annotation.paramValueExamples()),
+                        Arrays.stream(annotation.paramDescriptions()),
+                        Arrays.stream(annotation.headerNames()),
+                        Arrays.stream(annotation.headerValueExamples()),
+                        Arrays.stream(annotation.headerDescriptions())
+                ).flatMap(identity())
                 .toArray(String[]::new);
     }
 }

@@ -86,7 +86,7 @@ public @interface BlockingHttpClientSettings {
      * <i>(The {@link #port()} and {@link #randomPortProvider()} parameters are mutually exclusive.)</i>
      *
      * @return field name, which contains port value.
-     *          The field must be a final, a static and a member of test class.
+     * The field must be a final, a static and a member of test class.
      */
     String randomPortProvider() default EMPTY_STRING;
 
@@ -136,10 +136,10 @@ public @interface BlockingHttpClientSettings {
     /**
      * Returns follow redirect option for the {@link BlockingHttpClient}.
      *
-     * @return  {@link Option#AUTO} is {@link Option#ENABLED} for integration tests and
-     *                      {@link Option#DISABLED} for REST-based micro service tests,
-     *          {@link Option#ENABLED} if http client must support redirects automatically
-     *          {@link Option#DISABLED} if http client must not support redirects automatically
+     * @return {@link Option#AUTO} is {@link Option#ENABLED} for integration tests and
+     * {@link Option#DISABLED} for REST-based micro service tests,
+     * {@link Option#ENABLED} if http client must support redirects automatically
+     * {@link Option#DISABLED} if http client must not support redirects automatically
      * @see Option
      */
     Option followRedirects() default Option.AUTO;

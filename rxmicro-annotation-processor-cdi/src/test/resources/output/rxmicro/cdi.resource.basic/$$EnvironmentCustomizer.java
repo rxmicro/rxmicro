@@ -24,7 +24,7 @@ final class $$EnvironmentCustomizer {
         currentModule.addExports("rxmicro.cdi.resource.basic", RX_MICRO_REFLECTION_MODULE);
     }
 
-    private static void openThePackagesWithModelClassesToReflectionModule(){
+    private static void openThePackagesWithModelClassesToReflectionModule() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
         currentModule.addOpens("io.rxmicro.examples.cdi.resource.basic", RX_MICRO_REFLECTION_MODULE);
     }

@@ -25,7 +25,7 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_be_private {
 
     @GET("/")
-    private void test(){
+    private void test() {
 
     }
 }

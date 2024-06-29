@@ -24,7 +24,7 @@ import io.rxmicro.rest.method.GET;
  */
 class Rest_controller_must_contain_accessible_default_contructor {
 
-    private Rest_controller_must_contain_accessible_default_contructor(){
+    private Rest_controller_must_contain_accessible_default_contructor() {
 
     }
 

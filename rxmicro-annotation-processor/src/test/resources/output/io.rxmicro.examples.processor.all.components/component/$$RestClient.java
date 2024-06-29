@@ -2,6 +2,7 @@ package io.rxmicro.examples.processor.all.components.component;
 
 import io.rxmicro.examples.processor.all.components.model.$$AccountClientModelReader;
 import io.rxmicro.examples.processor.all.components.model.Account;
+import io.rxmicro.rest.client.RestClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HttpClient;

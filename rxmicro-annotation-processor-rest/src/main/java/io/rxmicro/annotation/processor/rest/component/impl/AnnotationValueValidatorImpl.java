@@ -26,12 +26,12 @@ import io.rxmicro.annotation.processor.rest.component.AnnotationValueValidator;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelConstraintAnnotation;
 import io.rxmicro.validation.constraint.Enumeration;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
-import io.rxmicro.validation.constraint.Max;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
-import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.Pattern;
 import io.rxmicro.validation.constraint.SubEnum;
 

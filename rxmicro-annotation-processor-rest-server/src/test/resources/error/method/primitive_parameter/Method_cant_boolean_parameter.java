@@ -25,7 +25,7 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_boolean_parameter {
 
     @GET("/")
-    void test(final boolean parameter){
+    void test(final boolean parameter) {
 
     }
 }

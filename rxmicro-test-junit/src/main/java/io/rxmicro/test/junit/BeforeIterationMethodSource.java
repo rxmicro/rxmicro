@@ -48,7 +48,7 @@ public @interface BeforeIterationMethodSource {
      * iteration of the parameterized test.
      *
      * @return the methods from the current test class to be invoked by the RxMicro framework before performing each
-     *          iteration of the parameterized test.
+     * iteration of the parameterized test.
      */
     String[] methods();
 }

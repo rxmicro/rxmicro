@@ -37,7 +37,6 @@ import static io.rxmicro.logger.LoggerImplProviderFactory.setLoggerImplFactory;
 
 /**
  * @author nedis
- *
  * @since 0.1
  */
 @SuppressWarnings({
@@ -96,7 +95,6 @@ abstract class AbstractBaseRestControllerMethodTest {
 
     /**
      * @author nedis
-     *
      * @since 0.1
      */
     private static final class MockLoggerImplProvider implements LoggerImplProvider {
@@ -131,7 +129,6 @@ abstract class AbstractBaseRestControllerMethodTest {
 
     /**
      * @author nedis
-     *
      * @since 0.1
      */
     private static final class ProxyLogger implements Logger {

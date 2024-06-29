@@ -29,18 +29,18 @@ public final class $$PostgreSQLBeginCompletableFutureTransactionRepository exten
     public CompletionStage<Transaction> beginTransaction1(final IsolationLevel isolationLevel, final RequestIdSupplier requestIdSupplier) {
         return this.connectionFactory.create(requestIdSupplier)
                 .flatMap(c -> beginCompletableFutureTransaction(c))
-                        .toFuture()
-                        .thenCompose(t -> t.setIsolationLevel(isolationLevel)
-                                .thenApply(v -> t));
+                .toFuture()
+                .thenCompose(t -> t.setIsolationLevel(isolationLevel)
+                        .thenApply(v -> t));
     }
 
     @Override
     public CompletionStage<Transaction> beginTransaction1(final RequestIdSupplier requestIdSupplier, final IsolationLevel isolationLevel) {
         return this.connectionFactory.create(requestIdSupplier)
                 .flatMap(c -> beginCompletableFutureTransaction(c))
-                        .toFuture()
-                        .thenCompose(t -> t.setIsolationLevel(isolationLevel)
-                                .thenApply(v -> t));
+                .toFuture()
+                .thenCompose(t -> t.setIsolationLevel(isolationLevel)
+                        .thenApply(v -> t));
     }
 
     @Override
@@ -54,17 +54,17 @@ public final class $$PostgreSQLBeginCompletableFutureTransactionRepository exten
     public CompletableFuture<Transaction> beginTransaction2(final IsolationLevel isolationLevel, final RequestIdSupplier requestIdSupplier) {
         return this.connectionFactory.create(requestIdSupplier)
                 .flatMap(c -> beginCompletableFutureTransaction(c))
-                        .toFuture()
-                        .thenCompose(t -> t.setIsolationLevel(isolationLevel)
-                                .thenApply(v -> t));
+                .toFuture()
+                .thenCompose(t -> t.setIsolationLevel(isolationLevel)
+                        .thenApply(v -> t));
     }
 
     @Override
     public CompletableFuture<Transaction> beginTransaction2(final RequestIdSupplier requestIdSupplier, final IsolationLevel isolationLevel) {
         return this.connectionFactory.create(requestIdSupplier)
                 .flatMap(c -> beginCompletableFutureTransaction(c))
-                        .toFuture()
-                        .thenCompose(t -> t.setIsolationLevel(isolationLevel)
-                                .thenApply(v -> t));
+                .toFuture()
+                .thenCompose(t -> t.setIsolationLevel(isolationLevel)
+                        .thenApply(v -> t));
     }
 }

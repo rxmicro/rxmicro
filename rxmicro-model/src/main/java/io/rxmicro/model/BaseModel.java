@@ -58,10 +58,10 @@ public class BaseModel {
                             .collect(Collectors.joining(", ")) +
                     '}';
         } catch (final CheckedWrapperException |
-                InaccessibleObjectException |
-                SecurityException |
-                IllegalArgumentException |
-                ExceptionInInitializerError ex) {
+                       InaccessibleObjectException |
+                       SecurityException |
+                       IllegalArgumentException |
+                       ExceptionInInitializerError ex) {
             return getClass().getSimpleName() + "{Can't read field data: " + ex.getMessage() + '}';
         }
     }

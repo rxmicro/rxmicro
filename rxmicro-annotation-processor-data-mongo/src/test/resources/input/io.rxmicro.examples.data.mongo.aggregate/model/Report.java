@@ -20,6 +20,7 @@ import io.rxmicro.data.mongo.DocumentId;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import javax.management.relation.Role;
 
 // tag::content[]
 public final class Report {

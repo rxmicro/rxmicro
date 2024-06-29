@@ -51,13 +51,13 @@ public interface LoggerEventBuilder {
     /**
      * Sets source class name, method name, file name and line number.
      *
-     * @param sourceClassName the class name.
+     * @param sourceClassName  the class name.
      * @param sourceMethodName the method name.
-     * @param sourceFileName the file name.
+     * @param sourceFileName   the file name.
      * @param sourceLineNumber the line number.
      * @return the reference to this  {@link LoggerEventBuilder} instance.
-     * @throws NullPointerException if the specified {@code sourceClassName} or {@code sourceMethodName} or {@code sourceFileName} are
-     *                              {@code null}.
+     * @throws NullPointerException     if the specified {@code sourceClassName} or {@code sourceMethodName} or {@code sourceFileName} are
+     *                                  {@code null}.
      * @throws IllegalArgumentException if specified {@code sourceLineNumber} is invalid.
      */
     @BuilderMethod
@@ -85,7 +85,7 @@ public interface LoggerEventBuilder {
      * <p>
      * <i>(FYI: To build a message the {@link io.rxmicro.common.util.Formats#format(String, Object...)} method will be used.)</i>
      *
-     * @param template the message template.
+     * @param template  the message template.
      * @param suppliers the argument suppliers
      * @return the reference to this  {@link LoggerEventBuilder} instance.
      * @throws NullPointerException if the specified {@code template} or {@code suppliers} are {@code null}.
@@ -104,7 +104,7 @@ public interface LoggerEventBuilder {
      * <i>(FYI: To build a message the {@link io.rxmicro.common.util.Formats#format(String, Object...)} method will be used.)</i>
      *
      * @param template the message template.
-     * @param args the message template arguments
+     * @param args     the message template arguments
      * @return the reference to this  {@link LoggerEventBuilder} instance.
      * @throws NullPointerException if the specified {@code template} or {@code args} are {@code null}.
      */

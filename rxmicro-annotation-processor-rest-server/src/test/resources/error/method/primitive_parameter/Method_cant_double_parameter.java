@@ -25,7 +25,7 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_double_parameter {
 
     @GET("/")
-    void test(final double parameter){
+    void test(final double parameter) {
 
     }
 }

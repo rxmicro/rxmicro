@@ -35,7 +35,7 @@ public final class PatternFormatterParseException extends RxMicroException {
      * <i>(FYI: This constructor uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param message the error message template
-     * @param args the error message template arguments
+     * @param args    the error message template arguments
      */
     public PatternFormatterParseException(final String message,
                                           final Object... args) {

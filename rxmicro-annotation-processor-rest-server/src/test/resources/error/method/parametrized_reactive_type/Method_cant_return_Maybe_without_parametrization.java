@@ -27,22 +27,22 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_return_Maybe_without_parametrization<T> {
 
     @GET("/1")
-    Maybe test1(){
+    Maybe test1() {
         return null;
     }
 
     @GET("/2")
-    Maybe<?> test2(){
+    Maybe<?> test2() {
         return null;
     }
 
     @GET("/3")
-    <E> Maybe<E> test3(){
+    <E> Maybe<E> test3() {
         return null;
     }
 
     @GET("/4")
-    Maybe<T> test4(){
+    Maybe<T> test4() {
         return null;
     }
 }

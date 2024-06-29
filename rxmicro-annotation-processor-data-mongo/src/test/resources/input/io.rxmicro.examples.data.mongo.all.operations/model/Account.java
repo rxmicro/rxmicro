@@ -18,6 +18,8 @@ package io.rxmicro.examples.data.mongo.all.operations.model;
 
 import io.rxmicro.data.mongo.DocumentId;
 
+import javax.management.relation.Role;
+
 public class Account extends AccountDocument {
 
     @DocumentId

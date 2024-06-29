@@ -12,7 +12,6 @@ import io.rxmicro.runtime.detail.ByTypeInstanceQualifier;
 import java.util.Set;
 
 import static io.rxmicro.cdi.detail.InternalBeanFactory.getBeansByType;
-import static io.rxmicro.cdi.detail.InternalBeanFactory.getOptionalBean;
 import static io.rxmicro.cdi.detail.InternalBeanFactory.getRequiredBean;
 
 /**

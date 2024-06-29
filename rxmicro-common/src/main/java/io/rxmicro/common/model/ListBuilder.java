@@ -27,8 +27,8 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 /**
  * The builder that builds a short-lived unmodified {@link List} instance.
  *
- * @author nedis
  * @param <E> the type of elements in this list
+ * @author nedis
  * @see List
  * @see ArrayList
  * @see io.rxmicro.common.util.ExCollections#unmodifiableList(Collection)

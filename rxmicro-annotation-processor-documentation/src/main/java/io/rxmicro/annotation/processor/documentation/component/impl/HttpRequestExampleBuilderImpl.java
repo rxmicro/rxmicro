@@ -135,7 +135,7 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
         if (httpMethodMapping.isHttpBody() && requestModel.isPresent()) {
             return jsonStructureExampleBuilder.build(
                     restControllerClassStructureStorage.getModelReaderClassStructure(
-                            requestModel.get().asType().toString())
+                                    requestModel.get().asType().toString())
                             .orElseThrow(createInternalErrorSupplier(
                                     "ModelReaderClassStructure not found for type: ?",
                                     requestModel.get().asType()

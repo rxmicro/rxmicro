@@ -57,10 +57,10 @@ public abstract class HttpCallFailedException extends HttpErrorException {
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
-     * @param statusCode the status code
-     * @param version the HTTP protocol version
-     * @param headers the HTTP headers
-     * @param body the HTTP body as byte array
+     * @param statusCode   the status code
+     * @param version      the HTTP protocol version
+     * @param headers      the HTTP headers
+     * @param body         the HTTP body as byte array
      * @param bodyAsString the HTTP body as string
      */
     protected HttpCallFailedException(final int statusCode,

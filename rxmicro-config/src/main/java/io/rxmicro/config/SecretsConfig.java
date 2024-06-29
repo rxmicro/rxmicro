@@ -19,8 +19,6 @@ package io.rxmicro.config;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.validation.constraint.Nullable;
 
-import static io.rxmicro.common.util.Requires.require;
-
 /**
  * Allows configuring the {@link Secrets} instance.
  *

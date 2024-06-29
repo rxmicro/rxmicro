@@ -29,7 +29,7 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  *
  * <p>
  * See <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5">
- *     https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5
+ * https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5
  * </a>
  *
  * @author nedis
@@ -59,8 +59,8 @@ public @interface POST {
     /**
      * Informs how the request parameters must be transferred via HTTP protocol: in the start line or in the request body.
      *
-     * @return  {@code true} if HTTP body is used for transferring of http parameters,
-     *          {@code false} if parameters are transferred via HTTP query string
+     * @return {@code true} if HTTP body is used for transferring of http parameters,
+     * {@code false} if parameters are transferred via HTTP query string
      */
     boolean httpBody() default true;
 

@@ -49,7 +49,7 @@ public final class UnexpectedResponseException extends HttpErrorException {
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param message the error message template
-     * @param args the error message template argument
+     * @param args    the error message template argument
      */
     public UnexpectedResponseException(final String message,
                                        final Object... args) {

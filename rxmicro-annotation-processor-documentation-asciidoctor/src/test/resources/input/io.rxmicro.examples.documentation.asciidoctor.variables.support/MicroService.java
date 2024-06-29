@@ -55,7 +55,7 @@ public final class MicroService {
                          variables = {
                                  "${var}", "test"
                          })
-                         String data) {
+                 String data) {
         // do something
     }
 }

@@ -50,7 +50,7 @@ public @interface Update {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/update/">
-     *     https://docs.mongodb.com/manual/reference/operator/update/
+     * https://docs.mongodb.com/manual/reference/operator/update/
      * </a>
      *
      * @return the modifications to apply.
@@ -63,7 +63,7 @@ public @interface Update {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/">
-     *     https://docs.mongodb.com/manual/reference/operator/
+     * https://docs.mongodb.com/manual/reference/operator/
      * </a>
      *
      * @return the selection criteria for the update.

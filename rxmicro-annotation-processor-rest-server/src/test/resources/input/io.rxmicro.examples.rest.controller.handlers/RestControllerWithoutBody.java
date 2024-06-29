@@ -18,6 +18,7 @@ package io.rxmicro.examples.rest.controller.handlers;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.rxmicro.rest.method.GET;
+import org.junit.runner.Request;
 import reactor.core.publisher.Mono;
 
 import java.util.concurrent.CompletableFuture;

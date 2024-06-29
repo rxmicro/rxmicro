@@ -50,7 +50,7 @@ public @interface Delete {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/">
-     *     https://docs.mongodb.com/manual/reference/operator/
+     * https://docs.mongodb.com/manual/reference/operator/
      * </a>
      *
      * @return the deletion criteria using query operators.

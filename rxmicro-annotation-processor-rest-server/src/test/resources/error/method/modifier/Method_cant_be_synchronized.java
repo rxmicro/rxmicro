@@ -25,7 +25,7 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_be_synchronized {
 
     @GET("/")
-    synchronized void test(){
+    synchronized void test() {
 
     }
 }

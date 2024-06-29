@@ -53,7 +53,7 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
     /**
      * Puts the specified name and value to the building JSON object if the specified value is not {@code null}.
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this {@link JsonObjectBuilder} instance
      * @throws IllegalArgumentException if {@code withoutDuplicates} is {@code true} and detected a duplicate of property name
@@ -70,7 +70,7 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
     /**
      * Puts the specified name and value to the building JSON object  if the specified value is not {@code null} or not empty.
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this {@link JsonObjectBuilder} instance
      * @throws IllegalArgumentException if {@code withoutDuplicates} is {@code true} and detected a duplicate of property name
@@ -86,7 +86,7 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
     /**
      * Puts the specified name and value to the building JSON object  if the specified value is not {@code null} or not empty.
      *
-     * @param name the specified name
+     * @param name  the specified name
      * @param value the specified value
      * @return the reference to this {@link JsonObjectBuilder} instance
      * @throws IllegalArgumentException if {@code withoutDuplicates} is {@code true} and detected a duplicate of property name

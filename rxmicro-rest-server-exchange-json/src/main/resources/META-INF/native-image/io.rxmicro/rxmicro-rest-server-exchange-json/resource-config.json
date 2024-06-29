@@ -1,7 +1,9 @@
 {
   "resources": {
     "includes": [
-      {"pattern": "\\QMETA-INF/services/io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder\\E"}
+      {
+        "pattern": "\\QMETA-INF/services/io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder\\E"
+      }
     ]
   },
   "bundles": []

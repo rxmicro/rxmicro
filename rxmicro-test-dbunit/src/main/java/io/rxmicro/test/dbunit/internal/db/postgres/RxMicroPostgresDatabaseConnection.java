@@ -26,8 +26,8 @@ import static org.dbunit.database.DatabaseConfig.PROPERTY_ESCAPE_PATTERN;
 
 /**
  * @author nedis
- * @since 0.7
  * @link http://dbunit.sourceforge.net/properties.html
+ * @since 0.7
  */
 public final class RxMicroPostgresDatabaseConnection extends DatabaseConnection {
 

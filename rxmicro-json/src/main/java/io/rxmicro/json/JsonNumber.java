@@ -51,7 +51,7 @@ public final class JsonNumber implements Comparable<JsonNumber> {
      * Returns the value of the specified number as an {@code int}.
      *
      * @return the numeric value represented by this object after conversion
-     *          to type {@code int}.
+     * to type {@code int}.
      * @throws NumberFormatException If the string does not contain a parsable {@code int}..
      */
     public int intValueExact() {
@@ -62,7 +62,7 @@ public final class JsonNumber implements Comparable<JsonNumber> {
      * Returns the value of the specified number as a {@code long}.
      *
      * @return the numeric value represented by this object after conversion
-     *          to type {@code long}.
+     * to type {@code long}.
      * @throws NumberFormatException If the string does not contain a parsable {@code long}.
      */
     public long longValueExact() {
@@ -73,7 +73,7 @@ public final class JsonNumber implements Comparable<JsonNumber> {
      * Returns the value of the specified number as a {@code float}.
      *
      * @return the numeric value represented by this object after conversion
-     *          to type {@code float}.
+     * to type {@code float}.
      * @throws NumberFormatException If the string does not contain a parsable {@code float}.
      */
     public float floatValueExact() {
@@ -84,7 +84,7 @@ public final class JsonNumber implements Comparable<JsonNumber> {
      * Returns the value of the specified number as a {@code double}.
      *
      * @return the numeric value represented by this object after conversion
-     *          to type {@code double}.
+     * to type {@code double}.
      * @throws NumberFormatException If the string does not contain a parsable {@code double}.
      */
     public double doubleValueExact() {
@@ -95,7 +95,7 @@ public final class JsonNumber implements Comparable<JsonNumber> {
      * Returns the value of the specified number as a {@code byte}.
      *
      * @return the numeric value represented by this object after conversion
-     *          to type {@code byte}.
+     * to type {@code byte}.
      * @throws NumberFormatException If the string does not contain a parsable {@code byte}.
      */
     public byte byteValueExact() {
@@ -106,7 +106,7 @@ public final class JsonNumber implements Comparable<JsonNumber> {
      * Returns the value of the specified number as a {@code short}.
      *
      * @return the numeric value represented by this object after conversion
-     *          to type {@code short}.
+     * to type {@code short}.
      * @throws NumberFormatException If the string does not contain a parsable {@code short}.
      */
     public short shortValueExact() {

@@ -55,10 +55,10 @@ public final class StringIterator {
      * If {@code startFromFirstCharacter} is {@code true}, than the init value of iterator index is {@code -1},
      * otherwise the init value of iterator index is {@code string.length()}
      *
-     * @param string the specified string
+     * @param string                  the specified string
      * @param startFromFirstCharacter the boolean flag that indicates the init value of the iteration index.
-     *         If {@code startFromFirstCharacter} is {@code true}, than the init value of iterator index is {@code -1},
-     *         otherwise the init value of iterator index is {@code string.length()}.
+     *                                If {@code startFromFirstCharacter} is {@code true}, than the init value of iterator index is
+     *                                {@code -1}, otherwise the init value of iterator index is {@code string.length()}.
      * @throws NullPointerException if the specified string is {@code null}
      */
     public StringIterator(final String string,

@@ -1,1 +1,38 @@
-[null,true,false,1,2,3,4,5.5,6.6,23.0123456789,12345678901234567890123456789012345678901234567890,12345678901234567890123456789012345678901234567890,{"number":1,"string":"Hi 1","nested":{"index":1,"boolean1":true,"boolean2":false}},{"number":2,"string":"Hi 2","nested":{"index":2,"boolean1":true,"boolean2":false}},[],[1,2,3]]
+[
+  null,
+  true,
+  false,
+  1,
+  2,
+  3,
+  4,
+  5.5,
+  6.6,
+  23.0123456789,
+  12345678901234567890123456789012345678901234567890,
+  12345678901234567890123456789012345678901234567890,
+  {
+    "number": 1,
+    "string": "Hi 1",
+    "nested": {
+      "index": 1,
+      "boolean1": true,
+      "boolean2": false
+    }
+  },
+  {
+    "number": 2,
+    "string": "Hi 2",
+    "nested": {
+      "index": 2,
+      "boolean1": true,
+      "boolean2": false
+    }
+  },
+  [],
+  [
+    1,
+    2,
+    3
+  ]
+]

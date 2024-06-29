@@ -28,8 +28,6 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.concurrent.TimeoutException;
 
-import static io.rxmicro.common.util.Requires.require;
-
 /**
  * Configures connection pool settings for http client.
  *
@@ -152,7 +150,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * a pending queue.
      *
      * @return the options to use for configuring connection provider the maximum number of registered requests for acquire to keep in
-     *         a pending queue.
+     * a pending queue.
      */
     public OptionalInt getPendingAcquireMaxCount() {
         if (pendingAcquireMaxCount == null) {
@@ -192,7 +190,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * Default to {@link #DEFAULT_POOL_ACQUIRE_TIMEOUT}.
      *
      * @param pendingAcquireTimeout the maximum time after which a pending acquire
-     *         must complete or the {@link TimeoutException} will be thrown (resolution: ms)
+     *                              must complete or the {@link TimeoutException} will be thrown (resolution: ms)
      * @return the reference to this {@link HttpClientConnectionPoolConfig} instance
      * @throws NullPointerException if pendingAcquireTimeout is null
      */

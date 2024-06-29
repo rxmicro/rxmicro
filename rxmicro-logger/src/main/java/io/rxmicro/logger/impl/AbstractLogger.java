@@ -51,7 +51,7 @@ public abstract class AbstractLogger implements Logger {
     /**
      * Logs the specified {@code loggerEvent} with the specified level.
      *
-     * @param level the specified level.
+     * @param level       the specified level.
      * @param loggerEvent the specified logger event.
      * @throws ClassCastException if provided {@code loggerEvent} is not valid
      */
@@ -61,7 +61,7 @@ public abstract class AbstractLogger implements Logger {
     /**
      * Logs the specified message with the specified level.
      *
-     * @param level the specified level.
+     * @param level   the specified level.
      * @param message the specified message.
      */
     protected abstract void log(Level level,
@@ -70,8 +70,8 @@ public abstract class AbstractLogger implements Logger {
     /**
      * Logs the specified message with the specified level and prints stacktrace for the specified throwable.
      *
-     * @param level the specified level.
-     * @param message the specified message.
+     * @param level     the specified level.
+     * @param message   the specified message.
      * @param throwable the specified throwable.
      */
     protected abstract void log(Level level,
@@ -82,8 +82,8 @@ public abstract class AbstractLogger implements Logger {
      * Logs the specified message with the specified level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param level the specified level.
-     * @param message the specified message.
+     * @param level             the specified level.
+     * @param message           the specified message.
      */
     protected abstract void log(RequestIdSupplier requestIdSupplier,
                                 Level level,
@@ -93,9 +93,9 @@ public abstract class AbstractLogger implements Logger {
      * Logs the specified message with the specified level and prints stacktrace for the specified throwable.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param level the specified level.
-     * @param message the specified message.
-     * @param throwable the specified throwable.
+     * @param level             the specified level.
+     * @param message           the specified message.
+     * @param throwable         the specified throwable.
      */
     protected abstract void log(RequestIdSupplier requestIdSupplier,
                                 Level level,

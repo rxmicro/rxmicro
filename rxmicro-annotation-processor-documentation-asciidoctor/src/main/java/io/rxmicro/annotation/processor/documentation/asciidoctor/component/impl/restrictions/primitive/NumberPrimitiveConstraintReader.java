@@ -22,12 +22,12 @@ import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.constraint.Lat;
 import io.rxmicro.validation.constraint.Lng;
+import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.MaxDouble;
 import io.rxmicro.validation.constraint.MaxInt;
-import io.rxmicro.validation.constraint.Max;
+import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.MinDouble;
 import io.rxmicro.validation.constraint.MinInt;
-import io.rxmicro.validation.constraint.Min;
 import io.rxmicro.validation.constraint.Numeric;
 
 import java.math.BigDecimal;

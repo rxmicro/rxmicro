@@ -57,7 +57,7 @@ final class LoggerImplProviderFactoryHelperTest {
             final LoggerImplProvider provider = createAndSetupLoggerImplProvider(TestLoggerImplProvider.class);
             assertEquals(TestLoggerImplProvider.class, provider.getClass());
             final List<String> lines = Arrays.stream(new String(byteArrayOutputStream.toByteArray(), UTF_8)
-                    .split(lineSeparator()))
+                            .split(lineSeparator()))
                     .collect(toList());
             assertEquals("Can't setup logger impl factory: test", lines.get(0));
             assertEquals("java.io.IOException: test", lines.get(1));

@@ -72,7 +72,9 @@ import io.rxmicro.validation.validator.UniqueItemsListConstraintValidator;
 import io.rxmicro.validation.validator.UppercaseConstraintValidator;
 import io.rxmicro.validation.validator.ViberConstraintValidator;
 import io.rxmicro.validation.validator.WhatsAppConstraintValidator;
+import org.apache.maven.model.Model;
 
+import java.awt.Color;
 import java.util.List;
 
 import static io.rxmicro.validation.detail.StatelessValidators.getStatelessValidator;

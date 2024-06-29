@@ -104,7 +104,7 @@ public abstract class HttpErrorException extends RxMicroException {
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
      * @param statusCode the status code
-     * @param message the error message
+     * @param message    the error message
      */
     protected HttpErrorException(final int statusCode,
                                  final String message) {
@@ -126,8 +126,8 @@ public abstract class HttpErrorException extends RxMicroException {
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param statusCode the status code
-     * @param message the error message template
-     * @param args the error message template argument
+     * @param message    the error message template
+     * @param args       the error message template argument
      */
     protected HttpErrorException(final int statusCode,
                                  final String message,

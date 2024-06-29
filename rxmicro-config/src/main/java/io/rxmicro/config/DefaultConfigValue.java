@@ -90,7 +90,7 @@ public @interface DefaultConfigValue {
      * (The namespace allows You to clearly define to which configuration class the specified setting belongs.)
      *
      * @return property name without namespace if {@link DefaultConfigValue#configClass()} is specified
-     *         or property name with required namespace if {@link DefaultConfigValue#configClass()} is not set
+     * or property name with required namespace if {@link DefaultConfigValue#configClass()} is not set
      */
     String name();
 

@@ -47,10 +47,10 @@ public final class ExCollectors {
     /**
      * Returns the {@link Collector} which collects elements into a modifiable {@link LinkedHashMap}.
      *
-     * @param <T> the type of the input elements
-     * @param <K> the output type of the key mapping function
-     * @param <U> the output type of the value mapping function
-     * @param keyMapper a mapping function to produce keys
+     * @param <T>         the type of the input elements
+     * @param <K>         the output type of the key mapping function
+     * @param <U>         the output type of the value mapping function
+     * @param keyMapper   a mapping function to produce keys
      * @param valueMapper a mapping function to produce values
      * @return the {@link Collector} which collects elements into a modifiable {@link LinkedHashMap}
      * @see LinkedHashMap
@@ -64,10 +64,10 @@ public final class ExCollectors {
     /**
      * Returns the {@link Collector} which collects elements into a unmodifiable ordered {@link Map}.
      *
-     * @param <T> the type of the input elements
-     * @param <K> the output type of the key mapping function
-     * @param <U> the output type of the value mapping function
-     * @param keyMapper a mapping function to produce keys
+     * @param <T>         the type of the input elements
+     * @param <K>         the output type of the key mapping function
+     * @param <U>         the output type of the value mapping function
+     * @param keyMapper   a mapping function to produce keys
      * @param valueMapper a mapping function to produce values
      * @return the {@link Collector} which collects elements into a unmodifiable ordered {@link Map}
      * @see java.util.stream.Collectors#toUnmodifiableMap(Function, Function)
@@ -84,10 +84,10 @@ public final class ExCollectors {
     /**
      * Returns the {@link Collector} which collects elements into a modifiable {@link TreeMap}.
      *
-     * @param <T> the type of the input elements
-     * @param <K> the output type of the key mapping function
-     * @param <U> the output type of the value mapping function
-     * @param keyMapper a mapping function to produce keys
+     * @param <T>         the type of the input elements
+     * @param <K>         the output type of the key mapping function
+     * @param <U>         the output type of the value mapping function
+     * @param keyMapper   a mapping function to produce keys
      * @param valueMapper a mapping function to produce values
      * @return the {@link Collector} which collects elements into a modifiable {@link TreeMap}
      * @see TreeMap
@@ -128,7 +128,7 @@ public final class ExCollectors {
      * Returns the {@link Collector} that accumulates the input elements into {@link TreeSet} with the specified comparator.
      *
      * @param comparator the specified comparator
-     * @param <T> the type of the input elements
+     * @param <T>        the type of the input elements
      * @return the {@link Collector} that accumulates the input elements into {@link TreeSet}
      * @see TreeSet
      * @see java.util.stream.Collectors#toCollection(Supplier)

@@ -50,7 +50,7 @@ public @interface Aggregate {
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/">
-     *     https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
+     * https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
      * </a>
      *
      * @return the aggregate pipeline

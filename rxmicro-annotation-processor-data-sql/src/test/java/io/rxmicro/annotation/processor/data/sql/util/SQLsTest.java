@@ -37,7 +37,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * @author nedis
- *
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -54,7 +53,6 @@ final class SQLsTest {
 
     /**
      * @author nedis
-     *
      */
     static final class SelectSQLQueriesProvider implements ArgumentsProvider {
 

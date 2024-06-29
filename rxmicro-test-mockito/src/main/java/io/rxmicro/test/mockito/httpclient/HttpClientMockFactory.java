@@ -67,7 +67,7 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
+     * @param httpRequestMock   the specified HTTP request mock
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -96,8 +96,8 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param logMockParams whether or not the logging of mock parameters is enabled or disabled
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param logMockParams     whether or not the logging of mock parameters is enabled or disabled
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -127,8 +127,8 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param statusCode the specified status code for the returning HTTP response
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param statusCode        the specified status code for the returning HTTP response
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -159,9 +159,9 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param statusCode the specified status code for the returning HTTP response
-     * @param logMockParams whether or not the logging of mock parameters is enabled or disabled
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param statusCode        the specified status code for the returning HTTP response
+     * @param logMockParams     whether or not the logging of mock parameters is enabled or disabled
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -193,8 +193,8 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param responseHeaders the specified HTTP headers for the returning HTTP response
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param responseHeaders   the specified HTTP headers for the returning HTTP response
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -225,9 +225,9 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param responseHeaders the specified HTTP headers for the returning HTTP response
-     * @param logMockParams whether or not the logging of mock parameters is enabled or disabled
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param responseHeaders   the specified HTTP headers for the returning HTTP response
+     * @param logMockParams     whether or not the logging of mock parameters is enabled or disabled
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -259,8 +259,8 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param responseBody the specified HTTP body for the returning HTTP response
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param responseBody      the specified HTTP body for the returning HTTP response
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -291,9 +291,9 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param responseBody the specified HTTP body for the returning HTTP response
-     * @param logMockParams whether or not the logging of mock parameters is enabled or disabled
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param responseBody      the specified HTTP body for the returning HTTP response
+     * @param logMockParams     whether or not the logging of mock parameters is enabled or disabled
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -325,8 +325,8 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param httpResponseMock the specified HTTP response mock
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param httpResponseMock  the specified HTTP response mock
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -355,9 +355,9 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param httpResponseMock the specified HTTP response mock
-     * @param logMockParams whether or not the logging of mock parameters is enabled or disabled
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param httpResponseMock  the specified HTTP response mock
+     * @param logMockParams     whether or not the logging of mock parameters is enabled or disabled
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -387,8 +387,8 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param throwable the specified throwable
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param throwable         the specified throwable
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */
@@ -417,9 +417,9 @@ public final class HttpClientMockFactory {
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
      * @param httpClientFactory the specified HTTP client factory
-     * @param httpRequestMock the specified HTTP request mock
-     * @param throwable the specified throwable
-     * @param logMockParams whether or not the logging of mock parameters is enabled or disabled
+     * @param httpRequestMock   the specified HTTP request mock
+     * @param throwable         the specified throwable
+     * @param logMockParams     whether or not the logging of mock parameters is enabled or disabled
      * @return the prepared instance of the {@link HttpClient} mock
      * @throws InvalidTestConfigException if the specified parameters are invalid
      */

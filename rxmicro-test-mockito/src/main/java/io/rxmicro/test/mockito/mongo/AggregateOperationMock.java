@@ -100,8 +100,8 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
          *
          * @param pipeline the adding pipeline
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the adding pipeline is {@code null}
-         * @throws IllegalArgumentException if the adding pipeline is blank
+         * @throws NullPointerException             if the adding pipeline is {@code null}
+         * @throws IllegalArgumentException         if the adding pipeline is blank
          * @throws org.bson.json.JsonParseException if the adding pipeline has invalid JSON structure
          */
         @BuilderMethod
@@ -131,8 +131,8 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
          *
          * @param hint the specified hint value
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified hint value is {@code null}
-         * @throws IllegalArgumentException if the specified hint is blank
+         * @throws NullPointerException             if the specified hint value is {@code null}
+         * @throws IllegalArgumentException         if the specified hint is blank
          * @throws org.bson.json.JsonParseException if the specified hint value has invalid JSON structure
          */
         @BuilderMethod

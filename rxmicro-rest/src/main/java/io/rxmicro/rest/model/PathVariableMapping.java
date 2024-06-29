@@ -46,7 +46,7 @@ public final class PathVariableMapping {
     /**
      * Creates a new instance of {@link PathVariableMapping} class.
      *
-     * @param pathVariableNames the specified path variable name list
+     * @param pathVariableNames  the specified path variable name list
      * @param pathVariableValues the specified path variable value list
      */
     public PathVariableMapping(final List<String> pathVariableNames,

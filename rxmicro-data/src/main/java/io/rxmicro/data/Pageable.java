@@ -55,7 +55,7 @@ public final class Pageable {
      * Creates a {@link Pageable} instance with specified offset and limit.
      *
      * @param offset the number of items to be skipped during execution of query.
-     * @param limit the number of items to be returned.
+     * @param limit  the number of items to be returned.
      */
     public Pageable(final int offset,
                     final int limit) {

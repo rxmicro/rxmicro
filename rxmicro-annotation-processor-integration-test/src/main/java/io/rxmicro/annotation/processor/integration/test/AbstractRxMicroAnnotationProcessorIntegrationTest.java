@@ -145,9 +145,9 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
     protected Compilation compileAllIn(final String packageName) {
         return compile(getResourcesAtTheFolderWithAllNestedOnes(INPUT + PATH_ELEMENT_SEPARATOR + packageName, r -> r.endsWith(".java")));
     }
-    
+
     protected String getModuleName(final String packageName) {
-        final Set<String> sourceCodes = 
+        final Set<String> sourceCodes =
                 getResourcesAtTheFolderWithAllNestedOnes(INPUT + PATH_ELEMENT_SEPARATOR + packageName, r -> r.endsWith(".java"));
         for (final String sourceCode : sourceCodes) {
             if (sourceCode.contains("moduleinfo.java")) {
@@ -157,8 +157,8 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
                     if (line.startsWith("module ")) {
                         // Reads module name from module-info.java file:
                         return line.replace("module", "")
-                            .replace("{", "")
-                            .trim();
+                                .replace("{", "")
+                                .trim();
                     }
                 }
                 throw new IllegalStateException("Invalid content of the file: " + sourceCode);
@@ -181,16 +181,16 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
         assertGenerated(
                 compilation,
                 Stream.concat(
-                        getResourcesAtTheFolderWithAllNestedOnes(
-                            OUTPUT + PATH_ELEMENT_SEPARATOR + packageName,
-                            r -> r.endsWith(".java"))
-                            .stream(),
-                        getResourcesAtTheFolderWithAllNestedOnes(
-                            OUTPUT + PATH_ELEMENT_SEPARATOR + "rxmicro" + PATH_ELEMENT_SEPARATOR + moduleName,
-                            r -> r.endsWith(".java"))
-                            .stream()
-                    )
-                    .map(this::sourceCodeResource).distinct().toArray(SourceCodeResource[]::new)
+                                getResourcesAtTheFolderWithAllNestedOnes(
+                                        OUTPUT + PATH_ELEMENT_SEPARATOR + packageName,
+                                        r -> r.endsWith(".java"))
+                                        .stream(),
+                                getResourcesAtTheFolderWithAllNestedOnes(
+                                        OUTPUT + PATH_ELEMENT_SEPARATOR + "rxmicro" + PATH_ELEMENT_SEPARATOR + moduleName,
+                                        r -> r.endsWith(".java"))
+                                        .stream()
+                        )
+                        .map(this::sourceCodeResource).distinct().toArray(SourceCodeResource[]::new)
         );
     }
 

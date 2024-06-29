@@ -27,7 +27,7 @@ public final class Method_contains_redundant_validation_annotation {
 
     @GET("/")
     @LatinAlphabetOnly
-    void test(){
+    void test() {
 
     }
 }

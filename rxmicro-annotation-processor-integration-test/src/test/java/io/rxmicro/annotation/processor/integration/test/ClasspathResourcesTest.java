@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- *
  */
 final class ClasspathResourcesTest {
 

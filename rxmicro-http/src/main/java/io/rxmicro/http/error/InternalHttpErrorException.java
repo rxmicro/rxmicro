@@ -65,7 +65,7 @@ public final class InternalHttpErrorException extends HttpErrorException {
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param message the error message template
-     * @param args the error message template argument
+     * @param args    the error message template argument
      */
     public InternalHttpErrorException(final String message,
                                       final Object... args) {

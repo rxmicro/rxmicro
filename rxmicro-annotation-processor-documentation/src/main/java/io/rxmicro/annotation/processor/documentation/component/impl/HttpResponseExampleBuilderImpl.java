@@ -158,7 +158,7 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
         return method.getToHttpDataType()
                 .map(typeElement -> jsonStructureExampleBuilder.build(
                         restControllerClassStructureStorage.getModelWriterClassStructure(
-                                typeElement.asType().toString())
+                                        typeElement.asType().toString())
                                 .orElseThrow(createInternalErrorSupplier(
                                         "ModelWriterClassStructure not found for type: ?",
                                         typeElement.asType()

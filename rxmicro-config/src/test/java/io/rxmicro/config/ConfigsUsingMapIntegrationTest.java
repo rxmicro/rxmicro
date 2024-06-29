@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- *
  * @since 0.3
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -50,7 +49,6 @@ final class ConfigsUsingMapIntegrationTest extends AbstractConfigsIntegrationTes
 
     /**
      * @author nedis
-     *
      * @since 0.7
      */
     public static final class TestConfig extends AsMapConfig {

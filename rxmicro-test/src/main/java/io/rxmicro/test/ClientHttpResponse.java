@@ -67,7 +67,7 @@ public interface ClientHttpResponse {
      * Type of returned value is depended on message exchange format used for HTTP client.
      *
      * @return low-level object that represents received HTTP body
-     *          or empty object (empty map or empty list or empty array, etc) if body is not present
+     * or empty object (empty map or empty list or empty array, etc) if body is not present
      */
     Object getBody();
 

@@ -31,7 +31,7 @@ import static io.rxmicro.config.internal.model.ConfigModelType.CONFIGURATION_PAR
  */
 public final class ConfigPropertyValidators {
 
-    private final static Map<String, ConfigValidatorDescriptor> descriptors = new ConcurrentHashMap<>();
+    private static final Map<String, ConfigValidatorDescriptor> DESCRIPTORS = new ConcurrentHashMap<>();
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static void validateProperty(final Config instance,
@@ -39,7 +39,7 @@ public final class ConfigPropertyValidators {
                                         final Object value) {
         final String fullPropertyName = format("?.?", instance.getNameSpace(), propertyName);
         final ConfigValidatorDescriptor descriptor =
-                descriptors.computeIfAbsent(fullPropertyName, k -> ConfigValidatorDescriptorFactory.create(instance, propertyName));
+                DESCRIPTORS.computeIfAbsent(fullPropertyName, k -> ConfigValidatorDescriptorFactory.create(instance, propertyName));
 
         for (final ConstraintValidator validator : descriptor.getValidators()) {
             validator.validate(value, CONFIGURATION_PARAMETER, fullPropertyName);

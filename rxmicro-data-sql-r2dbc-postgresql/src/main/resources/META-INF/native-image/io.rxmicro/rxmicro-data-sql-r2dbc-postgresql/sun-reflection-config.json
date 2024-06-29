@@ -2,7 +2,9 @@
   {
     "name": "sun.misc.Unsafe",
     "fields": [
-      {"name": "theUnsafe"}
+      {
+        "name": "theUnsafe"
+      }
     ],
     "methods": [
       {

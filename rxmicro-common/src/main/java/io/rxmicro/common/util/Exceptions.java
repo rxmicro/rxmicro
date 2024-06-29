@@ -35,7 +35,7 @@ public final class Exceptions {
      * instance with {@code throwable} as cause.
      *
      * @param throwable throwable that must be thrown
-     * @param <T> any type
+     * @param <T>       any type
      * @return nothing
      * @throws CheckedWrapperException if {@code throwable} is checked exception otherwise throws {@code throwable}
      * @see Error
@@ -59,9 +59,9 @@ public final class Exceptions {
      * In comparison with the {@code instanceof} operator this method extract real throwable from
      * {@link CompletionException} and {@link CheckedWrapperException} ones.
      *
-     * @param throwable tested throwable
+     * @param throwable     tested throwable
      * @param exceptionType expected exception type
-     * @return  {@code true} if {@code throwable} is instance of {@code exceptionType} type
+     * @return {@code true} if {@code throwable} is instance of {@code exceptionType} type
      * @see CompletionException
      * @see CheckedWrapperException
      */
@@ -91,7 +91,7 @@ public final class Exceptions {
      * <p>
      * If the cause is one of provided {@code containerExceptionClasses} this methods inspects the cause deeper.
      *
-     * @param throwable the tested throwable
+     * @param throwable                 the tested throwable
      * @param containerExceptionClasses the ignored container exception classes
      * @return the {@link Optional} containing the cause of the {@code throwable}, if present
      */

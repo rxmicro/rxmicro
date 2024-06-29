@@ -27,14 +27,14 @@ public final class $$PostgreSQLBeginRxJava3TransactionRepository extends Abstrac
     @Override
     public Single<Transaction> beginTransaction(final IsolationLevel isolationLevel, final RequestIdSupplier requestIdSupplier) {
         return Single.fromPublisher(this.connectionFactory.create(requestIdSupplier).flatMap(c -> beginRxJava3Transaction(c)))
-                        .flatMap(t -> t.setIsolationLevel(isolationLevel)
-                                .andThen(Single.just(t)));
+                .flatMap(t -> t.setIsolationLevel(isolationLevel)
+                        .andThen(Single.just(t)));
     }
 
     @Override
     public Single<Transaction> beginTransaction(final RequestIdSupplier requestIdSupplier, final IsolationLevel isolationLevel) {
         return Single.fromPublisher(this.connectionFactory.create(requestIdSupplier).flatMap(c -> beginRxJava3Transaction(c)))
-                        .flatMap(t -> t.setIsolationLevel(isolationLevel)
-                                .andThen(Single.just(t)));
+                .flatMap(t -> t.setIsolationLevel(isolationLevel)
+                        .andThen(Single.just(t)));
     }
 }

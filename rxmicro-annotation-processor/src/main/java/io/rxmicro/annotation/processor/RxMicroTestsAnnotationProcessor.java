@@ -102,7 +102,7 @@ import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FI
  *
  * @author nedis
  * @see <a href="https://docs.rxmicro.io/latest/user-guide/testing.html#testing-how-it-works-section">
- *     Documentation -&gt; Testing -&gt; How It Works
+ * Documentation -&gt; Testing -&gt; How It Works
  * </a>
  * @since 0.1
  */

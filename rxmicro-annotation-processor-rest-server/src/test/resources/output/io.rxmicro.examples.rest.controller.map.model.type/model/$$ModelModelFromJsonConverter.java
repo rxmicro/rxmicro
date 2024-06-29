@@ -2,6 +2,7 @@ package io.rxmicro.examples.rest.controller.map.model.type.model;
 
 import io.rxmicro.examples.rest.controller.map.model.type.model.nested.$$NestedModelFromJsonConverter;
 import io.rxmicro.exchange.json.detail.ModelFromJsonConverter;
+import org.apache.maven.model.Model;
 
 import java.util.Map;
 

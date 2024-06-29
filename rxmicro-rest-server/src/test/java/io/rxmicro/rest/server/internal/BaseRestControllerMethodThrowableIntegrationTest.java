@@ -55,7 +55,6 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -111,7 +110,6 @@ final class BaseRestControllerMethodThrowableIntegrationTest extends AbstractBas
 
     /**
      * @author nedis
-     *
      */
     @SuppressWarnings("CodeBlock2Expr")
     private static class ThrowAnyExceptionArgumentsProvider implements ArgumentsProvider {

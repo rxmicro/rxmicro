@@ -120,6 +120,8 @@ public abstract class Config {
 
     private static final String CONFIG_NAME = Config.class.getSimpleName();
 
+    private final String namespace;
+
     /**
      * Defines the default namespace for the config class.
      *
@@ -152,8 +154,6 @@ public abstract class Config {
             return name;
         }
     }
-
-    private final String namespace;
 
     public Config(final String namespace) {
         this.namespace = require(namespace);
@@ -190,7 +190,8 @@ public abstract class Config {
     }
 
     /**
-     * Ensures that the provided value is valid for the property calculated automatically using current stack trace for the current config instance.
+     * Ensures that the provided value is valid for the property calculated automatically using current stack trace for the current config
+     * instance.
      *
      * @param value the provided value.
      * @param <T>   value type.

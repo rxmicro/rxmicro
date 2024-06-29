@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author nedis
- *
  * @since 0.2
  */
 @AllSupportedTypes(

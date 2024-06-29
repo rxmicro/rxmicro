@@ -68,9 +68,9 @@ public final class JsonFactory {
      * <i>(FYI: This method uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param message the error message template
-     * @param args the error message template arguments
+     * @param args    the error message template arguments
      * @return the short-lived unmodified ordered {@link Map} that represents a JSON object with
-     *          the specified error message according to standard error JSON model structure
+     * the specified error message according to standard error JSON model structure
      * @see io.rxmicro.http.error.HttpErrorException
      */
     public static Map<String, Object> jsonErrorObject(final String message,
@@ -92,7 +92,7 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with one property.
      *
-     * @param name the property name
+     * @param name  the property name
      * @param value the property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      */
@@ -103,9 +103,9 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with two properties.
      *
-     * @param name1 the first property name
+     * @param name1  the first property name
      * @param value1 the first property value
-     * @param name2 the second property name
+     * @param name2  the second property name
      * @param value2 the second property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      * @throws IllegalArgumentException if any property value contains invalid data
@@ -120,11 +120,11 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with three properties.
      *
-     * @param name1 the first property name
+     * @param name1  the first property name
      * @param value1 the first property value
-     * @param name2 the second property name
+     * @param name2  the second property name
      * @param value2 the second property value
-     * @param name3 the third property name
+     * @param name3  the third property name
      * @param value3 the third property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      * @throws IllegalArgumentException if any property value contains invalid data
@@ -140,13 +140,13 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with four properties.
      *
-     * @param name1 the first property name
+     * @param name1  the first property name
      * @param value1 the first property value
-     * @param name2 the second property name
+     * @param name2  the second property name
      * @param value2 the second property value
-     * @param name3 the third property name
+     * @param name3  the third property name
      * @param value3 the third property value
-     * @param name4 the fourth property name
+     * @param name4  the fourth property name
      * @param value4 the fourth property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      * @throws IllegalArgumentException if any property value contains invalid data
@@ -163,15 +163,15 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with five properties.
      *
-     * @param name1 the first property name
+     * @param name1  the first property name
      * @param value1 the first property value
-     * @param name2 the second property name
+     * @param name2  the second property name
      * @param value2 the second property value
-     * @param name3 the third property name
+     * @param name3  the third property name
      * @param value3 the third property value
-     * @param name4 the fourth property name
+     * @param name4  the fourth property name
      * @param value4 the fourth property value
-     * @param name5 the fifth property name
+     * @param name5  the fifth property name
      * @param value5 the fifth property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      * @throws IllegalArgumentException if any property value contains invalid data
@@ -189,17 +189,17 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with six properties.
      *
-     * @param name1 the first property name
+     * @param name1  the first property name
      * @param value1 the first property value
-     * @param name2 the second property name
+     * @param name2  the second property name
      * @param value2 the second property value
-     * @param name3 the third property name
+     * @param name3  the third property name
      * @param value3 the third property value
-     * @param name4 the fourth property name
+     * @param name4  the fourth property name
      * @param value4 the fourth property value
-     * @param name5 the fifth property name
+     * @param name5  the fifth property name
      * @param value5 the fifth property value
-     * @param name6 the sixth property name
+     * @param name6  the sixth property name
      * @param value6 the sixth property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      * @throws IllegalArgumentException if any property value contains invalid data
@@ -219,19 +219,19 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with seven properties.
      *
-     * @param name1 the first property name
+     * @param name1  the first property name
      * @param value1 the first property value
-     * @param name2 the second property name
+     * @param name2  the second property name
      * @param value2 the second property value
-     * @param name3 the third property name
+     * @param name3  the third property name
      * @param value3 the third property value
-     * @param name4 the fourth property name
+     * @param name4  the fourth property name
      * @param value4 the fourth property value
-     * @param name5 the fifth property name
+     * @param name5  the fifth property name
      * @param value5 the fifth property value
-     * @param name6 the sixth property name
+     * @param name6  the sixth property name
      * @param value6 the sixth property value
-     * @param name7 the seventh property name
+     * @param name7  the seventh property name
      * @param value7 the seventh property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      * @throws IllegalArgumentException if any property value contains invalid data
@@ -252,21 +252,21 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with eight properties.
      *
-     * @param name1 the first property name
+     * @param name1  the first property name
      * @param value1 the first property value
-     * @param name2 the second property name
+     * @param name2  the second property name
      * @param value2 the second property value
-     * @param name3 the third property name
+     * @param name3  the third property name
      * @param value3 the third property value
-     * @param name4 the fourth property name
+     * @param name4  the fourth property name
      * @param value4 the fourth property value
-     * @param name5 the fifth property name
+     * @param name5  the fifth property name
      * @param value5 the fifth property value
-     * @param name6 the sixth property name
+     * @param name6  the sixth property name
      * @param value6 the sixth property value
-     * @param name7 the seventh property name
+     * @param name7  the seventh property name
      * @param value7 the seventh property value
-     * @param name8 the eighth property name
+     * @param name8  the eighth property name
      * @param value8 the eighth property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      * @throws IllegalArgumentException if any property value contains invalid data
@@ -288,23 +288,23 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with nine properties.
      *
-     * @param name1 the first property name
+     * @param name1  the first property name
      * @param value1 the first property value
-     * @param name2 the second property name
+     * @param name2  the second property name
      * @param value2 the second property value
-     * @param name3 the third property name
+     * @param name3  the third property name
      * @param value3 the third property value
-     * @param name4 the fourth property name
+     * @param name4  the fourth property name
      * @param value4 the fourth property value
-     * @param name5 the fifth property name
+     * @param name5  the fifth property name
      * @param value5 the fifth property value
-     * @param name6 the sixth property name
+     * @param name6  the sixth property name
      * @param value6 the sixth property value
-     * @param name7 the seventh property name
+     * @param name7  the seventh property name
      * @param value7 the seventh property value
-     * @param name8 the eighth property name
+     * @param name8  the eighth property name
      * @param value8 the eighth property value
-     * @param name9 the ninth property name
+     * @param name9  the ninth property name
      * @param value9 the ninth property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      * @throws IllegalArgumentException if any property value contains invalid data
@@ -327,25 +327,25 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with ten properties.
      *
-     * @param name1 the first property name
-     * @param value1 the first property value
-     * @param name2 the second property name
-     * @param value2 the second property value
-     * @param name3 the third property name
-     * @param value3 the third property value
-     * @param name4 the fourth property name
-     * @param value4 the fourth property value
-     * @param name5 the fifth property name
-     * @param value5 the fifth property value
-     * @param name6 the sixth property name
-     * @param value6 the sixth property value
-     * @param name7 the seventh property name
-     * @param value7 the seventh property value
-     * @param name8 the eighth property name
-     * @param value8 the eighth property value
-     * @param name9 the ninth property name
-     * @param value9 the ninth property value
-     * @param name10 the tenth property name
+     * @param name1   the first property name
+     * @param value1  the first property value
+     * @param name2   the second property name
+     * @param value2  the second property value
+     * @param name3   the third property name
+     * @param value3  the third property value
+     * @param name4   the fourth property name
+     * @param value4  the fourth property value
+     * @param name5   the fifth property name
+     * @param value5  the fifth property value
+     * @param name6   the sixth property name
+     * @param value6  the sixth property value
+     * @param name7   the seventh property name
+     * @param value7  the seventh property value
+     * @param name8   the eighth property name
+     * @param value8  the eighth property value
+     * @param name9   the ninth property name
+     * @param value9  the ninth property value
+     * @param name10  the tenth property name
      * @param value10 the tenth property value
      * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
      * @throws IllegalArgumentException if any property value contains invalid data

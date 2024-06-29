@@ -37,7 +37,7 @@ public final class InputStreamResource {
      * Creates an instance of the {@link InputStreamResource} using provided normalized {@code resourcePath} and {@code inputStream}.
      *
      * @param resourcePath the provided normalized resource path.
-     * @param inputStream the provided input stream.
+     * @param inputStream  the provided input stream.
      */
     public InputStreamResource(final String resourcePath,
                                final InputStream inputStream) {

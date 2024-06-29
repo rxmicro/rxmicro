@@ -28,22 +28,22 @@ import java.util.concurrent.CompletionStage;
 public final class Method_cant_return_CompletionStage_without_parametrization<T> {
 
     @GET("/1")
-    CompletionStage test1(){
+    CompletionStage test1() {
         return null;
     }
 
     @GET("/2")
-    CompletionStage<?> test2(){
+    CompletionStage<?> test2() {
         return null;
     }
 
     @GET("/3")
-    <E> CompletionStage<E> test3(){
+    <E> CompletionStage<E> test3() {
         return null;
     }
 
     @GET("/4")
-    CompletionStage<T> test4(){
+    CompletionStage<T> test4() {
         return null;
     }
 }

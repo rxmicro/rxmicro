@@ -2,6 +2,7 @@ package io.rxmicro.examples.validation.client.all.types.model;
 
 import io.rxmicro.exchange.json.detail.ModelToJsonConverter;
 import io.rxmicro.json.JsonObjectBuilder;
+import org.junit.runner.Request;
 
 import java.util.Map;
 

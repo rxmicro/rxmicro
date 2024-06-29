@@ -25,7 +25,7 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_have_postConstruct_name {
 
     @GET("/")
-    void postConstruct(){
+    void postConstruct() {
 
     }
 }

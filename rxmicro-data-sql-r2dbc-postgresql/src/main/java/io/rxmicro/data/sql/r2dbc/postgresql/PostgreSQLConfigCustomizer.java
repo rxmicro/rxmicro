@@ -41,7 +41,7 @@ public final class PostgreSQLConfigCustomizer {
      *
      * @param codecRegistrars the custom codecs
      * @throws IllegalStateException if connection pool already built
-     * @throws NullPointerException if {@code codecRegistrar} is {@code null}
+     * @throws NullPointerException  if {@code codecRegistrar} is {@code null}
      */
     public static void registerPostgreSQLCodecs(final CodecRegistrar... codecRegistrars) {
         for (final CodecRegistrar codecRegistrar : codecRegistrars) {
@@ -57,7 +57,7 @@ public final class PostgreSQLConfigCustomizer {
      *
      * @param connectionDecorator the connection decorator function
      * @throws IllegalStateException if connection pool already built
-     * @throws NullPointerException if {@code connectionDecorator} is {@code null}
+     * @throws NullPointerException  if {@code connectionDecorator} is {@code null}
      */
     public static void setConnectionDecorator(final Function<Connection, Connection> connectionDecorator) {
         PostgreSQLConnectionPoolBuilder.getInstance().setConnectionDecorator(connectionDecorator);

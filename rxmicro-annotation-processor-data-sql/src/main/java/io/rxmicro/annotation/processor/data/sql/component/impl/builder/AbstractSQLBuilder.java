@@ -62,10 +62,10 @@ public abstract class AbstractSQLBuilder extends BaseProcessorComponent {
                                          final String... additionalVariables) {
         final Set<String> set =
                 Stream.of(
-                        supportedSelectVariableNames.stream(),
-                        extVariables.stream(),
-                        Arrays.stream(additionalVariables)
-                )
+                                supportedSelectVariableNames.stream(),
+                                extVariables.stream(),
+                                Arrays.stream(additionalVariables)
+                        )
                         .flatMap(Function.identity())
                         .collect(toSet());
         for (final String variable : variables) {

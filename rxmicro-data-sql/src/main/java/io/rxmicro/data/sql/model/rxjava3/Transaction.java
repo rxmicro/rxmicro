@@ -63,7 +63,7 @@ public interface Transaction {
      * @param savePoint the save point to rollback to
      * @return the {@link Completable} that indicates that the save point has been rolled back to
      * @throws UnsupportedOperationException if save points are not supported
-     * @throws IllegalArgumentException if the specified save point is invalid
+     * @throws IllegalArgumentException      if the specified save point is invalid
      */
     Completable rollback(SavePoint savePoint);
 
@@ -176,7 +176,7 @@ public interface Transaction {
      * @param savePoint the save point to create
      * @return the {@link Completable} that indicates that the save point has been created
      * @throws UnsupportedOperationException if save points are not supported
-     * @throws IllegalArgumentException if the specified save point is invalid
+     * @throws IllegalArgumentException      if the specified save point is invalid
      */
     Completable create(SavePoint savePoint);
 

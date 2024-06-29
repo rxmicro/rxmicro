@@ -35,7 +35,7 @@ public final class ConfigValidatorDescriptor {
         return new Builder();
     }
 
-    private ConfigValidatorDescriptor(Builder builder) {
+    private ConfigValidatorDescriptor(final Builder builder) {
         validators = List.copyOf(builder.validators);
     }
 

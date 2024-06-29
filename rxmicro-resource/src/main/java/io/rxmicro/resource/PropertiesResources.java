@@ -47,7 +47,7 @@ public final class PropertiesResources {
      *
      * @param classPathResource the specified classpath resource
      * @return the {@link Optional} of the {@link Map} that contains properties from the specified classpath resource or
-     *         the empty {@link Optional} if classpath resource not found
+     * the empty {@link Optional} if classpath resource not found
      * @throws ResourceException if IO error occurs
      */
     public static Optional<Map<String, String>> loadProperties(final String classPathResource) {
@@ -73,7 +73,7 @@ public final class PropertiesResources {
      *
      * @param filePath the specified file path
      * @return the {@link Optional} of the {@link Map} that contains properties from the specified classpath resource or
-     *         the empty {@link Optional} if file not found
+     * the empty {@link Optional} if file not found
      * @throws ResourceException if IO error occurs
      */
     public static Optional<Map<String, String>> loadProperties(final Path filePath) {

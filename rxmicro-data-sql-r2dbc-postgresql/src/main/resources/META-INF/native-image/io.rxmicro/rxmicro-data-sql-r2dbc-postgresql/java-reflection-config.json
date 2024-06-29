@@ -24,7 +24,9 @@
   {
     "name": "java.nio.Bits",
     "fields": [
-      {"name": "UNALIGNED"}
+      {
+        "name": "UNALIGNED"
+      }
     ]
   },
   {

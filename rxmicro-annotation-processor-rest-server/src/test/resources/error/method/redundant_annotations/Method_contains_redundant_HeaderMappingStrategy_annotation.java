@@ -27,7 +27,7 @@ public final class Method_contains_redundant_HeaderMappingStrategy_annotation {
 
     @GET("/")
     @HeaderMappingStrategy
-    void test(){
+    void test() {
 
     }
 }

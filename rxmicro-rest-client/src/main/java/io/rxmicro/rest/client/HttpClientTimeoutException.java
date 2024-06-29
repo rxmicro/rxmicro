@@ -52,7 +52,7 @@ public final class HttpClientTimeoutException extends HttpErrorException {
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param message the error message template
-     * @param args the error message template argument
+     * @param args    the error message template argument
      */
     public HttpClientTimeoutException(final String message,
                                       final Object... args) {

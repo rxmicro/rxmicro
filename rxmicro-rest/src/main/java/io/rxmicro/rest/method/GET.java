@@ -30,7 +30,7 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * <p>
  * See
  * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3">
- *     https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3
+ * https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3
  * </a>
  *
  * @author nedis

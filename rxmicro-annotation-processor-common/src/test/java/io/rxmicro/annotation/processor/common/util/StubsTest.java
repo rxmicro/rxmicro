@@ -39,7 +39,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author nedis
- *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -96,7 +95,6 @@ final class StubsTest {
 
     /**
      * @author nedis
-     *
      * @since 0.1
      */
     private enum EmptyEnum {
@@ -105,7 +103,6 @@ final class StubsTest {
 
     /**
      * @author nedis
-     *
      * @since 0.1
      */
     private enum EnumWithValues {
@@ -117,7 +114,6 @@ final class StubsTest {
 
     /**
      * @author nedis
-     *
      * @since 0.1
      */
     private interface Component {

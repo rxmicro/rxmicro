@@ -2,6 +2,7 @@ package io.rxmicro.examples.rest.controller.extendable.model.request.all_body.ch
 
 import io.rxmicro.examples.rest.controller.extendable.model.request.all_body.child_model_without_fields.grand.$$GrandParentModelFromJsonConverter;
 import io.rxmicro.exchange.json.detail.ModelFromJsonConverter;
+import org.apache.maven.model.Parent;
 
 import java.util.Map;
 

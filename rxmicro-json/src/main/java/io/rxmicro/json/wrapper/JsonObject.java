@@ -103,7 +103,7 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
      * @param propertyName the specified property name.
      * @return the string value for the specified property of the current JSON object.
      * @throws IllegalArgumentException if the current JSON object does not contain the specified property.
-     * @throws JsonException if value for the specified property of the current JSON object is not a string type.
+     * @throws JsonException            if value for the specified property of the current JSON object is not a string type.
      */
     public String getString(final String propertyName) {
         return requirePropertyValue(asJsonString(map.get(propertyName)), PROPERTY_NOT_DEFINED_MESSAGE_TEMPLATE, propertyName);
@@ -126,7 +126,7 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
      * @param propertyName the specified property name.
      * @return the boolean value for the specified property of the current JSON object.
      * @throws IllegalArgumentException if the current JSON object does not contain the specified property.
-     * @throws JsonException if value for the specified property of the current JSON object is not a boolean type.
+     * @throws JsonException            if value for the specified property of the current JSON object is not a boolean type.
      */
     public Boolean getBoolean(final String propertyName) {
         return requirePropertyValue(asJsonBoolean(map.get(propertyName)), PROPERTY_NOT_DEFINED_MESSAGE_TEMPLATE, propertyName);
@@ -149,7 +149,7 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
      * @param propertyName the specified property name.
      * @return the number value using {@link JsonNumber} class for the specified property of the current JSON object.
      * @throws IllegalArgumentException if the current JSON object does not contain the specified property.
-     * @throws JsonException if value for the specified property of the current JSON object is not a number type.
+     * @throws JsonException            if value for the specified property of the current JSON object is not a number type.
      */
     public JsonNumber getNumber(final String propertyName) {
         return requirePropertyValue(asJsonNumber(map.get(propertyName)), PROPERTY_NOT_DEFINED_MESSAGE_TEMPLATE, propertyName);
@@ -161,7 +161,7 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
      *
      * @param propertyName the specified property name.
      * @return the number value using {@link JsonNumber} class for the specified property of the current JSON object or
-     *         {@link Optional#empty()}.
+     * {@link Optional#empty()}.
      * @throws JsonException if value for the specified property of the current JSON object is not a number type.
      */
     public Optional<JsonNumber> getOptionalNumber(final String propertyName) {
@@ -174,7 +174,7 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
      * @param propertyName the specified property name.
      * @return the {@link JsonObject} value for the specified property of the current JSON object.
      * @throws IllegalArgumentException if the current JSON object does not contain the specified property.
-     * @throws JsonException if value for the specified property of the current JSON object is not a json object type.
+     * @throws JsonException            if value for the specified property of the current JSON object is not a json object type.
      */
     public JsonObject getJsonObject(final String propertyName) {
         return new JsonObject(
@@ -199,7 +199,7 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
      * @param propertyName the specified property name.
      * @return the {@link JsonArray} value for the specified property of the current JSON object.
      * @throws IllegalArgumentException if the current JSON object does not contain the specified property.
-     * @throws JsonException if value for the specified property of the current JSON object is not a json array type.
+     * @throws JsonException            if value for the specified property of the current JSON object is not a json array type.
      */
     public JsonArray getJsonArray(final String propertyName) {
         return new JsonArray(
@@ -221,10 +221,10 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
     /**
      * Sets the new property value for the specified property name of the current JSON object.
      *
-     * @param propertyName the specified property name
+     * @param propertyName  the specified property name
      * @param propertyValue the new property value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the specified property name is {@code null}.
+     * @throws NullPointerException          if the specified property name is {@code null}.
      * @throws UnsupportedOperationException if the current JSON object is not modifiable.
      */
     @BuilderMethod
@@ -237,10 +237,10 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
     /**
      * Sets the new property value for the specified property name of the current JSON object.
      *
-     * @param propertyName the specified property name
+     * @param propertyName  the specified property name
      * @param propertyValue the new property value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the specified property name is {@code null}.
+     * @throws NullPointerException          if the specified property name is {@code null}.
      * @throws UnsupportedOperationException if the current JSON object is not modifiable.
      */
     @BuilderMethod
@@ -253,10 +253,10 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
     /**
      * Sets the new property value for the specified property name of the current JSON object.
      *
-     * @param propertyName the specified property name
+     * @param propertyName  the specified property name
      * @param propertyValue the new property value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the specified property name is {@code null}.
+     * @throws NullPointerException          if the specified property name is {@code null}.
      * @throws UnsupportedOperationException if the current JSON object is not modifiable.
      */
     @BuilderMethod
@@ -269,10 +269,10 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
     /**
      * Sets the new property value for the specified property name of the current JSON object.
      *
-     * @param propertyName the specified property name
+     * @param propertyName  the specified property name
      * @param propertyValue the new property value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the specified property name is {@code null}.
+     * @throws NullPointerException          if the specified property name is {@code null}.
      * @throws UnsupportedOperationException if the current JSON object is not modifiable.
      */
     @BuilderMethod
@@ -285,10 +285,10 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
     /**
      * Sets the new property value for the specified property name of the current JSON object.
      *
-     * @param propertyName the specified property name
+     * @param propertyName  the specified property name
      * @param propertyValue the new property value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the specified property name is {@code null}.
+     * @throws NullPointerException          if the specified property name is {@code null}.
      * @throws UnsupportedOperationException if the current JSON object is not modifiable.
      */
     @BuilderMethod
@@ -301,10 +301,10 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
     /**
      * Sets the new property value for the specified property name of the current JSON object.
      *
-     * @param propertyName the specified property name
+     * @param propertyName  the specified property name
      * @param propertyValue the new property value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the specified property name is {@code null}.
+     * @throws NullPointerException          if the specified property name is {@code null}.
      * @throws UnsupportedOperationException if the current JSON object is not modifiable.
      */
     @BuilderMethod
@@ -317,10 +317,10 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
     /**
      * Sets the new property value for the specified property name of the current JSON object.
      *
-     * @param propertyName the specified property name
+     * @param propertyName  the specified property name
      * @param propertyValue the new property value
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the specified property name is {@code null}.
+     * @throws NullPointerException          if the specified property name is {@code null}.
      * @throws UnsupportedOperationException if the current JSON object is not modifiable.
      */
     @BuilderMethod
@@ -335,7 +335,7 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
      *
      * @param propertyName the specified property name
      * @return the reference to this {@link JsonObject} instance.
-     * @throws NullPointerException if the specified property name is {@code null}.
+     * @throws NullPointerException          if the specified property name is {@code null}.
      * @throws UnsupportedOperationException if the current JSON object is not modifiable.
      */
     @BuilderMethod

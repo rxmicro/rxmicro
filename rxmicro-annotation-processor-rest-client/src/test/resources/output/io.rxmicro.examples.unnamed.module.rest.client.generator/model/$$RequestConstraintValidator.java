@@ -4,6 +4,7 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.validator.EmailConstraintValidator;
 import io.rxmicro.validation.validator.RequiredAndNotEmptyStringConstraintValidator;
+import org.junit.runner.Request;
 
 import static io.rxmicro.validation.detail.StatelessValidators.getStatelessValidator;
 

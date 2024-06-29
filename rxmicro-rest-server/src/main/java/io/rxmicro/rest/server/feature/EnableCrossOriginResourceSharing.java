@@ -42,11 +42,11 @@ public @interface EnableCrossOriginResourceSharing {
      *
      * <p>
      * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">
-     *     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
      * </a>
      *
      * @return array of allowed origins, that must be supported.
-     *         If Origin is not valid server returns the first origin as default expected Origin
+     * If Origin is not valid server returns the first origin as default expected Origin
      */
     String[] allowOrigins() default {"*"};
 
@@ -55,7 +55,7 @@ public @interface EnableCrossOriginResourceSharing {
      *
      * <p>
      * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials#Directives">
-     *     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials#Directives
+     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials#Directives
      * </a>
      *
      * @return {@code true} if access control allows the credentials
@@ -67,7 +67,7 @@ public @interface EnableCrossOriginResourceSharing {
      *
      * <p>
      * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives">
-     *     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives
+     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives
      * </a>
      *
      * <p>

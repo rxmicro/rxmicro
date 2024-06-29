@@ -35,9 +35,9 @@ public final class CheckedWrapperException extends RxMicroException {
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
-     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param cause   the cause (which is saved for later retrieval by the {@link #getCause()} method).
      * @param message the error message template
-     * @param args the error message template arguments
+     * @param args    the error message template arguments
      */
     public CheckedWrapperException(final Exception cause,
                                    final String message,

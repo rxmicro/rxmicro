@@ -24,41 +24,41 @@
 
 * Min method name length: `2` (`PMD.ShortMethodName`)
 * Parameters limit:
-  * Constructor: `40` (`checkstyel.ConstructorParameterNumber`)
-  * Method: `8` (`checkstyel.MethodParameterNumber`)
-  * Record constructor: `20` (`checkstyel.RecordComponentNumber`)
+    * Constructor: `40` (`checkstyel.ConstructorParameterNumber`)
+    * Method: `8` (`checkstyel.MethodParameterNumber`)
+    * Record constructor: `20` (`checkstyel.RecordComponentNumber`)
 * Throws count: `3` (`checkstyle.ThrowsCount`)
 * Method body limit:
-  * ConstructorStatementCount: `20` (`checkstyle.ConstructorStatementCount`)
-  * MethodStatementCount: `40` (`checkstyle.MethodStatementCount`)
-  * InstanceInitStatementCount: `0` (`checkstyle.InstanceInitStatementCount`)
-  * StaticInitStatementCount: `40` (`checkstyle.StaticInitStatementCount`)
+    * ConstructorStatementCount: `20` (`checkstyle.ConstructorStatementCount`)
+    * MethodStatementCount: `40` (`checkstyle.MethodStatementCount`)
+    * InstanceInitStatementCount: `0` (`checkstyle.InstanceInitStatementCount`)
+    * StaticInitStatementCount: `40` (`checkstyle.StaticInitStatementCount`)
 * Return count:
-  * LambdaReturnCount: max=`3`, maxForVoid=`1`
-  * ConstructorReturnCount: `0`
-  * MethodReturnCount: `6`
+    * LambdaReturnCount: max=`3`, maxForVoid=`1`
+    * ConstructorReturnCount: `0`
+    * MethodReturnCount: `6`
 * Methods limit per class:
-  * Class/interface : (`checkstyle.TypeMethodCount`)
-  * Enum : (`checkstyle.EnumMethodCount`)
-  * Annotation : (`checkstyle.AnnotationMethodCount`)
-  * Record : (`checkstyle.RecordMethodCount`)
+    * Class/interface : (`checkstyle.TypeMethodCount`)
+    * Enum : (`checkstyle.EnumMethodCount`)
+    * Annotation : (`checkstyle.AnnotationMethodCount`)
+    * Record : (`checkstyle.RecordMethodCount`)
 
 ## Complexity
 
 * Cognitive: `42` (`PMD.CognitiveComplexity`)
 * Cyclomatic:
 
-  * classReportLevel: `80` (`PMD.CyclomaticComplexity`)
+    * classReportLevel: `80` (`PMD.CyclomaticComplexity`)
 
-  * methodReportLevel: `25` (`PMD.CyclomaticComplexity`)
+    * methodReportLevel: `25` (`PMD.CyclomaticComplexity`)
 
 * CouplingBetweenObjects: `40` (`PMD.CouplingBetweenObjects`)
 * NPath: `200` (`PMD.NPathComplexity`)
 * NcssCount:
 
-  * classReportLevel: `1500` (`PMD.NcssCount`)
+    * classReportLevel: `1500` (`PMD.NcssCount`)
 
-  * methodReportLevel: `60` (`PMD.NcssCount`)
+    * methodReportLevel: `60` (`PMD.NcssCount`)
 
 * Boolean expressions: `4` (`checkstyle.BooleanExpressionComplexity`)
 * ClassFanOutComplexity: `35` (`checkstyle.ClassFanOutComplexity`)

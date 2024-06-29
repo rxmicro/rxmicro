@@ -200,7 +200,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
      * connection to the database is still alive.
      *
      * @return the query that will be executed just before a connection is given to you from the pool to validate that the
-     *         connection to the database is still alive.
+     * connection to the database is still alive.
      */
     public String getValidationQuery() {
         return validationQuery;

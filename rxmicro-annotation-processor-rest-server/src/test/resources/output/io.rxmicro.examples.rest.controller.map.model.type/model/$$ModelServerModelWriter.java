@@ -5,6 +5,7 @@ import io.rxmicro.http.HttpStandardHeaderNames;
 import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
 import io.rxmicro.rest.server.detail.component.ServerModelWriter;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
+import org.apache.maven.model.Model;
 
 import java.util.Map;
 

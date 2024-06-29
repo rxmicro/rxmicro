@@ -98,29 +98,29 @@ public final class PostgreSQLRepositoryClassStructureBuilderImpl
 
     private List<Map.Entry<TypeElement, String>> getEnumMappings(
             final List<SQLDataRepositoryMethod> methods,
-            final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext) {
+            final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> generationContext) {
         final List<Map.Entry<TypeElement, String>> list = new ArrayList<>();
         final Set<String> processedEnums = new HashSet<>();
         for (final SQLDataRepositoryMethod method : methods) {
             final List<MethodParameter> params = method.getMethodSignature().getParams();
             final MethodResult methodResult = method.getMethodSignature().getMethodResult();
             Stream.of(
-                    // adds enums that used as method primitive parameters:
-                    params.stream().flatMap(param -> asEnumElement(param.getType()).stream()),
-                    // adds enums from model classes that used as method parameters:
-                    params.stream().flatMap(param -> asTypeElement(param.getType()).stream())
-                            .flatMap(element -> Optional.ofNullable(dataGenerationContext.getEntityParamMap().get(element)).stream())
-                            .flatMap(modelClass -> modelClass.getParamEntries().stream())
-                            .flatMap(entry -> asEnumElement(entry.getKey().asType()).stream()),
-                    // adds enums that used as method return result:
-                    asEnumElement(methodResult.getResultType()).stream(),
-                    // adds enums from model class that used as method return result:
-                    asTypeElement(methodResult.getResultType())
-                            .flatMap(element -> Optional.ofNullable(dataGenerationContext.getEntityReturnMap().get(element)))
-                            .stream()
-                            .flatMap(modelClass -> modelClass.getParamEntries().stream())
-                            .flatMap(entry -> asEnumElement(entry.getKey().asType()).stream())
-            ).flatMap(identity())
+                            // adds enums that used as method primitive parameters:
+                            params.stream().flatMap(param -> asEnumElement(param.getType()).stream()),
+                            // adds enums from model classes that used as method parameters:
+                            params.stream().flatMap(param -> asTypeElement(param.getType()).stream())
+                                    .flatMap(element -> Optional.ofNullable(generationContext.getEntityParamMap().get(element)).stream())
+                                    .flatMap(modelClass -> modelClass.getParamEntries().stream())
+                                    .flatMap(entry -> asEnumElement(entry.getKey().asType()).stream()),
+                            // adds enums that used as method return result:
+                            asEnumElement(methodResult.getResultType()).stream(),
+                            // adds enums from model class that used as method return result:
+                            asTypeElement(methodResult.getResultType())
+                                    .flatMap(element -> Optional.ofNullable(generationContext.getEntityReturnMap().get(element)))
+                                    .stream()
+                                    .flatMap(modelClass -> modelClass.getParamEntries().stream())
+                                    .flatMap(entry -> asEnumElement(entry.getKey().asType()).stream())
+                    ).flatMap(identity())
                     .forEach(enumElement -> {
                         if (processedEnums.add(enumElement.getQualifiedName().toString())) {
                             list.add(entry(enumElement, dbObjectNameBuilder.buildEnumName(enumElement).getFullName()));

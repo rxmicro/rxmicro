@@ -81,12 +81,12 @@ public final class RepositoryConnectionImpl implements RepositoryConnection {
         final Mono<Void> mono = Mono.from(connection.beginTransaction(definition));
         if (logger.isTraceEnabled()) {
             return mono.doOnSuccess(s ->
-                logger.trace(
-                    this,
-                    "Transaction started using connection: class='?', id='?'.",
-                    getConnectionClassName(),
-                    getConnectionId()
-                )
+                    logger.trace(
+                            this,
+                            "Transaction started using connection: class='?', id='?'.",
+                            getConnectionClassName(),
+                            getConnectionId()
+                    )
             );
         }
         return mono;
@@ -264,13 +264,13 @@ public final class RepositoryConnectionImpl implements RepositoryConnection {
         final Mono<Void> mono = Mono.from(connection.setLockWaitTimeout(timeout));
         if (logger.isTraceEnabled()) {
             return mono.doOnSuccess(s ->
-                logger.trace(
-                    this,
-                    "Lock wait timeout updated: timeout='?', class='?', id='?'.",
-                    timeout,
-                    getConnectionClassName(),
-                    getConnectionId()
-                )
+                    logger.trace(
+                            this,
+                            "Lock wait timeout updated: timeout='?', class='?', id='?'.",
+                            timeout,
+                            getConnectionClassName(),
+                            getConnectionId()
+                    )
             );
         } else {
             return mono;
@@ -282,13 +282,13 @@ public final class RepositoryConnectionImpl implements RepositoryConnection {
         final Mono<Void> mono = Mono.from(connection.setStatementTimeout(timeout));
         if (logger.isTraceEnabled()) {
             return mono.doOnSuccess(s ->
-                logger.trace(
-                    this,
-                    "Statement timeout updated: timeout='?', class='?', id='?'.",
-                    timeout,
-                    getConnectionClassName(),
-                    getConnectionId()
-                )
+                    logger.trace(
+                            this,
+                            "Statement timeout updated: timeout='?', class='?', id='?'.",
+                            timeout,
+                            getConnectionClassName(),
+                            getConnectionId()
+                    )
             );
         } else {
             return mono;

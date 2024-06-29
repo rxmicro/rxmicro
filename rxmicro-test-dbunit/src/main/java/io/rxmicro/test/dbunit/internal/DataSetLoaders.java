@@ -44,8 +44,8 @@ public final class DataSetLoaders {
     // Add other data set loaders here
     private static final Map<String, DataSetLoader> LOADER_MAP =
             List.of(
-                    new FlatXmlDataSetLoader()
-            )
+                            new FlatXmlDataSetLoader()
+                    )
                     .stream()
                     .flatMap(l -> l.getSupportedExtensions().stream().map(ex -> entry(ex, l)))
                     .collect(toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));

@@ -95,7 +95,7 @@ public @interface Select {
      * If this parameter set to {@code false}, the RxMicro framework will not validate fields order during {@code SELECT} query.
      *
      * @return {@code true} if sql query <code>'SELECT * FROM table1'</code> must be converted
-     *         to <code>'SELECT ${all-columns} FROM table1'</code> automatically
+     * to <code>'SELECT ${all-columns} FROM table1'</code> automatically
      */
     boolean expandAsterisk() default true;
 }

@@ -48,7 +48,7 @@ public final class NettyWriteOnlyHttpHeaders extends AbstractRepeatableValues<Re
      * @author nedis
      * @since 0.4
      */
-    private class NettyReadableHttpHeaders extends AbstractReadableHttpHeaders {
+    private final class NettyReadableHttpHeaders extends AbstractReadableHttpHeaders {
 
         @Override
         public String get(final String name) {

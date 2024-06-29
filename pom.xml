@@ -149,7 +149,7 @@
         <!-- ========== Runtime Libraries ========== -->
         <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
         <netty.version>4.1.111.Final</netty.version>
-        
+
         <!-- https://mvnrepository.com/artifact/io.reactivex.rxjava3/rxjava -->
         <external.lib.rxjava3.version>3.1.8</external.lib.rxjava3.version>
         <!-- https://mvnrepository.com/artifact/io.projectreactor/reactor-core -->
@@ -158,7 +158,7 @@
         <external.lib.reactivestreams.version>1.0.4</external.lib.reactivestreams.version>
         <!-- https://mvnrepository.com/artifact/io.projectreactor.netty/reactor-netty -->
         <external.lib.reactor-netty.version>1.1.20</external.lib.reactor-netty.version>
-        
+
         <!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core -->
         <mongo-driver.version>5.1.1</mongo-driver.version>
         <external.lib.mongodb-driver-reactivestreams.version>${mongo-driver.version}</external.lib.mongodb-driver-reactivestreams.version>

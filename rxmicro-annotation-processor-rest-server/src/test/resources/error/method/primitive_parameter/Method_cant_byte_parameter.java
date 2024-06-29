@@ -25,7 +25,7 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_byte_parameter {
 
     @GET("/")
-    void test(final byte parameter){
+    void test(final byte parameter) {
 
     }
 }

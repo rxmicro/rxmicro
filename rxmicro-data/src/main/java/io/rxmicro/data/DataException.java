@@ -36,7 +36,7 @@ public abstract class DataException extends RxMicroException {
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param message the error message template
-     * @param args the error message template arguments
+     * @param args    the error message template arguments
      */
     protected DataException(final String message,
                             final Object... args) {
@@ -49,9 +49,9 @@ public abstract class DataException extends RxMicroException {
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
-     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param cause   the cause (which is saved for later retrieval by the {@link #getCause()} method).
      * @param message error message or error message template
-     * @param args error message template arguments
+     * @param args    error message template arguments
      */
     protected DataException(final Throwable cause,
                             final String message,

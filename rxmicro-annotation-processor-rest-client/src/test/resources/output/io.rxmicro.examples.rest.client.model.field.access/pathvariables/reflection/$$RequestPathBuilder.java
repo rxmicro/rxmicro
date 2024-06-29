@@ -1,6 +1,7 @@
 package io.rxmicro.examples.rest.client.model.field.access.pathvariables.reflection;
 
 import io.rxmicro.rest.client.detail.PathBuilder;
+import org.junit.runner.Request;
 
 import static rxmicro.examples.rest.client.model.field.access.$$Reflections.getFieldValue;
 

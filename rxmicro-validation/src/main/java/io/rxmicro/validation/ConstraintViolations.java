@@ -42,7 +42,7 @@ public final class ConstraintViolations {
      * used to format a final error message.)</i>
      *
      * @param message the error message template
-     * @param args the error message template argument
+     * @param args    the error message template argument
      */
     public static void reportViolation(final String message,
                                        final Object... args) {

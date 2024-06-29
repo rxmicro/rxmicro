@@ -3,6 +3,7 @@ package io.rxmicro.examples.rest.controller.map.model.type.model;
 import io.rxmicro.examples.rest.controller.map.model.type.model.nested.$$NestedModelToJsonConverter;
 import io.rxmicro.exchange.json.detail.ModelToJsonConverter;
 import io.rxmicro.json.JsonObjectBuilder;
+import org.apache.maven.model.Model;
 
 import java.util.Map;
 

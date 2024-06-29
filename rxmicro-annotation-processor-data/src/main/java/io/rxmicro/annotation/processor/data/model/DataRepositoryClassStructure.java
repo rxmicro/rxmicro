@@ -115,12 +115,12 @@ public abstract class DataRepositoryClassStructure extends ClassStructure {
 
     private Set<ModelTransformer> getModelTransformers() {
         return Stream.concat(
-                methods.stream()
-                        .flatMap(m -> m.getMethodSignature().getParamEntityClasses().stream())
-                        .map(cl -> new ModelTransformer(cl, getEntityToDBConverterClass())),
-                methods.stream()
-                        .flatMap(m -> m.getMethodSignature().getReturnEntityClasses().stream())
-                        .map(cl -> new ModelTransformer(cl, getEntityFromDBConverterClass())))
+                        methods.stream()
+                                .flatMap(m -> m.getMethodSignature().getParamEntityClasses().stream())
+                                .map(cl -> new ModelTransformer(cl, getEntityToDBConverterClass())),
+                        methods.stream()
+                                .flatMap(m -> m.getMethodSignature().getReturnEntityClasses().stream())
+                                .map(cl -> new ModelTransformer(cl, getEntityFromDBConverterClass())))
                 .collect(toTreeSet());
     }
 

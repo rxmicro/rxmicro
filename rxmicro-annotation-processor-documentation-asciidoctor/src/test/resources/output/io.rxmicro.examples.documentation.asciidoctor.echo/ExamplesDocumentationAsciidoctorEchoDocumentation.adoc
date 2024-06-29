@@ -2,11 +2,11 @@
 GeneratedBy RxMicroAnnotationProcessor <rxmicro.io@gmail.com>
 1.0-SNAPSHOT
 :icons: font
-:sectanchors: 
-:sectlinks: 
+:sectanchors:
+:sectlinks:
 :toc: left
 :toclevels: 3
-:sectnums: 
+:sectnums:
 :sectnumlevels: 5
 
 // ------------------------------------------ Examples Documentation Asciidoctor Echo Title and Description ------------------------------------------
@@ -37,7 +37,7 @@ You could use your favorite HTTP/REST library for your programming language to u
 
 *The Examples Documentation Asciidoctor Echo* uses HTTP verbs appropriate to each action. +
 
-[cols="2", options="header"]
+[cols="2",options="header"]
 |===
 |*Verb*
 |*Description*

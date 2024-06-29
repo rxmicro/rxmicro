@@ -65,7 +65,7 @@ public final class PermanentRedirectException extends RedirectException {
      * This constructor uses {@link Formats#format(String, Object...)} method to format `Location` header
      *
      * @param location the HTTP {@code Location} header value template
-     * @param args the HTTP {@code Location} header value template arguments
+     * @param args     the HTTP {@code Location} header value template arguments
      */
     public PermanentRedirectException(final String location,
                                       final Object... args) {

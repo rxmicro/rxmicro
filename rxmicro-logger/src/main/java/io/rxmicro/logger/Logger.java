@@ -80,7 +80,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void trace(String format,
                Object arg1);
@@ -92,8 +92,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void trace(String format,
                Object arg1,
@@ -106,9 +106,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void trace(String format,
                Object arg1,
@@ -122,10 +122,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void trace(String format,
                Object arg1,
@@ -140,11 +140,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void trace(String format,
                Object arg1,
@@ -159,7 +159,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void trace(String format,
@@ -172,7 +172,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void trace(String format,
                Supplier<?> arg1);
@@ -184,8 +184,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void trace(String format,
                Supplier<?> arg1,
@@ -198,9 +198,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void trace(String format,
                Supplier<?> arg1,
@@ -214,10 +214,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void trace(String format,
                Supplier<?> arg1,
@@ -232,11 +232,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void trace(String format,
                Supplier<?> arg1,
@@ -251,7 +251,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the argument suppliers
      */
     void trace(String format,
@@ -261,7 +261,7 @@ public interface Logger {
      * Log the message with the throwable at the {@code TRACE} level.
      *
      * @param throwable the throwable
-     * @param msg the message string to be logged
+     * @param msg       the message string to be logged
      */
     void trace(Throwable throwable,
                String msg);
@@ -273,8 +273,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void trace(Throwable throwable,
                String format,
@@ -287,9 +287,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void trace(Throwable throwable,
                String format,
@@ -303,10 +303,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void trace(Throwable throwable,
                String format,
@@ -321,11 +321,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void trace(Throwable throwable,
                String format,
@@ -341,12 +341,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void trace(Throwable throwable,
                String format,
@@ -363,7 +363,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void trace(Throwable throwable,
@@ -377,8 +377,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void trace(Throwable throwable,
                String format,
@@ -391,9 +391,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void trace(Throwable throwable,
                String format,
@@ -407,10 +407,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void trace(Throwable throwable,
                String format,
@@ -425,11 +425,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void trace(Throwable throwable,
                String format,
@@ -445,12 +445,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void trace(Throwable throwable,
                String format,
@@ -467,7 +467,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the suppliers
      */
     void trace(Throwable throwable,
@@ -478,7 +478,7 @@ public interface Logger {
      * Log the message at the {@code TRACE} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param msg the message string to be logged
+     * @param msg               the message string to be logged
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String msg);
@@ -490,8 +490,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -504,9 +504,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -520,10 +520,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -538,11 +538,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -558,12 +558,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -580,8 +580,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arguments the arguments
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -594,8 +594,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -608,9 +608,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -624,10 +624,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -642,11 +642,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -662,12 +662,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -684,8 +684,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param suppliers the argument suppliers
+     * @param format            the format string
+     * @param suppliers         the argument suppliers
      */
     void trace(RequestIdSupplier requestIdSupplier,
                String format,
@@ -695,8 +695,8 @@ public interface Logger {
      * Log the message with the throwable at the {@code TRACE} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param msg the message string to be logged
+     * @param throwable         the throwable
+     * @param msg               the message string to be logged
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -709,9 +709,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -725,10 +725,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -743,11 +743,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -763,12 +763,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -785,13 +785,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -809,9 +809,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arguments the arguments
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -825,9 +825,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -841,10 +841,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -859,11 +859,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -879,12 +879,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -901,13 +901,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -925,9 +925,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param suppliers the suppliers
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param suppliers         the suppliers
      */
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -971,7 +971,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void debug(String format,
                Object arg1);
@@ -983,8 +983,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void debug(String format,
                Object arg1,
@@ -997,9 +997,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void debug(String format,
                Object arg1,
@@ -1013,10 +1013,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void debug(String format,
                Object arg1,
@@ -1031,11 +1031,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void debug(String format,
                Object arg1,
@@ -1050,7 +1050,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void debug(String format,
@@ -1063,7 +1063,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void debug(String format,
                Supplier<?> arg1);
@@ -1075,8 +1075,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void debug(String format,
                Supplier<?> arg1,
@@ -1089,9 +1089,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void debug(String format,
                Supplier<?> arg1,
@@ -1105,10 +1105,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void debug(String format,
                Supplier<?> arg1,
@@ -1123,11 +1123,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void debug(String format,
                Supplier<?> arg1,
@@ -1142,7 +1142,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the argument suppliers
      */
     void debug(String format,
@@ -1152,7 +1152,7 @@ public interface Logger {
      * Log the message with the throwable at the {@code DEBUG} level.
      *
      * @param throwable the throwable
-     * @param msg the message string to be logged
+     * @param msg       the message string to be logged
      */
     void debug(Throwable throwable,
                String msg);
@@ -1164,8 +1164,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1178,9 +1178,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1194,10 +1194,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1212,11 +1212,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1232,12 +1232,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1254,7 +1254,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void debug(Throwable throwable,
@@ -1268,8 +1268,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1282,9 +1282,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1298,10 +1298,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1316,11 +1316,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1336,12 +1336,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void debug(Throwable throwable,
                String format,
@@ -1358,7 +1358,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the suppliers
      */
     void debug(Throwable throwable,
@@ -1369,7 +1369,7 @@ public interface Logger {
      * Log the message at the {@code DEBUG} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param msg the message string to be logged
+     * @param msg               the message string to be logged
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String msg);
@@ -1381,8 +1381,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1395,9 +1395,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1411,10 +1411,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1429,11 +1429,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1449,12 +1449,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1471,8 +1471,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arguments the arguments
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1485,8 +1485,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1499,9 +1499,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1515,10 +1515,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1533,11 +1533,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1553,12 +1553,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1575,8 +1575,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param suppliers the argument suppliers
+     * @param format            the format string
+     * @param suppliers         the argument suppliers
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
@@ -1586,8 +1586,8 @@ public interface Logger {
      * Log the message with the throwable at the {@code DEBUG} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable.
-     * @param msg the message string to be logged
+     * @param throwable         the throwable.
+     * @param msg               the message string to be logged
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1600,9 +1600,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1616,10 +1616,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1634,11 +1634,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1654,12 +1654,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1676,13 +1676,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1700,9 +1700,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arguments the arguments
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1716,9 +1716,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1732,10 +1732,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1750,11 +1750,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1770,12 +1770,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1792,13 +1792,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1816,9 +1816,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param suppliers the suppliers
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param suppliers         the suppliers
      */
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -1862,7 +1862,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void info(String format,
               Object arg1);
@@ -1874,8 +1874,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void info(String format,
               Object arg1,
@@ -1888,9 +1888,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void info(String format,
               Object arg1,
@@ -1904,10 +1904,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void info(String format,
               Object arg1,
@@ -1922,11 +1922,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void info(String format,
               Object arg1,
@@ -1941,7 +1941,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void info(String format,
@@ -1954,7 +1954,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void info(String format,
               Supplier<?> arg1);
@@ -1966,8 +1966,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void info(String format,
               Supplier<?> arg1,
@@ -1980,9 +1980,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void info(String format,
               Supplier<?> arg1,
@@ -1996,10 +1996,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void info(String format,
               Supplier<?> arg1,
@@ -2014,11 +2014,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void info(String format,
               Supplier<?> arg1,
@@ -2033,7 +2033,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the argument suppliers
      */
     void info(String format,
@@ -2043,7 +2043,7 @@ public interface Logger {
      * Log the message with the throwable at the {@code INFO} level.
      *
      * @param throwable the throwable
-     * @param msg the message string to be logged
+     * @param msg       the message string to be logged
      */
     void info(Throwable throwable,
               String msg);
@@ -2055,8 +2055,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void info(Throwable throwable,
               String format,
@@ -2069,9 +2069,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void info(Throwable throwable,
               String format,
@@ -2085,10 +2085,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void info(Throwable throwable,
               String format,
@@ -2103,11 +2103,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void info(Throwable throwable,
               String format,
@@ -2123,12 +2123,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void info(Throwable throwable,
               String format,
@@ -2145,7 +2145,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void info(Throwable throwable,
@@ -2159,8 +2159,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void info(Throwable throwable,
               String format,
@@ -2173,9 +2173,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void info(Throwable throwable,
               String format,
@@ -2189,10 +2189,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void info(Throwable throwable,
               String format,
@@ -2207,11 +2207,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void info(Throwable throwable,
               String format,
@@ -2227,12 +2227,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void info(Throwable throwable,
               String format,
@@ -2249,7 +2249,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the suppliers
      */
     void info(Throwable throwable,
@@ -2260,7 +2260,7 @@ public interface Logger {
      * Log the message at the {@code INFO} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param msg the message string to be logged
+     * @param msg               the message string to be logged
      */
     void info(RequestIdSupplier requestIdSupplier,
               String msg);
@@ -2272,8 +2272,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2286,9 +2286,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2302,10 +2302,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2320,11 +2320,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2340,12 +2340,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2362,8 +2362,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arguments the arguments
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2376,8 +2376,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2390,9 +2390,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2406,10 +2406,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2424,11 +2424,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2444,12 +2444,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2466,8 +2466,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param suppliers the argument suppliers
+     * @param format            the format string
+     * @param suppliers         the argument suppliers
      */
     void info(RequestIdSupplier requestIdSupplier,
               String format,
@@ -2477,8 +2477,8 @@ public interface Logger {
      * Log the message with the throwable at the {@code INFO} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param msg the message string to be logged
+     * @param throwable         the throwable
+     * @param msg               the message string to be logged
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2491,9 +2491,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2507,10 +2507,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2525,11 +2525,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2545,12 +2545,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2567,13 +2567,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2591,9 +2591,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arguments the arguments
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2607,9 +2607,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2623,10 +2623,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2641,11 +2641,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2661,12 +2661,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2683,13 +2683,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2707,9 +2707,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param suppliers the suppliers
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param suppliers         the suppliers
      */
     void info(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -2753,7 +2753,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void warn(String format,
               Object arg1);
@@ -2765,8 +2765,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void warn(String format,
               Object arg1,
@@ -2779,9 +2779,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void warn(String format,
               Object arg1,
@@ -2795,10 +2795,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void warn(String format,
               Object arg1,
@@ -2813,11 +2813,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void warn(String format,
               Object arg1,
@@ -2832,7 +2832,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void warn(String format,
@@ -2845,7 +2845,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void warn(String format,
               Supplier<?> arg1);
@@ -2857,8 +2857,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void warn(String format,
               Supplier<?> arg1,
@@ -2871,9 +2871,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void warn(String format,
               Supplier<?> arg1,
@@ -2887,10 +2887,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void warn(String format,
               Supplier<?> arg1,
@@ -2905,11 +2905,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void warn(String format,
               Supplier<?> arg1,
@@ -2924,7 +2924,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the argument suppliers
      */
     void warn(String format,
@@ -2934,7 +2934,7 @@ public interface Logger {
      * Log the message with the throwable at the {@code WARN} level.
      *
      * @param throwable the throwable
-     * @param msg the message string to be logged
+     * @param msg       the message string to be logged
      */
     void warn(Throwable throwable,
               String msg);
@@ -2947,8 +2947,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void warn(Throwable throwable,
               String format,
@@ -2961,9 +2961,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void warn(Throwable throwable,
               String format,
@@ -2977,10 +2977,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void warn(Throwable throwable,
               String format,
@@ -2995,11 +2995,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3015,12 +3015,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3037,7 +3037,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void warn(Throwable throwable,
@@ -3051,8 +3051,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3065,9 +3065,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3081,10 +3081,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3099,11 +3099,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3119,12 +3119,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void warn(Throwable throwable,
               String format,
@@ -3141,7 +3141,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the suppliers
      */
     void warn(Throwable throwable,
@@ -3152,7 +3152,7 @@ public interface Logger {
      * Log the message at the {@code WARN} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param msg the message string to be logged
+     * @param msg               the message string to be logged
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String msg);
@@ -3164,8 +3164,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3178,9 +3178,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3194,10 +3194,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3212,11 +3212,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3232,12 +3232,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3254,8 +3254,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arguments the arguments
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3268,8 +3268,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3282,9 +3282,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3298,10 +3298,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3316,11 +3316,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3336,12 +3336,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3358,8 +3358,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param suppliers the argument suppliers
+     * @param format            the format string
+     * @param suppliers         the argument suppliers
      */
     void warn(RequestIdSupplier requestIdSupplier,
               String format,
@@ -3369,8 +3369,8 @@ public interface Logger {
      * Log the message with the throwable at the {@code WARN} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param msg the message string to be logged
+     * @param throwable         the throwable
+     * @param msg               the message string to be logged
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3383,9 +3383,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3399,10 +3399,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3417,11 +3417,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3437,12 +3437,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3459,13 +3459,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3483,9 +3483,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arguments the arguments
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3499,9 +3499,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3515,10 +3515,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3533,11 +3533,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3553,12 +3553,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3575,13 +3575,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3599,9 +3599,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param suppliers the suppliers
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param suppliers         the suppliers
      */
     void warn(RequestIdSupplier requestIdSupplier,
               Throwable throwable,
@@ -3645,7 +3645,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void error(String format,
                Object arg1);
@@ -3657,8 +3657,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void error(String format,
                Object arg1,
@@ -3671,9 +3671,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void error(String format,
                Object arg1,
@@ -3687,10 +3687,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void error(String format,
                Object arg1,
@@ -3705,11 +3705,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void error(String format,
                Object arg1,
@@ -3724,7 +3724,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void error(String format,
@@ -3737,7 +3737,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the argument
+     * @param arg1   the argument
      */
     void error(String format,
                Supplier<?> arg1);
@@ -3749,8 +3749,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
      */
     void error(String format,
                Supplier<?> arg1,
@@ -3763,9 +3763,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
      */
     void error(String format,
                Supplier<?> arg1,
@@ -3779,10 +3779,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
      */
     void error(String format,
                Supplier<?> arg1,
@@ -3797,11 +3797,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param arg1   the first argument
+     * @param arg2   the second argument
+     * @param arg3   the third argument
+     * @param arg4   the forth argument
+     * @param arg5   the fifth argument
      */
     void error(String format,
                Supplier<?> arg1,
@@ -3816,7 +3816,7 @@ public interface Logger {
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the argument suppliers
      */
     void error(String format,
@@ -3826,7 +3826,7 @@ public interface Logger {
      * Log the message with the throwable at the {@code ERROR} level.
      *
      * @param throwable the throwable
-     * @param msg the message string to be logged
+     * @param msg       the message string to be logged
      */
     void error(Throwable throwable,
                String msg);
@@ -3838,8 +3838,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void error(Throwable throwable,
                String format,
@@ -3852,9 +3852,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void error(Throwable throwable,
                String format,
@@ -3868,10 +3868,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void error(Throwable throwable,
                String format,
@@ -3886,11 +3886,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void error(Throwable throwable,
                String format,
@@ -3906,12 +3906,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void error(Throwable throwable,
                String format,
@@ -3928,7 +3928,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param arguments the arguments
      */
     void error(Throwable throwable,
@@ -3942,8 +3942,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format    the format string
+     * @param arg1      the argument
      */
     void error(Throwable throwable,
                String format,
@@ -3956,9 +3956,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
      */
     void error(Throwable throwable,
                String format,
@@ -3972,10 +3972,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
      */
     void error(Throwable throwable,
                String format,
@@ -3990,11 +3990,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
      */
     void error(Throwable throwable,
                String format,
@@ -4010,12 +4010,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format    the format string
+     * @param arg1      the first argument
+     * @param arg2      the second argument
+     * @param arg3      the third argument
+     * @param arg4      the forth argument
+     * @param arg5      the fifth argument
      */
     void error(Throwable throwable,
                String format,
@@ -4032,7 +4032,7 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param throwable the throwable
-     * @param format the format string
+     * @param format    the format string
      * @param suppliers the suppliers
      */
     void error(Throwable throwable,
@@ -4043,7 +4043,7 @@ public interface Logger {
      * Log the message at the {@code ERROR} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param msg the message string to be logged
+     * @param msg               the message string to be logged
      */
     void error(RequestIdSupplier requestIdSupplier,
                String msg);
@@ -4055,8 +4055,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4069,9 +4069,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4085,10 +4085,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4103,11 +4103,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4123,12 +4123,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4145,8 +4145,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arguments the arguments
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4159,8 +4159,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the argument
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4173,9 +4173,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4189,10 +4189,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4207,11 +4207,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4227,12 +4227,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4249,8 +4249,8 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param format the format string
-     * @param suppliers the argument suppliers
+     * @param format            the format string
+     * @param suppliers         the argument suppliers
      */
     void error(RequestIdSupplier requestIdSupplier,
                String format,
@@ -4260,8 +4260,8 @@ public interface Logger {
      * Log the message with the throwable at the {@code ERROR} level.
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param msg the message string to be logged
+     * @param throwable         the throwable
+     * @param msg               the message string to be logged
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4274,9 +4274,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4290,10 +4290,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4308,11 +4308,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4328,12 +4328,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4350,13 +4350,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4374,9 +4374,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arguments the arguments
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arguments         the arguments
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4390,9 +4390,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4406,10 +4406,10 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4424,11 +4424,11 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4444,12 +4444,12 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4466,13 +4466,13 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param arg1 the first argument
-     * @param arg2 the second argument
-     * @param arg3 the third argument
-     * @param arg4 the forth argument
-     * @param arg5 the fifth argument
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param arg1              the first argument
+     * @param arg2              the second argument
+     * @param arg3              the third argument
+     * @param arg4              the forth argument
+     * @param arg5              the fifth argument
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
@@ -4490,9 +4490,9 @@ public interface Logger {
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
      * @param requestIdSupplier the request id supplier.
-     * @param throwable the throwable
-     * @param format the format string
-     * @param suppliers the suppliers
+     * @param throwable         the throwable
+     * @param format            the format string
+     * @param suppliers         the suppliers
      */
     void error(RequestIdSupplier requestIdSupplier,
                Throwable throwable,

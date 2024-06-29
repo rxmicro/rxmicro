@@ -25,7 +25,7 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_be_static {
 
     @GET("/")
-    static void test(){
+    static void test() {
 
     }
 }

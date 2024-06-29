@@ -42,12 +42,12 @@ public @interface CustomSelect {
      * <p>
      * Read more about db specific placeholders:
      * <a href="https://r2dbc.io/spec/0.8.0.RELEASE/spec/html/#statements.parameterized">
-     *     https://r2dbc.io/spec/0.8.0.RELEASE/spec/html/#statements.parameterized
+     * https://r2dbc.io/spec/0.8.0.RELEASE/spec/html/#statements.parameterized
      * </a>
      *
      * @return {@code true} if the RxMicro framework must replace '?' placeholder by db specific placeholder before executing of
-     *                      the custom SQL,
-     *         {@code false} if custom select query must contain only db specific placeholders. i.e. '$1', '$2', etc.
+     * the custom SQL,
+     * {@code false} if custom select query must contain only db specific placeholders. i.e. '$1', '$2', etc.
      */
     boolean supportUniversalPlaceholder() default true;
 

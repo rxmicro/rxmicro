@@ -38,12 +38,17 @@ abstract class AbstractClassNameBiConsumer extends AbstractBiConsumer {
     private String option = FULL;
 
     AbstractClassNameBiConsumer(final BiConsumerArguments arguments) {
-        super(arguments);
+        super(ensureValid(arguments));
         final List<String> options = arguments.getOptions();
         this.fullName = options.isEmpty() || parseFullNameOption(arguments, options.get(0));
+    }
+
+    protected static BiConsumerArguments ensureValid(final BiConsumerArguments arguments) {
+        final List<String> options = arguments.getOptions();
         if (options.size() > 1) {
             throw createUnsupportedOptionException(arguments, options.subList(1, options.size()));
         }
+        return arguments;
     }
 
     private boolean parseFullNameOption(final BiConsumerArguments arguments,

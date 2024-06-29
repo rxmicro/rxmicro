@@ -24,9 +24,7 @@ import io.rxmicro.validation.constraint.Nullable;
 import java.time.Duration;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
-import static io.rxmicro.http.ProtocolSchema.HTTP;
 
 /**
  * Allows configuring a REST client options.

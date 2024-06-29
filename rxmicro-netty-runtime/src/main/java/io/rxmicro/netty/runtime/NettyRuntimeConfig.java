@@ -19,7 +19,6 @@ package io.rxmicro.netty.runtime;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 import io.rxmicro.config.ConfigException;
-import io.rxmicro.config.Configs;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.validation.constraint.MaxInt;
 import io.rxmicro.validation.constraint.MinInt;
@@ -116,7 +115,7 @@ public final class NettyRuntimeConfig extends Config {
      * <p>
      * If {@code true} than the worker threads must be shared between rest server, rest client and data repository handlers.
      *
-     * @param shareWorkerThreads  share worker threads or not
+     * @param shareWorkerThreads share worker threads or not
      * @return the reference to this {@link NettyRuntimeConfig} instance
      */
     @BuilderMethod

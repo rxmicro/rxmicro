@@ -39,7 +39,7 @@ public final class InvalidDatabaseStateException extends RxMicroException {
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param message the error message template
-     * @param args the error message template arguments
+     * @param args    the error message template arguments
      */
     public InvalidDatabaseStateException(final String message,
                                          final Object... args) {

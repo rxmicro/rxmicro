@@ -24,7 +24,7 @@ final class $$EnvironmentCustomizer {
         currentModule.addExports("rxmicro.examples.validation.server.extendable.model", RX_MICRO_REFLECTION_MODULE);
     }
 
-    private static void openThePackagesWithModelClassesToReflectionModule(){
+    private static void openThePackagesWithModelClassesToReflectionModule() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
         currentModule.addOpens("io.rxmicro.examples.validation.server.extendable.model.all_models_contain_fields.child", RX_MICRO_REFLECTION_MODULE);
         currentModule.addOpens("io.rxmicro.examples.validation.server.extendable.model.all_models_contain_fields.grand", RX_MICRO_REFLECTION_MODULE);

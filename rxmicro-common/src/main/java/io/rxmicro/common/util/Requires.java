@@ -38,7 +38,7 @@ public final class Requires {
      * This replacement can increase the performance of the RxMicro framework.
      *
      * @param instance the specified object
-     * @param <T> the type of the reference
+     * @param <T>      the type of the reference
      * @return {@code obj} if not {@code null}
      * @throws NullPointerException if the specified object is {@code null}
      * @see java.util.Objects#requireNonNull(Object)
@@ -60,9 +60,9 @@ public final class Requires {
      * This replacement can increase the performance of the RxMicro framework.
      *
      * @param instance the specified object
-     * @param message the message template
-     * @param args the message template arguments
-     * @param <T> the type of the reference
+     * @param message  the message template
+     * @param args     the message template arguments
+     * @param <T>      the type of the reference
      * @return {@code obj} if not {@code null}
      * @throws NullPointerException if the specified object is {@code null}
      * @see java.util.Objects#requireNonNull(Object, String)
@@ -85,10 +85,10 @@ public final class Requires {
      * {@code if} statement by the {@code assert} one.
      * This replacement can increase the performance of the RxMicro framework.
      *
-     * @param instance the specified object
-     * @param message the message template
+     * @param instance  the specified object
+     * @param message   the message template
      * @param suppliers the message template argument suppliers
-     * @param <T> the type of the reference
+     * @param <T>       the type of the reference
      * @return {@code obj} if not {@code null}
      * @throws NullPointerException if the specified object is {@code null}
      * @see java.util.Objects#requireNonNull(Object, String)

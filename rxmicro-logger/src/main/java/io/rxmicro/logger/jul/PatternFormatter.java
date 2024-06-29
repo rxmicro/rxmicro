@@ -304,7 +304,6 @@ import static java.util.logging.LogManager.getLogManager;
  *     </tr>
  * </table>
  *
- *
  * @author nedis
  * @link https://logback.qos.ch/manual/layouts.html#conversionWord
  * @since 0.7
@@ -344,9 +343,9 @@ public final class PatternFormatter extends Formatter {
     /**
      * Creates an instance of {@link PatternFormatter} class with the specified pattern.
      *
-     * @param pattern the specified pattern.
+     * @param pattern           the specified pattern.
      * @param singleLineEnabled flag that indicates that current {@link PatternFormatter} must format message as single line.
-     * @param replacement the specified replacement or {@code null} if must be default value
+     * @param replacement       the specified replacement or {@code null} if must be default value
      */
     public PatternFormatter(final String pattern,
                             final boolean singleLineEnabled,

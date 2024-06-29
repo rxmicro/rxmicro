@@ -3,6 +3,7 @@ package io.rxmicro.examples.rest.client.model.field.access.headers.reflection;
 import io.rxmicro.examples.rest.client.model.field.access.Status;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
 import io.rxmicro.rest.client.detail.RequestModelExtractor;
+import org.junit.runner.Request;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

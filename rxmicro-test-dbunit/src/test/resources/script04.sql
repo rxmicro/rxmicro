@@ -1,20 +1,5 @@
+DELETE
+FROM public."order";
 
-            DELETE
-                                FROM
-    public."order";
-
-DELETE FROM
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public.account;
+DELETE
+FROM public.account;

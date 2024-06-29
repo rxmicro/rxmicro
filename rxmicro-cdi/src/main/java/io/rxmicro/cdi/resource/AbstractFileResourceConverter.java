@@ -29,8 +29,8 @@ import static io.rxmicro.resource.InputStreamResources.FILE_SCHEME;
 /**
  * Base abstract class that converts resource path to the {@link Path} type.
  *
- * @author nedis
  * @param <D> destination type
+ * @author nedis
  * @since 0.6
  */
 public abstract class AbstractFileResourceConverter<D> implements ResourceConverter<D> {

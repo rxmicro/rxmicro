@@ -39,7 +39,7 @@ public abstract class RepositoryFactory extends AbstractFactory {
     /**
      * Returns the instance of the requested dynamic data repository.
      *
-     * @param <T> the data repository type
+     * @param <T>                 the data repository type
      * @param repositoryInterface the requested dynamic data repository interface
      * @return the instance of the requested dynamic data repository
      */

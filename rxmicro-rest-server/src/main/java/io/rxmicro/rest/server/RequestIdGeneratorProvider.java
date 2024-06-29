@@ -64,7 +64,7 @@ public interface RequestIdGeneratorProvider {
         /**
          * Creates a default instance with the specified request id generator.
          *
-         * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+         * @param cause              the cause (which is saved for later retrieval by the {@link #getCause()} method).
          * @param requestIdGenerator the specified request id generator.
          */
         public CurrentRequestIdGeneratorCantBeUsedException(final Throwable cause,

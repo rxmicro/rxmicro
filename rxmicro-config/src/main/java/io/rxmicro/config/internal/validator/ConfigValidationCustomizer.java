@@ -35,8 +35,7 @@ public final class ConfigValidationCustomizer {
 
     public static <T> T collectAllViolationsAndTranslateIntoConfigException(final Supplier<T> supplier) {
         try {
-            final ConstraintViolationReporter currentConstraintViolationReporter
-                    = new DefaultConfigConstraintViolationReporter();
+            final ConstraintViolationReporter currentConstraintViolationReporter = new DefaultConfigConstraintViolationReporter();
             ConstraintViolationReportManager.setCurrentConstraintViolationReporter(currentConstraintViolationReporter);
             ConstraintViolationReportManager.startValidation(VALIDATION_OPTIONS);
             return supplier.get();

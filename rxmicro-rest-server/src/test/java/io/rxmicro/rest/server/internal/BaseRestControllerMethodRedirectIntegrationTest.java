@@ -61,7 +61,6 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -125,7 +124,6 @@ final class BaseRestControllerMethodRedirectIntegrationTest extends AbstractBase
 
     /**
      * @author nedis
-     *
      */
     @SuppressWarnings({"CodeBlock2Expr", "PMD.AvoidDuplicateLiterals"})
     private static class ThrowRedirectExceptionArgumentsProvider implements ArgumentsProvider {
@@ -237,7 +235,6 @@ final class BaseRestControllerMethodRedirectIntegrationTest extends AbstractBase
 
     /**
      * @author nedis
-     *
      */
     private static final class UserRedirectException extends HttpErrorException {
 

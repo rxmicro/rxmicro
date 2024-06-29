@@ -81,8 +81,8 @@ public enum DatabaseType {
      * Returns the JDBC connection url, that used by the {@link java.sql.DriverManager} to get connection to database
      * using custom port.
      *
-     * @param host the database host.
-     * @param port the custom database port.
+     * @param host     the database host.
+     * @param port     the custom database port.
      * @param database the database name.
      * @return the JDBC connection url, that used by the {@link java.sql.DriverManager} to get connection to database.
      * @see java.sql.DriverManager
@@ -97,7 +97,7 @@ public enum DatabaseType {
      * Returns the JDBC connection url, that used by the {@link java.sql.DriverManager} to get connection to database
      * using default port.
      *
-     * @param host the database host.
+     * @param host     the database host.
      * @param database the database name.
      * @return the JDBC connection url, that used by the {@link java.sql.DriverManager} to get connection to database.
      * @see java.sql.DriverManager

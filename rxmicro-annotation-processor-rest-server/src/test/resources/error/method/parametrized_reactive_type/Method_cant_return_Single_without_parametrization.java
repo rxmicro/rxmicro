@@ -27,22 +27,22 @@ import io.rxmicro.rest.method.GET;
 public final class Method_cant_return_Single_without_parametrization<T> {
 
     @GET("/1")
-    Single test1(){
+    Single test1() {
         return null;
     }
 
     @GET("/2")
-    Single<?> test2(){
+    Single<?> test2() {
         return null;
     }
 
     @GET("/3")
-    <E> Single<E> test3(){
+    <E> Single<E> test3() {
         return null;
     }
 
     @GET("/4")
-    Single<T> test4(){
+    Single<T> test4() {
         return null;
     }
 }

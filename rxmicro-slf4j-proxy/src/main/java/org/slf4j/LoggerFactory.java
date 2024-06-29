@@ -27,7 +27,7 @@ import org.slf4j.internal.Slf4jLoggerProxy;
  * <p>
  * Read more:
  * <a href="https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73">
- *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
+ * https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
  * </a>
  *
  * <p>
@@ -44,7 +44,7 @@ import org.slf4j.internal.Slf4jLoggerProxy;
  *
  * @author nedis
  * @see <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html">
- *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>
+ * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>
  * @since 0.3
  */
 public final class LoggerFactory {
@@ -54,7 +54,7 @@ public final class LoggerFactory {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>.
      *
      * <p>
      * Return a logger named according to the name parameter using the
@@ -70,7 +70,7 @@ public final class LoggerFactory {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>.
      *
      * <p>
      * Return a logger named corresponding to the class passed as parameter,
@@ -94,7 +94,7 @@ public final class LoggerFactory {
     /**
      * See
      * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html">
-     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>.
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>.
      *
      * <p>
      * Return the {@link ILoggerFactory} instance in use.

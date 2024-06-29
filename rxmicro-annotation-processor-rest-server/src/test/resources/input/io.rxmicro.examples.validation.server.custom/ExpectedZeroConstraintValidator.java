@@ -32,8 +32,8 @@ public final class ExpectedZeroConstraintValidator
                                 final String modelName) throws ValidationException {
         if (value.compareTo(BigDecimal.ZERO) != 0) { // <2>
             throw new ValidationException(
-                "Invalid ? \"?\": Expected a zero value!",
-                httpModelType, modelName
+                    "Invalid ? \"?\": Expected a zero value!",
+                    httpModelType, modelName
             );
         }
     }

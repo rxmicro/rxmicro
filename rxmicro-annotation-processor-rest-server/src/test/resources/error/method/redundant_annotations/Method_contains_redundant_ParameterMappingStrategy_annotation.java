@@ -27,7 +27,7 @@ public final class Method_contains_redundant_ParameterMappingStrategy_annotation
 
     @GET("/")
     @ParameterMappingStrategy
-    void test(){
+    void test() {
 
     }
 }

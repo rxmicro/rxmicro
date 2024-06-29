@@ -1,8 +1,8 @@
 = FULL-PROJECT-DOCUMENTATION-
 Richard Hendricks <richard.hendricks@piedpiper.com>; Bertram Gilfoyle <bertram.gilfoyle@piedpiper.com>; Dinesh Chugtai <dinesh.chugtai@piedpiper.com>
 1.0-SNAPSHOT
-:sectanchors: 
-:sectlinks: 
+:sectanchors:
+:sectlinks:
 :toc: right
 :toc-title: TOC-TITLE
 :toclevels: 2
@@ -42,7 +42,7 @@ You could use your favorite HTTP/REST library for your programming language to u
 
 *The FULL-PROJECT-DOCUMENTATION-* uses HTTP verbs appropriate to each action. +
 
-[cols="2", options="header"]
+[cols="2",options="header"]
 |===
 |*Verb*
 |*Description*

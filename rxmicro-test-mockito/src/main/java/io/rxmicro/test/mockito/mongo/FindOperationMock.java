@@ -100,8 +100,8 @@ public final class FindOperationMock extends AbstractFindOperationMock {
          *
          * @param query the specified query
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified query is {@code null}
-         * @throws IllegalArgumentException if the specified query is blank
+         * @throws NullPointerException             if the specified query is {@code null}
+         * @throws IllegalArgumentException         if the specified query is blank
          * @throws org.bson.json.JsonParseException if the specified query has invalid JSON structure
          */
         @BuilderMethod
@@ -131,8 +131,8 @@ public final class FindOperationMock extends AbstractFindOperationMock {
          *
          * @param projection the specified projection
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified query is {@code null}
-         * @throws IllegalArgumentException if the specified query is blank
+         * @throws NullPointerException             if the specified query is {@code null}
+         * @throws IllegalArgumentException         if the specified query is blank
          * @throws org.bson.json.JsonParseException if the specified query has invalid JSON structure
          */
         @BuilderMethod
@@ -161,8 +161,8 @@ public final class FindOperationMock extends AbstractFindOperationMock {
          *
          * @param hint the specified hint value
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified hint value is {@code null}
-         * @throws IllegalArgumentException if the specified hint is blank
+         * @throws NullPointerException             if the specified hint value is {@code null}
+         * @throws IllegalArgumentException         if the specified hint is blank
          * @throws org.bson.json.JsonParseException if the specified hint value has invalid JSON structure
          */
         @BuilderMethod
@@ -191,8 +191,8 @@ public final class FindOperationMock extends AbstractFindOperationMock {
          *
          * @param sort the specified sort expression
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified sort expression is {@code null}
-         * @throws IllegalArgumentException if the specified sort expression is blank
+         * @throws NullPointerException             if the specified sort expression is {@code null}
+         * @throws IllegalArgumentException         if the specified sort expression is blank
          * @throws org.bson.json.JsonParseException if the specified sort expression has invalid JSON structure
          */
         @BuilderMethod

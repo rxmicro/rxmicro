@@ -27,9 +27,9 @@ import java.util.Map;
  * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
  *
  * @author nedis
- * @since 0.7
  * @link http://www.slf4j.org/manual.html#mdc
  * @link http://logback.qos.ch/manual/mdc.html
+ * @since 0.7
  */
 public final class DoNothingMDCAdapter implements MDCAdapter {
 

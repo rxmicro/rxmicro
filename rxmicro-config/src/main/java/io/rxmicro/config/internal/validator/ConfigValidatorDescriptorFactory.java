@@ -67,19 +67,23 @@ public final class ConfigValidatorDescriptorFactory {
                                                                       final List<AnnotatedElement> annotatedElements) {
         final Map<String, ConstraintValidator<?>> validators = new LinkedHashMap<>();
         for (final AnnotatedElement annotatedElement : annotatedElements) {
-            final Class<?> propertyType = annotatedElement instanceof Field ? ((Field) annotatedElement).getType() : ((Method) annotatedElement).getReturnType();
+            final Class<?> propertyType = annotatedElement instanceof Field ?
+                    ((Field) annotatedElement).getType() :
+                    ((Method) annotatedElement).getReturnType();
             addRequiredValidator(validators, propertyType, annotatedElement);
             for (final Annotation annotation : annotatedElement.getAnnotations()) {
                 final Class<? extends Annotation> annotationType = annotation.annotationType();
                 if (annotationType.getPackageName().equals(RX_MICRO_VALIDATION_PACKAGE)) {
-                    final Class<? extends ConstraintValidator> validatorClass = getValidatorClass(propertyErrorDescriptor, propertyType, annotationType);
-                    final ConstraintParametersOrder constraintParametersOrder = annotationType.getAnnotation(ConstraintParametersOrder.class);
-                    if (constraintParametersOrder == null) {
+                    final Class<? extends ConstraintValidator> validatorClass =
+                            getValidatorClass(propertyErrorDescriptor, propertyType, annotationType);
+                    final ConstraintParametersOrder parametersOrder = annotationType.getAnnotation(ConstraintParametersOrder.class);
+                    if (parametersOrder == null) {
                         validators.put(annotationType.getName(), getStatelessValidator(validatorClass));
                     } else {
-                        final Object[] args = getAnnotationParameters(annotation, constraintParametersOrder.value());
+                        final Object[] args = getAnnotationParameters(annotation, parametersOrder.value());
                         final Class[] argTypes = getAnnotationParameterTypes(args);
-                        validators.put(annotationType.getName(), Reflections.instantiate(validatorClass, false, argTypes, args));
+                        validators.put(
+                                annotationType.getName(), Reflections.instantiate(validatorClass, false, argTypes, args));
                     }
                 }
             }

@@ -24,7 +24,7 @@ final class $$EnvironmentCustomizer {
         currentModule.addExports("rxmicro.examples.cdi.spring.style", RX_MICRO_REFLECTION_MODULE);
     }
 
-    private static void openThePackagesWithModelClassesToReflectionModule(){
+    private static void openThePackagesWithModelClassesToReflectionModule() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
         currentModule.addOpens("io.rxmicro.examples.cdi.spring.style", RX_MICRO_REFLECTION_MODULE);
         currentModule.addOpens("io.rxmicro.examples.cdi.spring.style.impl", RX_MICRO_REFLECTION_MODULE);

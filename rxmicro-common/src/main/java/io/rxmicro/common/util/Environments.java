@@ -86,7 +86,7 @@ public final class Environments {
      * <p>
      * Supported variable format: <code>${VAR1}</code>
      *
-     * @param expression the specified expression that can contains variables
+     * @param expression     the specified expression that can contains variables
      * @param variableValues the variable map that contains the pairs of names nad values
      * @return the resolved expression without variables
      * @throws IllegalArgumentException if the specified expression contains undefined variable or has invalid syntax

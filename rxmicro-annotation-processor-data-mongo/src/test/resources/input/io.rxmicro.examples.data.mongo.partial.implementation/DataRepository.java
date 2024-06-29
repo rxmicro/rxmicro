@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.data.mongo.partial.implementation;
 
+import io.rxmicro.data.detail.AbstractDataRepository;
 import io.rxmicro.data.mongo.MongoRepository;
 import io.rxmicro.data.mongo.PartialImplementation;
 import io.rxmicro.data.mongo.operation.CountDocuments;

@@ -111,7 +111,7 @@ public enum PredefinedRequestIdGeneratorProvider implements RequestIdGeneratorPr
      * <p>
      * Read about why {@link java.security.SecureRandom} instance can't generate random bytes here:
      * <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/SecureRandom.html">
-     *     https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/SecureRandom.html
+     * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/SecureRandom.html
      * </a>
      *
      * @see #PARTLY_RANDOM_96_BITS

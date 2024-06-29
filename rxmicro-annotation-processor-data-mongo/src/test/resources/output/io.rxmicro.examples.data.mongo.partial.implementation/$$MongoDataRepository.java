@@ -1,6 +1,7 @@
 package io.rxmicro.examples.data.mongo.partial.implementation;
 
 import com.mongodb.reactivestreams.client.MongoDatabase;
+import io.rxmicro.data.detail.AbstractDataRepository;
 import io.rxmicro.data.detail.adapter.PublisherToRequiredMonoFutureAdapter;
 import org.reactivestreams.Publisher;
 

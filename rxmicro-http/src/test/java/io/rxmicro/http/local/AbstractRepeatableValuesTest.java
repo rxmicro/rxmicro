@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)

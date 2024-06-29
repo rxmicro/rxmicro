@@ -18,6 +18,7 @@ package io.rxmicro.examples.rest.controller.params.model;
 
 import io.rxmicro.rest.Parameter;
 import io.rxmicro.rest.ParameterMappingStrategy;
+import org.junit.runner.Request;
 
 // tag::content[]
 // <1>

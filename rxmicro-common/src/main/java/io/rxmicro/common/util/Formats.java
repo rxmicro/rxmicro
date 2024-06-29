@@ -95,8 +95,8 @@ public final class Formats {
      * This method never returns {@code null}!
      * If {@code messageTemplate} is null and {@code arg} is empty, the {@code "null"} string returned!
      *
-     * @param messageTemplate   the message template
-     * @param args              the message template arguments
+     * @param messageTemplate the message template
+     * @param args            the message template arguments
      * @return the formatted string
      */
     public static String format(final String messageTemplate,
@@ -130,7 +130,7 @@ public final class Formats {
     /**
      * Formats the data size in bytes into the formatted human readable data size.
      *
-     * @param size the data size in bytes
+     * @param size              the data size in bytes
      * @param withOriginalValue show or not original data size in bytes
      * @return the formatted human readable data size
      */

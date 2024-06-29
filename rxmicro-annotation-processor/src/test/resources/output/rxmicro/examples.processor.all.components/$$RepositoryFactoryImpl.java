@@ -6,7 +6,6 @@ import io.rxmicro.examples.processor.all.components.component.$$PostgreSQLPostgr
 import io.rxmicro.examples.processor.all.components.component.MongoDataRepository;
 import io.rxmicro.examples.processor.all.components.component.PostgreSQLDataRepository;
 
-import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
 import static io.rxmicro.data.mongo.detail.MongoRepositoryFactory.createMongoRepository;
 import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLRepositoryFactory.createPostgreSQLRepository;
 import static io.rxmicro.runtime.detail.ChildrenInitHelper.invokeAllStaticSections;

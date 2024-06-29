@@ -48,6 +48,11 @@ public final class HttpServerConfig extends HttpConfig {
      */
     public static final Duration DEFAULT_FILE_CONTENT_CACHE_DURATION = Duration.of(365, DAYS);
 
+    /**
+     * Default server port.
+     */
+    public static final int DEFAULT_SERVER_PORT = 8080;
+
     private boolean startTimeTrackerEnabled = true;
 
     @ExistingDirectory
@@ -60,7 +65,7 @@ public final class HttpServerConfig extends HttpConfig {
      * Creates a HTTP server config instance with default settings.
      */
     public HttpServerConfig() {
-        super(Config.getDefaultNameSpace(HttpServerConfig.class), HTTP, "0.0.0.0", 8080);
+        super(Config.getDefaultNameSpace(HttpServerConfig.class), HTTP, "0.0.0.0", DEFAULT_SERVER_PORT);
     }
 
     /**

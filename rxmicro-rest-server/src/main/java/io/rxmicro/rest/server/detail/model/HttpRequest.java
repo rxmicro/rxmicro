@@ -31,7 +31,7 @@ import java.net.SocketAddress;
  * <p>
  * Read more:
  * <a href="https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-internals-basic-section">
- *     https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-internals-basic-section
+ * https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-internals-basic-section
  * </a>
  *
  * @author nedis

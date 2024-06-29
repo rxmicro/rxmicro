@@ -74,7 +74,7 @@ public @interface SetConfigValue {
      * (The namespace allows You to clearly define to which configuration class the specified setting belongs.)
      *
      * @return property name without namespace if {@link SetConfigValue#configClass()} is specified
-     *         or property name with required namespace if {@link SetConfigValue#configClass()} is not set
+     * or property name with required namespace if {@link SetConfigValue#configClass()} is not set
      */
     String name();
 

@@ -66,10 +66,10 @@ public final class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFa
             constructor.setAccessible(true);
             return constructor.newInstance().getEnumMapping().keySet();
         } catch (final ClassNotFoundException |
-                IllegalAccessException |
-                NoSuchMethodException |
-                InstantiationException |
-                InvocationTargetException ignored) {
+                       IllegalAccessException |
+                       NoSuchMethodException |
+                       InstantiationException |
+                       InvocationTargetException ignored) {
             return Set.of();
         }
     }

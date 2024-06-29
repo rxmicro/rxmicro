@@ -59,9 +59,9 @@ public final class SQLMockFactory {
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
-     * @param connectionPool the configuring connection pool mock
+     * @param connectionPool         the configuring connection pool mock
      * @param sqlQueryWithParamsMock the specified SQL query with parameters mock
-     * @param resultRows the specified result rows that must be returned
+     * @param resultRows             the specified result rows that must be returned
      * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
      */
     public static void prepareSQLOperationMocks(final ConnectionPool connectionPool,
@@ -78,9 +78,9 @@ public final class SQLMockFactory {
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
-     * @param connectionPool the configuring connection pool mock
+     * @param connectionPool         the configuring connection pool mock
      * @param sqlQueryWithParamsMock the specified SQL query with parameters mock
-     * @param resultRows the specified result rows that must be returned
+     * @param resultRows             the specified result rows that must be returned
      * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
      */
     @SafeVarargs
@@ -98,9 +98,9 @@ public final class SQLMockFactory {
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
-     * @param connectionPool the configuring connection pool mock
+     * @param connectionPool         the configuring connection pool mock
      * @param sqlQueryWithParamsMock the specified SQL query with parameters mock
-     * @param resultRow the specified single row that must be returned
+     * @param resultRow              the specified single row that must be returned
      * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
      */
     public static void prepareSQLOperationMocks(final ConnectionPool connectionPool,
@@ -117,9 +117,9 @@ public final class SQLMockFactory {
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
-     * @param connectionPool the configuring connection pool mock
+     * @param connectionPool         the configuring connection pool mock
      * @param sqlQueryWithParamsMock the specified SQL query with parameters mock
-     * @param rowsUpdated the specified updated row count that must be returned
+     * @param rowsUpdated            the specified updated row count that must be returned
      * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
      */
     public static void prepareSQLOperationMocks(final ConnectionPool connectionPool,
@@ -136,9 +136,9 @@ public final class SQLMockFactory {
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
-     * @param connectionPool the configuring connection pool mock
+     * @param connectionPool         the configuring connection pool mock
      * @param sqlQueryWithParamsMock the specified SQL query with parameters mock
-     * @param throwable the specified throwable
+     * @param throwable              the specified throwable
      * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
      */
     public static void prepareSQLOperationMocks(final ConnectionPool connectionPool,
@@ -155,9 +155,9 @@ public final class SQLMockFactory {
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
-     * @param connectionPool the configuring connection pool mock
-     * @param sqlQueryWithParamsMock the specified SQL query with parameters mock
-     * @param throwable the specified throwable
+     * @param connectionPool               the configuring connection pool mock
+     * @param sqlQueryWithParamsMock       the specified SQL query with parameters mock
+     * @param throwable                    the specified throwable
      * @param errorDuringSQLInvocationType stage for emulation an error with the specified throwable
      * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
      */

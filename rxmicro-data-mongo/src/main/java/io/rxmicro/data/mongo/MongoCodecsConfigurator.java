@@ -405,7 +405,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
      * Sets or replaces the codec.
      *
      * @param encodedClassPredicate the type class predicate that defines a rule to get a codec for requested class
-     * @param codec the codec to put
+     * @param codec                 the codec to put
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
     public MongoCodecsConfigurator putCodec(final Predicate<Class<?>> encodedClassPredicate,
@@ -416,7 +416,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     /**
      * Sets or replaces the codec provider.
      *
-     * @param encodedClass the type class
+     * @param encodedClass  the type class
      * @param codecProvider the codec provider
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
@@ -429,7 +429,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
      * Sets or replaces the codec provider.
      *
      * @param encodedClassPredicate the type class predicate that defines a rule to get a codec for requested class
-     * @param codecProvider the codec provider
+     * @param codecProvider         the codec provider
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
     public MongoCodecsConfigurator putCodecProvider(final Predicate<Class<?>> encodedClassPredicate,

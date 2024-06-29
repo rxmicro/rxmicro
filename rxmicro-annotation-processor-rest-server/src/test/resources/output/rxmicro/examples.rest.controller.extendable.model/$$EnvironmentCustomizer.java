@@ -24,7 +24,7 @@ final class $$EnvironmentCustomizer {
         currentModule.addExports("rxmicro.examples.rest.controller.extendable.model", RX_MICRO_REFLECTION_MODULE);
     }
 
-    private static void openThePackagesWithModelClassesToReflectionModule(){
+    private static void openThePackagesWithModelClassesToReflectionModule() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
         currentModule.addOpens("io.rxmicro.examples.rest.controller.extendable.model.request.all_body.all_models_contain_nested_fields.child", RX_MICRO_REFLECTION_MODULE);
         currentModule.addOpens("io.rxmicro.examples.rest.controller.extendable.model.request.all_body.all_models_contain_nested_fields.child.nested", RX_MICRO_REFLECTION_MODULE);

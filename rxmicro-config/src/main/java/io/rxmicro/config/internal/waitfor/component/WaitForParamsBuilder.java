@@ -50,7 +50,8 @@ public final class WaitForParamsBuilder {
                         paramsMap.getOrDefault(WAIT_FOR_TYPE_PARAM_NAME, WAIT_FOR_TCP_SOCKET_TYPE_NAME),
                         getTimeout(paramsMap),
                         Optional.ofNullable(paramsMap.get(DESTINATION))
-                                .orElseThrow(() -> new ConfigException("Expected ?. For example: java Main.class wait-for localhost:8080", DESTINATION))
+                                .orElseThrow(() -> new ConfigException(
+                                        "Expected ?. For example: java Main.class wait-for localhost:8080", DESTINATION))
                 ))
                 .collect(Collectors.toList());
     }

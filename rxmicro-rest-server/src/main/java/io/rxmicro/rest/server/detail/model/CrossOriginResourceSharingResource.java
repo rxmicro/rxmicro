@@ -84,9 +84,9 @@ public class CrossOriginResourceSharingResource {
                 this.allowHeaders.isEmpty() && this.exposedHeaders.isEmpty() ?
                         null :
                         Stream.concat(
-                                this.allowHeaders.stream(),
-                                this.exposedHeaders.stream()
-                        ).map(h -> CAPITALIZE_WITH_HYPHEN.getModelName(asList(h.split("-"))))
+                                        this.allowHeaders.stream(),
+                                        this.exposedHeaders.stream()
+                                ).map(h -> CAPITALIZE_WITH_HYPHEN.getModelName(asList(h.split("-"))))
                                 .collect(joining(", "));
     }
 

@@ -30,7 +30,7 @@ import static io.rxmicro.common.util.Formats.format;
  * This request id generator uses the {@link SecureRandom} instance to get random bytes, so a generation of the next request id
  * can be block by operation system for example, if the entropy source is {@code /dev/random} on various Unix-like operating systems.
  * Read more: <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/SecureRandom.html">
- *     https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/SecureRandom.html
+ * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/SecureRandom.html
  * </a>
  *
  * <p>

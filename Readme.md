@@ -20,11 +20,11 @@ A modern, JVM-based, full stack framework designed to develop distributed reacti
 
 ## Verified On
 
-[![JDK 11](https://img.shields.io/badge/JDK-11-brightgreen?logo=java)](https://openjdk.java.net/projects/jdk/11/) 
-[![JDK 12](https://img.shields.io/badge/JDK-12-red?logo=java)](https://openjdk.java.net/projects/jdk/12/) 
-[![JDK 13](https://img.shields.io/badge/JDK-13-red?logo=java)](https://openjdk.java.net/projects/jdk/13/) 
-[![JDK 14](https://img.shields.io/badge/JDK-14-red?logo=java)](https://openjdk.java.net/projects/jdk/14/) 
-[![JDK 15](https://img.shields.io/badge/JDK-15-blue?logo=java)](https://openjdk.java.net/projects/jdk/15/) 
+[![JDK 11](https://img.shields.io/badge/JDK-11-brightgreen?logo=java)](https://openjdk.java.net/projects/jdk/11/)
+[![JDK 12](https://img.shields.io/badge/JDK-12-red?logo=java)](https://openjdk.java.net/projects/jdk/12/)
+[![JDK 13](https://img.shields.io/badge/JDK-13-red?logo=java)](https://openjdk.java.net/projects/jdk/13/)
+[![JDK 14](https://img.shields.io/badge/JDK-14-red?logo=java)](https://openjdk.java.net/projects/jdk/14/)
+[![JDK 15](https://img.shields.io/badge/JDK-15-blue?logo=java)](https://openjdk.java.net/projects/jdk/15/)
 
 ## Supported Features
 
@@ -44,21 +44,21 @@ Status of all supported features is available at the [Features Table](Features.m
 
 ## Contributing
 
-Contributions to the RxMicro framework are both welcomed and appreciated. 
-For specific guidelines regarding contributions, please see [CONTRIBUTING.md](.github/CONTRIBUTING.md). 
+Contributions to the RxMicro framework are both welcomed and appreciated.
+For specific guidelines regarding contributions, please see [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 ## Check Lists
 
-See [CHECK_LISTS.md](.github/CHECK_LISTS.md). 
+See [CHECK_LISTS.md](.github/CHECK_LISTS.md).
 
 ## Code Quality
 
 ### Checkstyle (https://checkstyle.sourceforge.io/)
 
-* *([Custom common checkstyle](.coding/checkstyle/common-rules.xml) profile with 
-[common-suppressions](.coding/checkstyle/common-suppressions.xml) for all classes)*
-* *([Custom public checkstyle](.coding/checkstyle/public-api-rules.xml) profile with 
-[public-api-suppressions](.coding/checkstyle/public-api-suppressions.xml) for public classes)*
+* *([Custom common checkstyle](.coding/checkstyle/common-rules.xml) profile with
+  [common-suppressions](.coding/checkstyle/common-suppressions.xml) for all classes)*
+* *([Custom public checkstyle](.coding/checkstyle/public-api-rules.xml) profile with
+  [public-api-suppressions](.coding/checkstyle/public-api-suppressions.xml) for public classes)*
 
 Verify via `checkstyle`:
 
@@ -82,7 +82,7 @@ If build failed find `Total bugs` phrase at the console output...
 
 ### PMD (https://pmd.github.io/)
 
-*([Custom pmd](.coding/pmd/ruleset.xml) profile with 
+*([Custom pmd](.coding/pmd/ruleset.xml) profile with
 [exclude-pmd](.coding/pmd/exclude-pmd.properties) and [exclude-cpd](.coding/pmd/exclude-cpd.properties))*
 
 Verify via `pmd`:
@@ -109,7 +109,7 @@ mvn --fail-at-end -P checkstyle,spotbugs,pmd clean process-classes
 
 If build failed find `Total bugs`, `PMD Failure`, `reported by Checkstyle` phrase at the console output...
 
-### Html reports 
+### Html reports
 
 ```shell
 mvn --fail-at-end -DskipTests -P checkstyle,spotbugs,pmd \

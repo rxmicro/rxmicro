@@ -37,8 +37,8 @@ public final class TestLoggers {
      * <p>
      * <i>(FYI: This method uses {@link Formats#format(String, Object...)} method to format info message.)</i>
      *
-     * @param messageTemplate   the message template
-     * @param args              the message template arguments
+     * @param messageTemplate the message template
+     * @param args            the message template arguments
      */
     public static void logInfoTestMessage(final String messageTemplate,
                                           final Object... args) {
@@ -51,8 +51,8 @@ public final class TestLoggers {
      * <p>
      * <i>(FYI: This method uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
-     * @param messageTemplate   the message template
-     * @param args              the message template arguments
+     * @param messageTemplate the message template
+     * @param args            the message template arguments
      */
     public static void logErrorTestMessage(final String messageTemplate,
                                            final Object... args) {

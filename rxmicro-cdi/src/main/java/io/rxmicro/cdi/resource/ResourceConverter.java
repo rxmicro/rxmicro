@@ -26,8 +26,8 @@ import java.util.Optional;
  * <p>
  * Developer can define his(her) own converter implementation and use with @{@link io.rxmicro.cdi.Resource} annotation.
  *
- * @author nedis
  * @param <D> destination type
+ * @author nedis
  * @see io.rxmicro.cdi.Resource
  * @since 0.6
  */

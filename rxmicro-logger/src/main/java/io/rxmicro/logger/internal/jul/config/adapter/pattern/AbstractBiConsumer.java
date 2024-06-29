@@ -46,8 +46,8 @@ public abstract class AbstractBiConsumer implements BiConsumer<MessageBuilder, L
         }
     }
 
-    protected final PatternFormatterParseException createUnsupportedOptionException(final BiConsumerArguments arguments,
-                                                                                    final List<String> options) {
+    protected static PatternFormatterParseException createUnsupportedOptionException(final BiConsumerArguments arguments,
+                                                                                     final List<String> options) {
         return new PatternFormatterParseException(
                 "Unsupported option(s) for '?' conversion specifier: ?. Remove the unsupported option(s)!",
                 arguments.getConversionSpecifier(),
@@ -55,9 +55,9 @@ public abstract class AbstractBiConsumer implements BiConsumer<MessageBuilder, L
         );
     }
 
-    protected final PatternFormatterParseException createUnsupportedOptionException(final BiConsumerArguments arguments,
-                                                                                    final String option,
-                                                                                    final String... supportedOptions) {
+    protected static PatternFormatterParseException createUnsupportedOptionException(final BiConsumerArguments arguments,
+                                                                                     final String option,
+                                                                                     final String... supportedOptions) {
         return new PatternFormatterParseException(
                 "Unsupported option for '?' conversion specifier: {?}. " +
                         "This conversion specifier supports the following options only: ?",

@@ -30,7 +30,7 @@ import java.util.Map;
  * <p>
  * Read more:
  * <a href="https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73">
- *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
+ * https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
  * </a>
  *
  * <p>
@@ -42,7 +42,7 @@ import java.util.Map;
  *
  * @author nedis
  * @see <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/MDC.html">
- *               https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/MDC.html</a>
+ * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/MDC.html</a>
  * @since 0.7
  */
 public final class MDC {
@@ -70,7 +70,6 @@ public final class MDC {
      *
      * @param key non-null key
      * @param val value to put in the map
-     *
      * @return a <code>Closeable</code> instance that does nothing.
      */
     public static MDCCloseable putCloseable(final String key, final String val) {
@@ -85,7 +84,6 @@ public final class MDC {
      * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
      *
      * @param key non-null key
-     *
      * @return {@code null}.
      */
     public static String get(final String key) {
@@ -159,7 +157,7 @@ public final class MDC {
      *
      * @author nedis
      * @see <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/MDC.html">
-     *               https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/MDC.html</a>
+     * https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/MDC.html</a>
      * @since 0.7
      */
     public static class MDCCloseable implements Closeable {

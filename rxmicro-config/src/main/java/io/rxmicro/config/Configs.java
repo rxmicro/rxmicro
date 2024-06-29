@@ -17,7 +17,6 @@
 package io.rxmicro.config;
 
 import io.rxmicro.config.internal.EnvironmentConfigLoader;
-import io.rxmicro.config.internal.validator.ConfigValidationCustomizer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,11 +73,11 @@ public final class Configs {
     /**
      * Returns the requested config instance that corresponds to the provided {@code namespace} and {@code configClass}.
      *
-     * @param namespace the requested namespace
+     * @param namespace   the requested namespace
      * @param configClass the requested config class
-     * @param <T> config type
+     * @param <T>         config type
      * @return the config instance
-     * @throws ConfigException if Configs are not built
+     * @throws ConfigException          if Configs are not built
      * @throws IllegalArgumentException if the requested config class marked as singleton config class and
      *                                  the requested namespace is not default namespace
      */
@@ -94,7 +93,7 @@ public final class Configs {
      * The RxMicro framework uses the {@link Config#getDefaultNameSpace(Class)} method to define the default namespace.
      *
      * @param configClass the requested config class
-     * @param <T> the config type
+     * @param <T>         the config type
      * @return the config instance
      * @throws ConfigException if Configs are not built
      */
@@ -173,7 +172,7 @@ public final class Configs {
          * Allows adding the configuration using java classes with custom namespace.
          *
          * @param namespace the custom namespace
-         * @param config the created by developer config instance
+         * @param config    the created by developer config instance
          * @return the reference to this {@link Builder} instance
          * @throws ConfigException if the provided namespace is already configured
          */

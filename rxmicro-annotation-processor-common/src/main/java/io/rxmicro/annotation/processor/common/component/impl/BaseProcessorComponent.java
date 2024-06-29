@@ -49,7 +49,6 @@ import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_S
 import static io.rxmicro.common.util.Formats.format;
 
 /**
- *
  * @author nedis
  * @since 0.1
  */

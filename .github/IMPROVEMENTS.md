@@ -2,7 +2,8 @@
 
 * Add `TRACE` log level for the RxMicro Annotation Processor.
 * Converters and Validators must support an inheritance.
-* BeanSupplier must be implemented more efficient: It is necessary to set only one valid qualifier instead of an array of possible qualifiers.
+* BeanSupplier must be implemented more efficient: It is necessary to set only one valid qualifier instead of an array of possible
+  qualifiers.
 * ResponseModelToJsonConverter can convert a model to byte array without using ExchangeDataFormatConverter.
 * Annotation processor must generate request handler without HttpHeaders parameter for empty static headers.
 * Annotation processor must validate method variable names for generated method body.
@@ -11,7 +12,7 @@
 * Remove unused Mongo and Postgres codecs.
 * If model contains object array, annotation processor generates inefficient code:
   `requiredConstraintValidator.validateIterable(model.nestedList, HttpModelType.PARAMETER, "nestedList");`
-  `nestedConstraintValidator.validateIterable(model.nestedList, HttpModelType.PARAMETER, "nestedList");` 
+  `nestedConstraintValidator.validateIterable(model.nestedList, HttpModelType.PARAMETER, "nestedList");`
   nested validator must validate not null array item instead of additional required validator:
   `nestedConstraintValidator.validateIterable(model.nestedList, HttpModelType.PARAMETER, "nestedList");`
   nested validator content:
@@ -25,7 +26,7 @@
     phonePhonePhoneConstraintValidator.validate(model.phone, HttpModelType.PARAMETER, "phone");
   }
   ```
-* Add validators for redundant HTTP headers and params  
+* Add validators for redundant HTTP headers and params
 * Add support of RequestIdSupplier to Mongo data repositories
 * Support QueryParams as internal variable
 * Support Map<String, Object> convertedBody as internal variable

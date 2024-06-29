@@ -71,7 +71,7 @@ public interface SystemStream {
      * Converts the array of bytes sent to {@link System#out} during testing to the {@link String} in the specified charset.
      *
      * @param charset the specified charset
-     * @param trim should the returns string be trimmed
+     * @param trim    should the returns string be trimmed
      * @return the {@link String} in the specified charset
      * @see java.nio.charset.StandardCharsets
      */
@@ -83,7 +83,7 @@ public interface SystemStream {
 
     /**
      * Converts the array of bytes sent to {@link System#out} during testing to the {@link List} of
-     *          the {@code UTF-8} trimmed {@link String}s.
+     * the {@code UTF-8} trimmed {@link String}s.
      *
      * @return the {@link List} of the {@code UTF-8} trimmed {@link String}s
      */
@@ -118,7 +118,7 @@ public interface SystemStream {
      * {@link String}s in the specified charset.
      *
      * @param charset the specified charset
-     * @param trim should the each string in the returned {@link List} be trimmed
+     * @param trim    should the each string in the returned {@link List} be trimmed
      * @return the {@link List} of the {@link String}s in the specified charset
      * @see java.nio.charset.StandardCharsets
      */

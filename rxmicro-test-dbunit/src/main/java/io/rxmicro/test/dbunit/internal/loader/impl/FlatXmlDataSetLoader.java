@@ -28,8 +28,8 @@ import java.util.List;
 
 /**
  * @author nedis
- * @since 0.7
  * @link http://dbunit.sourceforge.net/components.html
+ * @since 0.7
  */
 public final class FlatXmlDataSetLoader implements DataSetLoader {
 

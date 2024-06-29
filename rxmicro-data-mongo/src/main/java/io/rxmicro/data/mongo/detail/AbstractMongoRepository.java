@@ -31,7 +31,7 @@ import org.bson.Document;
  * <p>
  * Read more:
  * <a href="https://docs.rxmicro.io/latest/user-guide/data-mongo.html#data-mongo-partial-implementation-section">
- *     https://docs.rxmicro.io/latest/user-guide/data-mongo.html#data-mongo-partial-implementation-section
+ * https://docs.rxmicro.io/latest/user-guide/data-mongo.html#data-mongo-partial-implementation-section
  * </a>
  *
  * @author nedis
@@ -53,8 +53,8 @@ public abstract class AbstractMongoRepository extends AbstractDataRepository {
     /**
      * Creates an instance of {@link AbstractMongoRepository} type.
      *
-     * @param repositoryInterface   the specified repository interface
-     * @param collection            the collection name
+     * @param repositoryInterface the specified repository interface
+     * @param collection          the collection name
      */
     protected AbstractMongoRepository(final Class<?> repositoryInterface,
                                       final MongoCollection<Document> collection) {
