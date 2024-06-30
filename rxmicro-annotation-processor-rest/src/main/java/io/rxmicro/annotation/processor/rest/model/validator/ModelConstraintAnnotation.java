@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.model.validator;
 
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.base.ParametrizedConstraintValidator;
 import io.rxmicro.validation.constraint.MaxSize;
@@ -70,8 +70,8 @@ public final class ModelConstraintAnnotation implements ModelValidatorCreatorDes
 
     public List<String> getParameterOrder() {
         return Optional
-                .ofNullable(annotationMirror.getAnnotationType().asElement().getAnnotation(ConstraintParametersOrder.class))
-                .map(ConstraintParametersOrder::value)
+                .ofNullable(annotationMirror.getAnnotationType().asElement().getAnnotation(ConstraintParameters.class))
+                .map(ConstraintParameters::value)
                 .stream()
                 .flatMap(Arrays::stream)
                 .filter(paramName -> !ConstraintRule.OFF.equals(paramName))

@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.StartsWithConstraintValidator;
@@ -42,8 +43,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
-        validatorClass = StartsWithConstraintValidator.class
+        validatorClasses = StartsWithConstraintValidator.class
 )
+@ConstraintParameters("value")
 @SelfDocumented
 public @interface StartsWith {
 

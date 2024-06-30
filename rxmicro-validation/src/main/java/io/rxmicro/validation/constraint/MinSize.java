@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.MinSizeListConstraintValidator;
 import io.rxmicro.validation.validator.MinSizeMapConstraintValidator;
@@ -56,13 +56,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
                 Set.class,
                 Map.class
         },
-        validatorClass = {
+        validatorClasses = {
                 MinSizeListConstraintValidator.class,
                 MinSizeSetConstraintValidator.class,
                 MinSizeMapConstraintValidator.class
         }
 )
-@ConstraintParametersOrder({
+@ConstraintParameters({
         "value",
         "inclusive"
 })

@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.MaxIntConstraintValidator;
 import io.rxmicro.validation.validator.MinByteConstraintValidator;
@@ -57,14 +57,14 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
                 Integer.class,
                 Long.class
         },
-        validatorClass = {
+        validatorClasses = {
                 MinByteConstraintValidator.class,
                 MinShortConstraintValidator.class,
                 MinIntConstraintValidator.class,
                 MinLongConstraintValidator.class
         }
 )
-@ConstraintParametersOrder({
+@ConstraintParameters({
         "value",
         "inclusive"
 })

@@ -22,7 +22,7 @@ import io.rxmicro.config.ConfigException;
 import io.rxmicro.reflection.JavaBeans;
 import io.rxmicro.reflection.Reflections;
 import io.rxmicro.validation.ConstraintValidator;
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.constraint.AllowEmptyString;
 import io.rxmicro.validation.constraint.Nullable;
@@ -76,7 +76,7 @@ public final class ConfigValidatorDescriptorFactory {
                 if (RX_MICRO_VALIDATION_PACKAGE.equals(annotationType.getPackageName())) {
                     final Class<? extends ConstraintValidator> validatorClass =
                             getValidatorClass(propertyErrorDescriptor, propertyType, annotationType);
-                    final ConstraintParametersOrder parametersOrder = annotationType.getAnnotation(ConstraintParametersOrder.class);
+                    final ConstraintParameters parametersOrder = annotationType.getAnnotation(ConstraintParameters.class);
                     if (parametersOrder == null) {
                         validators.put(annotationType.getName(), getStatelessValidator(validatorClass));
                     } else {
@@ -131,7 +131,7 @@ public final class ConfigValidatorDescriptorFactory {
         final Class<?>[] supportedTypes = constraintRule.supportedTypes();
         for (int i = 0; i < supportedTypes.length; i++) {
             if (supportedTypes[i].equals(propertyType)) {
-                return constraintRule.validatorClass()[i];
+                return constraintRule.validatorClasses()[i];
             }
         }
         throw new ConfigException(

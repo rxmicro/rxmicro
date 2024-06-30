@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.MaxSizeListConstraintValidator;
 import io.rxmicro.validation.validator.MaxSizeMapConstraintValidator;
@@ -57,13 +57,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
                 Set.class,
                 Map.class
         },
-        validatorClass = {
+        validatorClasses = {
                 MaxSizeListConstraintValidator.class,
                 MaxSizeSetConstraintValidator.class,
                 MaxSizeMapConstraintValidator.class
         }
 )
-@ConstraintParametersOrder({
+@ConstraintParameters({
         "value",
         "inclusive"
 })

@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.MaxLengthConstraintValidator;
 
@@ -45,9 +45,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
-        validatorClass = MaxLengthConstraintValidator.class
+        validatorClasses = MaxLengthConstraintValidator.class
 )
-@ConstraintParametersOrder({
+@ConstraintParameters({
         "value",
         "inclusive"
 })

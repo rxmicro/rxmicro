@@ -42,7 +42,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
-        validatorClass = SkypeConstraintValidator.class
+        validatorClasses = SkypeConstraintValidator.class
 )
 @SelfDocumented
 public @interface Skype {

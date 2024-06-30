@@ -42,7 +42,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
-        validatorClass = DigitsOnlyConstraintValidator.class
+        validatorClasses = DigitsOnlyConstraintValidator.class
 )
 @SelfDocumented
 public @interface DigitsOnly {

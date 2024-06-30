@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.MaxBigDecimalConstraintValidator;
 import io.rxmicro.validation.validator.MaxBigIntegerConstraintValidator;
@@ -75,7 +75,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
                 Double.class,
                 Duration.class
         },
-        validatorClass = {
+        validatorClasses = {
                 MaxBigDecimalConstraintValidator.class,
                 MaxBigIntegerConstraintValidator.class,
                 MaxByteConstraintValidator.class,
@@ -87,7 +87,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
                 MaxDurationConstraintValidator.class
         }
 )
-@ConstraintParametersOrder({
+@ConstraintParameters({
         "value",
         "inclusive"
 })

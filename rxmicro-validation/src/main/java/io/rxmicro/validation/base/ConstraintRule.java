@@ -26,7 +26,12 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Use this annotation to define custom validator.
+ * Adds meta information to a constraint annotation that is annotated by this annotation. This meta information is pairs of java types
+ * ({@link #supportedTypes()}) and correspond validator classes ({@link #validatorClasses()}) that contain a validation logic for
+ * the constraint annotation.
+ * <p>This constraint annotation can be applied to any java type that is listed in {@link #supportedTypes()} array. If this constraint
+ * annotation is enabled for a type from this list, then a validator that has the same index in the {@link #validatorClasses()} array
+ * will be used for validation of this type for this constraint annotation.
  *
  * @author nedis
  * @since 0.1
@@ -43,18 +48,18 @@ public @interface ConstraintRule {
     String OFF = "off";
 
     /**
-     * Returns all supported types, which can be validated by constraint annotation.
+     * Returns an array of supported types, which can be validated by the constraint annotation.
      *
-     * @return all supported types, which can be validated by constraint annotation
+     * @return not-empty array of the supported types.
      */
     Class<?>[] supportedTypes();
 
     /**
-     * Returns {@link ConstraintValidator} class per each supported type, i.e.
-     * {@code supportedTypes.length} must be equal to {@code validatorClass.length}, otherwise compile error will be thrown.
+     * Returns an array of {@link ConstraintValidator} classes for all supported types, i.e.
+     * {@code supportedTypes.length} must be equal to {@code validatorClass.length}, otherwise an exception will be thrown.
      *
-     * @return {@link ConstraintValidator} class per each supported type
+     * @return not-empty array of {@link ConstraintValidator} classes for all supported types.
      */
     @SuppressWarnings("rawtypes")
-    Class<? extends ConstraintValidator>[] validatorClass();
+    Class<? extends ConstraintValidator>[] validatorClasses();
 }

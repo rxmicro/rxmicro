@@ -16,6 +16,7 @@
 
 package io.rxmicro.http.internal;
 
+import io.rxmicro.common.RxMicroException;
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.http.HttpConfig;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -65,14 +66,14 @@ final class HttpConfigExtractorTest {
     @CsvSource(delimiter = ';', value = {
             "ftp://localhost:8765;      Unsupported protocol schema: 'ftp'! Only following schemas are supported: [http, https]",
             "http://localhost:DEFAULT;  Invalid port value: expected a number, but actual is 'DEFAULT'!",
-            "http://localhost:-1;       Invalid port value: -1 (Must be 0 < -1 < 65535)",
-            "http://localhost:65536;    Invalid port value: 65535 (Must be 0 < 65535 < 65535)",
-            "http://localhost:99999;    Invalid port value: 99999 (Must be 0 < 99999 < 65535)"
+            "http://localhost:-1;       Invalid configuration parameter \"http.port\": Expected that value >= 0, but actual is -1!",
+            "http://localhost:65536;    Invalid configuration parameter \"http.port\": Expected that value <= 65535, but actual is 65536!",
+            "http://localhost:99999;    Invalid configuration parameter \"http.port\": Expected that value <= 65535, but actual is 99999!"
     })
     @Order(2)
     void Should_throw_ConfigException(final String source,
                                       final String expectedMessage) {
-        final ConfigException exception = assertThrows(ConfigException.class, () -> extractor.extract(source, config));
+        final RxMicroException exception = assertThrows(RxMicroException.class, () -> extractor.extract(source, config));
         assertEquals(expectedMessage, exception.getMessage());
     }
 }

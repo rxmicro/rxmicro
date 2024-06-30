@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.LengthConstraintValidator;
 
@@ -43,8 +44,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
-        validatorClass = LengthConstraintValidator.class
+        validatorClasses = LengthConstraintValidator.class
 )
+@ConstraintParameters("value")
 public @interface Length {
 
     /**

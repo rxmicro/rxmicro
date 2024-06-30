@@ -31,7 +31,7 @@ import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelConstraintAnnotation;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassStructure;
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.constraint.Max;
 import io.rxmicro.validation.constraint.Min;
@@ -189,8 +189,6 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
         if (parameterOrder.isEmpty()) {
             if (map.isEmpty()) {
                 return EMPTY_STRING;
-            } else if (map.size() == 1) {
-                return map.entrySet().iterator().next().getValue();
             } else {
                 throw createInvalidConstraintParametersOrderError(annotation, "parameterOrder.isEmpty && map.size > 0");
             }
@@ -214,8 +212,8 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
         return new InternalErrorException(
                 "The '@?' constraint annotation does not annotated by '@?' annotation, or '@?' annotation has invalid arguments: ?",
                 annotation.getConstraintAnnotationFullName(),
-                ConstraintParametersOrder.class.getName(),
-                ConstraintParametersOrder.class.getName(),
+                ConstraintParameters.class.getName(),
+                ConstraintParameters.class.getName(),
                 details
         );
     }

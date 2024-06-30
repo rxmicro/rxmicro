@@ -18,6 +18,7 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.common.meta.ReadMore;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.CountryCodeConstraintValidator;
@@ -45,8 +46,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
-        validatorClass = CountryCodeConstraintValidator.class
+        validatorClasses = CountryCodeConstraintValidator.class
 )
+@ConstraintParameters("format")
 @SelfDocumented
 public @interface CountryCode {
 

@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.SizeListConstraintValidator;
 import io.rxmicro.validation.validator.SizeMapConstraintValidator;
@@ -55,12 +56,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
                 Set.class,
                 Map.class
         },
-        validatorClass = {
+        validatorClasses = {
                 SizeListConstraintValidator.class,
                 SizeSetConstraintValidator.class,
                 SizeMapConstraintValidator.class
         }
 )
+@ConstraintParameters("value")
 public @interface Size {
 
     /**

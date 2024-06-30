@@ -42,7 +42,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = Boolean.class,
-        validatorClass = AssertFalseConstraintValidator.class
+        validatorClasses = AssertFalseConstraintValidator.class
 )
 @SelfDocumented
 public @interface AssertFalse {

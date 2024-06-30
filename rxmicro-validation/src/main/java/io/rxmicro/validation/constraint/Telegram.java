@@ -17,7 +17,7 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.meta.ReadMore;
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.TelegramConstraintValidator;
@@ -47,17 +47,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
-        validatorClass = TelegramConstraintValidator.class
+        validatorClasses = TelegramConstraintValidator.class
 )
+@ConstraintParameters({
+        "withoutPlus",
+        "allowsSpaces"
+})
 @SelfDocumented
 @ReadMore(
         caption = "What is telegram number format?",
         link = "https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers"
 )
-@ConstraintParametersOrder({
-        "withoutPlus",
-        "allowsSpaces"
-})
 public @interface Telegram {
 
     /**

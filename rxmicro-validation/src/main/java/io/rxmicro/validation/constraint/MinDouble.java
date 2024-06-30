@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.MinDoubleConstraintValidator;
 import io.rxmicro.validation.validator.MinFloatConstraintValidator;
@@ -49,11 +50,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
                 Float.class,
                 Double.class
         },
-        validatorClass = {
+        validatorClasses = {
                 MinFloatConstraintValidator.class,
                 MinDoubleConstraintValidator.class
         }
 )
+@ConstraintParameters("value")
 public @interface MinDouble {
 
     /**

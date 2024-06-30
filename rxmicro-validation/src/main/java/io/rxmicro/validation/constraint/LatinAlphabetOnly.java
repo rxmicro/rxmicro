@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.LatinAlphabetOnlyConstraintValidator;
@@ -43,15 +43,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
-        validatorClass = LatinAlphabetOnlyConstraintValidator.class
+        validatorClasses = LatinAlphabetOnlyConstraintValidator.class
 )
-@SelfDocumented
-@ConstraintParametersOrder({
+@ConstraintParameters({
         "allowsUppercase",
         "allowsLowercase",
         "allowsDigits",
         "punctuations"
 })
+@SelfDocumented
 public @interface LatinAlphabetOnly {
 
     /**

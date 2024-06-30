@@ -47,7 +47,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = String.class,
-        validatorClass = URLEncodedConstraintValidator.class
+        validatorClasses = URLEncodedConstraintValidator.class
 )
 @SelfDocumented
 @ReadMore(

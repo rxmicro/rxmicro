@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
-import io.rxmicro.validation.base.ConstraintParametersOrder;
+import io.rxmicro.validation.base.ConstraintParameters;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.NumericConstraintValidator;
 
@@ -45,9 +45,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = BigDecimal.class,
-        validatorClass = NumericConstraintValidator.class
+        validatorClasses = NumericConstraintValidator.class
 )
-@ConstraintParametersOrder({
+@ConstraintParameters({
         "precision",
         "scale",
         "validationType"

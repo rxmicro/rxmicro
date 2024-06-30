@@ -47,7 +47,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @ConstraintRule(
         supportedTypes = Instant.class,
-        validatorClass = PastInstantConstraintValidator.class
+        validatorClasses = PastInstantConstraintValidator.class
 )
 @SelfDocumented
 public @interface Past {
