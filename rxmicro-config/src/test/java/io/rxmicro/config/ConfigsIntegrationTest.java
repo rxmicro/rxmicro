@@ -32,16 +32,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 0.12
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-public class ConfigsIntegrationTest {
+class ConfigsIntegrationTest {
 
     static final String REAL_USER_HOME = System.getProperty(USER_HOME_PROPERTY);
+
+    @TempDir
+    static Path tempDir;
 
     private static String mkDir(final String relativePath) throws IOException {
         return Files.createDirectories(tempDir.resolve(relativePath)).toAbsolutePath().toString();
     }
-
-    @TempDir
-    static Path tempDir;
 
     @BeforeAll
     static void prepareEnv() throws IOException {

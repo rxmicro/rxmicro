@@ -107,36 +107,36 @@ public abstract class ConfigProperties {
 
     private void discoverProperties(final Set<ConfigSource> configSources,
                                     final Map<String, String> commandLineArgs,
-                                    final DebugMessageBuilder debugMessageBuilder) {
+                                    final DebugMessageBuilder messageBuilder) {
         for (final ConfigSource configSource : configSources) {
             if (configSource == DEFAULT_CONFIG_VALUES) {
-                loadDefaultConfigValues(debugMessageBuilder);
+                loadDefaultConfigValues(messageBuilder);
             } else if (configSource == SEPARATE_CLASS_PATH_RESOURCE) {
-                loadFromClassPathResource(namespace, false, debugMessageBuilder);
+                loadFromClassPathResource(namespace, false, messageBuilder);
             } else if (configSource == RXMICRO_CLASS_PATH_RESOURCE) {
-                loadFromClassPathResource(RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
+                loadFromClassPathResource(RX_MICRO_CONFIG_FILE_NAME, true, messageBuilder);
             } else if (configSource == ENVIRONMENT_VARIABLES) {
-                loadFromEnvironmentVariables(debugMessageBuilder);
+                loadFromEnvironmentVariables(messageBuilder);
             } else if (configSource == RXMICRO_FILE_AT_THE_HOME_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME_PATH_SUPPLIER.get(), RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(USER_HOME_PATH_SUPPLIER.get(), RX_MICRO_CONFIG_FILE_NAME, true, messageBuilder);
             } else if (configSource == RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
-                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIR_PATH_SUPPLIER.get(), RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIR_PATH_SUPPLIER.get(), RX_MICRO_CONFIG_FILE_NAME, true, messageBuilder);
             } else if (configSource == RXMICRO_FILE_AT_THE_CURRENT_DIR) {
-                loadFromPropertiesFileIfExists(CURRENT_DIR_PATH_SUPPLIER.get(), RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(CURRENT_DIR_PATH_SUPPLIER.get(), RX_MICRO_CONFIG_FILE_NAME, true, messageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_HOME_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME_PATH_SUPPLIER.get(), namespace, false, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(USER_HOME_PATH_SUPPLIER.get(), namespace, false, messageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
-                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIR_PATH_SUPPLIER.get(), namespace, false, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIR_PATH_SUPPLIER.get(), namespace, false, messageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_CURRENT_DIR) {
-                loadFromPropertiesFileIfExists(CURRENT_DIR_PATH_SUPPLIER.get(), namespace, false, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(CURRENT_DIR_PATH_SUPPLIER.get(), namespace, false, messageBuilder);
             } else if (configSource == JAVA_SYSTEM_PROPERTIES) {
-                loadFromJavaSystemProperties(debugMessageBuilder);
+                loadFromJavaSystemProperties(messageBuilder);
             } else {
                 throw new ConfigException("Unsupported load order: " + configSource);
             }
         }
         if (!commandLineArgs.isEmpty()) {
-            loadFromCommandLineArguments(commandLineArgs, debugMessageBuilder);
+            loadFromCommandLineArguments(commandLineArgs, messageBuilder);
         }
     }
 

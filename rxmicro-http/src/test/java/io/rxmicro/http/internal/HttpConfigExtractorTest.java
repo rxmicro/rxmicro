@@ -17,7 +17,6 @@
 package io.rxmicro.http.internal;
 
 import io.rxmicro.common.RxMicroException;
-import io.rxmicro.config.ConfigException;
 import io.rxmicro.http.HttpConfig;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

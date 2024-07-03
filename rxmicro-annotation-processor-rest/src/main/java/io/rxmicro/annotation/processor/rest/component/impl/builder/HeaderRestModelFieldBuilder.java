@@ -82,8 +82,7 @@ public final class HeaderRestModelFieldBuilder extends BaseProcessorComponent im
                     "Invalid header type: java.util.Map<String, ?> is not valid type for HTTP header!"
             );
         }
-        final HeaderMappingStrategy strategy = typeElement.getAnnotation(HeaderMappingStrategy.class);
-        final String modelName = annotated.getModelName(header.value(), strategy, strategy::value);
+        final String modelName = getModelName(typeElement, annotated, header.value());
         if (!modelNames.add(modelName)) {
             error(
                     annotated.getElementAnnotatedBy(Header.class).orElse(field),
@@ -94,6 +93,18 @@ public final class HeaderRestModelFieldBuilder extends BaseProcessorComponent im
         final boolean repeat = annotated.isAnnotationPresent(RepeatHeader.class);
         validateHeader(modelFieldType, annotated, modelName, repeat);
         return new RestModelField(annotated, HttpModelType.HEADER, modelName, repeat);
+    }
+
+    /**
+     * @implNote We can't use method reference, because {@code strategy} can be {@code null}.
+     * If it is a {@code null}, then {@link NullPointerException} will be thrown.
+     */
+    @SuppressWarnings("Convert2MethodRef")
+    private String getModelName(final TypeElement typeElement,
+                                final AnnotatedModelElement annotated,
+                                final String customParameterName) {
+        final HeaderMappingStrategy strategy = typeElement.getAnnotation(HeaderMappingStrategy.class);
+        return annotated.getModelName(customParameterName, strategy, () -> strategy.value());
     }
 
     private void validateHeader(final ModelFieldType modelFieldType,

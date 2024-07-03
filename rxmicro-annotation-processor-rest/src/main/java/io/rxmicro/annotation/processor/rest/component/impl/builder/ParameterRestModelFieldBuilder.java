@@ -59,9 +59,8 @@ public final class ParameterRestModelFieldBuilder extends BaseProcessorComponent
                                 final Set<String> modelNames,
                                 final int nestedLevel) {
         final VariableElement field = annotated.getField();
-        final ParameterMappingStrategy strategy = typeElement.getAnnotation(ParameterMappingStrategy.class);
         final String customParameterName = parameter != null ? parameter.value() : EMPTY_STRING;
-        final String modelName = annotated.getModelName(customParameterName, strategy, strategy::value);
+        final String modelName = getModelName(typeElement, annotated, customParameterName);
         if (!modelNames.add(modelName)) {
             error(
                     annotated.getElementAnnotatedBy(Parameter.class).orElse(field),
@@ -78,6 +77,18 @@ public final class ParameterRestModelFieldBuilder extends BaseProcessorComponent
             validateRepeatQueryParameter(modelFieldType, annotated);
         }
         return new RestModelField(annotated, HttpModelType.PARAMETER, modelName, repeat);
+    }
+
+    /**
+     * @implNote We can't use method reference, because {@code strategy} can be {@code null}.
+     * If it is a {@code null}, then {@link NullPointerException} will be thrown.
+     */
+    @SuppressWarnings("Convert2MethodRef")
+    private String getModelName(final TypeElement typeElement,
+                                final AnnotatedModelElement annotated,
+                                final String customParameterName) {
+        final ParameterMappingStrategy strategy = typeElement.getAnnotation(ParameterMappingStrategy.class);
+        return annotated.getModelName(customParameterName, strategy, () -> strategy.value());
     }
 
     private void validateRepeatQueryParameter(final ModelFieldType modelFieldType,
