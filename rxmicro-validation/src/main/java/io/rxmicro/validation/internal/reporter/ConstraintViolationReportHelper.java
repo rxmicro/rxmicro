@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package io.rxmicro.validation.local;
+package io.rxmicro.validation.internal.reporter;
 
 import io.rxmicro.common.RxMicroException;
 import io.rxmicro.reflection.Reflections;
+import io.rxmicro.validation.local.ValidationOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,12 +54,15 @@ public final class ConstraintViolationReportHelper {
     }
 
     public static void startValidation() {
-        startValidation(new ValidationOptions());
+        startValidation(ValidationOptions.builder().build());
     }
 
     public static void completeValidation() {
-        ExceptionTranslationHelper.EXCEPTION_CLASS_NAME_FOR_TRANSLATION.remove();
-        currentConstraintViolationReporter.onValidationCompleted();
+        try {
+            currentConstraintViolationReporter.onValidationCompleted();
+        } finally {
+            ExceptionTranslationHelper.EXCEPTION_CLASS_NAME_FOR_TRANSLATION.remove();
+        }
     }
 
     private ConstraintViolationReportHelper() {

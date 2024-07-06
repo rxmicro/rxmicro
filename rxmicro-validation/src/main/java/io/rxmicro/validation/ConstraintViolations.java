@@ -17,7 +17,7 @@
 package io.rxmicro.validation;
 
 import io.rxmicro.common.util.Formats;
-import io.rxmicro.validation.local.ConstraintViolationReportHelper;
+import io.rxmicro.validation.internal.reporter.ConstraintViolationReportHelper;
 
 /**
  * Contains util methods that make decision about how the occurred violation should be handled.

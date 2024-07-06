@@ -97,8 +97,8 @@ public final class Annotations {
         );
     }
 
-    public static Object getAnnotationValue(final Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues,
-                                            final String valueName) {
+    public static Object getAnnotationParameter(final Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues,
+                                                final String valueName) {
         return elementValues.entrySet()
                 .stream()
                 .filter(e -> e.getKey().getSimpleName().toString().equals(valueName))
@@ -108,7 +108,7 @@ public final class Annotations {
     }
 
     public static Object getAnnotationValue(final Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues) {
-        return getAnnotationValue(elementValues, "value");
+        return getAnnotationParameter(elementValues, "value");
     }
 
     public static TypeElement getAnnotationElement(final AnnotationMirror annotation) {

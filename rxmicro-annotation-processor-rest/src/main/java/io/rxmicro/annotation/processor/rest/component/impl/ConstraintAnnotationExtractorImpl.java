@@ -21,6 +21,7 @@ import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorCompon
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
+import io.rxmicro.annotation.processor.common.util.Annotations;
 import io.rxmicro.annotation.processor.rest.component.ConstraintAnnotationExtractor;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelConstraintAnnotation;
@@ -38,7 +39,6 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
-import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
@@ -114,7 +114,7 @@ public final class ConstraintAnnotationExtractorImpl extends BaseProcessorCompon
                                          final Map<? extends ExecutableElement,
                                                  ? extends AnnotationValue> elementValues) {
         try {
-            return (boolean) getAnnotationValue(elementValues, ConstraintRule.OFF);
+            return (boolean) Annotations.getAnnotationParameter(elementValues, ConstraintRule.OFF);
         } catch (final InternalErrorException ignored) {
             throw new InterruptProcessingException(
                     annotationMirror.getAnnotationType().asElement(),
@@ -127,10 +127,10 @@ public final class ConstraintAnnotationExtractorImpl extends BaseProcessorCompon
                                          final AnnotationMirror annotationMirror,
                                          final AnnotationMirror customConstraint,
                                          final ModelClass modelFieldType) {
-        final List<?> supportedTypes = (List<?>) getAnnotationValue(
+        final List<?> supportedTypes = (List<?>) Annotations.getAnnotationParameter(
                 customConstraint.getElementValues(), "supportedTypes");
-        final List<?> validatorClasses = (List<?>) getAnnotationValue(
-                customConstraint.getElementValues(), "validatorClass");
+        final List<?> validatorClasses = (List<?>) Annotations.getAnnotationParameter(
+                customConstraint.getElementValues(), "validatorClasses");
         if (validatorClasses.size() != supportedTypes.size()) {
             throw new InterruptProcessingException(
                     annotationMirror.getAnnotationType().asElement(),

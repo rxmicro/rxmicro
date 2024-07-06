@@ -14,32 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.config.internal.validator;
+package io.rxmicro.config.internal;
 
 import io.rxmicro.config.ConfigException;
-import io.rxmicro.validation.local.ConstraintViolationReporter;
-
-import java.util.ArrayList;
-import java.util.List;
+import io.rxmicro.validation.local.ValidationOptions;
 
 /**
  * @author nedis
  * @since 0.12
  */
-public final class DefaultConfigConstraintViolationReporter implements ConstraintViolationReporter {
+public final class Validation {
 
-    private final List<String> messages = new ArrayList<>();
+    public static final ValidationOptions VALIDATION_OPTIONS = ValidationOptions.builder()
+            .setTranslateConstraintViolationExceptionTo(ConfigException.class.getName())
+            .build();
 
-    @Override
-    public void reportViolation(final String message) {
-        this.messages.add(message);
-    }
-
-    @Override
-    public void onValidationCompleted() {
-        if (messages.isEmpty()) {
-            return;
-        }
-        throw new ConfigException(String.join("\n", messages));
+    private Validation() {
     }
 }

@@ -19,8 +19,8 @@ package io.rxmicro.validation.detail;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.local.ValidationOptions;
 
-import static io.rxmicro.validation.local.ConstraintViolationReportHelper.completeValidation;
-import static io.rxmicro.validation.local.ConstraintViolationReportHelper.startValidation;
+import static io.rxmicro.validation.internal.reporter.ConstraintViolationReportHelper.completeValidation;
+import static io.rxmicro.validation.internal.reporter.ConstraintViolationReportHelper.startValidation;
 
 
 /**
@@ -34,8 +34,9 @@ public final class RequestValidators {
 
     private static final String VALIDATION_EXCEPTION_CLASS_NAME = "io.rxmicro.http.error.ValidationException";
 
-    private static final ValidationOptions VALIDATION_OPTIONS = new ValidationOptions()
-            .setTranslateConstraintViolationExceptionTo(VALIDATION_EXCEPTION_CLASS_NAME);
+    private static final ValidationOptions VALIDATION_OPTIONS = ValidationOptions.builder()
+            .setTranslateConstraintViolationExceptionTo(VALIDATION_EXCEPTION_CLASS_NAME)
+            .build();
 
     private RequestValidators() {
     }

@@ -56,4 +56,7 @@ module rxmicro.validation {
 
     exports io.rxmicro.validation.local to
             rxmicro.config;
+
+    opens io.rxmicro.validation.local to
+            rxmicro.reflection;
 }

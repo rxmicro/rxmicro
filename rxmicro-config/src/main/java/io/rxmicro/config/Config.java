@@ -16,13 +16,15 @@
 
 package io.rxmicro.config;
 
-import io.rxmicro.config.internal.validator.ConfigPropertyValidators;
+import io.rxmicro.validation.local.RuntimeValidators;
 
 import java.util.List;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static io.rxmicro.common.util.Strings.unCapitalize;
+import static io.rxmicro.config.internal.model.ConfigModelType.CONFIGURATION_PARAMETER;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -185,7 +187,8 @@ public abstract class Config {
      * @return the provided value.
      */
     protected final <T> T ensureValidProperty(final String propertyName, final T value) {
-        ConfigPropertyValidators.validateProperty(this, propertyName, value);
+        final String fullPropertyName = format("?.?", getNameSpace(), propertyName);
+        RuntimeValidators.validateProperty(this, CONFIGURATION_PARAMETER, propertyName, fullPropertyName, value);
         return value;
     }
 

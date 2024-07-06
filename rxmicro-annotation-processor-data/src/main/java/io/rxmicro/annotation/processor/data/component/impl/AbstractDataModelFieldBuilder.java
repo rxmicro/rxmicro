@@ -95,12 +95,17 @@ public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, 
                                  boolean nullable,
                                  boolean isId);
 
+    /**
+     * @implNote We can't use method reference, because {@code strategy} can be {@code null}.
+     * If it is a {@code null}, then {@link NullPointerException} will be thrown.
+     */
+    @SuppressWarnings("Convert2MethodRef")
     private String getColumnName(final TypeElement typeElement,
                                  final String fieldName,
                                  final AnnotatedModelElement annotated) {
         final Column column = annotated.getAnnotation(Column.class);
         final ColumnMappingStrategy strategy = typeElement.getAnnotation(ColumnMappingStrategy.class);
-        return getModelName(column != null ? column.value() : EMPTY_STRING, strategy, fieldName, strategy::value);
+        return getModelName(column != null ? column.value() : EMPTY_STRING, strategy, fieldName, () -> strategy.value());
     }
 
     protected abstract boolean isColumnId(AnnotatedModelElement annotated);

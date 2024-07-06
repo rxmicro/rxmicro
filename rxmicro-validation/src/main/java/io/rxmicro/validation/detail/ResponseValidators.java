@@ -21,8 +21,8 @@ import io.rxmicro.validation.local.ValidationOptions;
 
 import java.util.List;
 
-import static io.rxmicro.validation.local.ConstraintViolationReportHelper.completeValidation;
-import static io.rxmicro.validation.local.ConstraintViolationReportHelper.startValidation;
+import static io.rxmicro.validation.internal.reporter.ConstraintViolationReportHelper.completeValidation;
+import static io.rxmicro.validation.internal.reporter.ConstraintViolationReportHelper.startValidation;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.
@@ -35,8 +35,9 @@ public final class ResponseValidators {
 
     private static final String UNEXPECTED_RESPONSE_EXCEPTION_CLASS_NAME = "io.rxmicro.http.error.UnexpectedResponseException";
 
-    private static final ValidationOptions VALIDATION_OPTIONS = new ValidationOptions()
-            .setTranslateConstraintViolationExceptionTo(UNEXPECTED_RESPONSE_EXCEPTION_CLASS_NAME);
+    private static final ValidationOptions VALIDATION_OPTIONS = ValidationOptions.builder()
+            .setTranslateConstraintViolationExceptionTo(UNEXPECTED_RESPONSE_EXCEPTION_CLASS_NAME)
+            .build();
 
     private ResponseValidators() {
     }

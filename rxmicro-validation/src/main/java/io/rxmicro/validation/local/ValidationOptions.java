@@ -29,15 +29,36 @@ public final class ValidationOptions extends BaseModel {
      * @implNote The {@link String} type is used instead of {@link Class} one, because sometimes we need to enable
      * translation to exception class that is not available at compilation time.
      */
-    private String translateConstraintViolationExceptionTo;
+    private final String translateConstraintViolationExceptionTo;
+
+    public ValidationOptions(final String translateConstraintViolationExceptionTo) {
+        this.translateConstraintViolationExceptionTo = translateConstraintViolationExceptionTo;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public String getTranslateConstraintViolationExceptionTo() {
         return translateConstraintViolationExceptionTo;
     }
 
-    @BuilderMethod
-    public ValidationOptions setTranslateConstraintViolationExceptionTo(final String translateConstraintViolationExceptionTo) {
-        this.translateConstraintViolationExceptionTo = translateConstraintViolationExceptionTo;
-        return this;
+    /**
+     * @author nedis
+     * @since 0.12
+     */
+    public static final class Builder {
+
+        private String translateConstraintViolationExceptionTo;
+
+        @BuilderMethod
+        public Builder setTranslateConstraintViolationExceptionTo(final String translateConstraintViolationExceptionTo) {
+            this.translateConstraintViolationExceptionTo = translateConstraintViolationExceptionTo;
+            return this;
+        }
+
+        public ValidationOptions build() {
+            return new ValidationOptions(translateConstraintViolationExceptionTo);
+        }
     }
 }

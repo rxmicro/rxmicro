@@ -26,7 +26,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.time.Instant;
 
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
@@ -45,7 +44,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Documented
 @Retention(RUNTIME)
-@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
+@Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
         supportedTypes = Instant.class,
         validatorClasses = TruncatedTimeInstantConstraintValidator.class

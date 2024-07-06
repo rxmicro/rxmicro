@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.config.internal.validator;
+package io.rxmicro.validation.internal.runtime;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.validation.ConstraintValidator;
@@ -28,7 +28,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @author nedis
  * @since 0.12
  */
-public final class ConfigValidatorDescriptor {
+public final class ValidatorDescriptor {
 
     private final Collection<ConstraintValidator<?>> validators;
 
@@ -36,7 +36,7 @@ public final class ConfigValidatorDescriptor {
         return new Builder();
     }
 
-    private ConfigValidatorDescriptor(final Builder builder) {
+    private ValidatorDescriptor(final Builder builder) {
         validators = List.copyOf(builder.validators);
     }
 
@@ -61,8 +61,8 @@ public final class ConfigValidatorDescriptor {
             return this;
         }
 
-        public ConfigValidatorDescriptor build() {
-            return new ConfigValidatorDescriptor(this);
+        public ValidatorDescriptor build() {
+            return new ValidatorDescriptor(this);
         }
     }
 }

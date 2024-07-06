@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.validation.local;
-
-import io.rxmicro.validation.ConstraintViolationException;
+package io.rxmicro.validation.internal.reporter;
 
 /**
  * @author nedis
  * @since 0.12
  */
-public final class ThrowExceptionConstraintViolationReporter implements ConstraintViolationReporter {
+public interface ConstraintViolationReporter {
 
-    @Override
-    public void reportViolation(final String message) {
-        throw ConstraintViolationReportHelper.ExceptionTranslationHelper.newCustomException(message)
-                .orElseGet(() -> new ConstraintViolationException(message));
+    default void onValidationStarted() {
+        // do nothing
+    }
+
+    void reportViolation(String message);
+
+    default void onValidationCompleted() {
+        // do nothing
     }
 }

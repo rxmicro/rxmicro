@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.config.internal.validator;
+package io.rxmicro.validation.internal.runtime;
 
 import io.rxmicro.common.ImpossibleException;
-import io.rxmicro.config.Config;
-import io.rxmicro.config.ConfigException;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.reflection.JavaBeans;
 import io.rxmicro.reflection.Reflections;
 import io.rxmicro.validation.ConstraintValidator;
@@ -47,18 +46,18 @@ import static io.rxmicro.validation.detail.StatelessValidators.getStatelessValid
  * @author nedis
  * @since 0.12
  */
-public final class ConfigValidatorDescriptorFactory {
+public final class ValidatorDescriptorFactory {
 
     private static final String RX_MICRO_VALIDATION_PACKAGE = Nullable.class.getPackageName();
 
-    public static ConfigValidatorDescriptor create(final Config instance, final String propertyName) {
+    public static ValidatorDescriptor create(final Object instance, final String propertyName) {
         final String propertyErrorDescriptor = format("?.?", instance.getClass().getName(), propertyName);
 
         final List<AnnotatedElement> annotatedElements = JavaBeans.getAnnotatedElements(instance.getClass(), propertyName);
         if (annotatedElements.isEmpty()) {
             throw new ImpossibleException("Property not defined: ?", propertyErrorDescriptor);
         }
-        return ConfigValidatorDescriptor.builder()
+        return ValidatorDescriptor.builder()
                 .setValidators(buildValidators(propertyErrorDescriptor, annotatedElements))
                 .build();
     }
@@ -134,7 +133,7 @@ public final class ConfigValidatorDescriptorFactory {
                 return constraintRule.validatorClasses()[i];
             }
         }
-        throw new ConfigException(
+        throw new InvalidStateException(
                 "'?' annotation can't be applied to '?', because there are no defined validator for this property type.",
                 annotationType.getName(), propertyErrorDescriptor
         );
@@ -157,6 +156,6 @@ public final class ConfigValidatorDescriptorFactory {
         }
     }
 
-    private ConfigValidatorDescriptorFactory() {
+    private ValidatorDescriptorFactory() {
     }
 }
