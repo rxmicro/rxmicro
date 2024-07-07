@@ -18,7 +18,7 @@ package io.rxmicro.config.internal.waitfor.impl;
 
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.ServiceYetNotAvailableException;
-import io.rxmicro.config.internal.Validation;
+import io.rxmicro.config.internal.Validations;
 import io.rxmicro.config.internal.waitfor.WaitForService;
 import io.rxmicro.config.internal.waitfor.model.Params;
 import io.rxmicro.logger.Logger;
@@ -71,7 +71,7 @@ public final class TcpSocketWaitForService implements WaitForService {
     }
 
     private SocketData validateSocketData(final SocketData socketData) {
-        return collectAllViolationsAndTranslateIntoConfigException(Validation.VALIDATION_OPTIONS, () -> {
+        return collectAllViolationsAndTranslateIntoConfigException(Validations.VALIDATION_OPTIONS, () -> {
             new HostNameConstraintValidator(true).validate(socketData.host, COMMAND_LINE_ARGUMENT, DESTINATION);
             getStatelessValidator(PortConstraintValidator.class).validate(socketData.port, COMMAND_LINE_ARGUMENT, DESTINATION);
             return socketData;

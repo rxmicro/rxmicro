@@ -1,0 +1,10 @@
+// ------------------------------------------------------------- Micro Service2 | Basics -------------------------------------------------------------
+=== Basics
+
+==== Versioning
+
+The Micro Service2 supports versioning with URL based strategy. +
+_(This means that each URL to the Micro Service2 contains version path, i.e. `/latest/`)_.
+
+Current version is `latest`.
+

@@ -1,0 +1,32 @@
+/*
+ * Copyright (c) 2020. https://rxmicro.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import io.rxmicro.rest.client.RestClientGeneratorConfig;
+import io.rxmicro.rest.model.GenerateOption;
+
+@RestClientGeneratorConfig(
+        generateRequestValidators = GenerateOption.AUTO_DETECT,
+        generateResponseValidators = GenerateOption.AUTO_DETECT,
+        requestValidationMode = RestClientGeneratorConfig.RequestValidationMode.THROW_EXCEPTION
+)
+module examples.validation.client.all.types {
+    requires rxmicro.rest.client;
+    requires rxmicro.rest.client.exchange.json;
+    requires rxmicro.validation;
+    requires rxmicro.tool.common;
+    requires reactor.core;
+    requires io.reactivex.rxjava3;
+}

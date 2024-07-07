@@ -47,7 +47,7 @@ final class DbUnitRxMicroTestExtensionTest {
     @Test
     @Order(1)
     void Should_throw_InvalidTestConfigException_if_ExtendWith_is_used_instead_of_DbUnitTest() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass1.class);
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass1.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of()));
@@ -61,14 +61,14 @@ final class DbUnitRxMicroTestExtensionTest {
     @Test
     @Order(2)
     void Should_throw_InvalidTestConfigException_if_DbUnitTest_before_Testcontainers() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass2.class);
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass2.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of()));
         assertEquals(
                 "'@io.rxmicro.test.dbunit.junit.DbUnitTest' must be added before " +
                         "'@org.testcontainers.junit.jupiter.Testcontainers' annotation for class: " +
-                        "'io.rxmicro.test.dbunit.junit.internal.DbUnitRxMicroTestExtensionTest$TestClass2'",
+                        "'io.rxmicro.test.dbunit.junit.internal.DbUnitRxMicroTestExtensionTest$TestedClass2'",
                 exception.getMessage()
         );
     }
@@ -76,13 +76,13 @@ final class DbUnitRxMicroTestExtensionTest {
     @Test
     @Order(3)
     void Should_throw_InvalidTestConfigException_if_DbUnitTest_is_redundant_without_nested_class() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass3.class);
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass3.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of()));
         assertEquals(
                 "It seems that '@io.rxmicro.test.dbunit.junit.DbUnitTest' is redundant annotation, because " +
-                        "'io.rxmicro.test.dbunit.junit.internal.DbUnitRxMicroTestExtensionTest$TestClass3' test class " +
+                        "'io.rxmicro.test.dbunit.junit.internal.DbUnitRxMicroTestExtensionTest$TestedClass3' test class " +
                         "does not contain any test methods annotated by " +
                         "'@InitialDataSet' or '@ExpectedDataSet' annotations! " +
                         "Remove the redundant annotation!",
@@ -93,13 +93,13 @@ final class DbUnitRxMicroTestExtensionTest {
     @Test
     @Order(4)
     void Should_throw_InvalidTestConfigException_if_DbUnitTest_is_redundant_with_nested_class() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass4.class);
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass4.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of()));
         assertEquals(
                 "It seems that '@io.rxmicro.test.dbunit.junit.DbUnitTest' is redundant annotation, because " +
-                        "'io.rxmicro.test.dbunit.junit.internal.DbUnitRxMicroTestExtensionTest$TestClass4' test class " +
+                        "'io.rxmicro.test.dbunit.junit.internal.DbUnitRxMicroTestExtensionTest$TestedClass4' test class " +
                         "(or any it nested class(es)) does not contain any test methods annotated by " +
                         "'@InitialDataSet' or '@ExpectedDataSet' annotations! " +
                         "Remove the redundant annotation!",
@@ -112,7 +112,7 @@ final class DbUnitRxMicroTestExtensionTest {
      * @since 0.7.3
      */
     @ExtendWith(DbUnitTestExtension.class)
-    private static final class TestClass1 {
+    private static final class TestedClass1 {
 
     }
 
@@ -122,7 +122,7 @@ final class DbUnitRxMicroTestExtensionTest {
      */
     @DbUnitTest
     @Testcontainers
-    private static final class TestClass2 {
+    private static final class TestedClass2 {
 
     }
 
@@ -131,7 +131,7 @@ final class DbUnitRxMicroTestExtensionTest {
      * @since 0.7.3
      */
     @DbUnitTest
-    private static final class TestClass3 {
+    private static final class TestedClass3 {
 
     }
 
@@ -140,10 +140,10 @@ final class DbUnitRxMicroTestExtensionTest {
      * @since 0.7.3
      */
     @DbUnitTest
-    private static final class TestClass4 {
+    private static final class TestedClass4 {
 
         @Nested
-        private final class NestedClass {
+        private final class TestedNestedClass {
 
         }
     }

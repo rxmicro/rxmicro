@@ -49,13 +49,13 @@ final class MockitoRxMicroTestExtensionTest {
     @Test
     @Order(1)
     void Should_throw_InvalidTestConfigException_if_InitMocks_annotation_not_found() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass1.class);
-        builder.addBeanComponent(Reflections.getDeclaredField(TestClass1.class, "bean"));
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass1.class);
+        builder.addBeanComponent(Reflections.getDeclaredField(TestedClass1.class, "bean"));
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of()));
         assertEquals(
-                "'io.rxmicro.test.mockito.junit.internal.MockitoRxMicroTestExtensionTest$TestClass1' " +
+                "'io.rxmicro.test.mockito.junit.internal.MockitoRxMicroTestExtensionTest$TestedClass1' " +
                         "class must be annotated by '@io.rxmicro.test.mockito.junit.InitMocks' annotation!",
                 exception.getMessage()
         );
@@ -64,14 +64,14 @@ final class MockitoRxMicroTestExtensionTest {
     @Test
     @Order(2)
     void Should_throw_InvalidTestConfigException_if_InitMocks_after_RxMicroIntegrationTest() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass2.class);
-        builder.addBeanComponent(Reflections.getDeclaredField(TestClass2.class, "bean"));
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass2.class);
+        builder.addBeanComponent(Reflections.getDeclaredField(TestedClass2.class, "bean"));
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of(RxMicroIntegrationTest.class)));
         assertEquals(
                 "'@io.rxmicro.test.mockito.junit.InitMocks' must be added before '@io.rxmicro.test.junit.RxMicroIntegrationTest'" +
-                        " annotation for class: 'io.rxmicro.test.mockito.junit.internal.MockitoRxMicroTestExtensionTest$TestClass2'",
+                        " annotation for class: 'io.rxmicro.test.mockito.junit.internal.MockitoRxMicroTestExtensionTest$TestedClass2'",
                 exception.getMessage()
         );
     }
@@ -79,8 +79,8 @@ final class MockitoRxMicroTestExtensionTest {
     @Test
     @Order(3)
     void Should_throw_InvalidTestConfigException_if_ExtendWith_used_instead_of_InitMocks() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass3.class);
-        builder.addBeanComponent(Reflections.getDeclaredField(TestClass3.class, "bean"));
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass3.class);
+        builder.addBeanComponent(Reflections.getDeclaredField(TestedClass3.class, "bean"));
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of()));
@@ -94,7 +94,7 @@ final class MockitoRxMicroTestExtensionTest {
      * @author nedis
      * @since 0.7.3
      */
-    private static final class TestClass1 {
+    private static final class TestedClass1 {
 
         @Mock
         private Runnable bean;
@@ -106,7 +106,7 @@ final class MockitoRxMicroTestExtensionTest {
      */
     @RxMicroIntegrationTest
     @InitMocks
-    private static final class TestClass2 {
+    private static final class TestedClass2 {
 
         @Mock
         private Runnable bean;
@@ -117,7 +117,7 @@ final class MockitoRxMicroTestExtensionTest {
      * @since 0.7.3
      */
     @ExtendWith(MockitoExtension.class)
-    private static final class TestClass3 {
+    private static final class TestedClass3 {
 
         @Mock
         private Runnable bean;

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>group-documentation-asciidoctor</artifactId>
+        <groupId>io.rxmicro</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.rxmicro.examples</groupId>
+    <artifactId>documentation-asciidoctor-metadata-pomxml</artifactId>
+    <version>0.0.1</version>
+
+    <!-- tag::content[] -->
+    <name>Metadata Pom Xml</name>
+    <description>*Project* _Description_</description>
+    <developers>
+        <developer>
+            <name>Richard Hendricks</name>
+            <email>richard.hendricks@piedpiper.com</email>
+        </developer>
+        <developer>
+            <name>Bertram Gilfoyle</name>
+            <email>bertram.gilfoyle@piedpiper.com</email>
+        </developer>
+        <developer>
+            <name>Dinesh Chugtai</name>
+            <email>dinesh.chugtai@piedpiper.com</email>
+        </developer>
+    </developers>
+    <url>https://api.rxmicro.io</url>
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://github.com/rxmicro/rxmicro/blob/master/LICENSE</url>
+        </license>
+    </licenses>
+    <!-- end::content[] -->
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin.version}</version>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>${basedir}/src/main/asciidoc/</directory>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <release>11</release>
+                        <annotationProcessorPaths>
+                            <annotationProcessorPath>
+                                <groupId>io.rxmicro</groupId>
+                                <artifactId>rxmicro-annotation-processor</artifactId>
+                                <version>${rxmicro.version}</version>
+                            </annotationProcessorPath>
+                        </annotationProcessorPaths>
+                        <compilerArgs>
+                            <arg>-ARX_MICRO_DOC_ANALYZE_PARENT_POM=false</arg>
+                        </compilerArgs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>source-compile</id>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                            <configuration>
+                                <annotationProcessors>
+                                    <annotationProcessor>
+                                        io.rxmicro.annotation.processor.RxMicroAnnotationProcessor
+                                    </annotationProcessor>
+                                </annotationProcessors>
+                                <generatedSourcesDirectory>
+                                    ${project.build.directory}/generated-sources/
+                                </generatedSourcesDirectory>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>test-compile</id>
+                            <goals>
+                                <goal>testCompile</goal>
+                            </goals>
+                            <configuration>
+                                <annotationProcessors>
+                                    <annotationProcessor>
+                                        io.rxmicro.annotation.processor.RxMicroTestsAnnotationProcessor
+                                    </annotationProcessor>
+                                </annotationProcessors>
+                                <generatedTestSourcesDirectory>
+                                    ${project.build.directory}/generated-test-sources/
+                                </generatedTestSourcesDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <properties>
+                            <!-- https://junit.org/junit5/docs/5.5.1/api/org/junit/jupiter/api/Timeout.html -->
+                            <configurationParameters>
+                                junit.jupiter.execution.timeout.default = 60
+                                junit.jupiter.execution.timeout.mode = disabled_on_debug
+                            </configurationParameters>
+                        </properties>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>compile</includeScope>
+                            <excludeArtifactIds>
+                                rxmicro-documentation,
+                                rxmicro-documentation-asciidoctor
+                            </excludeArtifactIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- https://asciidoctor.org/docs/asciidoctor-maven-plugin/ -->
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>${asciidoctor-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>output-html5</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html5</backend>
+                            <sourceHighlighter>highlight.js</sourceHighlighter>
+                            <preserveDirectories>true</preserveDirectories>
+                            <relativeBaseDir>true</relativeBaseDir>
+                            <attributes>
+                                <icons>font</icons>
+                                <pagenums/>
+                                <toclevels>3</toclevels>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-rest-server-netty</artifactId>
+            <version>${rxmicro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-rest-server-exchange-json</artifactId>
+            <version>${rxmicro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-documentation-asciidoctor</artifactId>
+            <version>${rxmicro.version}</version>
+        </dependency>
+
+        <!-- Test dependencies -->
+
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-test-junit</artifactId>
+            <version>${rxmicro.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-rest-client-exchange-json</artifactId>
+            <version>${rxmicro.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

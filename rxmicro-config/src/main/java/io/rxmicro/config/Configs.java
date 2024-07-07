@@ -17,7 +17,7 @@
 package io.rxmicro.config;
 
 import io.rxmicro.config.internal.EnvironmentConfigLoader;
-import io.rxmicro.config.internal.Validation;
+import io.rxmicro.config.internal.Validations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,7 +119,7 @@ public final class Configs {
             ));
         }
         return (T) instance.storage.computeIfAbsent(namespace, n ->
-                collectAllViolationsAndTranslateIntoConfigException(Validation.VALIDATION_OPTIONS, () -> {
+                collectAllViolationsAndTranslateIntoConfigException(Validations.VALIDATION_OPTIONS, () -> {
                     final Config config = instance.loader.getEnvironmentConfig(namespace, configClass, instance.commandLineArgs);
                     config.validateUsingCustomRules();
                     return config;

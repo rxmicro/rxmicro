@@ -1,0 +1,68 @@
+= Metadata Pom Xml
+Richard Hendricks <richard.hendricks@piedpiper.com>; Bertram Gilfoyle <bertram.gilfoyle@piedpiper.com>; Dinesh Chugtai <dinesh.chugtai@piedpiper.com>
+0.0.1
+:icons: font
+:sectanchors: 
+:sectlinks: 
+:toc: left
+:toclevels: 3
+:sectnums: 
+:sectnumlevels: 5
+
+// ----------------------------------------------------- Metadata Pom Xml Title and Description -----------------------------------------------------
+This document describes *the Metadata Pom Xml*.
+
+*Project* _Description_
+
+<<<
+// ------------------------------------------------------------------ Introduction ------------------------------------------------------------------
+== Introduction
+
+// ---------------------------------------------------------- Introduction | Base Endpoint ----------------------------------------------------------
+=== Metadata Pom Xml base endpoint
+
+*The Metadata Pom Xml* is available at `https://api.rxmicro.io`.
+
+// ------------------------------------------------------------- Introduction | License -------------------------------------------------------------
+=== License
+
+*The Metadata Pom Xml* is licensed under the https://github.com/rxmicro/rxmicro/blob/master/LICENSE[Apache License 2.0^].
+
+<<<
+// ------------------------------------------------------------------ Micro Service ------------------------------------------------------------------
+== Micro Service
+
+<<<
+// -------------------------------------------------------------- Micro Service | GET / --------------------------------------------------------------
+=== GET /
+
+// --------------------------------------------------------- Micro Service | GET / | Request ---------------------------------------------------------
+==== Request
+
+// ---------------------------------------------------- Micro Service | GET / | Request | Example ----------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+GET / HTTP/1.1
+Host: api.rxmicro.io
+Accept: application/json
+Content-Length: 0
+
+----
+
+
+// ------------------------------------------------------ Micro Service | GET / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | GET / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+
+----
+

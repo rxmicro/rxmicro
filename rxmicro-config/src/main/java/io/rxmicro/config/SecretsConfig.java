@@ -38,8 +38,8 @@ public final class SecretsConfig extends Config {
     @Nullable
     private String values;
 
-    public SecretsConfig(final String namespace) {
-        super(namespace);
+    public SecretsConfig() {
+        super(getDefaultNameSpace(SecretsConfig.class));
     }
 
     /**

@@ -44,7 +44,7 @@ final class JUnitRxMicroTestExtensionTest {
     @Test
     @Order(1)
     void Should_throw_InvalidTestConfigException_if_RxMicroComponentTestExtension_is_used() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass1.class);
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass1.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of()));
@@ -58,7 +58,7 @@ final class JUnitRxMicroTestExtensionTest {
     @Test
     @Order(2)
     void Should_throw_InvalidTestConfigException_if_RxMicroRestBasedMicroServiceTestExtension_is_used() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass2.class);
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass2.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of()));
@@ -72,7 +72,7 @@ final class JUnitRxMicroTestExtensionTest {
     @Test
     @Order(3)
     void Should_throw_InvalidTestConfigException_if_RxMicroIntegrationTestExtension_is_used() {
-        final TestModel.Builder builder = new TestModel.Builder(TestClass3.class);
+        final TestModel.Builder builder = new TestModel.Builder(TestedClass3.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
                 testExtension.validate(builder.build(), Set.of()));
@@ -88,7 +88,7 @@ final class JUnitRxMicroTestExtensionTest {
      * @since 0.7.3
      */
     @ExtendWith(RxMicroComponentTestExtension.class)
-    private static final class TestClass1 {
+    private static final class TestedClass1 {
 
     }
 
@@ -97,7 +97,7 @@ final class JUnitRxMicroTestExtensionTest {
      * @since 0.7.3
      */
     @ExtendWith(RxMicroRestBasedMicroServiceTestExtension.class)
-    private static final class TestClass2 {
+    private static final class TestedClass2 {
 
     }
 
@@ -106,7 +106,7 @@ final class JUnitRxMicroTestExtensionTest {
      * @since 0.7.3
      */
     @ExtendWith(RxMicroIntegrationTestExtension.class)
-    private static final class TestClass3 {
+    private static final class TestedClass3 {
 
     }
 }

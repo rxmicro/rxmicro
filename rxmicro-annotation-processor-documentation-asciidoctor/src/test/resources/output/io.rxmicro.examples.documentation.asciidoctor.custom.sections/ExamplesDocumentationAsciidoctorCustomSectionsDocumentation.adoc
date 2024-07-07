@@ -1,0 +1,214 @@
+= Examples Documentation Asciidoctor Custom Sections
+GeneratedBy RxMicroAnnotationProcessor <rxmicro.io@gmail.com>
+1.0-SNAPSHOT
+:icons: font
+:sectanchors: 
+:sectlinks: 
+:toc: left
+:toclevels: 3
+:sectnums: 
+:sectnumlevels: 5
+
+// ------------------------------------ Examples Documentation Asciidoctor Custom Sections Title and Description ------------------------------------
+This document describes *the Examples Documentation Asciidoctor Custom Sections*.
+
+<<<
+// ------------------------------------------------------------------ Introduction ------------------------------------------------------------------
+== Introduction
+
+// ------------------------------------------------------------- Introduction | License -------------------------------------------------------------
+=== License
+
+*The Examples Documentation Asciidoctor Custom Sections* is licensed under the http://www.apache.org/licenses/LICENSE-2.0[Apache License Version 2.0^].
+
+// ---------------------------------------------------------- Introduction | Specification ----------------------------------------------------------
+=== Specification
+
+*The Examples Documentation Asciidoctor Custom Sections* documentation built using https://asciidoctor.org/docs/[Ascii Doctor^] markup language.
+
+=== Custom Introduction Title
+
+*Custom* `Introduction` _Content!_
+
+
+<<<
+// ------------------------------------------------------------------ Micro Service ------------------------------------------------------------------
+== Micro Service
+
+// ------------------------------------------------------------- Micro Service | Basics -------------------------------------------------------------
+=== Basics
+
+=== Custom Resource Group Title
+
+*Custom* `Resource Group` _Content!_
+
+
+<<<
+// -------------------------------------------------------------- Micro Service | GET / --------------------------------------------------------------
+=== GET /
+
+// --------------------------------------------------------- Micro Service | GET / | Request ---------------------------------------------------------
+==== Request
+
+// ---------------------------------------------------- Micro Service | GET / | Request | Example ----------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+GET /?echo=EchoExample HTTP/1.1
+Accept: application/json
+Content-Length: 0
+
+----
+
+
+// ------------------------------------------------------ Micro Service | GET / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | GET / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 27
+
+{
+  "echo": "EchoExample"
+}
+----
+
+// ------------------------------------------------------ Micro Service | GET / | Response 400 ------------------------------------------------------
+==== Response 400
+
+If current request contains validation error.
+
+// ------------------------------------------------- Micro Service | GET / | Response 400 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 34
+
+{
+  "message": "Invalid Request"
+}
+----
+
+<<<
+// ------------------------------------------------------------- Micro Service | POST / -------------------------------------------------------------
+=== POST /
+
+// -------------------------------------------------------- Micro Service | POST / | Request --------------------------------------------------------
+==== Request
+
+// --------------------------------------------------- Micro Service | POST / | Request | Example ---------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+POST / HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Content-Length: 27
+
+{
+  "echo": "EchoExample"
+}
+----
+
+
+// ------------------------------------------------------ Micro Service | POST / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | POST / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 27
+
+{
+  "echo": "EchoExample"
+}
+----
+
+// ------------------------------------------------------ Micro Service | POST / | Response 400 ------------------------------------------------------
+==== Response 400
+
+If current request contains validation error.
+
+// ------------------------------------------------- Micro Service | POST / | Response 400 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 34
+
+{
+  "message": "Invalid Request"
+}
+----
+
+<<<
+// ------------------------------------------------------------- Micro Service | POST / -------------------------------------------------------------
+=== POST /
+
+// -------------------------------------------------------- Micro Service | POST / | Request --------------------------------------------------------
+==== Request
+
+// --------------------------------------------------- Micro Service | POST / | Request | Example ---------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+POST /?echo=EchoExample HTTP/1.1
+Accept: application/json
+Content-Length: 0
+
+----
+
+
+// ------------------------------------------------------ Micro Service | POST / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | POST / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 27
+
+{
+  "echo": "EchoExample"
+}
+----
+
+// ------------------------------------------------------ Micro Service | POST / | Response 400 ------------------------------------------------------
+==== Response 400
+
+If current request contains validation error.
+
+// ------------------------------------------------- Micro Service | POST / | Response 400 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 34
+
+{
+  "message": "Invalid Request"
+}
+----
+

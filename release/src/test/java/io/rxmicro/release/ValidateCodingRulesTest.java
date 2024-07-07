@@ -174,7 +174,49 @@ final class ValidateCodingRulesTest {
             try (InputStream in = Files.newInputStream(excludePmdProperties.toPath())) {
                 properties.load(in);
             }
+            removeClassesThatShouldBeExcluded(properties);
             return properties.keySet().stream().map(Arguments::arguments);
+        }
+
+        private void removeClassesThatShouldBeExcluded(final Properties properties) {
+            final Set<String> toRemove = new HashSet<>();
+            final Iterator<Object> iterator = properties.keySet().iterator();
+            while (iterator.hasNext()) {
+                final String className = String.valueOf(iterator.next());
+                // Exclude test classes:
+                if (className.endsWith("Test")) {
+                    iterator.remove();
+                }
+                final String[] parts = className.split("\\.");
+                // Exclude tested components:
+                if (parts[parts.length - 1].startsWith("Tested")) {
+                    iterator.remove();
+                }
+                // Fix nested class names
+                final String invalidNestedClassName = getInvalidNestedClassName(className);
+                if (invalidNestedClassName != null) {
+                    toRemove.add(invalidNestedClassName);
+                }
+            }
+            toRemove.forEach(properties::remove);
+        }
+
+        /**
+         * @implNote <pre><code>
+         * # Valid for this test
+         * io.rxmicro.logger.jul.SystemConsoleHandler$AutoStreamHandler=RULE
+         * # valid for PMD tool
+         * io.rxmicro.logger.jul.AutoStreamHandler=RULE
+         * </code></pre>
+         */
+        private String getInvalidNestedClassName(final String className) {
+            final int endIndex = className.indexOf('$');
+            if (endIndex == -1) {
+                return null;
+            } else {
+                final int startIndex = className.lastIndexOf('.', endIndex);
+                return className.substring(0, startIndex) + '.' + className.substring(endIndex + 1);
+            }
         }
     }
 

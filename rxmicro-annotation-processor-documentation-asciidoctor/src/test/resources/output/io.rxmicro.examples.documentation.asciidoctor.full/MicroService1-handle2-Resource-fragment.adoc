@@ -1,0 +1,594 @@
+// ---------------------------------------------------- Micro Service1 | GET /${category}-${type} ----------------------------------------------------
+=== GET /${category}-${type}
+
+// ----------------------------------------------- Micro Service1 | GET /${category}-${type} | Request -----------------------------------------------
+==== Request
+
+// ------------------------------------------ Micro Service1 | GET /${category}-${type} | Request | Example ------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+GET /${category}-${type}?phone=12254359430&lat=34.06382&lng=-118.29634&created=1987-04-10T23:40:15.789Z HTTP/1.1
+Host: api.rxmicro.io
+Accept: application/json
+Api-Version: latest
+Content-Length: 0
+Mode: Production
+Use-Proxy: true
+
+----
+
+// -------------------------------------- Micro Service1 | GET /${category}-${type} | Request | Path Variables --------------------------------------
+===== HTTP Request Path Variables Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*category*
+|`string`
+a|
+* [small]#`optional: true`#
+a|
+
+|*type*
+|`string`
+a|
+* [small]#`optional: true`#
+a|
+
+|===
+
+// ------------------------------------------ Micro Service1 | GET /${category}-${type} | Request | Headers ------------------------------------------
+===== HTTP Request Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Api-Version*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`expected: latest`#
+a|Api version required header, value of which is used by the RxMicro framework framework to define appropriate request handler.
+
+|*Mode*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`uppercase: true`#
+a|
+
+|*Use-Proxy*
+|`boolean`
+a|
+* [small]#`optional: true`#
+
+* [small]#`expected: true`#
+a|Must be `true`.
+
+|===
+
+// ------------------------------------- Micro Service1 | GET /${category}-${type} | Request | Query Parameters -------------------------------------
+===== HTTP Request Query Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*phone*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: phone number`#
+a|Phone number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is phone number format?_^]#
+|*lat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*lng*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*created*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`past: true`#
+
+* [small]#`truncated: millis`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|===
+
+
+// -------------------------------------------- Micro Service1 | GET /${category}-${type} | Response 200 --------------------------------------------
+==== Response 200
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 200 | Example ---------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 154
+Request-Id: 62jJeu8x1310662
+
+{
+  "price": 3000.00,
+  "country": "US",
+  "nestedList": [
+    {
+      "level": 20,
+      "status": "new",
+      "mask": [
+        255
+      ]
+    }
+  ]
+}
+----
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 200 | Headers ---------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|===
+
+// ----------------------------------- Micro Service1 | GET /${category}-${type} | Response 200 | Body Parameters -----------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*price*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+
+* [small]#`minimum: 0`#
+
+* [small]#`exclusiveMinimum: false`#
+
+* [small]#`maximum: 3,000`#
+
+* [small]#`exclusiveMaximum: false`#
+
+* [small]#`scale: 2`#
+a|
+
+|*country*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: countryCode`#
+
+* [small]#`ISO 3166-1: alpha-2`#
+a|Two-letter country code according to ISO 3166-1 alpha2 standard.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[_What is ISO 3166-1 alpha2?_^]#
+|*nestedList*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`maxSize: 10`#
+
+* [small]#`exclusiveMaximum: false`#
+
+* [small]#`minSize: 1`#
+
+* [small]#`exclusiveMinimum: false`#
+
+* [small]#`optionalItem: true`#
+a|
+
+|===
+
+// ----------------------------- Micro Service1 | GET /${category}-${type} | Response 200 | "nestedList" Item Parameters -----------------------------
+===== HTTP Response "nestedList" Item Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*level*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`minimum: 5`#
+
+* [small]#`exclusiveMinimum: false`#
+
+* [small]#`maximum: 20`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*status*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [new, old, undefined]`#
+a|
+
+|*mask*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`minimum: 0`#
+
+* [small]#`exclusiveMinimum: false`#
+
+* [small]#`maximum: 255`#
+
+* [small]#`exclusiveMaximum: false`#
+
+* [small]#`size: 10`#
+
+* [small]#`uniqueItems: true`#
+a|
+
+|===
+
+// ------------------------------------- Micro Service1 | GET /${category}-${type} | Response 200 | JSON Schema -------------------------------------
+===== HTTP Response Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "price": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": 0,
+      "exclusiveMinimum": false,
+      "maximum": 3000.00,
+      "exclusiveMaximum": false,
+      "examples": [
+        3000.00
+      ]
+    },
+    "country": {
+      "type": "string",
+      "examples": [
+        "US"
+      ]
+    },
+    "nestedList": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "number",
+            "format": "int32",
+            "minimum": 5,
+            "exclusiveMinimum": false,
+            "maximum": 20,
+            "exclusiveMaximum": false,
+            "examples": [
+              20
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "old",
+              "undefined"
+            ],
+            "examples": [
+              "new"
+            ]
+          },
+          "mask": {
+            "type": "array",
+            "minItems": 10,
+            "maxItems": 10,
+            "uniqueItems": true,
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": false,
+              "maximum": 255,
+              "exclusiveMaximum": false,
+              "examples": [
+                255
+              ]
+            }
+          }
+        },
+        "required": [
+          "level",
+          "status",
+          "mask"
+        ],
+        "minProperties": 3,
+        "maxProperties": 3
+      }
+    }
+  },
+  "required": [
+    "price",
+    "country",
+    "nestedList"
+  ],
+  "minProperties": 3,
+  "maxProperties": 3
+}
+----
+
+// -------------------------------------------- Micro Service1 | GET /${category}-${type} | Response 400 --------------------------------------------
+==== Response 400
+
+If current request contains validation error.
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 400 | Example ---------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 34
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Invalid Request"
+}
+----
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 400 | Headers ---------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|===
+
+// ----------------------------------- Micro Service1 | GET /${category}-${type} | Response 400 | Body Parameters -----------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|The detailed cause of the arisen validation error.
+
+|===
+
+// -------------------------------------------- Micro Service1 | GET /${category}-${type} | Response 404 --------------------------------------------
+==== Response 404
+
+If Handler is not found
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 404 | Example ---------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 36
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Handler not found"
+}
+----
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 404 | Headers ---------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|===
+
+// ----------------------------------- Micro Service1 | GET /${category}-${type} | Response 404 | Body Parameters -----------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|'message' parameter
+
+|===
+
+// -------------------------------------------- Micro Service1 | GET /${category}-${type} | Response 406 --------------------------------------------
+==== Response 406
+
+This error response indicates that the API is not able to generate any of the client's preferred media types, as indicated by the Accept request header.
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 406 | Example ---------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 406 Not Acceptable
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+
+----
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 406 | Headers ---------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|===
+
+// -------------------------------------------- Micro Service1 | GET /${category}-${type} | Response 500 --------------------------------------------
+==== Response 500
+
+If internal server error detected.
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 500 | Example ---------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 33
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Internal Error"
+}
+----
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 500 | Headers ---------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|===
+
+// ----------------------------------- Micro Service1 | GET /${category}-${type} | Response 500 | Body Parameters -----------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
+
+|===
+
+// -------------------------------------------- Micro Service1 | GET /${category}-${type} | Response 504 --------------------------------------------
+==== Response 504
+
+If response is not received within a specified time period.
+
+// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 504 | Example ---------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 504 Gateway Timeout
+Content-Type: application/json
+Content-Length: 34
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Request Timeout"
+}
+----
+
+// ----------------------------------- Micro Service1 | GET /${category}-${type} | Response 504 | Body Parameters -----------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Gateway Timeout` value (by default) or contains external rest micro service endpoint, which is not available now.
+
+|===
+

@@ -44,16 +44,26 @@ mvn --fail-at-end -DskipTests -P pmd \
                 clean verify site site:stage
 ```
 
+- [ ] There are no failed tests:
+
+```shell
+mvn --fail-at-end clean verify
+```
+
 - [ ] There are no javadoc errors:
 
 ```shell
 mvn --fail-at-end -DskipTests -P release clean verify
 ```
 
-- [ ] There are no failed tests:
+- [ ] Generate reports:
 
 ```shell
-mvn --fail-at-end clean verify
+mvn --fail-at-end -DskipTests -P checkstyle,spotbugs,pmd \
+        -Dcheckstyle-maven-plugin.failOnViolation=false \
+        -Dspotbugs-maven-plugin.failOnError=false \
+        -Dmaven-pmd-plugin.failOnViolation=false \
+                clean verify site site:stage
 ```
 
 ## Before release
