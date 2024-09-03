@@ -214,7 +214,7 @@ jobs:
 
       # https://github.com/actions/download-artifact/blob/main/README.md
       - name: Download latest rxmicro artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: rxmicro-framework
           path: ~/.m2/repository/io/rxmicro/
@@ -302,7 +302,7 @@ jobs:
 
       # https://github.com/actions/download-artifact/blob/main/README.md
       - name: Download latest rxmicro artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: rxmicro-framework
           path: ~/.m2/repository/io/rxmicro/
@@ -373,7 +373,7 @@ jobs:
 
       # https://github.com/actions/download-artifact/blob/main/README.md
       - name: Download all collected jacoco metadata
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           path: rxmicro-annotation-processor/target/
 
